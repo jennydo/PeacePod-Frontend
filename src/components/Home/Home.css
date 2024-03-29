@@ -1,0 +1,25 @@
+.app-name__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+}
+
+
+.app-intro__container {
+    background-color: blanchedalmond;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 30px;
+    padding: 10px 30px;
+}
+
+.app-intro__description {
+    font-size: 1.2rem;
+    text-align: left;
+    margin-top: 0;
+}
