@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+/* base styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+
+* {
+  margin: 0;
+  font-family: "Paytone One";
+  color: #333;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.peacepod-navbar {
+  padding: 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  max-width: 800px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+}
+.peacepod-navbar h1 {
+  color: purple;
+}
+.peacepod-navbar .links {
+  margin-left: auto;
+}
+.peacepod-navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+.peacepod-navbar a:hover {
+  color: #f1356d;
 }
 
-.App-link {
-  color: #61dafb;
+.peacepod-navlink.active {
+  background-color: purple;
+  color: gray;
+  border-radius: 10px;
+  padding: 8px 16px; 
+  text-decoration: none; 
+  transition: background-color 0.3s ease; 
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
 }
