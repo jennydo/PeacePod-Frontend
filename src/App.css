@@ -1,9 +1,14 @@
 /* base styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+
 * {
   margin: 0;
+  font-family: "Paytone One";
   color: #333;
 }
-.navbar {
+
+.peacepod-navbar {
   padding: 20px;
   display: flex;
   align-items: center;
@@ -11,25 +16,28 @@
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
-.navbar h1 {
+.peacepod-navbar h1 {
   color: purple;
 }
-.navbar .links {
+.peacepod-navbar .links {
   margin-left: auto;
 }
-.navbar a {
+.peacepod-navbar a {
   margin-left: 16px;
   text-decoration: none;
   padding: 6px;
 }
-.navbar a:hover {
+.peacepod-navbar a:hover {
   color: #f1356d;
 }
 
-.navbar a.active {
-  background-color: purple; 
-  color: gray; 
-  border-radius: 10px; 
+.peacepod-navlink.active {
+  background-color: purple;
+  color: gray;
+  border-radius: 10px;
+  padding: 8px 16px; 
+  text-decoration: none; 
+  transition: background-color 0.3s ease; 
 }
 
 .content {
@@ -38,3 +46,6 @@
   padding: 20px;
 }
 
+h1 {
+  text-align: center;
+}

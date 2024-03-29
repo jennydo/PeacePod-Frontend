@@ -6,36 +6,25 @@ import Chat from './pages/Chat';
 import Meditation from './pages/Meditation';
 import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Navbar/>
-          <div className="content">
-            <Switch>
-              <Route exact path = "/">
-                <HomePage />
-              </Route>
-              <Route path = "/newsfeed">
-                <NewsFeed />
-              </Route>
-              <Route path="/chat">
-                <Chat />
-              </Route>
-              <Route path="/meditation">
-                <Meditation />
-              </Route>
-              <Route path="/userprofile">
-                <UserProfile />
-              </Route>
-              <Route path = "*">
-                <NotFound/>
-             </Route>
-           </Switch>
+      <div className="">
+          <div className="">
+            <Router>
+              <Navbar/>
+              <Routes>
+                <Route exact path = "/" element = {<HomePage/>}/>
+                <Route path = "/newsfeed" element = {<NewsFeed />}/>
+                <Route path="/chat" element = {<Chat />}/>
+                <Route path="/meditation" element = {<Meditation />}/>
+                <Route path="/userprofile" element = {<UserProfile />}/>
+                <Route path = "*" element = {<NotFound/>}/>
+            </Routes>
+           </Router>
          </div>
        </div>
-    </Router>
   );
 }
 
