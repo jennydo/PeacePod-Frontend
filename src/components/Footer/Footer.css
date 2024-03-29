@@ -1,0 +1,47 @@
+.button-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 120px;
+    background-color: #98B9F2;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(148, 111, 111, 0.1);
+    margin: 20px;
+    transition: transform 0.3s ease;
+}
+
+.button-icon {
+    width: 40px;
+    /* adjust based on your needs */
+    height: 40px;
+    /* adjust based on your needs */
+    margin-bottom: 10px;
+}
+
+.button-label {
+    font-size: 2rem;
+    color: #306BAC;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button-card:hover {
+    transform: translateY(-8px);
+    cursor: pointer;
+}
+
+.button-container {
+    display: flex;
+    /* This will align your ButtonCard components horizontally */
+    flex-wrap: wrap;
+    /* This allows wrapping to the next line if the container is too small */
+    justify-content: center;
+    /* This centers the ButtonCard components in the container */
+    align-items: center;
+    /* This centers the ButtonCard components vertically */
+    gap: 10px;
+    /* This adds some space between the ButtonCard components */
+}
