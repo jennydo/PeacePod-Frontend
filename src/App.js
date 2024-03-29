@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import { ButtonCards } from "./components/Footer/Footer"
+import { ButtonCards } from "./components/Home/Footer"
 import NewsFeed from "./pages/NewsFeed"
 import Chat from "./pages/Chat";
 import Meditation from "./pages/Meditation";
