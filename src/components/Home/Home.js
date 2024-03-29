@@ -17,8 +17,8 @@ const Home = () => {
             who share similar experiences, which is why this app is here to bridge the gap 
             and provide a platform for genuine connection and support.</p>
           </div>
-          <ButtonCards />
         </div>
+        <ButtonCards />
     </div>
   )
 }
