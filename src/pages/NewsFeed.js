@@ -1,7 +1,7 @@
 const NewsFeed = () => {
-    return (
+    return ( 
         <h1>NewsFeed</h1>
-    )
+     );
 }
-
-export default NewsFeed
+ 
+export default NewsFeed;

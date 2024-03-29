@@ -1,7 +1,7 @@
 const Chat = () => {
-    return (
-        <h1>Chat</h1>
-    )
+    return ( 
+        <h1>Your Messages</h1>
+     );
 }
-
-export default Chat
+ 
+export default Chat;

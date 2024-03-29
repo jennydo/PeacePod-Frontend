@@ -1,6 +1,7 @@
 import React from 'react'
 import './Home.css'
 import BouncyText from './BouncyText'
+import { ButtonCards } from "./Footer"
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
             who share similar experiences, which is why this app is here to bridge the gap 
             and provide a platform for genuine connection and support.</p>
           </div>
+          <ButtonCards />
         </div>
     </div>
   )

@@ -10,7 +10,7 @@ const Cards = [
     {
         icon: faRss,
         label: "New Feed",
-        to: "/new-feed"
+        to: "/newsfeed"
     },
     {
         icon: faComments,
