@@ -1,21 +1,24 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRss, faComments, faHeadphones } from '@fortawesome/free-solid-svg-icons';
+
 import "./Footer.css"
 
 
 const Cards = [
     {
-        icon: "",
+        icon: faRss,
         label: "New Feed",
         to: "/new-feed"
     },
     {
-        icon: "",
+        icon: faComments,
         label: "Anonymous Chat",
         to: "/chat"
     },
     {
-        icon: "",
+        icon: faHeadphones,
         label: "Meditation Pod",
         to: "/meditation"
     }
@@ -24,7 +27,8 @@ const Cards = [
 const ButtonCard = ({icon, label, to}) => {
     return (
         <Link to={to} className="button-card">
-            {/* <img scr={icon} alt={label} className="button-icon"/> */}
+            {/* <img src={icon} alt={label} className="button-icon"/> */}
+            {icon && <FontAwesomeIcon icon={icon} className="button-icon"/>}
             <div className="button-label">{label}</div>
         </Link>
     )
@@ -37,7 +41,7 @@ export const ButtonCards = () => {
             {Cards.map((card, index) => (
                 <ButtonCard
                     key = {index}
-                    // icon = {Cards.icon}
+                    icon = {card.icon}
                     label = {card.label}
                     to = {card.to}
                 />
