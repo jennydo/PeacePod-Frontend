@@ -8,6 +8,7 @@ import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+
 function App() {
   return (
       <div className="">
