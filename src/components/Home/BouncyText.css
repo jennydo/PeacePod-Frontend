@@ -1,6 +1,24 @@
 .text-wrapper {
     display: flex;
     flex-direction: row;
-    font-size: 5rem
+    font-size: 5rem;
+    /* background: linear-gradient(90deg, #6F9CEB 0%, #98B9F2 50%, #918EF4 100%); */
 }
 
+p {
+    background: linear-gradient(90deg, #6F9CEB 0%, #98B9F2 50%, #918EF4 100%);
+    background-clip: text;
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
+    color: transparent;
+    animation: animate 5s linear infinite alternate;
+}
+
+@keyframes  animate {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 400px;
+  }
+}
