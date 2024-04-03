@@ -1,59 +1,71 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { 
+    Button, 
+    Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, 
+    Checkbox, Stack } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 
-const SexualityModal = ({isOpen, onSave, onClose }) => {
-
-    const [selectedSexualities, setSelectedSexualities] = useState([]);
+function SexualityModal({alreadySelectedSexualities, setAlreadySelectedSexualities }) {
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
         if (checked) {
-            setSelectedSexualities([...selectedSexualities, value]);
+            setAlreadySelectedSexualities([...alreadySelectedSexualities, value]);
         } else {
-            setSelectedSexualities(selectedSexualities.filter(item => item !== value));
+            setAlreadySelectedSexualities(alreadySelectedSexualities.filter(item => item !== value));
         }
     };
-
-    if (!isOpen) return null;
-
+  
     return (
-        <div>
-            <button onClick={onClose}>Close</button>
-            <h2>Choose your sexualities:</h2>
-            <ul>
-                <li>
-                    <input
-                        type="checkbox"
+      <>
+        <Button mt={4} onClick={onOpen}>
+          Select
+        </Button>
+        <Modal 
+          isOpen={isOpen} 
+          onClose={onClose} 
+          blockScrollOnMount={false}
+          motionPreset='slideInBottom'>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Select your sexual orientations.</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+                <Stack spacing={5} direction='column'>
+                    <Checkbox 
                         id="heterosexual"
-                        value="Heterosexual"
-                        onChange={handleCheckboxChange}
-                    />
-                    <label htmlFor="heterosexual">Heterosexual</label>
-                </li>
-                <li>
-                    <input
-                        type="checkbox"
+                        value="heterosexual"
+                        defaultChecked={alreadySelectedSexualities.includes("heterosexual")}
+                        onChange={handleCheckboxChange}>
+                            Heterosexual
+                    </Checkbox>
+                    <Checkbox 
                         id="homosexual"
-                        value="Homosexual"
-                        onChange={handleCheckboxChange}
-                    />
-                    <label htmlFor="homosexual">Homosexual</label>
-                </li>
-                <li>
-                    <input
-                        type="checkbox"
+                        value="homosexual"
+                        defaultChecked={alreadySelectedSexualities.includes("homosexual")}
+                        onChange={handleCheckboxChange}>
+                            Homosexual
+                    </Checkbox>
+                    <Checkbox 
                         id="bisexual"
-                        value="Bisexual"
-                        onChange={handleCheckboxChange}
-                    />
-                    <label htmlFor="bisexual">Bisexual</label>
-                </li>
-                
-            </ul>
-            <button onClick={() => {
-                onSave(selectedSexualities)
-                onClose()}}>Save</button>
-        </div>
+                        value="bisexual"
+                        defaultChecked={alreadySelectedSexualities.includes("bisexual")}
+                        onChange={handleCheckboxChange}>
+                            Bisexual
+                    </Checkbox>
+                </Stack>
+            </ModalBody>
+  
+            <ModalFooter>
+              <Button colorScheme='blue' mr={3} mx="auto" onClick={onClose}>
+                Save
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
     )
-}
+  }
 
 export default SexualityModal
