@@ -5,7 +5,7 @@ import {
     Checkbox, Stack } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 
-function SexualityModal({alreadySelectedSexualities, setAlreadySelectedSexualities }) {
+function SexualityModal({sexualities, alreadySelectedSexualities, setAlreadySelectedSexualities }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleCheckboxChange = (e) => {
@@ -33,27 +33,16 @@ function SexualityModal({alreadySelectedSexualities, setAlreadySelectedSexualiti
             <ModalCloseButton />
             <ModalBody>
                 <Stack spacing={5} direction='column'>
-                    <Checkbox 
-                        id="heterosexual"
-                        value="heterosexual"
-                        defaultChecked={alreadySelectedSexualities.includes("heterosexual")}
-                        onChange={handleCheckboxChange}>
-                            Heterosexual
+                  {sexualities.map((sexuality) => (
+                    <Checkbox
+                      key={sexuality}
+                      value={sexuality}
+                      className="sexuality-option"
+                      defaultChecked={alreadySelectedSexualities.includes(sexuality)}
+                      onChange={handleCheckboxChange}>
+                                {sexuality}
                     </Checkbox>
-                    <Checkbox 
-                        id="homosexual"
-                        value="homosexual"
-                        defaultChecked={alreadySelectedSexualities.includes("homosexual")}
-                        onChange={handleCheckboxChange}>
-                            Homosexual
-                    </Checkbox>
-                    <Checkbox 
-                        id="bisexual"
-                        value="bisexual"
-                        defaultChecked={alreadySelectedSexualities.includes("bisexual")}
-                        onChange={handleCheckboxChange}>
-                            Bisexual
-                    </Checkbox>
+                    ))}
                 </Stack>
             </ModalBody>
   

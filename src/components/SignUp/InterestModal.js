@@ -35,16 +35,19 @@ function InterestModal({interestList, alreadySelectedInterests, setAlreadySelect
             <ModalCloseButton />
             <ModalBody>
                 <Center>
-                    <ButtonGroup variant='solid' display="flex" flexWrap="wrap" 
+                    <ButtonGroup variant='solid' 
+                                display="flex" 
+                                flexWrap="wrap" 
                                 justifyContent="center"  
-                                alignItems="center"       
+                                alignItems="center"      
                                 >
                         {interestList && interestList.map((interest) => (
                             <Button
                                 key={interest}
                                 className="interest-option"
                                 colorScheme={alreadySelectedInterests.includes(interest) ? "blue" : "gray"}
-                                onClick={() => handleInterestSelected(interest)}>
+                                onClick={() => handleInterestSelected(interest)}
+                                m={1}>
                                 {interest}
                             </Button>
                         ))}
