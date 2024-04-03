@@ -33,9 +33,9 @@ function SexualityModal({sexualities, alreadySelectedSexualities, setAlreadySele
             <ModalCloseButton />
             <ModalBody>
                 <Stack spacing={5} direction='column'>
-                  {sexualities.map((sexuality) => (
+                  {sexualities.map((sexuality, index) => (
                     <Checkbox
-                      key={sexuality}
+                      key={index}
                       value={sexuality}
                       className="sexuality-option"
                       defaultChecked={alreadySelectedSexualities.includes(sexuality)}

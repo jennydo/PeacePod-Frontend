@@ -41,9 +41,9 @@ function InterestModal({interestList, alreadySelectedInterests, setAlreadySelect
                                 justifyContent="center"  
                                 alignItems="center"      
                                 >
-                        {interestList && interestList.map((interest) => (
+                        {interestList && interestList.map((interest, index) => (
                             <Button
-                                key={interest}
+                                key={index}
                                 className="interest-option"
                                 colorScheme={alreadySelectedInterests.includes(interest) ? "blue" : "gray"}
                                 onClick={() => handleInterestSelected(interest)}

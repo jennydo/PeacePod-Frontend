@@ -5,22 +5,24 @@ import InterestModal from './InterestModal.js';
 
 const SignUp = () => {
     
+    const pronouns = ["She/Her", "He/Him", "They/Them", "Other"]
     const [selectedPronoun, setSelectedPronoun] = useState(null);
     const handlePronounSelected = (choice) => {
         setSelectedPronoun(choice);
     }
 
+    const genders = ["Woman", "Man", "Nonbinary", "Other"]
     const [selectedGender, setSelectedGender] = useState(null);
     const handleGenderSelected = (choice) => {
         setSelectedGender(choice);
     }
-
     const [showGender, setShowGender] = useState(false);
     const handleShowGenderChange = () => {
         setShowGender(!showGender);
     }
 
-    const sexualities = ["Straight", "Gay", "Lesbian", "Bisexual", "Asexual", "Demisexual", "Queer", "Skoliosexual", "Fluid", "Questioning", "Other"]
+    const sexualities = ["Straight", "Gay", "Lesbian", "Bisexual", "Asexual", "Demisexual", 
+                        "Queer", "Skoliosexual", "Fluid", "Questioning", "Other"]
     const [selectedSexualities, setSelectedSexualities] = useState([]);
     const [showSexuality, setShowSexuality] = useState(false);
     const handleShowSexualityChange = () => {
@@ -63,34 +65,16 @@ const SignUp = () => {
                 <Stack className="pronouns">
                     <Heading as='h4' size='sm'>Pronouns: </Heading>
                     <ButtonGroup variant='solid'>
-                        <Button
-                            className="pronoun-option"
-                            colorScheme={selectedPronoun === "he/him" ? "blue" : "gray"}
-                            onClick={() => handlePronounSelected("he/him")}
-                            borderRadius='100px'>
-                            He/Him
-                        </Button>
-                        <Button
-                            className="pronoun-option"
-                            colorScheme={selectedPronoun === "she/her" ? "blue" : "gray"}
-                            onClick={() => handlePronounSelected("she/her")}
-                            borderRadius='100px'>
-                            She/Her
-                        </Button>
-                        <Button
-                            className="pronoun-option"
-                            colorScheme={selectedPronoun === "they/them" ? "blue" : "gray"}
-                            onClick={() => handlePronounSelected("they/them")}
-                            borderRadius='100px'>
-                            They/Them
-                        </Button>
-                        <Button
-                            className="pronoun-option"
-                            colorScheme={selectedPronoun === "other" ? "blue" : "gray"}
-                            onClick={() => handlePronounSelected("other")}
-                            borderRadius='100px'>
-                            Other
-                        </Button>
+                        {pronouns && pronouns.map((pronoun, index) => (
+                            <Button
+                                key={index} 
+                                className="pronoun-option" 
+                                colorScheme={selectedPronoun === pronoun ? "blue" : "gray"}
+                                onClick={() => handlePronounSelected(pronoun)}
+                                borderRadius='100px'>
+                                {pronoun}
+                            </Button>
+                        ))}
                     </ButtonGroup>
                 </Stack>
 
@@ -98,36 +82,20 @@ const SignUp = () => {
                 <Stack className="genders">
                     <Heading as='h4' size='sm'>Gender: </Heading>
                     <ButtonGroup variant='solid'>
-                        <Button
-                            className="gender-option"
-                            colorScheme={selectedGender === "man" ? "blue" : "gray"}
-                            onClick={() => handleGenderSelected("man")}
-                            borderRadius='100px'>
-                            Man
-                        </Button>
-                        <Button
-                            className="gender-option"
-                            colorScheme={selectedGender === "woman" ? "blue" : "gray"}
-                            onClick={() => handleGenderSelected("woman")}
-                            borderRadius='100px'>
-                            Woman
-                        </Button>
-                        <Button
-                            className="gender-option"
-                            colorScheme={selectedGender === "nonbinary" ? "blue" : "gray"}
-                            onClick={() => handleGenderSelected("nonbinary")}
-                            borderRadius='100px'>
-                            Nonbinary
-                        </Button>
-                        <Button
-                            className="gender-option"
-                            colorScheme={selectedGender === "other" ? "blue" : "gray"}
-                            onClick={() => handleGenderSelected("other")}
-                            borderRadius='100px'>
-                            Other
-                        </Button>
+                        {genders && genders.map((gender, index) => (
+                            <Button 
+                                key={index} 
+                                className="gender-option" 
+                                colorScheme={selectedGender === gender ? "blue" : "gray"}
+                                onClick={() => handleGenderSelected(gender)}
+                                borderRadius='100px'>
+                                {gender}
+                            </Button>
+                        ))}
                     </ButtonGroup>
-                    <Checkbox checked={showGender} onChange={handleShowGenderChange}>Show gender on my profile</Checkbox>
+                    <Checkbox checked={showGender} onChange={handleShowGenderChange}>
+                        Show gender on my profile
+                    </Checkbox>
                 </Stack>
 
                 {/* CHOOSE SEXUAL ORIENTATION */}
@@ -135,7 +103,13 @@ const SignUp = () => {
                     <Heading as='h4' size='sm'>Sexual Orientations: </Heading>
                     <Stack direction={['column', 'row']} spacing='5px' wrap='wrap'>
                         {selectedSexualities && selectedSexualities.map((sexuality, index) => (
-                            <Box as='button' key={index} className="sexualities" borderRadius='md' bg='pink' color='white' px={4} h={8} minWidth='auto'>
+                            <Box 
+                                as='button' 
+                                key={index} 
+                                className="sexualities" 
+                                borderRadius='md' 
+                                bg='pink' color='white' 
+                                px={4} h={8} minWidth='auto'>
                                 {sexuality}
                             </Box>
                         ))}
@@ -145,7 +119,9 @@ const SignUp = () => {
                         alreadySelectedSexualities = {selectedSexualities}
                         setAlreadySelectedSexualities = {setSelectedSexualities}
                         />
-                    <Checkbox checked={showSexuality} onChange={handleShowSexualityChange}>Show sexual orientations on my profile</Checkbox>
+                    <Checkbox checked={showSexuality} onChange={handleShowSexualityChange}>
+                        Show sexual orientations on my profile
+                    </Checkbox>
                 </Stack>
 
                 {/* CHOOSE INTERESTS */}
@@ -153,7 +129,13 @@ const SignUp = () => {
                     <Heading as='h4' size='sm'>Interests: </Heading>
                     <Stack direction={['column', 'row']} spacing='5px' wrap='wrap'>
                         {selectedInterests && selectedInterests.map((interest, index) => (
-                            <Box as='button' key={index} className="interests" borderRadius='md' bg='pink' color='white' px={4} h={8} minWidth='auto'>
+                            <Box 
+                                as='button' 
+                                key={index} 
+                                className="interests" 
+                                borderRadius='md' 
+                                bg='pink' color='white' 
+                                px={4} h={8} minWidth='auto'>
                                 {interest}
                             </Box>
                         ))}
