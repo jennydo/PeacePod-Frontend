@@ -7,11 +7,18 @@ import {
     Text,
     Box,
     HStack,
-    Grid
+    Grid,
+    Container,
+    GridItem
 } from '@chakra-ui/react'
 import { EditIcon } from '@chakra-ui/icons'
+import './Profile.css'
 
 const Profile = () => {
+
+    /// Later fetch data
+    const username = 'Ke huy diet Catan'
+    const pronouns = 'he/him/his'
 
     const interests = [
         'Chess',
@@ -28,7 +35,7 @@ const Profile = () => {
             </Center>   
             <EditIcon w={10} h={10} color='aliceblue'/>                
         </HStack>
- 
+        
         <Circle>
             <Image 
                 src='https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg' 
@@ -38,26 +45,51 @@ const Profile = () => {
                 objectFit='cover'
             />
         </Circle>
-        <Text fontSize='2xl' color='#98B9F2'>Ke Huy Diet Catan</Text>
-        {/* Pronouns */}
-        <Grid templateColumns='1fr 2fr' bg='green' w='50%'>
-            <Text fontSize='2xl' alignItems={'center'} color='#98B9F2' margin={0} padding='5px' bg='aliceblue'>
-                Pronouns
-            </Text>    
-            <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#FFAFCC'>
-                he/him/his
-            </Text>                 
-        </Grid>
+        <Text fontSize='2xl' color='#98B9F2' marginBottom={0}>{username}</Text>
+        <Text fontSize='xl'>{`(${pronouns})`}</Text>
 
         {/* Gender */}
-        <Grid templateColumns='1fr 2fr' bg='green' w='50%'>
-            <Text fontSize='2xl' alignItems={'center'} color='#98B9F2' margin={0} padding='5px' bg='aliceblue'>
-                Gender
-            </Text>    
-            <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#FFAFCC'>
-                Man
-            </Text>   
-        </Grid>
+        {/* <Box borderRadius='md' overflow='hidden'>
+            <HStack spacing='0' align='stretch' width='100%' borderRadius='md'>
+            <Box flex='1' h='40px' bg='yellow.200' >
+                1
+            </Box>
+            <Box flex='1' h='40px' bg='tomato'>
+                2
+            </Box>
+            </HStack>
+        </Box> */}
+
+        <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center'>
+            <GridItem h='100%'>
+                <Text fontSize='2xl'  color='#98B9F2' margin={0} padding='5px' bg='aliceblue' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
+                    Gender
+                </Text>                    
+            </GridItem>
+
+            <GridItem h='100%'>
+                <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#FFAFCC' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
+                    Man
+                </Text>                   
+            </GridItem> 
+        </Grid>            
+
+
+        {/* Location */}
+        <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center' >
+            <GridItem h='100%'>
+                <Text fontSize='2xl'  color='#98B9F2' margin={0} padding='5px' bg='aliceblue' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
+                    Location
+                </Text>                    
+            </GridItem>
+
+            <GridItem h='100%'>
+                <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#FFAFCC' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
+                    Lawrenceville, Georgia, United States
+                </Text>                   
+            </GridItem>
+        </Grid>           
+
 
         {/* Sexual Orientation */}
         <Box w='50%' borderRadius='20px' padding='10px' bg='aliceblue'>
@@ -66,16 +98,6 @@ const Profile = () => {
             </Text>
             <Text fontSize='lg' color='black'>
                 Straight
-            </Text>   
-        </Box>
-
-        {/* Location */}
-        <Box w='50%' borderRadius='20px' padding='10px' bg='aliceblue'>
-            <Text fontSize='2xl' align='left' color='#98B9F2' w='50%'>
-                Location
-            </Text>
-            <Text fontSize='lg' color='black'>
-                Lawrenceville, Georgia, United States
             </Text>   
         </Box>
 
