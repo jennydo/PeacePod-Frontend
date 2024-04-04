@@ -5,7 +5,7 @@
     /* background: linear-gradient(90deg, #6F9CEB 0%, #98B9F2 50%, #918EF4 100%); */
 }
 
-p {
+.bouncy-letter {
     background: linear-gradient(90deg, #6F9CEB 0%, #98B9F2 50%, #918EF4 100%);
     background-clip: text;
     /* -webkit-background-clip: text; */
