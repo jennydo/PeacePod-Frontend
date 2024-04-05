@@ -13,10 +13,13 @@ import {
     FormControl,
     FormLabel,
     Input,
+    InputGroup,
+    InputRightElement,
     Grid,
     Image,
     Divider,
-    Textarea
+    Textarea,
+    Select
 } from "@chakra-ui/react";
 import InterestModal from "./InterestModal.js";
 
@@ -203,6 +206,15 @@ const SignUp = () => {
         "Gardening",
     ];
 
+    // const countryOptions = [
+    //     { value: 'united-arab-emirates', label: 'United Arab Emirates' },
+    //     { value: 'nigeria', label: 'Nigeria' },
+    //     // Add more countries as needed
+    // ];
+
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
+
     return (
         <Container className="signup-page">
             <Stack>
@@ -223,16 +235,34 @@ const SignUp = () => {
                         </Stack>
                         {/* Password */}
                         <Stack className="password">
-                            <FormControl isRequired>
-                                <FormLabel>Password</FormLabel>
-                                <Input placeholder='Password' />
-                            </FormControl>
+                            <FormLabel>Password</FormLabel>
+                            <InputGroup size='md'>
+                                <Input
+                                    pr='4.5rem'
+                                    type={show ? 'text' : 'password'}
+                                    placeholder='Enter password'
+                                />
+                                <InputRightElement width='4.5rem'>
+                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                        {show ? 'Hide' : 'Show'}
+                                    </Button>
+                                </InputRightElement>
+                            </InputGroup>
                         </Stack>
                         <Stack className="password">
-                            <FormControl isRequired>
-                                <FormLabel>Re-type Password</FormLabel>
-                                <Input placeholder='Password' />
-                            </FormControl>
+                        <FormLabel>Re-type Password</FormLabel>
+                            <InputGroup size='md'>
+                                <Input
+                                    pr='4.5rem'
+                                    type={show ? 'text' : 'password'}
+                                    placeholder='Re-type password'
+                                />
+                                <InputRightElement width='4.5rem'>
+                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                        {show ? 'Hide' : 'Show'}
+                                    </Button>
+                                </InputRightElement>
+                            </InputGroup>
                         </Stack>
                     </Stack>
                     <Stack align="center">
@@ -337,7 +367,16 @@ const SignUp = () => {
 
 
                 <Stack>
-                    <p>location</p>
+                    <Heading as="h4" size="sm">
+                        Location
+                    </Heading>
+                    <FormControl>
+                        <Select placeholder='Select country'>
+                            <option>
+                                Test
+                            </option>
+                        </Select>
+                    </FormControl>
                 </Stack>
 
                 {/* OPTIONAL FIELDS */}
@@ -390,6 +429,9 @@ const SignUp = () => {
                     </Heading>
                     <Textarea placeholder='Your bio, limited to 100 words or less.' />
                 </Stack>
+                <br/>
+                
+                {/* Cancel and Create buttons */}
                 <Stack direction='row' spacing={4} justify="flex-end">
                     <Button colorScheme='gray' variant='solid'>
                         Cancel
