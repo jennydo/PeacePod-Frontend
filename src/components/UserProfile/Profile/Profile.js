@@ -8,7 +8,6 @@ import {
     Box,
     HStack,
     Grid,
-    Container,
     GridItem
 } from '@chakra-ui/react'
 import { EditIcon } from '@chakra-ui/icons'
