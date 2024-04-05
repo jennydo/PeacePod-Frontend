@@ -8,10 +8,11 @@ import Meditation from './pages/Meditation';
 import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 
 function App() {
   return (
-    <div className="">
+    <ChakraProvider className="">
       <div className="">
         <Router>
           <Navbar />
@@ -25,7 +26,7 @@ function App() {
           </Routes>
         </Router>
       </div>
-    </div>
+    </ChakraProvider>
   );
 }
 

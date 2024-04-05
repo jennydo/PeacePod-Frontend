@@ -35,7 +35,7 @@ const BouncyText = ({ text }) => {
       className='text-wrapper'
     >
       {[...Array(text.length)].map((_, i) => (
-        <motion.p key={i} variants={item} transition={bounceTransition}>
+        <motion.p key={i} variants={item} transition={bounceTransition} className='bouncy-letter'>
           {text[i]}
         </motion.p>
       ))}

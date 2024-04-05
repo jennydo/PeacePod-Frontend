@@ -1,6 +1,11 @@
+import Profile from "../components/UserProfile/Profile/Profile";
+
 const UserProfile = () => {
     return ( 
-        <h1>Profile Page</h1>
+        <>
+            <Profile />
+        </>
+        
      );
 }
  
