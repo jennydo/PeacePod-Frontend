@@ -5,12 +5,12 @@ import { ButtonCards } from "./Footer"
 
 const Home = () => {
   return (
-    <div>
+    <div className='homepage'>
         {/* App name */}
         <div className='app-name__container'>
           <BouncyText text={"PeacePod"} />
           <div className='app-intro__container'>
-            <h1>PeacePod: bridging gaps, healing minds</h1>
+            <h1>Bridging gaps, healing minds</h1>
             <p className='app-intro__description'>A website designed to foster connections between individuals from similar 
             backgrounds in mental state for supportive and meaningful conversations. 
             We understand the importance of finding sympathy and empathy in others 

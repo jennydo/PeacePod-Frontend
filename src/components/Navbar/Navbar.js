@@ -8,7 +8,7 @@ const Navbar = () => {
 
     return ( 
         <nav className="peacepod-navbar">
-            <h1>PeacePod</h1>
+            <Link to="/"><h1 className = "app-name">PeacePod</h1></Link>
             <div className="links">
                 <Link to="/" className={`peacepod-navlink ${pathname === "/" ? "active" : ""}`}>Home</Link>
                 <Link to="/newsfeed" className={`peacepod-navlink ${pathname === "/newsfeed" ? "active" : ""}`}>NewsFeed</Link>

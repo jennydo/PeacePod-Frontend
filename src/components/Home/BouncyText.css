@@ -1,7 +1,7 @@
 .text-wrapper {
     display: flex;
     flex-direction: row;
-    font-size: 5rem;
+    font-size: 6rem;
     /* background: linear-gradient(90deg, #6F9CEB 0%, #98B9F2 50%, #918EF4 100%); */
 }
 

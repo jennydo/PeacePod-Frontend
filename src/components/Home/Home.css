@@ -1,25 +1,28 @@
+.homepage {
+    /* background: linear-gradient(90deg, #BFD9F7 0%, #D6E6FB 30%, #C9D8FB 70%); */
+    background: linear-gradient(90deg, #dee2ff 0%, #eaedff 30%, #feeafa 70%);
+    height: 100vh;
+}
+
 .app-name__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: aliceblue;
 }
 
 
 .app-intro__container {
-    background-color: blanchedalmond;
     width: 75%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
     border-radius: 30px;
     padding: 10px 30px;
 }
 
 .app-intro__description {
     font-size: 1.2rem;
-    text-align: left;
+    text-align: center;
     margin-top: 0;
 }
