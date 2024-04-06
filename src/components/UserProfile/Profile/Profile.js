@@ -16,6 +16,7 @@ import './Profile.css'
 const Profile = () => {
 
     /// Later fetch data
+    const imgSrc = 'https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg'
     const username = 'Ke huy diet Catan'
     const pronouns = 'he/him/his'
     const gender = 'Man'
@@ -44,8 +45,8 @@ const Profile = () => {
         
         <Circle>
             <Image 
-                src='https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg' 
-                alt='klt'
+                src={imgSrc}
+                alt={username}
                 borderRadius='full'
                 boxSize='200px'
                 objectFit='cover'
@@ -55,17 +56,6 @@ const Profile = () => {
         <Text fontSize='xl'>{`(${pronouns})`}</Text>
 
         {/* Gender */}
-        {/* <Box borderRadius='md' overflow='hidden'>
-            <HStack spacing='0' align='stretch' width='100%' borderRadius='md'>
-            <Box flex='1' h='40px' bg='yellow.200' >
-                1
-            </Box>
-            <Box flex='1' h='40px' bg='tomato'>
-                2
-            </Box>
-            </HStack>
-        </Box> */}
-
         <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center'>
             <GridItem h='100%'>
                 <Text fontSize='2xl'  color='#98B9F2' margin={0} padding='5px' bg='aliceblue' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
