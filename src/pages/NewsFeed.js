@@ -1,6 +1,11 @@
+import CreatePost from "../components/NewsFeed/CreatePost";
+
 const NewsFeed = () => {
     return ( 
-        <h1>NewsFeed</h1>
+        <div>
+            <h1>NewsFeed</h1>
+            <CreatePost/>
+        </div>
      );
 }
  
