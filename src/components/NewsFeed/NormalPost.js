@@ -19,6 +19,8 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
+  Divider,
+  Center
 } from "@chakra-ui/react";
 
 const NormalPost = ({ post }) => {
@@ -39,7 +41,7 @@ const NormalPost = ({ post }) => {
 
   return (
     <>
-      <Card maxW="md">
+      <Card width='60%' margin='15px' bg='#fefefe'>
         <CardHeader>
           <Flex spacing="4">
             <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
@@ -61,9 +63,14 @@ const NormalPost = ({ post }) => {
             />
           </Flex>
         </CardHeader>
-        <CardBody>
+        <CardBody paddingTop='0px' paddingBottom='0px'>
           <Text>{body}</Text>
         </CardBody>
+
+        <Center margin={0}>
+          <Divider width='90%' borderWidth='1px' />          
+        </Center>
+
 
         <CardFooter
           justify="space-between"
@@ -73,6 +80,8 @@ const NormalPost = ({ post }) => {
               minW: "136px",
             },
           }}
+          margin={0}
+          padding={0}
         >
           <Button flex="1" variant="ghost">
             Like
@@ -81,6 +90,10 @@ const NormalPost = ({ post }) => {
             Comment
           </Button>
         </CardFooter>
+
+        <Center margin={0}>
+            <Divider width='90%' borderWidth='1px' />          
+        </Center>
       </Card>
 
       <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>

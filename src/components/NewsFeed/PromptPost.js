@@ -18,30 +18,37 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
+  Center,
+  Divider,
+  VStack,
 } from "@chakra-ui/react";
+
+import Comment from './Comment';
 
 const PromptPost = () => {
     const avatar =
         "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg";
     const username = "khoale";
-    const prompt = "What is the lastest time you feel cheerful?";
+    const prompt = "What is the last time you feel cheerful? 😁";
     const finalRef = React.useRef(null);
-    const body =
-        "I'm overjoyed to share that I finally completed my 10-page research paper! 📚💪 It was a challenging journey, but I persevered and put in the hard work. Now, I can proudly say that it's done and dusted! 🎓✨";
     const timeStamp = new Date();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
     <>
-      <Card maxW="lg" >
+      <Card width='60%' bg='aliceblue' margin='15px'>
         <CardHeader>
             <Text fontSize='3xl'>Prompt of the day!!!</Text>
         </CardHeader>
 
-        <CardBody>
+        <CardBody paddingTop='0px' paddingBottom='0px' >
           <Text fontSize='2xl'>{prompt}</Text>
         </CardBody>
+
+        <Center margin={0}>
+          <Divider width='90%' borderWidth='1px' />          
+        </Center>
 
         <CardFooter
           justify="space-between"
@@ -51,6 +58,8 @@ const PromptPost = () => {
               minW: "136px",
             },
           }}
+          margin={0}
+          padding={0}
         >
           <Button flex="1" variant="ghost">
             Like
@@ -59,6 +68,16 @@ const PromptPost = () => {
             Comment
           </Button>
         </CardFooter>
+
+        <Center margin={0}>
+            <Divider width='90%' borderWidth='1px' />          
+        </Center>
+
+        {/* Comment for Prompt Post */}
+        <VStack align='left'>
+          <Comment comment={"Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne"} />
+          <Comment comment={"Anh khue la con de non"} />
+        </VStack>
       </Card>
 
       <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
@@ -85,7 +104,7 @@ const PromptPost = () => {
             </Box>
           </Flex>
           <ModalCloseButton />
-          <ModalBody>{body}</ModalBody>
+          <ModalBody></ModalBody>
           <ModalFooter>
           <Input placeholder='Basic usage' />
           </ModalFooter>

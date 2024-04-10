@@ -74,6 +74,7 @@ const CreatePost = () => {
           borderRadius={10}
           color="white"
           _hover={{ bg: "#E0E0E0" }}
+          margin='15px'
         >
           How are you feeling today?
         </Box>
