@@ -69,7 +69,7 @@ const CreatePost = () => {
         <Box
           onClick={onOpen}
           bg="grey"
-          w="50%"
+          w="60%"
           p={3}
           borderRadius={10}
           color="white"

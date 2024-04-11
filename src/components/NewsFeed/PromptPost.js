@@ -22,6 +22,7 @@ import {
   Divider,
   VStack,
 } from "@chakra-ui/react";
+import { FaHeart, FaComment } from "react-icons/fa";
 
 import Comment from './Comment';
 
@@ -35,9 +36,23 @@ const PromptPost = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+    /// Replace with axios get later to get comments
+    const comments = [
+      "Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne",
+      "Anh khue la con de non",
+      `Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non`
+    ]
+
+    ///
+
     return (
     <>
-      <Card width='60%' bg='aliceblue' margin='15px'>
+      <Card width='60%' bg='aliceblue' margin='15px' borderWidth='1px' borderColor='#cccccc'>
         <CardHeader>
             <Text fontSize='3xl'>Prompt of the day!!!</Text>
         </CardHeader>
@@ -47,36 +62,38 @@ const PromptPost = () => {
         </CardBody>
 
         <Center margin={0}>
-          <Divider width='90%' borderWidth='1px' />          
+          <Divider width='95%' borderWidth='1px' />          
         </Center>
 
         <CardFooter
-          justify="space-between"
+          justify="space-around"
           flexWrap="wrap"
           sx={{
             "& > button": {
               minW: "136px",
             },
           }}
-          margin={0}
-          padding={0}
+          padding='15px'
         >
-          <Button flex="1" variant="ghost">
+          <Button variant="ghost" flex="1" leftIcon={<FaHeart />}>
             Like
           </Button>
-          <Button flex="1" variant="ghost" onClick={onOpen}>
+          <Button variant="ghost" flex="1" onClick={onOpen} leftIcon={<FaComment />}>
             Comment
           </Button>
         </CardFooter>
 
         <Center margin={0}>
-            <Divider width='90%' borderWidth='1px' />          
+          <Divider width='95%' borderWidth='1px' />          
         </Center>
 
         {/* Comment for Prompt Post */}
         <VStack align='left'>
-          <Comment comment={"Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne"} />
-          <Comment comment={"Anh khue la con de non"} />
+          {
+            comments && comments.map((comment, idx) => (
+              <Comment comment={comment} key={idx} />
+            ))
+          }
         </VStack>
       </Card>
 

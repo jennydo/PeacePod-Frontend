@@ -22,6 +22,7 @@ import {
   Divider,
   Center
 } from "@chakra-ui/react";
+import { FaHeart, FaComment } from "react-icons/fa";
 
 const NormalPost = ({ post }) => {
 
@@ -37,11 +38,11 @@ const NormalPost = ({ post }) => {
   
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [comment, setComment] = useState("");
+  // const [comment, setComment] = useState("");
 
   return (
     <>
-      <Card width='60%' margin='15px' bg='#fefefe'>
+      <Card width='60%' margin='15px' borderWidth='1px' borderColor='#cccccc'>
         <CardHeader>
           <Flex spacing="4">
             <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
@@ -67,8 +68,8 @@ const NormalPost = ({ post }) => {
           <Text>{body}</Text>
         </CardBody>
 
-        <Center margin={0}>
-          <Divider width='90%' borderWidth='1px' />          
+        <Center>
+          <Divider width='95%' borderWidth='1px' margin={0}/>          
         </Center>
 
 
@@ -80,20 +81,15 @@ const NormalPost = ({ post }) => {
               minW: "136px",
             },
           }}
-          margin={0}
-          padding={0}
+          padding={2}
         >
-          <Button flex="1" variant="ghost">
+          <Button flex="1" variant="ghost" leftIcon={<FaHeart />} >
             Like
           </Button>
-          <Button flex="1" variant="ghost" onClick={onOpen}>
+          <Button flex="1" variant="ghost" onClick={onOpen} leftIcon={<FaComment />} >
             Comment
           </Button>
         </CardFooter>
-
-        <Center margin={0}>
-            <Divider width='90%' borderWidth='1px' />          
-        </Center>
       </Card>
 
       <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
