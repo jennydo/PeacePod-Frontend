@@ -19,7 +19,10 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
+  VStack
 } from "@chakra-ui/react";
+import { format } from 'date-fns';
+
 
 const NormalPost = ({ post }) => {
 
@@ -30,8 +33,14 @@ const NormalPost = ({ post }) => {
 
   // data from post 
   const title = post.title;
-  const body = post.body;
+  const content = post.content;
   const timeStamp = post.createdAt;
+  const formattedTimeStamp = format(new Date(timeStamp), 'MMMM dd, yyyy - HH:mm:ss');
+
+  // Split the content into words
+  const words = content.split(' ');
+  // Select the first 100 words
+  const first50Words = words.slice(0, 50).join(' ');
   
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,7 +48,7 @@ const NormalPost = ({ post }) => {
 
   return (
     <>
-      <Card maxW="md">
+      <Card w="100%">
         <CardHeader>
           <Flex spacing="4">
             <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
@@ -47,12 +56,9 @@ const NormalPost = ({ post }) => {
               <Box>
                 <Text fontSize="md">{username}</Text>
                 <Text fontSize="xs">
-                  {" "}
-                  {timeStamp}{" "}
-                  {timeStamp}{" "}
+                  {formattedTimeStamp}
                 </Text>
               </Box>
-              <Text fontSize="md">{title}</Text>
             </Flex>
             <IconButton
               variant="ghost"
@@ -60,9 +66,15 @@ const NormalPost = ({ post }) => {
               aria-label="See menu"
             />
           </Flex>
+          <Text fontSize="lg">{title}</Text>
         </CardHeader>
         <CardBody>
-          <Text>{body}</Text>
+          <Text>{first50Words}</Text> 
+          <Text onClick={onOpen}
+                color="gray.500" 
+                fontStyle="italic" 
+                _hover={{ color: "blue.500" }}>
+                  Read more...</Text>
         </CardBody>
 
         <CardFooter
@@ -83,38 +95,41 @@ const NormalPost = ({ post }) => {
         </CardFooter>
       </Card>
 
-      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent
-          sx={{
-            borderRadius: "30px",
-            paddingLeft: "20px",
-            paddingRight: "20px",
-          }}
-        >
-          <ModalHeader>{title}</ModalHeader>
-          <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
-            {" "}
-            {/* Added padding here */}
-            <Avatar name={username} src={avatar} />
-            <Box>
-              <Text fontSize="md">{username}</Text>
-              <Text fontSize="xs">
-                {timeStamp}{" "}
-                {timeStamp}
-              </Text>
-            </Box>
-          </Flex>
-          <ModalCloseButton />
-          <ModalBody>{body}</ModalBody>
-          <ModalFooter>
-            <Input placeholder="Your thought" />
-            <Button colorScheme="teal" size="md">
-              Send
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
+            <ModalOverlay />
+            <ModalContent
+            sx={{
+                borderRadius: "30px",
+                paddingLeft: "20px",
+                paddingRight: "20px",
+            }}
+            >
+                <ModalHeader>{title}</ModalHeader>
+                <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
+                    {" "}
+                    {/* Added padding here */}
+                    <Avatar name={username} src={avatar} />
+                    <Box>
+                    <Text fontSize="md">{username}</Text>
+                    <Text fontSize="xs">
+                        {formattedTimeStamp}
+                    </Text>
+                    </Box>
+                </Flex>
+
+                <ModalCloseButton />
+
+                <ModalBody>{content}</ModalBody>
+
+                <ModalFooter>
+                    <Input placeholder="Your thought" />
+                    <Button colorScheme="teal" size="md">
+                    Send
+                    </Button>
+                </ModalFooter>
+            </ModalContent>
+
+        </Modal>
     </>
   );
 };
