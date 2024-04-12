@@ -1,7 +1,7 @@
 import React from 'react'
 import './Home.css'
 import BouncyText from './BouncyText'
-import { ButtonCards } from "./Footer"
+import { NavCards } from "./NavCards"
 
 const Home = () => {
   return (
@@ -18,7 +18,7 @@ const Home = () => {
             and provide a platform for genuine connection and support.</p>
           </div>
         </div>
-        <ButtonCards />
+        <NavCards />
     </div>
   )
 }

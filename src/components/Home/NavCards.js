@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRss, faComments, faHeadphones } from '@fortawesome/free-solid-svg-icons';
-import "./Footer.css"
+import "./NavCards.css"
 import { Text, VStack } from "@chakra-ui/react";
 
 const Cards = [
@@ -23,7 +23,7 @@ const Cards = [
     }
 ]
 
-export const ButtonCards = () => {
+export const NavCards = () => {
     return (
         <div className="button-container" direction='row' align='center'>
             {Cards.map((card, index) => (

@@ -16,8 +16,14 @@ import './Profile.css'
 const Profile = () => {
 
     /// Later fetch data
+    const imgSrc = 'https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg'
     const username = 'Ke huy diet Catan'
     const pronouns = 'he/him/his'
+    const gender = 'Man'
+    const sexualOrientation = [
+        'Straight'
+    ]
+    const location = 'Lawrenceville, Georgia, United States'
 
     const interests = [
         'Chess',
@@ -25,6 +31,8 @@ const Profile = () => {
         'Catan',
         'Reality shows'
     ]
+
+    const bio = 'A low-key Catan prodigy who is feeling isolated and longing for a worthy challenger.'
 
     return (
     <VStack>
@@ -37,8 +45,8 @@ const Profile = () => {
         
         <Circle>
             <Image 
-                src='https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg' 
-                alt='klt'
+                src={imgSrc}
+                alt={username}
                 borderRadius='full'
                 boxSize='200px'
                 objectFit='cover'
@@ -48,17 +56,6 @@ const Profile = () => {
         <Text fontSize='xl'>{`(${pronouns})`}</Text>
 
         {/* Gender */}
-        {/* <Box borderRadius='md' overflow='hidden'>
-            <HStack spacing='0' align='stretch' width='100%' borderRadius='md'>
-            <Box flex='1' h='40px' bg='yellow.200' >
-                1
-            </Box>
-            <Box flex='1' h='40px' bg='tomato'>
-                2
-            </Box>
-            </HStack>
-        </Box> */}
-
         <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center'>
             <GridItem h='100%'>
                 <Text fontSize='2xl'  color='#98B9F2' margin={0} padding='5px' bg='aliceblue' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
@@ -68,7 +65,7 @@ const Profile = () => {
 
             <GridItem h='100%'>
                 <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#FFAFCC' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
-                    Man
+                    {gender}
                 </Text>                   
             </GridItem> 
         </Grid>            
@@ -84,7 +81,7 @@ const Profile = () => {
 
             <GridItem h='100%'>
                 <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#FFAFCC' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
-                    Lawrenceville, Georgia, United States
+                    {location}
                 </Text>                   
             </GridItem>
         </Grid>           
@@ -95,9 +92,15 @@ const Profile = () => {
             <Text fontSize='2xl' align='left' color='#98B9F2'>
                 Sexual Orientation
             </Text>
-            <Text fontSize='lg' color='black'>
-                Straight
-            </Text>   
+            <HStack>
+            {
+                sexualOrientation.map((sexOr, idx) => (
+                    <Box as='button' key={idx} className="interest" borderRadius='md' bg='pink' color='white' px={4} h={8} minWidth='auto'>
+                        {sexOr}
+                    </Box> 
+                ))
+            }
+            </HStack>
         </Box>
 
         {/* Hobbies */}
@@ -123,7 +126,7 @@ const Profile = () => {
                 About me
             </Text>     
             <Text fontSize='lg' color='black'>
-                A low-key Catan prodigy who is feeling isolated and longing for a worthy challenger.
+                {bio}
             </Text>          
         </Box>
 
