@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Box, Stack, Input, Button, Textarea, Text, Divider, Image,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure,
-        Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
+        Alert, AlertIcon, AlertDescription, Avatar } from '@chakra-ui/react'
 
 const CreatePost = ( ) => {
     // temporary data, later will fetch from backend or UseContext
@@ -105,12 +105,7 @@ const CreatePost = ( ) => {
             <ModalBody>
               <Stack spacing={3}>
                 <Stack direction="row" spacing="10px">
-                  <Image
-                    borderRadius="full"
-                    boxSize="50px"
-                    src={avatar}
-                    alt={username}
-                  />
+                  <Avatar name={username} src={avatar} />
                   <Text>{username}</Text>
                 </Stack>
 

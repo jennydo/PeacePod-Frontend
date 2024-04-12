@@ -1,6 +1,4 @@
 body {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    background: linear-gradient(90deg, #dee2ff 0%, #eaedff 30%, #feeafa 70%); /* Set the background color */
-    min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
-  }
+    background: linear-gradient(90deg, #dee2ff 0%, #eaedff 30%, #feeafa 70%);
+    min-height: 100vh;
+}
