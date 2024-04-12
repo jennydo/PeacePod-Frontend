@@ -4,21 +4,29 @@ import { Box, Stack, Input, Button, Textarea, Text, Divider, Image,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure,
         Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 
-const CreatePost = () => {
+const CreatePost = ( ) => {
     // temporary data, later will fetch from backend or UseContext
-    const avatar = 'https://bit.ly/dan-abramov';
-    const username = 'khoalebatbai';
+    const userId = "6612ce8c3bcb7ce202115b65"
+    const user = {
+      username: "username_01",
+      email: "username_01@gmail",
+      avatar: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    }
+
+    const username = user.username;
+    const avatar = user.avatar;
+    
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
+    const [content, setContent] = useState('')
     const [isPrompt, setIsPrompt] = useState(false) 
     const [isShowingAlert, setIsShowingAlert] = useState(false)
     const [alertMssg, setAlertMssg] = useState('')
 
-    const maxLength = 500;
-    const characterCount = body.length;
+    const maxLength = 2000;
+    const characterCount = content.length;
 
     const handleClose = () => {
         setIsShowingAlert(false);
@@ -26,11 +34,12 @@ const CreatePost = () => {
     }
 
     const handleSave = () => {
-        // Check if title is not empty and body is not empty or exceeds the maximum length
-        if (title !== "" && (body !== "" && characterCount <= 500)) {
+        // Check if title is not empty and content is not empty or exceeds the maximum length
+        if (title !== "" && (content !== "" && characterCount <= maxLength)) {
             const newPost = {
+                userId,
                 title, 
-                body, 
+                content, 
                 isPrompt
             }
 
@@ -39,7 +48,7 @@ const CreatePost = () => {
                     console.log(response.data);
                     onClose();
                     setTitle('');
-                    setBody('');
+                    setContent('');
                     setIsShowingAlert(false)
                 })
                 .catch(error => {
@@ -51,10 +60,10 @@ const CreatePost = () => {
             if (title === "") {
                 setAlertMssg("You must have a title for your post.")
             }
-            else if (body === "") {
+            else if (content === "") {
                 setAlertMssg("You must have a body for your post.")
             }
-            else if (characterCount > 500) {
+            else if (characterCount > maxLength) {
                 setAlertMssg(`The maximum length is ${maxLength} characters.`)
             }
             else {
@@ -114,8 +123,8 @@ const CreatePost = () => {
                 />
 
                 <Textarea
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
                   placeholder="What have been on your mind lately?"
                   isInvalid={characterCount > maxLength}
                   size="sm"
