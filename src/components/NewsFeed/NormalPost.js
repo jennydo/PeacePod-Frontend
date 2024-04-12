@@ -48,28 +48,22 @@ const NormalPost = ({ post }) => {
       });
   }, []);
 
-  // check if GET request works 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   let avatar, username; // Declare variables outside of the component
 
   if (user) { // Check if user is not null
     avatar = user.avatar;
     username = user.username;
 
-    console.log(username, avatar);
+    // console.log(username, avatar);
   }
 
   // temporary data in case the fetching user doesn't work 
   // const avatar = "https://res.cloudinary.com/khoa165/image/upload/v1711768766/viettech/haianh.jpg"
   // const username = "khoalebatbai"
 
-  // Split the content into words
+  const previewNum = 50
   const words = content.split(' ');
-  // Select the first 100 words
-  const first50Words = words.slice(0, 50).join(' ');
+  const preview = words.slice(0, previewNum).join(' ');
   
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -98,7 +92,7 @@ const NormalPost = ({ post }) => {
           <Text fontSize="lg">{title}</Text>
         </CardHeader>
         <CardBody>
-          <Text>{first50Words}</Text> 
+          <Text>{preview}</Text> 
           <Text onClick={onOpen}
                 color="gray.500" 
                 fontStyle="italic" 
@@ -154,7 +148,7 @@ const NormalPost = ({ post }) => {
 
                 <ModalCloseButton />
 
-                <ModalBody>{content}</ModalBody>
+                <ModalBody style={{ whiteSpace: 'pre-line' }}>{content}</ModalBody>
 
                 <ModalFooter>
                     <Input placeholder="Your thought" />

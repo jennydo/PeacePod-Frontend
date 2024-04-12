@@ -21,7 +21,7 @@ const Comment = ({ comment }) => {
 
   return (
     <>
-      <Card margin='15px' bg='blanchedalmond'>
+      <Card margin='15px' bg='#dee2ff'>
         <CardHeader paddingBottom='5px' >
           <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
             <Avatar name={username} src={avatar} />

@@ -2,8 +2,6 @@ import CreatePost from "../components/NewsFeed/CreatePost";
 import AllPosts from "../components/NewsFeed/AllPosts";
 import PromptPost from "../components/NewsFeed/PromptPost";
 import { Grid, GridItem, Text } from "@chakra-ui/react";
-import './NewsFeed.css'
-
 
 const NewsFeed = () => {
     return ( 
@@ -16,7 +14,7 @@ const NewsFeed = () => {
                     <PromptPost />
                     <AllPosts/>
                 </GridItem>
-                <GridItem w='100%' h='10' bg='blue.500'>
+                <GridItem w='100%' >
                     <Text>Under here are the 2 quotes for you</Text>
                 </GridItem>
             </Grid>
