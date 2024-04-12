@@ -61,9 +61,10 @@ const SignUp = () => {
             sexualOrientation: selectedSexualities,
             location,
             interests: selectedInterests,
+            bio
         }
 
-        console.log(newUser);
+        // console.log(newUser);
         axios.post("http://localhost:4000/api/users/createUser", newUser)
             .then(response => {
                 console.log(response.data);
