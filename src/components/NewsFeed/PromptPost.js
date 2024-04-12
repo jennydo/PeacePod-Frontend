@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Text,
   CardHeader,
@@ -21,8 +21,11 @@ import {
   Center,
   Divider,
   VStack,
+  IconButton,
 } from "@chakra-ui/react";
 import { FaHeart, FaComment } from "react-icons/fa";
+import { BsSendFill } from "react-icons/bs";
+import axios from 'axios';
 
 import Comment from './Comment';
 
@@ -30,7 +33,24 @@ const PromptPost = () => {
     const avatar =
         "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg";
     const username = "khoale";
-    const prompt = "What is the last time you feel cheerful? 😁";
+
+    const [ prompt, setPrompt ] = useState("")
+    /// axios to get prompt
+    const getPrompt = async () => {
+
+      const newPrompt = await axios.get("http://localhost:4000/api/posts/prompt")
+      console.log("New Prompt is ", newPrompt.data)
+      setPrompt(newPrompt.data)
+    }
+
+    useEffect(() => {
+      getPrompt()
+      // setInterval(() => {
+      //   getPrompt()
+      // }, 10 * 1000)
+    }, [])
+
+
     const finalRef = React.useRef(null);
     const timeStamp = new Date();
 
@@ -48,8 +68,6 @@ const PromptPost = () => {
       Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non`
     ]
 
-    ///
-
     return (
     <>
       <Card width='60%' bg='aliceblue' margin='15px' borderWidth='1px' borderColor='#cccccc'>
@@ -62,7 +80,7 @@ const PromptPost = () => {
         </CardBody>
 
         <Center margin={0}>
-          <Divider width='95%' borderWidth='1px' />          
+          <Divider width='95%' borderWidth='1px' margin={0}/>          
         </Center>
 
         <CardFooter
@@ -84,20 +102,25 @@ const PromptPost = () => {
         </CardFooter>
 
         <Center margin={0}>
-          <Divider width='95%' borderWidth='1px' />          
+          <Divider width='95%' borderWidth='1px' margin={0}/>          
         </Center>
+
+        <Button variant='ghost' onClick={onOpen} marginLeft='15px' marginRight='15px' marginTop='5px' justifyContent='left' width='max-content'>
+          View more comments
+        </Button>
 
         {/* Comment for Prompt Post */}
         <VStack align='left'>
           {
-            comments && comments.map((comment, idx) => (
+            comments && comments.slice(0, 2).map((comment, idx) => (
               <Comment comment={comment} key={idx} />
             ))
           }
         </VStack>
       </Card>
-
-      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+      
+      {/* Pop up modal when click comment or see more */}
+      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size='5xl' >
         <ModalOverlay />
         <ModalContent
           sx={{
@@ -108,25 +131,43 @@ const PromptPost = () => {
           }}
         >
           <ModalHeader></ModalHeader>
-          <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
-            {" "}
-            {/* Added padding here */}
-            <Avatar name={username} src={avatar} />
-            <Box>
-              <Text fontSize="md">{username}</Text>
-              <Text fontSize="xs">
-                {timeStamp.toLocaleDateString()}{" "}
-                {timeStamp.toLocaleTimeString()}
-              </Text>
-            </Box>
-          </Flex>
           <ModalCloseButton />
-          <ModalBody></ModalBody>
+          <ModalBody>
+            <Card>
+              <CardHeader>
+                <Text fontSize='xl'>Prompt of the day!!!</Text>
+              </CardHeader>
+
+              <CardBody paddingTop={0} paddingBottom={0}>
+                <Text>{prompt}</Text>
+              </CardBody>
+
+              <Center margin={0}>
+                <Divider width='95%' borderWidth='1px' margin={0}/>          
+              </Center>
+
+              {/* Comment for Prompt Post */}
+              <VStack align='left'>
+                {
+                  comments && comments.map((comment, idx) => (
+                    <Comment comment={comment} key={idx} />
+                  ))
+                }
+              </VStack>
+            </Card>
+          </ModalBody>
           <ModalFooter>
-          <Input placeholder='Basic usage' />
+            <Input placeholder='Your thought' marginRight={3} />
+            <IconButton 
+              aria-label='comment' 
+              background='blanchedalmond'
+              size="md" 
+              icon={<div color='red'><BsSendFill style={{color: 'red'}}/></div>}   
+            />
           </ModalFooter>
         </ModalContent>
       </Modal>
+      {/* End modal */}
     </>
   )
 }
