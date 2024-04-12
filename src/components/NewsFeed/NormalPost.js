@@ -19,8 +19,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Input,
-  VStack
+  Input
 } from "@chakra-ui/react";
 import { format } from 'date-fns';
 
@@ -52,8 +51,18 @@ const NormalPost = ({ post }) => {
     console.log(user);
   }, [user]);
 
-  const avatar = user.avatar;
-  const username = user.username;
+  let avatar, username; // Declare variables outside of the component
+
+  if (user) { // Check if user is not null
+    avatar = user.avatar;
+    username = user.username;
+
+    console.log(username, avatar);
+  }
+
+  // temporary data in case the fetching user doesn't work 
+  // const avatar = "https://res.cloudinary.com/khoa165/image/upload/v1711768766/viettech/haianh.jpg"
+  // const username = "khoalebatbai"
 
   // Split the content into words
   const words = content.split(' ');
@@ -65,7 +74,7 @@ const NormalPost = ({ post }) => {
   const [comment, setComment] = useState("");
 
   return (
-    <>
+    <> 
       <Card w="100%">
         <CardHeader>
           <Flex spacing="4">

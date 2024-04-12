@@ -1,22 +1,25 @@
 import CreatePost from "../components/NewsFeed/CreatePost";
 import AllPosts from "../components/NewsFeed/AllPosts";
 import PromptPost from "../components/NewsFeed/PromptPost";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Text } from "@chakra-ui/react";
+import './NewsFeed.css'
+
 
 const NewsFeed = () => {
     return ( 
-        <div>
+        <div className="newsfeed">
             <h1>NewsFeed</h1>
-            <CreatePost/>
+            
             <Grid gridTemplateColumns={'1fr 30%'} m={10} gap={6}>
-                <GridItem w='100%' h='10' bg='blue.500'> 
-                    {/* <PromptPost /> */}
+                <GridItem w='100%' h='10'> 
+                    <CreatePost/>
+                    <PromptPost />
                     <AllPosts/>
                 </GridItem>
-                <GridItem w='100%' h='10' bg='blue.500' />
+                <GridItem w='100%' h='10' bg='blue.500'>
+                    <Text>Under here are the 2 quotes for you</Text>
+                </GridItem>
             </Grid>
-            
-            
         </div>
      );
 }

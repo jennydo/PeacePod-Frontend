@@ -34,7 +34,7 @@ const PromptPost = () => {
 
     return (
     <>
-      <Card maxW="lg" >
+      <Card w='100%' mt={4} mb={4}>
         <CardHeader>
             <Text fontSize='3xl'>Prompt of the day!!!</Text>
         </CardHeader>

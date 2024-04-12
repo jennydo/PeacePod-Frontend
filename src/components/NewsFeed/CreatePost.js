@@ -6,11 +6,10 @@ import { Box, Stack, Input, Button, Textarea, Text, Divider, Image,
 
 const CreatePost = ( ) => {
     // temporary data, later will fetch from backend or UseContext
-    const userId = "6612ce8c3bcb7ce202115b65"
+    const userId = "66196fbff0454770708cd0a9"
     const user = {
-      username: "username_01",
-      email: "username_01@gmail",
-      avatar: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      username: "khoalebatbai",
+      avatar: "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg",
     }
 
     const username = user.username;
@@ -74,19 +73,20 @@ const CreatePost = ( ) => {
 
     return (
       <>
-
         <Box
-          onClick={onOpen}
-          bg="grey"
-          w="50%"
-          p={3}
-          borderRadius={10}
-          color="white"
-          _hover={{ bg: "#E0E0E0" }}
-        >
-          How are you feeling today?
+              onClick={onOpen}
+              bg="white"
+              w="100%"
+              p={5}
+              mb={5}
+              mt={5}
+              borderRadius={70}
+              color="black"
+              _hover={{ bg: "#E0E0E0" }}
+            >
+              How are you feeling today?
         </Box>
-
+      
 
         <Modal
           isOpen={isOpen}
