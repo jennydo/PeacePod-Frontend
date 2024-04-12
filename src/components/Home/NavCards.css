@@ -1,0 +1,68 @@
+@keyframes move {
+    0% {
+      transform: translatex(0);
+    }
+    50% {
+      transform: translatex(-40px);
+    }
+  }
+
+/* button */
+
+.button-icon {
+    width: 50px;
+    height: 50px;
+    color: black;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+.button-label {
+    font-size: 2rem;
+    color: black;
+    text-align: center;
+    line-height: 0.01;
+}
+
+.button-card {
+    margin-top: 50px;
+    animation: move 3s infinite;
+    /* position: relative; */
+    background-color: black;
+}
+
+.button-card a {
+    display: block;
+}
+
+.button-card:hover {
+    /* transform: translateY(-8px); */
+    cursor: pointer;
+}
+
+.button-container {
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button {
+    position: relative;
+}
+
+.cloud {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: auto;
+}
+
+.button-content {
+    z-index: 200;
+    position: absolute;
+    top: 120px;
+    left: 0;
+}
