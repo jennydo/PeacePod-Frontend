@@ -45,9 +45,9 @@ const PromptPost = () => {
 
     useEffect(() => {
       getPrompt()
-      // setInterval(() => {
-      //   getPrompt()
-      // }, 10 * 1000)
+      setInterval(() => {
+        getPrompt()
+      }, 5 * 1000)
     }, [])
 
 
