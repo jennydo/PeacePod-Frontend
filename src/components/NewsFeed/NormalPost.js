@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Text,
   CardHeader,
@@ -26,16 +27,33 @@ import { format } from 'date-fns';
 
 const NormalPost = ({ post }) => {
 
-  // temporary data
-  const avatar =
-    "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg";
-  const username = "khoale";
-
   // data from post 
   const title = post.title;
   const content = post.content;
   const timeStamp = post.createdAt;
   const formattedTimeStamp = format(new Date(timeStamp), 'MMMM dd, yyyy - HH:mm:ss');
+  const userId = post.userId;
+
+  const [user, setUser] = useState(null);
+
+  // get the User object 
+  useEffect(() => {
+    axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user:", error);
+      });
+  }, []);
+
+  // check if GET request works 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  const avatar = user.avatar;
+  const username = user.username;
 
   // Split the content into words
   const words = content.split(' ');
