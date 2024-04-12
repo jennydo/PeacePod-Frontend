@@ -102,7 +102,7 @@ const NormalPost = ({ post }) => {
           <Text onClick={onOpen}
                 color="gray.500" 
                 fontStyle="italic" 
-                _hover={{ color: "blue.500" }}>
+                _hover={{ color: "blue.500", textDecoration: "underline" }}>
                   Read more...</Text>
         </CardBody>
 
@@ -130,7 +130,7 @@ const NormalPost = ({ post }) => {
         </CardFooter>
       </Card>
 
-      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
+      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="inside">
             <ModalOverlay />
             <ModalContent
             sx={{

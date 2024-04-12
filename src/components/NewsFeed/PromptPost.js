@@ -43,13 +43,12 @@ const PromptPost = () => {
       setPrompt(newPrompt.data)
     }
 
-    useEffect(() => {
-      getPrompt()
-      setInterval(() => {
-        getPrompt()
-      }, 5 * 1000)
-    }, [])
-
+    // useEffect(() => {
+    //   getPrompt()
+    //   setInterval(() => {
+    //     getPrompt()
+    //   }, 5 * 1000)
+    // }, [])
 
     const finalRef = React.useRef(null);
     const timeStamp = new Date();
@@ -105,9 +104,15 @@ const PromptPost = () => {
           <Divider width='95%' borderWidth='1px' margin={0}/>          
         </Center>
 
-        <Button variant='ghost' onClick={onOpen} marginLeft='15px' marginRight='15px' marginTop='5px' justifyContent='left' width='max-content'>
+        <Text 
+          onClick={onOpen} 
+          color="gray.500" 
+          fontStyle="italic" 
+          _hover={{ color: "blue.500", textDecoration: "underline" }}
+          marginLeft='15px' marginRight='15px' marginTop='5px' 
+          justifyContent='left' width='max-content'>
           View more comments
-        </Button>
+        </Text>
 
         {/* Comment for Prompt Post */}
         <VStack align='left'>
