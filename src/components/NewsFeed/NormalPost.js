@@ -72,7 +72,7 @@ const NormalPost = ({ post }) => {
   return (
     <> 
       <Card w="100%">
-        <CardHeader>
+        <CardHeader mb="-8">
           <Flex spacing="4">
             <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
               <Avatar name={username} src={avatar} />
@@ -89,8 +89,9 @@ const NormalPost = ({ post }) => {
               aria-label="See menu"
             />
           </Flex>
-          <Text fontSize="lg">{title}</Text>
+          <Text fontSize="xl">{title}</Text>
         </CardHeader>
+
         <CardBody>
           <Text>{preview}</Text> 
           <Text onClick={onOpen}
