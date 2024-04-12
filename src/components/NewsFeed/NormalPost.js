@@ -19,10 +19,12 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Input
+  Input,
+  Divider,
+  Center
 } from "@chakra-ui/react";
+import { FaHeart, FaComment } from "react-icons/fa";
 import { format } from 'date-fns';
-
 
 const NormalPost = ({ post }) => {
 
@@ -71,7 +73,7 @@ const NormalPost = ({ post }) => {
   
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [comment, setComment] = useState("");
+  // const [comment, setComment] = useState("");
 
   return (
     <> 
@@ -104,6 +106,11 @@ const NormalPost = ({ post }) => {
                   Read more...</Text>
         </CardBody>
 
+        <Center>
+          <Divider width='95%' borderWidth='1px' margin={0}/>          
+        </Center>
+
+
         <CardFooter
           justify="space-between"
           flexWrap="wrap"
@@ -112,11 +119,12 @@ const NormalPost = ({ post }) => {
               minW: "136px",
             },
           }}
+          padding={2}
         >
-          <Button flex="1" variant="ghost">
+          <Button flex="1" variant="ghost" leftIcon={<FaHeart />} >
             Like
           </Button>
-          <Button flex="1" variant="ghost" onClick={onOpen}>
+          <Button flex="1" variant="ghost" onClick={onOpen} leftIcon={<FaComment />} >
             Comment
           </Button>
         </CardFooter>

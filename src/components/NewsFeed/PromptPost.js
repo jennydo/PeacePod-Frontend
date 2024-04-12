@@ -18,19 +18,37 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
+  Center,
+  Divider,
+  VStack,
 } from "@chakra-ui/react";
+import { FaHeart, FaComment } from "react-icons/fa";
+
+import Comment from './Comment';
 
 const PromptPost = () => {
     const avatar =
         "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg";
     const username = "khoale";
-    const prompt = "What is the lastest time you feel cheerful?";
+    const prompt = "What is the last time you feel cheerful? 😁";
     const finalRef = React.useRef(null);
-    const body =
-        "I'm overjoyed to share that I finally completed my 10-page research paper! 📚💪 It was a challenging journey, but I persevered and put in the hard work. Now, I can proudly say that it's done and dusted! 🎓✨";
     const timeStamp = new Date();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    /// Replace with axios get later to get comments
+    const comments = [
+      "Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne",
+      "Anh khue la con de non",
+      `Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non`
+    ]
+
+    ///
 
     return (
     <>
@@ -39,26 +57,44 @@ const PromptPost = () => {
             <Text fontSize='3xl'>Prompt of the day!!!</Text>
         </CardHeader>
 
-        <CardBody>
+        <CardBody paddingTop='0px' paddingBottom='0px' >
           <Text fontSize='2xl'>{prompt}</Text>
         </CardBody>
 
+        <Center margin={0}>
+          <Divider width='95%' borderWidth='1px' />          
+        </Center>
+
         <CardFooter
-          justify="space-between"
+          justify="space-around"
           flexWrap="wrap"
           sx={{
             "& > button": {
               minW: "136px",
             },
           }}
+          padding='15px'
         >
-          <Button flex="1" variant="ghost">
+          <Button variant="ghost" flex="1" leftIcon={<FaHeart />}>
             Like
           </Button>
-          <Button flex="1" variant="ghost" onClick={onOpen}>
+          <Button variant="ghost" flex="1" onClick={onOpen} leftIcon={<FaComment />}>
             Comment
           </Button>
         </CardFooter>
+
+        <Center margin={0}>
+          <Divider width='95%' borderWidth='1px' />          
+        </Center>
+
+        {/* Comment for Prompt Post */}
+        <VStack align='left'>
+          {
+            comments && comments.map((comment, idx) => (
+              <Comment comment={comment} key={idx} />
+            ))
+          }
+        </VStack>
       </Card>
 
       <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
@@ -85,7 +121,7 @@ const PromptPost = () => {
             </Box>
           </Flex>
           <ModalCloseButton />
-          <ModalBody>{body}</ModalBody>
+          <ModalBody></ModalBody>
           <ModalFooter>
           <Input placeholder='Basic usage' />
           </ModalFooter>
