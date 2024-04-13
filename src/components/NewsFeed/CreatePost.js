@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Box, Stack, Input, Button, Textarea, Text, Divider, Image,
+import { Box, Stack, Input, Button, Textarea, Text, Divider,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure,
         Alert, AlertIcon, AlertDescription, Avatar } from '@chakra-ui/react'
+import { usePostsContext } from "../../hooks/usePostsContext";
 
 const CreatePost = ( ) => {
+
+    const {dispatch} = usePostsContext();
+
     // temporary data, later will fetch from backend or UseContext
     const userId = "66196fbff0454770708cd0a9"
     const user = {
@@ -14,13 +18,12 @@ const CreatePost = ( ) => {
 
     const username = user.username;
     const avatar = user.avatar;
-    
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
-    const [isPrompt, setIsPrompt] = useState(false) 
+    const isPrompt = false;
     const [isShowingAlert, setIsShowingAlert] = useState(false)
     const [alertMssg, setAlertMssg] = useState('')
 
@@ -45,6 +48,10 @@ const CreatePost = ( ) => {
             axios.post("http://localhost:4000/api/posts/", newPost)
                 .then(response => {
                     console.log(response.data);
+                    dispatch({
+                      type: 'CREATE_POST',
+                      payload: response.data
+                    })
                     onClose();
                     setTitle('');
                     setContent('');
