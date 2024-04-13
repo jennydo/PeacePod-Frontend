@@ -5,11 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PostsContextProvider } from './context/PostsContext';
+import { CommentsContextProvider } from './context/CommentsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <PostsContextProvider>
-        <App />
+        <CommentsContextProvider>
+            <App />
+        </CommentsContextProvider>
     </PostsContextProvider>
 );
 
