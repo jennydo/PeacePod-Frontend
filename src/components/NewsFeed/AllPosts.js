@@ -3,22 +3,21 @@ import { useEffect } from "react";
 import React from "react";
 import NormalPost from "./NormalPost";
 import { VStack } from "@chakra-ui/react";
+import { usePostsContext } from "../../hooks/usePostsContext";
 
 const AllPosts = () => {
 
-    const [posts, setPosts] = React.useState(null);
+    const {posts, dispatch} = usePostsContext();
 
     useEffect(() => {
         axios.get("http://localhost:4000/api/posts/")
             .then((response) => {
-                setPosts(response.data);
+                dispatch({
+                    type: "GET_POSTS",
+                    payload: response.data
+                })
             });
-    }, []);
-
-    // check if GET request works 
-    useEffect(() => {
-        console.log(posts);
-    }, [posts]);
+    }, [dispatch]);
 
     return ( 
         <VStack
