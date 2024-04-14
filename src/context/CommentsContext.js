@@ -10,20 +10,29 @@ export const commentsReducer = (state, action) => {
             }
         case 'CREATE_COMMENT':
             return {
-                comments: [action.payload, ...state.comments]
+                comments: [...state.comments, action.payload]
             }
         case 'DELETE_COMMENT':
             return {
                 comments: state.comments.filter(p => p._id !== action.payload._id) 
+            }
+        case 'CLEAR_COMMENTS':
+            return {
+                comments: []
             }
         default:
             return state
     }
 }
 
+
 export const CommentsContextProvider = ( {children} ) => {
+    // const [state, dispatch] = useReducer(commentsReducer, {
+    //     comments: null
+    // })
+
     const [state, dispatch] = useReducer(commentsReducer, {
-        comments: null
+        comments: []
     })
 
     return (
