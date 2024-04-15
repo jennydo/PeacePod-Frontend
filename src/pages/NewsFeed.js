@@ -5,10 +5,10 @@ import QuotesAndTipsCards from "../components/NewsFeed/QuotesAndTipsCards";
 import {Grid, GridItem } from "@chakra-ui/react"
 
 const NewsFeed = () => {
-    return ( 
+    return (
         <div className="newsfeed">
             <h1>NewsFeed</h1>
-            
+
             <Grid gridTemplateColumns={'1fr 30%'} m={10} gap={6}>
                 <GridItem w='100%' h='10'> 
                   <CreatePost/>
@@ -20,7 +20,7 @@ const NewsFeed = () => {
                 </GridItem>
             </Grid>
         </div>
-     );
+    );
 }
- 
+
 export default NewsFeed;
