@@ -34,6 +34,7 @@ const NormalPost = ({ post }) => {
   const title = post.title;
   const content = post.content;
   const timeStamp = post.createdAt;
+  // format the timestamp to be more readable: "x minutes ago"
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
   const userId = post.userId;
   const postId = post._id;
@@ -48,7 +49,7 @@ const NormalPost = ({ post }) => {
 
   useEffect(() => {
     
-    // get the User object 
+    // get the User object by userId
     axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
       .then((response) => {
         setUser(response.data);
@@ -57,7 +58,7 @@ const NormalPost = ({ post }) => {
         console.error("Error fetching user:", error);
       });
       
-    // get the Comments object
+    // get the Comments object for the post
     if (isOpen) {
       axios.get(`http://localhost:4000/api/comments/post/${postId}`)
         .then((response) => {
@@ -72,11 +73,13 @@ const NormalPost = ({ post }) => {
         });
     } else {
       dispatch({
+        // clear comments when the modal is closed to avoid showing the previous comments when opening the modal again
         type: 'CLEAR_COMMENTS', 
       })
     }
   }, [postId, userId, dispatch, isOpen]);
 
+  // Temporary user id
   const commentingUserId = "66196ea6536f9e9410f53de9";
 
   const handlePostComment = async () => {
@@ -87,7 +90,7 @@ const NormalPost = ({ post }) => {
         userId: commentingUserId,
         content: newComment
       });
-      setNewComment("");
+      setNewComment(""); // Clear the input field after posting the comment
       dispatch({
         type: 'CREATE_COMMENT',
         payload: response.data
@@ -97,34 +100,11 @@ const NormalPost = ({ post }) => {
     }
   };
 
-
-  // const handleLike = async () => {
-  //   try {
-  //     const response = await axios.post(`http://localhost:4000/api/reactions/${postId}`);
-  //     console.log("Likes response", response.data);
-  //   } catch (error) {
-  //     console.error("Error liking post:", error);
-  //   }
-  // };
-
-  let avatar, username; // Declare variables outside of the component
-
-  if (user) { // Check if user is not null
-    avatar = user.avatar;
-    username = user.username;
-
-    // console.log(username, avatar);
-  }
-
-  // temporary data in case the fetching user doesn't work 
-  // const avatar = "https://res.cloudinary.com/khoa165/image/upload/v1711768766/viettech/haianh.jpg"
-  // const username = "khoalebatbai"
+  const { avatar, username } = user || {};
 
   const previewNum = 50
   const words = content.split(' ');
   const preview = words.slice(0, previewNum).join(' ');
-
-  // const [comment, setComment] = useState("");
 
   return (
     <> 
