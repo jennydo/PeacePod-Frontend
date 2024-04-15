@@ -1,24 +1,34 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Box, Stack, Input, Button, Textarea, Text, Divider, Image,
+import { Box, Stack, Input, Button, Textarea, Text, Divider,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure,
-        Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
+        Alert, AlertIcon, AlertDescription, Avatar } from '@chakra-ui/react'
+import { usePostsContext } from "../../hooks/usePostsContext";
 
-const CreatePost = () => {
+const CreatePost = ( ) => {
+
+    const {dispatch} = usePostsContext();
+
     // temporary data, later will fetch from backend or UseContext
-    const avatar = 'https://bit.ly/dan-abramov';
-    const username = 'khoalebatbai';
+    const userId = "66196fbff0454770708cd0a9"
+    const user = {
+      username: "khoalebatbai",
+      avatar: "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg",
+    }
+
+    const username = user.username;
+    const avatar = user.avatar;
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
-    const [isPrompt, setIsPrompt] = useState(false) 
+    const [content, setContent] = useState('')
+    const isPrompt = false;
     const [isShowingAlert, setIsShowingAlert] = useState(false)
     const [alertMssg, setAlertMssg] = useState('')
 
-    const maxLength = 500;
-    const characterCount = body.length;
+    const maxLength = 2000;
+    const characterCount = content.length;
 
     const handleClose = () => {
         setIsShowingAlert(false);
@@ -26,20 +36,25 @@ const CreatePost = () => {
     }
 
     const handleSave = () => {
-        // Check if title is not empty and body is not empty or exceeds the maximum length
-        if (title !== "" && (body !== "" && characterCount <= 500)) {
+        // Check if title is not empty and content is not empty or exceeds the maximum length
+        if (title !== "" && (content !== "" && characterCount <= maxLength)) {
             const newPost = {
+                userId,
                 title, 
-                body, 
+                content, 
                 isPrompt
             }
 
             axios.post("http://localhost:4000/api/posts/", newPost)
                 .then(response => {
                     console.log(response.data);
+                    dispatch({
+                      type: 'CREATE_POST',
+                      payload: response.data
+                    })
                     onClose();
                     setTitle('');
-                    setBody('');
+                    setContent('');
                     setIsShowingAlert(false)
                 })
                 .catch(error => {
@@ -51,10 +66,10 @@ const CreatePost = () => {
             if (title === "") {
                 setAlertMssg("You must have a title for your post.")
             }
-            else if (body === "") {
+            else if (content === "") {
                 setAlertMssg("You must have a body for your post.")
             }
-            else if (characterCount > 500) {
+            else if (characterCount > maxLength) {
                 setAlertMssg(`The maximum length is ${maxLength} characters.`)
             }
             else {
@@ -65,20 +80,20 @@ const CreatePost = () => {
 
     return (
       <>
-
         <Box
-          onClick={onOpen}
-          bg="grey"
-          w="50%"
-          p={3}
-          borderRadius={10}
-          color="white"
-          _hover={{ bg: "#E0E0E0" }}
-          margin='15px'
-        >
-          How are you feeling today?
+              onClick={onOpen}
+              bg="white"
+              w="100%"
+              p={5}
+              mb={5}
+              mt={5}
+              borderRadius={70}
+              color="black"
+              _hover={{ bg: "#E0E0E0" }}
+            >
+              How are you feeling today?
         </Box>
-
+      
 
         <Modal
           isOpen={isOpen}
@@ -97,12 +112,7 @@ const CreatePost = () => {
             <ModalBody>
               <Stack spacing={3}>
                 <Stack direction="row" spacing="10px">
-                  <Image
-                    borderRadius="full"
-                    boxSize="50px"
-                    src={avatar}
-                    alt={username}
-                  />
+                  <Avatar name={username} src={avatar} />
                   <Text>{username}</Text>
                 </Stack>
 
@@ -115,8 +125,8 @@ const CreatePost = () => {
                 />
 
                 <Textarea
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
                   placeholder="What have been on your mind lately?"
                   isInvalid={characterCount > maxLength}
                   size="sm"
