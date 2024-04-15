@@ -30,13 +30,21 @@ import axios from 'axios';
 
 import Comment from './Comment';
 import { usePostsContext } from '../../hooks/usePostsContext';
+import { useCommentsContext } from '../../hooks/useCommentsContext';
 
 const PromptPost = () => {
 
     /// temporary data, eventually get from backend or context
     const userId = "661d771224e3217738f8310d"
 
+    const [ newComment, setNewComment ] = useState("")
+
+    
+    const { comments } = useCommentsContext()
+
+    const commentsDispatch = useCommentsContext().dispatch
     const { dispatch } = usePostsContext()
+
     const [ prompt, setPrompt ] = useState(null)
 
     /// axios to get prompt
@@ -84,21 +92,61 @@ const PromptPost = () => {
       scheduleDailyPrompt()
     }, [])
 
+    useEffect(() => {        
+      // get the Comments object for the post
+      if (prompt)
+      {
+        axios.get(`http://localhost:4000/api/comments/post/${prompt._id}`)
+          .then((response) => {
+            commentsDispatch({
+              type: 'GET_COMMENTS', 
+              payload: response.data
+            })
+            console.log("Comments response", response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching comments:", error);
+          });        
+      }
+
+    }, [prompt, dispatch])
+
     const finalRef = React.useRef(null);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    /// Replace with axios get later to get comments
-    const comments = [
-      "Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne",
-      "Anh khue la con de non",
-      `Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non`
-    ]
+    // Temporary user id
+    const commentingUserId = "66196ea6536f9e9410f53de9";
+
+    const handlePostComment = async () => {
+      if (!newComment.trim()) return; // Avoid posting empty comments
+  
+      try {
+        const response = await axios.post(`http://localhost:4000/api/comments/${prompt._id}`, {
+          userId: commentingUserId,
+          content: newComment
+        });
+        setNewComment(""); // Clear the input field after posting the comment
+        dispatch({
+          type: 'CREATE_COMMENT',
+          payload: response.data
+        })
+      } catch (error) {
+        console.error("Error posting comment:", error);
+      }
+    };
+
+    // /// Replace with axios get later to get comments
+    // const comments = [
+    //   "Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne",
+    //   "Anh khue la con de non",
+    //   `Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
+    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
+    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
+    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non`
+    // ]
 
     return (
     <>
@@ -206,12 +254,13 @@ const PromptPost = () => {
             </Card>
           </ModalBody>
           <ModalFooter>
-            <Input placeholder='Your thought' marginRight={3} />
+            <Input placeholder='Your thought' marginRight={3} value={newComment}/>
             <IconButton 
               aria-label='comment' 
               background='blanchedalmond'
               size="md" 
               icon={<div color='red'><BsSendFill style={{color: 'red'}}/></div>}   
+              onClick={handlePostComment}
             />
           </ModalFooter>
         </ModalContent>

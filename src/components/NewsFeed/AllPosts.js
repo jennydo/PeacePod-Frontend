@@ -7,7 +7,7 @@ import { usePostsContext } from "../../hooks/usePostsContext";
 
 const AllPosts = () => {
 
-    const {posts, dispatch} = usePostsContext();
+    const { posts, dispatch } = usePostsContext();
 
     useEffect(() => {
         axios.get("http://localhost:4000/api/posts/")
@@ -19,7 +19,7 @@ const AllPosts = () => {
             });
     }, [dispatch]);
 
-    return ( 
+    return (
         <VStack
             spacing={4}
             align='stretch'
@@ -28,7 +28,7 @@ const AllPosts = () => {
                 <NormalPost key={post._id} post={post}/>
             ))}
         </VStack>
-     );
+    );
 }
- 
+
 export default AllPosts;
