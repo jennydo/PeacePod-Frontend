@@ -13,8 +13,8 @@ const QuotesAndTipsCards = () => {
   useEffect(() => {
     axios.get("http://localhost:4000/api/quotestips/quotes")
     .then((response) => {
-      // console.log(response.data)
-      setQuoteInfo(response.data)
+      console.log(response.data)
+      setQuoteInfo(response.data[0])
     });
   }, [])
 
