@@ -21,7 +21,6 @@ const item = {
 const bounceTransition = {
     y: {
         duration: 1.5,
-        repeat: Infinity,
         ease: easeInOut
     }
 }
