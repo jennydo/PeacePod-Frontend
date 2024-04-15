@@ -24,7 +24,7 @@ const AllPosts = () => {
             spacing={4}
             align='stretch'
             >
-            {posts && posts.map((post) => (
+            {posts && posts.filter((post) => post.isPrompt == false).map((post) => (
                 <NormalPost key={post._id} post={post}/>
             ))}
         </VStack>

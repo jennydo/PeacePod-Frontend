@@ -5,9 +5,6 @@ import {
   CardBody,
   CardFooter,
   Card,
-  Flex,
-  Avatar,
-  Box,
   Button,
   Modal,
   ModalOverlay,
@@ -22,36 +19,72 @@ import {
   Divider,
   VStack,
   IconButton,
+  Flex,
+  Avatar,
+  
 } from "@chakra-ui/react";
+
 import { FaHeart, FaComment } from "react-icons/fa";
 import { BsSendFill } from "react-icons/bs";
 import axios from 'axios';
 
 import Comment from './Comment';
+import { usePostsContext } from '../../hooks/usePostsContext';
 
 const PromptPost = () => {
-    const avatar =
-        "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg";
-    const username = "khoale";
 
-    const [ prompt, setPrompt ] = useState("")
+    /// temporary data, eventually get from backend or context
+    const userId = "661d771224e3217738f8310d"
+
+    const { dispatch } = usePostsContext()
+    const [ prompt, setPrompt ] = useState(null)
+
     /// axios to get prompt
     const getPrompt = async () => {
 
-      const newPrompt = await axios.get("http://localhost:4000/api/posts/prompt")
-      console.log("New Prompt is ", newPrompt.data)
-      setPrompt(newPrompt.data)
+      let response
+      try {
+        response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId })
+
+        dispatch({
+          type: 'CREATE_POST',
+          payload: response.data
+        })        
+
+        const allPosts = await axios.get("http://localhost:4000/api/posts/")
+        
+        dispatch({
+            type: 'GET_POSTS',
+            payload: allPosts.data
+        })
+
+        setPrompt(response.data)
+      } catch (err) {
+        console.log("error while creating prompt ", err)
+      }
+    }
+
+    const scheduleDailyPrompt = () => {
+
+      const now = new Date()
+      const tmr = new Date(now)
+      tmr.setDate(now.getDate())
+      tmr.setTime(tmr.getTime() + 5 * 1000)
+
+      const timeUntilMidnight = tmr - now
+
+      setTimeout(() => {
+        getPrompt()
+        // scheduleDailyPrompt()
+      }, timeUntilMidnight)
     }
 
     // useEffect(() => {
     //   getPrompt()
-    //   setInterval(() => {
-    //     getPrompt()
-    //   }, 5 * 1000)
+    //   scheduleDailyPrompt()
     // }, [])
 
     const finalRef = React.useRef(null);
-    const timeStamp = new Date();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -70,12 +103,23 @@ const PromptPost = () => {
     return (
     <>
       <Card w='100%' mt={4} mb={4}>
-        <CardHeader>
-            <Text fontSize='3xl'>Prompt of the day!!!</Text>
-        </CardHeader>
+        <CardHeader mb="-8">
+            <Flex spacing="4">
+              <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
+                <Avatar name="PeacePod" src="https://res-console.cloudinary.com/dirace6tl/thumbnails/v1/image/upload/v1713207021/c2lnbl9rcTl3dW4=/preview" bg='green.100'/>
+                <Text fontSize="md" marginBottom="0px">PeacePod</Text>
+              </Flex>
+              <IconButton
+                variant="ghost"
+                colorScheme="gray"
+                aria-label="See menu"
+              />
+            </Flex>
+            <Text fontSize="xl">{prompt && prompt.title}</Text>
+          </CardHeader>
 
         <CardBody paddingTop='0px' paddingBottom='0px' >
-          <Text fontSize='2xl'>{prompt}</Text>
+          <Text fontSize='2xl'>{prompt && prompt.content}</Text>
         </CardBody>
 
         <Center margin={0}>
