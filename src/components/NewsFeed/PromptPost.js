@@ -32,14 +32,13 @@ import Comment from './Comment';
 import { usePostsContext } from '../../hooks/usePostsContext';
 import { useCommentsContext } from '../../hooks/useCommentsContext';
 
-const PromptPost = () => {
+const PromptPost = ({ post }) => {
 
     /// temporary data, eventually get from backend or context
     const userId = "661d771224e3217738f8310d"
 
     const [ newComment, setNewComment ] = useState("")
 
-    
     const { comments } = useCommentsContext()
 
     const commentsDispatch = useCommentsContext().dispatch
@@ -48,68 +47,77 @@ const PromptPost = () => {
     const [ prompt, setPrompt ] = useState(null)
 
     /// axios to get prompt
-    const getPrompt = async () => {
+    // const getPrompt = async () => {
 
-      let response
-      try {
-        response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId })
+    //   let response
+    //   try {
+    //     response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId })
 
-        dispatch({
-          type: 'CREATE_POST',
-          payload: response.data
-        })        
+    //     dispatch({
+    //       type: 'CREATE_POST',
+    //       payload: response.data
+    //     })        
 
-        const allPosts = await axios.get("http://localhost:4000/api/posts/")
+    //     // const allPosts = await axios.get("http://localhost:4000/api/posts/")
         
-        dispatch({
-            type: 'GET_POSTS',
-            payload: allPosts.data
-        })
+    //     // dispatch({
+    //     //     type: 'GET_POSTS',
+    //     //     payload: allPosts.data
+    //     // })
 
-        setPrompt(response.data)
-      } catch (err) {
-        console.log("error while creating prompt ", err)
-      }
-    }
+    //     console.log("Response from get prompt ", response.data)
 
-    const scheduleDailyPrompt = () => {
+    //     setPrompt(response.data)
+    //   } catch (err) {
+    //     console.log("error while creating prompt ", err)
+    //   }
+    // }
 
-      const now = new Date()
-      const tmr = new Date(now)
-      tmr.setDate(now.getDate() + 1)
-      tmr.setTime(0, 0, 0, 0)
+    // const scheduleDailyPrompt = () => {
 
-      const timeUntilMidnight = tmr - now
+    //   const now = new Date()
+    //   const tmr = new Date(now)
+    //   tmr.setDate(now.getDate() + 1)
+    //   tmr.setTime(0, 0, 0, 0)
 
-      setTimeout(() => {
-        getPrompt()
-        scheduleDailyPrompt()
-      }, timeUntilMidnight)
-    }
+    //   const timeUntilMidnight = tmr - now
 
-    useEffect(() => {
-      getPrompt()
-      scheduleDailyPrompt()
-    }, [])
+    //   setTimeout(() => {
+    //     getPrompt()
+    //     scheduleDailyPrompt()
+    //   }, timeUntilMidnight)
+    // }
 
-    useEffect(() => {        
-      // get the Comments object for the post
-      if (prompt)
-      {
-        axios.get(`http://localhost:4000/api/comments/post/${prompt._id}`)
-          .then((response) => {
-            commentsDispatch({
-              type: 'GET_COMMENTS', 
-              payload: response.data
-            })
-            console.log("Comments response", response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching comments:", error);
-          });        
-      }
+    // useEffect(async () => {
+    //   getPrompt()
+    //   scheduleDailyPrompt()
 
-    }, [prompt, dispatch])
+    //   // const allPosts = await axios.get("http://localhost:4000/api/posts/")
+        
+    //   // dispatch({
+    //   //     type: 'GET_POSTS',
+    //   //     payload: allPosts.data
+    //   // })
+    // }, [])
+
+    // useEffect(() => {        
+    //   // get the Comments object for the post
+    //   if (prompt)
+    //   {
+    //     axios.get(`http://localhost:4000/api/comments/post/${prompt._id}`)
+    //       .then((response) => {
+    //         commentsDispatch({
+    //           type: 'GET_COMMENTS', 
+    //           payload: response.data
+    //         })
+    //         console.log("Comments response", response.data);
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error fetching comments:", error);
+    //       });        
+    //   }
+
+    // }, [prompt, commentsDispatch])
 
     const finalRef = React.useRef(null);
 
@@ -127,7 +135,7 @@ const PromptPost = () => {
           content: newComment
         });
         setNewComment(""); // Clear the input field after posting the comment
-        dispatch({
+        commentsDispatch({
           type: 'CREATE_COMMENT',
           payload: response.data
         })
@@ -209,7 +217,7 @@ const PromptPost = () => {
         {/* Comment for Prompt Post */}
         <VStack align='left'>
           {
-            comments && comments.slice(0, 2).map((comment, idx) => (
+            comments && comments.map((comment, idx) => (
               <Comment comment={comment} key={idx} />
             ))
           }
@@ -254,7 +262,7 @@ const PromptPost = () => {
             </Card>
           </ModalBody>
           <ModalFooter>
-            <Input placeholder='Your thought' marginRight={3} value={newComment}/>
+            <Input placeholder='Your thought' marginRight={3} value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
             <IconButton 
               aria-label='comment' 
               background='blanchedalmond'
