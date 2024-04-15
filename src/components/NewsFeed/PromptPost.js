@@ -68,21 +68,21 @@ const PromptPost = () => {
 
       const now = new Date()
       const tmr = new Date(now)
-      tmr.setDate(now.getDate())
-      tmr.setTime(tmr.getTime() + 5 * 1000)
+      tmr.setDate(now.getDate() + 1)
+      tmr.setTime(0, 0, 0, 0)
 
       const timeUntilMidnight = tmr - now
 
       setTimeout(() => {
         getPrompt()
-        // scheduleDailyPrompt()
+        scheduleDailyPrompt()
       }, timeUntilMidnight)
     }
 
-    // useEffect(() => {
-    //   getPrompt()
-    //   scheduleDailyPrompt()
-    // }, [])
+    useEffect(() => {
+      getPrompt()
+      scheduleDailyPrompt()
+    }, [])
 
     const finalRef = React.useRef(null);
 
