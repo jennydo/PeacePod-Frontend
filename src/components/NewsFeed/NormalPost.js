@@ -41,14 +41,16 @@ const NormalPost = ({ post }) => {
 
   const [user, setUser] = useState(null);
   const [newComment, setNewComment] = useState("");
+  const [likes, setLikes] = useState("0");
 
   const { comments, dispatch } = useCommentsContext();
 
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+
+// to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
-    
     // get the User object by userId
     axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
       .then((response) => {
@@ -77,7 +79,17 @@ const NormalPost = ({ post }) => {
         type: 'CLEAR_COMMENTS', 
       })
     }
-  }, [postId, userId, dispatch, isOpen]);
+
+    axios.get(`http://localhost:4000/api/reactions/total/${postId}`)
+      .then((response) => {
+        const likes = response.data;
+        setLikes(likes);
+      })
+      .catch((error) => {
+        console.error("Error fetching likes:", error);
+      });
+
+  }, [postId, userId, dispatch, isOpen, onClose]);
 
   // Temporary user id
   const commentingUserId = "66196ea6536f9e9410f53de9";
@@ -154,7 +166,8 @@ const NormalPost = ({ post }) => {
           padding={2}
         >
           <Button flex="1" variant="ghost" leftIcon={<FaHeart />}>
-            Like
+            {likes.count}
+            
           </Button>
           <Button flex="1" variant="ghost" onClick={onOpen} leftIcon={<FaComment />} >
             Comment
