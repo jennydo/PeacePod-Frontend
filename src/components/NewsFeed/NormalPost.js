@@ -82,35 +82,9 @@ const NormalPost = ({ post }) => {
         type: 'CLEAR_COMMENTS',
       })
     }
-
-    // get the count of likes
-    axios.get(`http://localhost:4000/api/reactions/total/${postId}`)
-      .then((response) => {
-        const likes = response.data;
-        setLikes(likes);
-      })
-      .catch((error) => {
-        console.error("Error fetching likes:", error);
-      });
   }, [postId, userId, dispatch, isOpen]);
 
-  useEffect(() => {
-    console.log("postId:", postId, "commentingUserId:", commentingUserId);
-    axios({
-      method: 'get',
-      url: `http://localhost:4000/api/reactions/isReacted/${postId}`,
-      params: {
-        userId: commentingUserId
-      }
-    })
-      .then((response) => {
-        setReacted(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching reaction:", error);
-      });
-  }, [postId, commentingUserId]);
-
+  // handle posting a comment
   const handlePostComment = async () => {
     if (!newComment.trim()) return; // Avoid posting empty comments
 
@@ -129,17 +103,44 @@ const NormalPost = ({ post }) => {
     }
   };
 
+  // get the count of likes when the component is mounted
+  useEffect(() => {
+    // get the count of likes
+    axios.get(`http://localhost:4000/api/reactions/total/${postId}`)
+      .then((response) => {
+        const likes = response.data;
+        setLikes(likes);
+      })
+      .catch((error) => {
+        console.error("Error fetching likes:", error);
+      });
+  }, [postId, reacted]);
+
+  // check if the user has reacted to the post
+  useEffect(() => {
+      axios.get(`http://localhost:4000/api/reactions/isReacted/${postId}/${commentingUserId}`)
+      .then((response) => {
+        setReacted(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching reaction:", error);
+      });
+  }, [postId]);
+
+  // handle the like/unlike functionality
   const handleReact = async () => {
-    if ({ reacted }) {
-      axios.delete(`http://localhost:4000/api/reactions/${postId}`, {
-        userId: commentingUserId
+    if (reacted) {
+      await axios.delete(`http://localhost:4000/api/reactions/${postId}`, {
+        data: { userId: commentingUserId }
       });
       setReacted(false);
+      console.log("Unreacted");
     } else {
-      axios.post(`http://localhost:4000/api/reactions/${postId}`, {
+      await axios.post(`http://localhost:4000/api/reactions/${postId}`, {
         userId: commentingUserId
       });
       setReacted(true);
+      console.log("Reacted");
     }
   };
 
@@ -196,8 +197,8 @@ const NormalPost = ({ post }) => {
           }}
           padding={2}
         >
-          <Button flex="1" variant="ghost" onClick={handleReact} leftIcon={<FaRegHeart />}>
-            {likes.count > 0 ? likes.count : ""}
+          <Button flex="1" variant="ghost" onClick={handleReact} leftIcon={reacted ? <FaHeart/> : <FaRegHeart /> }>
+            {likes.count === 0 ? "" : likes.count}
           </Button>
           <Button flex="1" variant="ghost" onClick={onOpen} leftIcon={<FaComment />} >
             Comment
