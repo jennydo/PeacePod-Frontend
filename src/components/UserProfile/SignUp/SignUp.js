@@ -3,7 +3,6 @@ import SexualityModal from "./SexualityModal.js";
 import { pronouns, genders, sexualities, countries, interestList } from "./userConstants.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import axios from "axios";
 import {
     Container,
     Button,
@@ -20,7 +19,8 @@ import {
     Grid,
     Divider,
     Textarea,
-    Select
+    Select, 
+    Alert, AlertDescription, AlertIcon
 } from "@chakra-ui/react";
 import InterestModal from "./InterestModal.js";
 import { useAuthContext } from "../../../hooks/useAuthContext.js";
@@ -91,58 +91,58 @@ const SignUp = () => {
     return (
         <Container className="signup-page">
             <Stack>
-                <Grid templateColumns="70% 30%" gap={15}>
-                    <Stack>
-                        {/* Username, Email */}
-                        <Stack className="username">
-                            <FormControl isRequired>
-                                <FormLabel>Username</FormLabel>
-                                <Input 
-                                    placeholder='Username' 
-                                    onChange={(e) => setUsername(e.target.value)} />
-                            </FormControl>
-                        </Stack>
-                        <Stack className="email">
-                            <FormControl isRequired>
-                                <FormLabel>Email</FormLabel>
-                                <Input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
-                            </FormControl>
-                        </Stack>
-
-                        {/* Password */}
-                        <Stack className="password">
-                            <FormLabel>Password</FormLabel>
-                            <InputGroup size='md'>
-                                <Input
-                                    pr='4.5rem'
-                                    type={showPw ? 'text' : 'password'}
-                                    placeholder='Enter password' 
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClickPassword}>
-                                        {showPw ? 'Hide' : 'Show'}
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                        </Stack>
-
-                        <Stack className="password">
-                            <FormLabel>Re-type Password</FormLabel>
-                            <InputGroup size='md'>
-                                <Input
-                                    pr='4.5rem'
-                                    type={showRetypePw ? 'text' : 'password'}
-                                    placeholder='Re-type password'
-                                />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClickPasswordReType}>
-                                        {showRetypePw ? 'Hide' : 'Show'}
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                        </Stack>
+                {/* <Grid templateColumns="70% 30%" gap={15}> */}
+                <Stack>
+                    {/* Username, Email */}
+                    <Stack className="username">
+                        <FormControl isRequired>
+                            <FormLabel>Username</FormLabel>
+                            <Input 
+                                placeholder='Username' 
+                                onChange={(e) => setUsername(e.target.value)} />
+                        </FormControl>
                     </Stack>
+                    <Stack className="email">
+                        <FormControl isRequired>
+                            <FormLabel>Email</FormLabel>
+                            <Input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
+                        </FormControl>
+                    </Stack>
+
+                    {/* Password */}
+                    <Stack className="password">
+                        <FormLabel>Password</FormLabel>
+                        <InputGroup size='md'>
+                            <Input
+                                pr='4.5rem'
+                                type={showPw ? 'text' : 'password'}
+                                placeholder='Enter password' 
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClickPassword}>
+                                    {showPw ? 'Hide' : 'Show'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </Stack>
+
+                    <Stack className="password">
+                        <FormLabel>Re-type Password</FormLabel>
+                        <InputGroup size='md'>
+                            <Input
+                                pr='4.5rem'
+                                type={showRetypePw ? 'text' : 'password'}
+                                placeholder='Re-type password'
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClickPasswordReType}>
+                                    {showRetypePw ? 'Hide' : 'Show'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </Stack>
+                </Stack>
 
                     {/* <Stack align="center">
                         <Heading as="h4" size="sm">
@@ -159,7 +159,7 @@ const SignUp = () => {
                         </Button>
                     </Stack> */}
 
-                </Grid>
+                {/* </Grid> */}
 
                 {/* CHOOSE PRONOUN */}
                 <Stack className="pronouns">
@@ -330,7 +330,14 @@ const SignUp = () => {
                         Create
                     </Button>
                 </Stack>
-                {error && <div className="error">{error}</div>}
+                
+                {error && 
+                    <Alert status="error">
+                        <AlertIcon />
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                }   
+                
                 <Box w='100%' h="50px"></Box>
             </Stack>
         </Container>
