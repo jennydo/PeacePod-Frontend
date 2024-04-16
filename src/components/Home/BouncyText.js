@@ -20,8 +20,8 @@ const item = {
 
 const bounceTransition = {
     y: {
-        duration: 1.5,
-        repeat: Infinity,
+        duration: 2,
+        repeat: 1,
         ease: easeInOut
     }
 }

@@ -5,9 +5,6 @@ import {
   CardBody,
   CardFooter,
   Card,
-  Flex,
-  Avatar,
-  Box,
   Button,
   Modal,
   ModalOverlay,
@@ -22,60 +19,72 @@ import {
   Divider,
   VStack,
   IconButton,
+  Flex,
+  Avatar,
+  
 } from "@chakra-ui/react";
+
 import { FaHeart, FaComment } from "react-icons/fa";
 import { BsSendFill } from "react-icons/bs";
 import axios from 'axios';
 
 import Comment from './Comment';
+import { usePostsContext } from '../../hooks/usePostsContext';
+import { useCommentsContext } from '../../hooks/useCommentsContext';
 
-const PromptPost = () => {
-    const avatar =
-        "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg";
-    const username = "khoale";
+const PromptPost = ({ post }) => {
 
-    const [ prompt, setPrompt ] = useState("")
-    /// axios to get prompt
-    const getPrompt = async () => {
+    const [ newComment, setNewComment ] = useState("")
 
-      const newPrompt = await axios.get("http://localhost:4000/api/posts/prompt")
-      console.log("New Prompt is ", newPrompt.data)
-      setPrompt(newPrompt.data)
-    }
+    const { comments } = useCommentsContext()
 
-    // useEffect(() => {
-    //   getPrompt()
-    //   setInterval(() => {
-    //     getPrompt()
-    //   }, 5 * 1000)
-    // }, [])
+    const commentsDispatch = useCommentsContext().dispatch
 
     const finalRef = React.useRef(null);
-    const timeStamp = new Date();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    /// Replace with axios get later to get comments
-    const comments = [
-      "Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne",
-      "Anh khue la con de non",
-      `Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non`
-    ]
+    // Temporary user id
+    const commentingUserId = "66196ea6536f9e9410f53de9";
+
+    const handlePostComment = async () => {
+      if (!newComment.trim()) return; // Avoid posting empty comments
+  
+      try {
+        const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
+          userId: commentingUserId,
+          content: newComment
+        });
+        setNewComment(""); // Clear the input field after posting the comment
+        commentsDispatch({
+          type: 'CREATE_COMMENT',
+          payload: response.data
+        })
+      } catch (error) {
+        console.error("Error posting comment:", error);
+      }
+    };
 
     return (
     <>
       <Card w='100%' mt={4} mb={4}>
-        <CardHeader>
-            <Text fontSize='3xl'>Prompt of the day!!!</Text>
-        </CardHeader>
+        <CardHeader mb="-8">
+            <Flex spacing="4">
+              <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
+                <Avatar name="PeacePod" src="https://res-console.cloudinary.com/dirace6tl/thumbnails/v1/image/upload/v1713207021/c2lnbl9rcTl3dW4=/preview" bg='green.100'/>
+                <Text fontSize="md" marginBottom="0px">PeacePod</Text>
+              </Flex>
+              <IconButton
+                variant="ghost"
+                colorScheme="gray"
+                aria-label="See menu"
+              />
+            </Flex>
+            <Text fontSize="xl">{post && post.title}</Text>
+          </CardHeader>
 
         <CardBody paddingTop='0px' paddingBottom='0px' >
-          <Text fontSize='2xl'>{prompt}</Text>
+          <Text fontSize='2xl'>{post && post.content}</Text>
         </CardBody>
 
         <Center margin={0}>
@@ -117,7 +126,7 @@ const PromptPost = () => {
         {/* Comment for Prompt Post */}
         <VStack align='left'>
           {
-            comments && comments.slice(0, 2).map((comment, idx) => (
+            comments && comments.map((comment, idx) => (
               <Comment comment={comment} key={idx} />
             ))
           }
@@ -144,7 +153,7 @@ const PromptPost = () => {
               </CardHeader>
 
               <CardBody paddingTop={0} paddingBottom={0}>
-                <Text>{prompt}</Text>
+                <Text>{post && post.content}</Text>
               </CardBody>
 
               <Center margin={0}>
@@ -162,12 +171,13 @@ const PromptPost = () => {
             </Card>
           </ModalBody>
           <ModalFooter>
-            <Input placeholder='Your thought' marginRight={3} />
+            <Input placeholder='Your thought' marginRight={3} value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
             <IconButton 
               aria-label='comment' 
               background='blanchedalmond'
               size="md" 
               icon={<div color='red'><BsSendFill style={{color: 'red'}}/></div>}   
+              onClick={handlePostComment}
             />
           </ModalFooter>
         </ModalContent>
