@@ -30,13 +30,6 @@ const AllPosts = () => {
             payload: response.data
           })        
   
-          // const allPosts = await axios.get("http://localhost:4000/api/posts/")
-          
-          // dispatch({
-          //     type: 'GET_POSTS',
-          //     payload: allPosts.data
-          // })
-  
           console.log("Response from get prompt ", response.data)
   
           setPrompt(response.data)
@@ -84,12 +77,12 @@ const AllPosts = () => {
 
     return (
         <>
-            <PromptPost post={posts.filter(p => p.isPrompt == true)[0]}/>
+            <PromptPost post={posts.filter(p => p.isPrompt === true)[0]}/>
             <VStack
                 spacing={4}
                 align='stretch'
                 >
-                {posts && posts.filter((post) => post.isPrompt == false).map((post) => (
+                {posts && posts.filter((post) => post.isPrompt === false).map((post) => (
                     <NormalPost key={post._id} post={post}/>
                 ))}
             </VStack>            
