@@ -34,90 +34,11 @@ import { useCommentsContext } from '../../hooks/useCommentsContext';
 
 const PromptPost = ({ post }) => {
 
-    /// temporary data, eventually get from backend or context
-    const userId = "661d771224e3217738f8310d"
-
     const [ newComment, setNewComment ] = useState("")
 
     const { comments } = useCommentsContext()
 
     const commentsDispatch = useCommentsContext().dispatch
-    const { dispatch } = usePostsContext()
-
-    const [ prompt, setPrompt ] = useState(null)
-
-    /// axios to get prompt
-    // const getPrompt = async () => {
-
-    //   let response
-    //   try {
-    //     response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId })
-
-    //     dispatch({
-    //       type: 'CREATE_POST',
-    //       payload: response.data
-    //     })        
-
-    //     // const allPosts = await axios.get("http://localhost:4000/api/posts/")
-        
-    //     // dispatch({
-    //     //     type: 'GET_POSTS',
-    //     //     payload: allPosts.data
-    //     // })
-
-    //     console.log("Response from get prompt ", response.data)
-
-    //     setPrompt(response.data)
-    //   } catch (err) {
-    //     console.log("error while creating prompt ", err)
-    //   }
-    // }
-
-    // const scheduleDailyPrompt = () => {
-
-    //   const now = new Date()
-    //   const tmr = new Date(now)
-    //   tmr.setDate(now.getDate() + 1)
-    //   tmr.setTime(0, 0, 0, 0)
-
-    //   const timeUntilMidnight = tmr - now
-
-    //   setTimeout(() => {
-    //     getPrompt()
-    //     scheduleDailyPrompt()
-    //   }, timeUntilMidnight)
-    // }
-
-    // useEffect(async () => {
-    //   getPrompt()
-    //   scheduleDailyPrompt()
-
-    //   // const allPosts = await axios.get("http://localhost:4000/api/posts/")
-        
-    //   // dispatch({
-    //   //     type: 'GET_POSTS',
-    //   //     payload: allPosts.data
-    //   // })
-    // }, [])
-
-    // useEffect(() => {        
-    //   // get the Comments object for the post
-    //   if (prompt)
-    //   {
-    //     axios.get(`http://localhost:4000/api/comments/post/${prompt._id}`)
-    //       .then((response) => {
-    //         commentsDispatch({
-    //           type: 'GET_COMMENTS', 
-    //           payload: response.data
-    //         })
-    //         console.log("Comments response", response.data);
-    //       })
-    //       .catch((error) => {
-    //         console.error("Error fetching comments:", error);
-    //       });        
-    //   }
-
-    // }, [prompt, commentsDispatch])
 
     const finalRef = React.useRef(null);
 
@@ -130,7 +51,7 @@ const PromptPost = ({ post }) => {
       if (!newComment.trim()) return; // Avoid posting empty comments
   
       try {
-        const response = await axios.post(`http://localhost:4000/api/comments/${prompt._id}`, {
+        const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
           userId: commentingUserId,
           content: newComment
         });
@@ -143,18 +64,6 @@ const PromptPost = ({ post }) => {
         console.error("Error posting comment:", error);
       }
     };
-
-    // /// Replace with axios get later to get comments
-    // const comments = [
-    //   "Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne",
-    //   "Anh khue la con de non",
-    //   `Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
-    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
-    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-    //   Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non`
-    // ]
 
     return (
     <>
@@ -171,11 +80,11 @@ const PromptPost = ({ post }) => {
                 aria-label="See menu"
               />
             </Flex>
-            <Text fontSize="xl">{prompt && prompt.title}</Text>
+            <Text fontSize="xl">{post && post.title}</Text>
           </CardHeader>
 
         <CardBody paddingTop='0px' paddingBottom='0px' >
-          <Text fontSize='2xl'>{prompt && prompt.content}</Text>
+          <Text fontSize='2xl'>{post && post.content}</Text>
         </CardBody>
 
         <Center margin={0}>
@@ -244,7 +153,7 @@ const PromptPost = ({ post }) => {
               </CardHeader>
 
               <CardBody paddingTop={0} paddingBottom={0}>
-                <Text>{prompt}</Text>
+                <Text>{post && post.content}</Text>
               </CardBody>
 
               <Center margin={0}>

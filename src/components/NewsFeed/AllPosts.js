@@ -18,6 +18,11 @@ const AllPosts = () => {
 
         let response
         try {
+          
+          dispatch({
+            type: 'UPDATE_POST'
+          })
+
           response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId })
   
           dispatch({

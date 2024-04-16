@@ -15,10 +15,10 @@ export const postsReducer = (state, action) => {
         case 'UPDATE_POST':
             return {
                 posts: state.posts.map(post => {
-                    if (post._id !== action.payload._id)
-                        return post 
-
-                    return action.payload
+                    if (post.isPrompt) {
+                        post.isPrompt = false
+                    }
+                    return post
                 })
             }
         case 'DELETE_POST':
