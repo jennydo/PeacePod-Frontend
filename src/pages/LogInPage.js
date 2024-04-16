@@ -1,26 +1,48 @@
 import { useState } from "react"
-// import { useLogin } from "../hooks/useLogin"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const LogInPage = () => {
-  const [email, setEmail] = useState('')
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(null)
+  const {dispatch} = useAuthContext()
+
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-//   const { login, error, isLoading } = useLogin()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true);
+    setError(null);
 
-    // await login(email, password)
+    const response = await fetch('http://localhost:4000/api/users/logIn', {
+        method: "POST", 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password})
+    })
+
+    const json = await response.json()
+
+    if (!response.ok) {
+        setIsLoading(false)
+        setError(json.error)
+    }
+
+    if (response.ok) {
+        localStorage.setItem('user', JSON.stringify(json))
+        dispatch({type: "LOGIN", payload: json})
+        setIsLoading(false)
+    }
   }
 
   return (
     <form className="login" onSubmit={handleSubmit}>
       <h3>Log In</h3>
       
-      <label>Email address:</label>
+      <label>username address:</label>
       <input 
-        type="email" 
-        onChange={(e) => setEmail(e.target.value)} 
-        value={email} 
+        type="username" 
+        onChange={(e) => setUsername(e.target.value)} 
+        value={username} 
       />
       <label>Password:</label>
       <input 
@@ -29,9 +51,8 @@ const LogInPage = () => {
         value={password} 
       />
 
-      {/* <button disabled={isLoading}>Log in</button> */}
-      <button>Log in</button>
-      {/* {error && <div className="error">{error}</div>} */}
+      <button disabled={isLoading}>Log in</button>
+      {error && <div className="error">{error}</div>}
     </form>
   )
 }
