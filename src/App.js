@@ -9,6 +9,8 @@ import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
+import SignUpPage from './pages/SignUpPage';
+import LogInPage from './pages/LogInPage';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path="/" element={<HomePage />} />
+            <Route path="/signup" element={<SignUpPage/>} />
+            <Route path="/login" element={<LogInPage/>} />
             <Route path="/newsfeed" element={<NewsFeed />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/meditation" element={<Meditation />} />

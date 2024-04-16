@@ -18,16 +18,19 @@ import {
     InputGroup,
     InputRightElement,
     Grid,
-    Image,
     Divider,
     Textarea,
     Select
 } from "@chakra-ui/react";
 import InterestModal from "./InterestModal.js";
+import { useAuthContext } from "../../../hooks/useAuthContext.js";
 
 const SignUp = () => {
-    const [username, setUsername] = useState("")
+    const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(null)
+    const {dispatch} = useAuthContext()
 
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
 
     const [password, setPassword] = useState("")
@@ -51,7 +54,7 @@ const SignUp = () => {
 
     const [bio, setBio] = useState("");
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const newUser = {
             username,
             password,
@@ -64,14 +67,25 @@ const SignUp = () => {
             bio
         }
 
-        // console.log(newUser);
-        axios.post("http://localhost:4000/api/users/signUp", newUser)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        const response = await fetch('http://localhost:4000/api/users/signUp', {
+            method: "POST", 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newUser)
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+            setIsLoading(false)
+            setError(json.error)
+            console.log("error sign up", error)
+        }
+
+        if (response.ok) {
+            localStorage.setItem('user', JSON.stringify(json))
+            dispatch({type: "LOGIN", payload: json})
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -130,7 +144,7 @@ const SignUp = () => {
                         </Stack>
                     </Stack>
 
-                    <Stack align="center">
+                    {/* <Stack align="center">
                         <Heading as="h4" size="sm">
                             Avatar Upload
                         </Heading>
@@ -143,7 +157,7 @@ const SignUp = () => {
                         <Button colorScheme='teal' variant='solid'>
                             Upload
                         </Button>
-                    </Stack>
+                    </Stack> */}
 
                 </Grid>
 
@@ -310,11 +324,13 @@ const SignUp = () => {
                     <Button 
                         onClick={() => handleSubmit()}
                         rightIcon={<FontAwesomeIcon icon={faArrowRight} />} 
+                        disabled={isLoading}
                         colorScheme='teal' 
                         variant='outline'>
                         Create
                     </Button>
                 </Stack>
+                {error && <div className="error">{error}</div>}
                 <Box w='100%' h="50px"></Box>
             </Stack>
         </Container>
