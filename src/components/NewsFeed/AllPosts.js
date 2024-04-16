@@ -53,16 +53,19 @@ const AllPosts = () => {
         }, timeUntilMidnight)
       }
   
-      useEffect(async () => {
-        getPrompt()
-        scheduleDailyPrompt()
-  
-        const allPosts = await axios.get("http://localhost:4000/api/posts/")
-          
-        dispatch({
-            type: 'GET_POSTS',
-            payload: allPosts.data
-        })
+      useEffect(() => {
+        async function scheduleGetPrompt () {
+          getPrompt()
+          scheduleDailyPrompt()
+    
+          const allPosts = await axios.get("http://localhost:4000/api/posts/")
+            
+          dispatch({
+              type: 'GET_POSTS',
+              payload: allPosts.data
+          })
+        }
+        scheduleGetPrompt()
       }, [])
 
     useEffect(() => {
