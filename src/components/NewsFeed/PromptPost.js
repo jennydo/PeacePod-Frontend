@@ -45,7 +45,7 @@ const PromptPost = ({ post }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     // Temporary user id
-    const commentingUserId = "66196ea6536f9e9410f53de9";
+    const commentingUserId = "661f385d7bc0dc0597752644";
 
     const handlePostComment = async () => {
       if (!newComment.trim()) return; // Avoid posting empty comments

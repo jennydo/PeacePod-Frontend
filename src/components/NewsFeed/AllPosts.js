@@ -10,7 +10,7 @@ const AllPosts = () => {
 
     const { posts, dispatch } = usePostsContext();
 
-    const userId = "661d771224e3217738f8310d"
+    const userId = "661f3d5f7bc0dc0597752679"
     const [ prompt, setPrompt ] = useState(null)
 
     /// axios to get prompt

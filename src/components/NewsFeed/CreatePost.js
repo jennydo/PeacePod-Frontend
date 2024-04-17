@@ -10,7 +10,7 @@ const CreatePost = ( ) => {
     const {dispatch} = usePostsContext();
 
     // temporary data, later will fetch from backend or UseContext
-    const userId = "66196fbff0454770708cd0a9"
+    const userId = "661f38957bc0dc0597752647"
     const user = {
       username: "khoalebatbai",
       avatar: "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg",
