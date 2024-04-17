@@ -34,7 +34,6 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 
 const PromptPost = ({ post }) => {
 
-    const { user } = useAuthContext()
     const [ newComment, setNewComment ] = useState("")
     const { comments, dispatch: commentsDispatch} = useCommentsContext()
 
@@ -42,8 +41,9 @@ const PromptPost = ({ post }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    // Temporary user id
-    const commentingUserId = "661f385d7bc0dc0597752644";
+    // Id of user currently logged in 
+  const { user: commentingUser } = useAuthContext()
+  const { _id: commentingUserId } = commentingUser.user
 
     const handlePostComment = async () => {
       if (!newComment.trim()) return; // Avoid posting empty comments
@@ -53,7 +53,7 @@ const PromptPost = ({ post }) => {
           userId: commentingUserId,
           content: newComment
         }, {
-          headers: { "Authorization": `Bearer ${user.token}`}
+          headers: { "Authorization": `Bearer ${commentingUser.token}`}
         });
         setNewComment(""); // Clear the input field after posting the comment
         commentsDispatch({

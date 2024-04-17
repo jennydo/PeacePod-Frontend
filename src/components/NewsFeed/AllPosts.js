@@ -49,7 +49,6 @@ const AllPosts = () => {
     }
 
     useEffect(() => {
-        getPrompt()
         scheduleDailyPrompt()
 
         axios.get("http://localhost:4000/api/posts/", {
