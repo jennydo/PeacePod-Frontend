@@ -29,16 +29,14 @@ import { BsSendFill } from "react-icons/bs";
 import axios from 'axios';
 
 import Comment from './Comment';
-import { usePostsContext } from '../../hooks/usePostsContext';
 import { useCommentsContext } from '../../hooks/useCommentsContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const PromptPost = ({ post }) => {
 
+    const { user } = useAuthContext()
     const [ newComment, setNewComment ] = useState("")
-
-    const { comments } = useCommentsContext()
-
-    const commentsDispatch = useCommentsContext().dispatch
+    const { comments, dispatch: commentsDispatch} = useCommentsContext()
 
     const finalRef = React.useRef(null);
 
@@ -54,6 +52,8 @@ const PromptPost = ({ post }) => {
         const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
           userId: commentingUserId,
           content: newComment
+        }, {
+          headers: { "Authorization": `Bearer ${user.token}`}
         });
         setNewComment(""); // Clear the input field after posting the comment
         commentsDispatch({

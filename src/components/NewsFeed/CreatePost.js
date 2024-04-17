@@ -4,20 +4,12 @@ import { Box, Stack, Input, Button, Textarea, Text, Divider,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure,
         Alert, AlertIcon, AlertDescription, Avatar } from '@chakra-ui/react'
 import { usePostsContext } from "../../hooks/usePostsContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const CreatePost = ( ) => {
-
+    const { user } = useAuthContext()
+    const { username, avatar } = user.user
     const {dispatch} = usePostsContext();
-
-    // temporary data, later will fetch from backend or UseContext
-    const userId = "661f38957bc0dc0597752647"
-    const user = {
-      username: "khoalebatbai",
-      avatar: "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg",
-    }
-
-    const username = user.username;
-    const avatar = user.avatar;
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -39,13 +31,14 @@ const CreatePost = ( ) => {
         // Check if title is not empty and content is not empty or exceeds the maximum length
         if (title !== "" && (content !== "" && characterCount <= maxLength)) {
             const newPost = {
-                userId,
                 title, 
                 content, 
                 isPrompt
             }
 
-            axios.post("http://localhost:4000/api/posts/", newPost)
+            axios.post("http://localhost:4000/api/posts/", newPost, {
+              headers: { "Authorization": `Bearer ${user.token}`}
+            })
                 .then(response => {
                     console.log(response.data);
                     dispatch({
