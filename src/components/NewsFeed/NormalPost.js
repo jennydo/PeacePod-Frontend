@@ -32,13 +32,9 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 const NormalPost = ({ post }) => {
 
   // data from post 
-  const title = post.title;
-  const content = post.content;
-  const timeStamp = post.createdAt;
+  const { title, content, createdAt: timeStamp, userId, _id: postId } = post
   // format the timestamp to be more readable: "x minutes ago"
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
-  const userId = post.userId;
-  const postId = post._id;
 
   const [user, setUser] = useState(null);
   const [newComment, setNewComment] = useState("");
