@@ -36,7 +36,7 @@ const PromptPost = ({ post }) => {
     console.log("Prompt Post object: ", post)
     const [ newComment, setNewComment ] = useState("")
     const { comments, dispatch: commentsDispatch} = useCommentsContext()
-    // const [ displayedComments, setDisplayedComments ] = useState(null)
+    const [ displayedComments, setDisplayedComments ] = useState(null)
 
     const finalRef = React.useRef(null);
 
@@ -67,29 +67,27 @@ const PromptPost = ({ post }) => {
     };
 
     useEffect(() => {   
-      // get the Comments object for the post
-      if (isOpen) {
-        axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
-          .then((response) => {
+      axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
+        .then((response) => {
+          const latestComments = response.data.slice(Math.max(response.data.length - 2, 0));
+          setDisplayedComments(latestComments)
+          console.log("Display coments ", displayedComments)
+          console.log("Comments response", response.data);
+          if (isOpen) {
             commentsDispatch({
               type: 'GET_COMMENTS', 
               payload: response.data
             })
-            // const latestComments = [response.data[0], response.data[1]]
-            // setDisplayedComments(latestComments)
-            // console.log("Display coments ", displayedComments)
-            console.log("Comments response", response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching comments:", error);
-          });
-      } else {
-        commentsDispatch({
-          // clear comments when the modal is closed to avoid showing the previous comments when opening the modal again
-          type: 'CLEAR_COMMENTS', 
+          } else {
+              commentsDispatch({
+                type: 'CLEAR_COMMENTS', 
+              })
+          }
         })
-      }
-    }, [isOpen, commentsDispatch]);
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+        });
+    }, [isOpen, commentsDispatch, displayedComments, post._id]);
 
     return (
     <>
@@ -151,11 +149,11 @@ const PromptPost = ({ post }) => {
 
         {/* Comment for Prompt Post */}
         <VStack align='left'>
-          {/* {
+          {
             displayedComments && displayedComments.map((comment, idx) => (
               <Comment comment={comment} key={idx} />
             ))
-          } */}
+          }
         </VStack>
       </Card>
       

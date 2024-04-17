@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import React from "react";
 import NormalPost from "./NormalPost";
 import { VStack } from "@chakra-ui/react";
@@ -10,6 +10,7 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 const AllPosts = () => {
     const { user } = useAuthContext()
     const { posts, dispatch } = usePostsContext();
+    const promptPost = posts.find(p => p.isPrompt === true);
 
     const userId = "661f3d5f7bc0dc0597752679"
 
@@ -60,11 +61,11 @@ const AllPosts = () => {
                     payload: response.data
                 })
             });
-    }, [dispatch])
+    }, [dispatch, user.token])
 
     return (
         <>
-            <PromptPost post={posts.filter(p => p.isPrompt === true)[0]}/>
+            {promptPost && <PromptPost post={promptPost}/>}
             <VStack
                 spacing={4}
                 align='stretch'
