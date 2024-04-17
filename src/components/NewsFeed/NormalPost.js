@@ -55,7 +55,7 @@ const NormalPost = ({ post }) => {
   // to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
     // get the User object by userId
-    axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
+    axios.get(`http://localhost:4000/api/users/${userId}`)
       .then((response) => {
         setUser(response.data);
       })
@@ -65,7 +65,7 @@ const NormalPost = ({ post }) => {
 
     // get the Comments object for the post
     if (isOpen) {
-      axios.get(`http://localhost:4000/api/comments/post/${postId}`)
+      axios.get(`http://localhost:4000/api/comments/${postId}/post`)
         .then((response) => {
           dispatch({
             type: 'GET_COMMENTS',
@@ -89,8 +89,7 @@ const NormalPost = ({ post }) => {
     if (!newComment.trim()) return; // Avoid posting empty comments
 
     try {
-      const response = await axios.post(`http://localhost:4000/api/comments/${postId}`, {
-        userId: commentingUserId,
+      const response = await axios.post(`http://localhost:4000/api/comments/${postId}/${commentingUserId}`, {
         content: newComment
       });
       setNewComment(""); // Clear the input field after posting the comment
@@ -105,8 +104,7 @@ const NormalPost = ({ post }) => {
 
   // get the count of likes when the component is mounted
   useEffect(() => {
-    // get the count of likes
-    axios.get(`http://localhost:4000/api/reactions/total/${postId}`)
+    axios.get(`http://localhost:4000/api/reactions/${postId}/total`)
       .then((response) => {
         const likes = response.data;
         setLikes(likes);
@@ -118,7 +116,7 @@ const NormalPost = ({ post }) => {
 
   // check if the user has reacted to the post
   useEffect(() => {
-      axios.get(`http://localhost:4000/api/reactions/isReacted/${postId}/${commentingUserId}`)
+    axios.get(`http://localhost:4000/api/reactions/${postId}/${commentingUserId}/isReacted`)
       .then((response) => {
         setReacted(response.data);
       })
@@ -130,15 +128,11 @@ const NormalPost = ({ post }) => {
   // handle the like/unlike functionality
   const handleReact = async () => {
     if (reacted) {
-      await axios.delete(`http://localhost:4000/api/reactions/${postId}`, {
-        data: { userId: commentingUserId }
-      });
+      await axios.delete(`http://localhost:4000/api/reactions/${postId}/${commentingUserId}`)
       setReacted(false);
       console.log("Unreacted");
     } else {
-      await axios.post(`http://localhost:4000/api/reactions/${postId}`, {
-        userId: commentingUserId
-      });
+      await axios.post(`http://localhost:4000/api/reactions/${postId}/${commentingUserId}`);
       setReacted(true);
       console.log("Reacted");
     }
@@ -197,7 +191,7 @@ const NormalPost = ({ post }) => {
           }}
           padding={2}
         >
-          <Button flex="1" variant="ghost" onClick={handleReact} leftIcon={reacted ? <FaHeart/> : <FaRegHeart /> }>
+          <Button flex="1" variant="ghost" onClick={handleReact} leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}>
             {likes.count === 0 ? "" : likes.count}
           </Button>
           <Button flex="1" variant="ghost" onClick={onOpen} leftIcon={<FaComment />} >
