@@ -25,7 +25,7 @@ const Navbar = () => {
 
     return ( 
         <nav className="peacepod-navbar">
-            <Link to="/"><h1 className = "app-name">PeacePod</h1></Link>
+            <h1 className = "app-name"><Link to="/">PeacePod</Link></h1>
             <div className="links">
                 {user && (
                     <div>
@@ -33,8 +33,8 @@ const Navbar = () => {
                         <Link to="/newsfeed" className={`peacepod-navlink ${pathname === "/newsfeed" ? "active" : ""}`}>NewsFeed</Link>
                         <Link to="/chat" className={`peacepod-navlink ${pathname === "/chat" ? "active" : ""}`}>Messages</Link>
                         <Link to="/meditation" className={`peacepod-navlink ${pathname === "/meditation" ? "active" : ""}`}>Meditation</Link>
-                        <Menu>
-                            <MenuButton px={5} mb={100}>
+                        <Menu bg={"green"}>
+                            <MenuButton pl={8}>
                                 <Avatar name={username} src={avatar} size='md'/>
                             </MenuButton>
                             <MenuList>
