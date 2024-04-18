@@ -21,9 +21,21 @@
     margin-left: 16px;
     text-decoration: none;
     padding: 6px;
+    background-color: transparent; 
+}
+
+.peacepod-navbar button {
+    margin-left: 16px;
+    text-decoration: none;
+    padding: 6px;
+    background-color: transparent; 
 }
 
 .peacepod-navbar a:hover {
+    color: #ff72b6;
+}
+
+.peacepod-navbar button:hover {
     color: #ff72b6;
 }
 
