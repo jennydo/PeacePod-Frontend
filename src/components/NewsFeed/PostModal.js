@@ -26,6 +26,7 @@ const PostModal = ({postId, isOpen, onClose, finalRef, title, username, avatar, 
     // Id of user currently logged in 
     const { user: commentingUser } = useAuthContext()
     const { _id: commentingUserId } = commentingUser.user
+    console.log("commening user", commentingUser.user)
 
     const handlePostComment = async () => {
         if (!newComment.trim()) return; // Avoid posting empty comments

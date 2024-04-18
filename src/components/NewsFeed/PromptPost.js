@@ -54,29 +54,6 @@ const PromptPost = ({ post }) => {
         });
     }, [commentsDispatch, isOpenPrompt]);
 
-    // useEffect(() => {
-        
-    //   // get the Comments object for the post
-    //   if (isOpen) {
-    //     axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
-    //       .then((response) => {
-    //         commentsDispatch({
-    //           type: 'GET_COMMENTS', 
-    //           payload: response.data
-    //         })
-    //         console.log("Comments response", response.data);
-    //       })
-    //       .catch((error) => {
-    //         console.error("Error fetching comments:", error);
-    //       });
-    //   } else {
-    //     commentsDispatch({
-    //       // clear comments when the modal is closed to avoid showing the previous comments when opening the modal again
-    //       type: 'CLEAR_COMMENTS', 
-    //     })
-    //   }
-    // }, [commentsDispatch, isOpen]);
-
     return (
     <>
       <Card w='100%' mt={4} mb={4}>
