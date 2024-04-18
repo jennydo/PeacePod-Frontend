@@ -5,17 +5,37 @@ import NormalPost from "./NormalPost";
 import { VStack } from "@chakra-ui/react";
 import { usePostsContext } from "../../hooks/usePostsContext";
 import PromptPost from "./PromptPost";
+import { BsNodePlusFill } from "react-icons/bs";
 
 const AllPosts = () => {
 
     const { posts, dispatch } = usePostsContext();
 
-    const userId = "661d771224e3217738f8310d"
-    const [ prompt, setPrompt ] = useState(null)
+    const peacepodUserId = "661f3d5f7bc0dc0597752679"
+    const [ prompt, setPrompt ] = useState(() => {
+        const currentPrompt = JSON.parse(localStorage.getItem('prompt'))
+
+
+        if (currentPrompt)
+        {
+            /// New day, clear local storage prompt
+            const currentDate = new Date().getDate()
+            const promptDate = new Date(currentPrompt.createdAt).getDate()
+
+            if (currentDate != promptDate)
+                return null
+            else
+                return currentPrompt
+        }
+    })
 
     /// axios to get prompt
     const getPrompt = async () => {
-
+        if (prompt)
+        {
+            return
+        }
+        /// Else during the day and already get the prompt
         let response
         try {
           
@@ -23,55 +43,48 @@ const AllPosts = () => {
             type: 'UPDATE_POST'
           })
 
-          response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId })
+          response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId: peacepodUserId })
   
           dispatch({
             type: 'CREATE_POST',
             payload: response.data
           })        
   
-          // const allPosts = await axios.get("http://localhost:4000/api/posts/")
-          
-          // dispatch({
-          //     type: 'GET_POSTS',
-          //     payload: allPosts.data
-          // })
-  
           console.log("Response from get prompt ", response.data)
-  
+          
+          localStorage.setItem('prompt', JSON.stringify(response.data))
+        
           setPrompt(response.data)
         } catch (err) {
           console.log("error while creating prompt ", err)
         }
-      }
+    }
   
-      const scheduleDailyPrompt = () => {
-  
+    const scheduleDailyPrompt = () => {
         const now = new Date()
         const tmr = new Date(now)
+
+        // tmr.setTime(tmr.getTime() + 10 * 1000)        
         tmr.setDate(now.getDate() + 1)
         tmr.setTime(0, 0, 0, 0)
-  
+
+
+
         const timeUntilMidnight = tmr - now
-  
+
         setTimeout(() => {
-          getPrompt()
-          scheduleDailyPrompt()
+            getPrompt()
+            scheduleDailyPrompt()
         }, timeUntilMidnight)
-      }
-  
-      useEffect(async () => {
+    }
+
+    /// Get first prompt if no prompt, schedule new prompt
+    useEffect(() => {
         getPrompt()
         scheduleDailyPrompt()
-  
-        const allPosts = await axios.get("http://localhost:4000/api/posts/")
-          
-        dispatch({
-            type: 'GET_POSTS',
-            payload: allPosts.data
-        })
-      }, [])
+    }, [])
 
+    /// Get all current post
     useEffect(() => {
         axios.get("http://localhost:4000/api/posts/")
             .then((response) => {
@@ -84,12 +97,13 @@ const AllPosts = () => {
 
     return (
         <>
-            <PromptPost post={posts.filter(p => p.isPrompt == true)[0]}/>
+            {/* <PromptPost post={posts.filter(p => p.isPrompt == true)[0]}/> */}
+            <PromptPost post={prompt} />
             <VStack
                 spacing={4}
                 align='stretch'
                 >
-                {posts && posts.filter((post) => post.isPrompt == false).map((post) => (
+                {posts && posts.filter((post) => post.isPrompt === false).map((post) => (
                     <NormalPost key={post._id} post={post}/>
                 ))}
             </VStack>            

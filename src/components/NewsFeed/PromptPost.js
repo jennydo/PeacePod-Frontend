@@ -29,26 +29,56 @@ import { BsSendFill } from "react-icons/bs";
 import axios from 'axios';
 
 import Comment from './Comment';
-import { usePostsContext } from '../../hooks/usePostsContext';
 import { useCommentsContext } from '../../hooks/useCommentsContext';
+
+import Logo from '../../assets/images/sign.png'
 
 const PromptPost = ({ post }) => {
 
     const [ newComment, setNewComment ] = useState("")
-
-    const { comments } = useCommentsContext()
-
-    const commentsDispatch = useCommentsContext().dispatch
+    const { comments, dispatch } = useCommentsContext()
+    const [ displayedComments, setDisplayedComments ] = useState(null)
 
     const finalRef = React.useRef(null);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     // Temporary user id
-    const commentingUserId = "66196ea6536f9e9410f53de9";
+    const commentingUserId = "661f385d7bc0dc0597752644";
 
+    /// Get all comments for prompt
+    useEffect(() => {
+      if (!post)
+        return
+      
+      console.log("Prompt post ", post)
+      // get the Comments object for the post
+      axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
+        .then((response) => {
+
+          const latestComments = response.data.slice(0, 3)
+          console.log("Comments previewed ", latestComments)
+          setDisplayedComments(latestComments)
+
+          if (isOpen) {
+            dispatch({
+              type: 'GET_COMMENTS', 
+              payload: response.data
+            })
+          } else {
+              dispatch({
+                type: 'CLEAR_COMMENTS', 
+              })
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+        });
+    }, [post, dispatch, isOpen]);
+
+    /// Send comment
     const handlePostComment = async () => {
-      if (!newComment.trim()) return; // Avoid posting empty comments
+      if (!newComment.trim() || !post) return; // Avoid posting empty comments
   
       try {
         const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
@@ -56,7 +86,7 @@ const PromptPost = ({ post }) => {
           content: newComment
         });
         setNewComment(""); // Clear the input field after posting the comment
-        commentsDispatch({
+        dispatch({
           type: 'CREATE_COMMENT',
           payload: response.data
         })
@@ -64,6 +94,7 @@ const PromptPost = ({ post }) => {
         console.error("Error posting comment:", error);
       }
     };
+    /// End handle send comment
 
     return (
     <>
@@ -71,7 +102,7 @@ const PromptPost = ({ post }) => {
         <CardHeader mb="-8">
             <Flex spacing="4">
               <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
-                <Avatar name="PeacePod" src="https://res-console.cloudinary.com/dirace6tl/thumbnails/v1/image/upload/v1713207021/c2lnbl9rcTl3dW4=/preview" bg='green.100'/>
+                <Avatar name="PeacePod" src={Logo} bg='green.100'/>
                 <Text fontSize="md" marginBottom="0px">PeacePod</Text>
               </Flex>
               <IconButton
@@ -120,13 +151,13 @@ const PromptPost = ({ post }) => {
           _hover={{ color: "blue.500", textDecoration: "underline" }}
           marginLeft='15px' marginRight='15px' marginTop='5px' 
           justifyContent='left' width='max-content'>
-          View more comments
+          {displayedComments && displayedComments.length > 0? "View more comments": ""}
         </Text>
 
         {/* Comment for Prompt Post */}
         <VStack align='left'>
           {
-            comments && comments.map((comment, idx) => (
+            displayedComments && displayedComments.map((comment, idx) => (
               <Comment comment={comment} key={idx} />
             ))
           }
