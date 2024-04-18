@@ -12,12 +12,16 @@ import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider,
     ModalCloseButton, } from '@chakra-ui/react';
 
 const Navbar = () => {
-    const {logOut} = useLogOut();
     const { user } = useAuthContext()?.user || {};
     const { username, avatar } = user || {};
     const location = useLocation();
     const pathname = location.pathname;
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { logOut } = useLogOut();
+    const handleLogOut = () => {
+        logOut()
+        onClose()
+    }
 
     return ( 
         <nav className="peacepod-navbar">
@@ -56,10 +60,9 @@ const Navbar = () => {
                             <ModalBody>
                                 Are you sure you want to log out of your account?
                             </ModalBody>
-
                             <ModalFooter>
                                 <Button variant='ghost' onClick={onClose} mr={3}>Cancel</Button>
-                                <Button colorScheme='blue' mr={3} onClick={() => logOut()} alignContent={"center"}>
+                                <Button colorScheme='blue' mr={3} onClick={handleLogOut} alignContent={"center"}>
                                 Logout
                                 </Button>
                             </ModalFooter>
