@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Box, Stack, Input, Button, Textarea, Text, Divider,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure,
-        Alert, AlertIcon, AlertDescription, Avatar } from '@chakra-ui/react'
+        Alert, AlertIcon, AlertDescription, Avatar, Card, HStack } from '@chakra-ui/react'
 import { usePostsContext } from "../../hooks/usePostsContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
@@ -73,19 +73,27 @@ const CreatePost = ( ) => {
 
     return (
       <>
-        <Box
-              onClick={onOpen}
-              bg="white"
-              w="100%"
-              p={5}
-              mb={5}
-              mt={5}
-              borderRadius={70}
-              color="black"
-              _hover={{ bg: "#E0E0E0" }}
-            >
-              How are you feeling today?
-        </Box>
+        <Card borderRadius={15}>
+          <HStack px={5}>
+            <Avatar name={username} src={avatar}/>
+            <Box
+                  onClick={onOpen}
+                  bg="#E0E0E0"
+                  w="100%"
+                  p={5}
+                  mb={5}
+                  mt={5}
+                  borderRadius={70}
+                  minH={15}
+                  color="black"
+                  _hover={{ bg: "#A0A0A0" }}
+                >
+                  How are you feeling today?
+            </Box>
+          </HStack>
+          
+        </Card>
+        
       
 
         <Modal

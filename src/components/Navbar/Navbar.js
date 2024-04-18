@@ -9,7 +9,8 @@ import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider,
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton, } from '@chakra-ui/react';
+    ModalCloseButton,
+    HStack, } from '@chakra-ui/react';
 
 const Navbar = () => {
     const { user } = useAuthContext()?.user || {};
@@ -28,7 +29,7 @@ const Navbar = () => {
             <h1 className = "app-name"><Link to="/">PeacePod</Link></h1>
             <div className="links">
                 {user && (
-                    <div>
+                    <HStack>
                         <Link to="/" className={`peacepod-navlink ${pathname === "/" ? "active" : ""}`}>Home</Link>
                         <Link to="/newsfeed" className={`peacepod-navlink ${pathname === "/newsfeed" ? "active" : ""}`}>NewsFeed</Link>
                         <Link to="/chat" className={`peacepod-navlink ${pathname === "/chat" ? "active" : ""}`}>Messages</Link>
@@ -68,14 +69,14 @@ const Navbar = () => {
                             </ModalFooter>
                             </ModalContent>
                         </Modal>
-                    </div>
+                    </HStack>
                 )}   
                 {(!user) && (
-                    <div>
+                    <HStack>
                         <Link to="/" className={`peacepod-navlink ${pathname === "/" ? "active" : ""}`}>Home</Link>
                         <Link to="/login" className={`peacepod-navlink ${pathname === "/newsfeed" ? "active" : ""}`}>Login</Link>
                         <Link to="/signup" className={`peacepod-navlink ${pathname === "/newsfeed" ? "active" : ""}`}>Signup</Link>
-                    </div>
+                    </HStack>
                 )}
             </div>
         </nav>

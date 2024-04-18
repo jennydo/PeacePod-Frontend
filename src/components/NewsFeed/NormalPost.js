@@ -109,7 +109,7 @@ const NormalPost = ({ post }) => {
 
   return (
     <> 
-      <Card w="100%">
+      <Card w="100%" borderRadius={15}>
         <CardHeader mb="-8">
           <Flex spacing="4">
             <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
