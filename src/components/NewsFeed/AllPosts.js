@@ -5,7 +5,6 @@ import NormalPost from "./NormalPost";
 import { VStack } from "@chakra-ui/react";
 import { usePostsContext } from "../../hooks/usePostsContext";
 import PromptPost from "./PromptPost";
-import { BsNodePlusFill } from "react-icons/bs";
 
 const AllPosts = () => {
 
@@ -27,6 +26,8 @@ const AllPosts = () => {
             else
                 return currentPrompt
         }
+        else
+            return null
     })
 
     /// axios to get prompt

@@ -51,7 +51,6 @@ const PromptPost = ({ post }) => {
       if (!post)
         return
       
-      console.log("Prompt post ", post)
       // get the Comments object for the post
       axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
         .then((response) => {
