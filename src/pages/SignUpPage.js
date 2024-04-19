@@ -1,4 +1,4 @@
-import SignUp from '../components/SignUp/SignUp.js';
+import SignUp from "../components/UserProfile/SignUp/SignUp";
 
 const SignUpPage = () => {
     return ( 

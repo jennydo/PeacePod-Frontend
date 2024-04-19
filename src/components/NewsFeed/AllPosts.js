@@ -5,91 +5,71 @@ import NormalPost from "./NormalPost";
 import { VStack } from "@chakra-ui/react";
 import { usePostsContext } from "../../hooks/usePostsContext";
 import PromptPost from "./PromptPost";
+import { useAuthContext } from '../../hooks/useAuthContext'
 
 const AllPosts = () => {
-
+    const { user } = useAuthContext()
     const { posts, dispatch } = usePostsContext();
 
-    const userId = "661d771224e3217738f8310d"
-    const [ prompt, setPrompt ] = useState(null)
+    const userId = "661f3d5f7bc0dc0597752679"
 
     /// axios to get prompt
     const getPrompt = async () => {
-
-        let response
-        try {
-          
-          dispatch({
-            type: 'UPDATE_POST'
-          })
-
-          response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId })
-  
-          dispatch({
-            type: 'CREATE_POST',
-            payload: response.data
-          })        
-  
-          // const allPosts = await axios.get("http://localhost:4000/api/posts/")
-          
-          // dispatch({
-          //     type: 'GET_POSTS',
-          //     payload: allPosts.data
-          // })
-  
-          console.log("Response from get prompt ", response.data)
-  
-          setPrompt(response.data)
-        } catch (err) {
-          console.log("error while creating prompt ", err)
-        }
+      let response
+      try {
+        dispatch({
+          type: 'UPDATE_POST'
+        })
+        response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId }, {
+          headers: { "Authorization": `Bearer ${user.token}`}
+        })
+        dispatch({
+          type: 'CREATE_POST',
+          payload: response.data
+        })        
+        console.log("Response from get prompt ", response.data)
+      } catch (err) {
+        console.log("error while creating prompt ", err)
       }
+    }
   
-      const scheduleDailyPrompt = () => {
-  
-        const now = new Date()
-        const tmr = new Date(now)
-        tmr.setDate(now.getDate() + 1)
-        tmr.setTime(0, 0, 0, 0)
-  
-        const timeUntilMidnight = tmr - now
-  
-        setTimeout(() => {
-          getPrompt()
-          scheduleDailyPrompt()
-        }, timeUntilMidnight)
-      }
-  
-      useEffect(async () => {
+    const scheduleDailyPrompt = () => {
+
+      const now = new Date()
+      const tmr = new Date(now)
+      tmr.setDate(now.getDate() + 1)
+      tmr.setTime(0, 0, 0, 0)
+
+      const timeUntilMidnight = tmr - now
+      // const timeUntilMidnight = 15 * 1000;
+      setTimeout(() => {
         getPrompt()
         scheduleDailyPrompt()
-  
-        const allPosts = await axios.get("http://localhost:4000/api/posts/")
-          
-        dispatch({
-            type: 'GET_POSTS',
-            payload: allPosts.data
-        })
-      }, [])
+      }, timeUntilMidnight)
+    }
 
     useEffect(() => {
-        axios.get("http://localhost:4000/api/posts/")
+        scheduleDailyPrompt()
+
+        axios.get("http://localhost:4000/api/posts/", {
+          headers: { "Authorization": `Bearer ${user.token}`}
+        })
             .then((response) => {
                 dispatch({
                     type: "GET_POSTS",
                     payload: response.data
                 })
             });
-    }, [dispatch]);
+    }, [dispatch])
 
     return (
         <>
-            <PromptPost post={posts.filter(p => p.isPrompt == true)[0]}/>
+            <PromptPost post={posts.filter(p => p.isPrompt === true)[0]}/>
             <VStack
                 spacing={4}
                 align='stretch'
                 >
-                {posts && posts.filter((post) => post.isPrompt == false).map((post) => (
+                {posts && posts.filter((post) => post.isPrompt === false).map((post) => (
                     <NormalPost key={post._id} post={post}/>
                 ))}
             </VStack>            

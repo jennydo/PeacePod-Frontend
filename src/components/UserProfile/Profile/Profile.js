@@ -12,27 +12,11 @@ import {
 } from '@chakra-ui/react'
 import { EditIcon } from '@chakra-ui/icons'
 import './Profile.css'
+import { useAuthContext } from '../../../hooks/useAuthContext'
 
 const Profile = () => {
-
-    /// Later fetch data
-    const imgSrc = 'https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg'
-    const username = 'Ke huy diet Catan'
-    const pronouns = 'he/him/his'
-    const gender = 'Man'
-    const sexualOrientation = [
-        'Straight'
-    ]
-    const location = 'Lawrenceville, Georgia, United States'
-
-    const interests = [
-        'Chess',
-        'Boardgames',
-        'Catan',
-        'Reality shows'
-    ]
-
-    const bio = 'A low-key Catan prodigy who is feeling isolated and longing for a worthy challenger.'
+    const { user } = useAuthContext()
+    const { username, avatar, gender, interests, location, pronounce, sexualOrientation, bio } = user.user
 
     return (
     <VStack>
@@ -45,7 +29,7 @@ const Profile = () => {
         
         <Circle>
             <Image 
-                src={imgSrc}
+                src={avatar}
                 alt={username}
                 borderRadius='full'
                 boxSize='200px'
@@ -53,7 +37,7 @@ const Profile = () => {
             />
         </Circle>
         <Text fontSize='2xl' color='#98B9F2' marginBottom={0}>{username}</Text>
-        <Text fontSize='xl'>{`(${pronouns})`}</Text>
+        <Text fontSize='xl'>{`(${pronounce})`}</Text>
 
         {/* Gender */}
         <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center'>

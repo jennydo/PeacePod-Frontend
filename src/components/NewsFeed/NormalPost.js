@@ -27,6 +27,7 @@ import { FaHeart, FaComment } from "react-icons/fa";
 import Comment from './Comment';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useCommentsContext } from "../../hooks/useCommentsContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const NormalPost = ({ post }) => {
 
@@ -79,8 +80,10 @@ const NormalPost = ({ post }) => {
     }
   }, [postId, userId, dispatch, isOpen]);
 
-  // Temporary user id
-  const commentingUserId = "66196ea6536f9e9410f53de9";
+  // Id of user currently logged in 
+  const { user: commentingUser } = useAuthContext()
+  const { _id: commentingUserId } = commentingUser.user
+  // const commentingUserId = "661f385d7bc0dc0597752644";
 
   const handlePostComment = async () => {
     if (!newComment.trim()) return; // Avoid posting empty comments
@@ -89,6 +92,8 @@ const NormalPost = ({ post }) => {
       const response = await axios.post(`http://localhost:4000/api/comments/${postId}`, {
         userId: commentingUserId,
         content: newComment
+      },{
+        headers: { "Authorization": `Bearer ${commentingUser.token}`}
       });
       setNewComment(""); // Clear the input field after posting the comment
       dispatch({
