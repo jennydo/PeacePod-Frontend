@@ -31,6 +31,7 @@ import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
 
 import Comment from './Comment';
 import { useCommentsContext } from '../../hooks/useCommentsContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 import Logo from '../../assets/images/sign.png'
 
@@ -48,8 +49,9 @@ const PromptPost = ({ post }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    // Temporary user id
-    const commentingUserId = "661f385d7bc0dc0597752644";
+    // Id of user currently logged in 
+  const { user: commentingUser } = useAuthContext()
+  const { _id: commentingUserId } = commentingUser.user
 
     /// Get all comments for prompt
     useEffect(() => {
@@ -88,6 +90,8 @@ const PromptPost = ({ post }) => {
         const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
           userId: commentingUserId,
           content: newComment
+        }, {
+          headers: { "Authorization": `Bearer ${commentingUser.token}`}
         });
         setNewComment(""); // Clear the input field after posting the comment
         dispatch({

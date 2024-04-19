@@ -25,19 +25,22 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
     const [ newComment, setNewComment ] = useState("")
     const { comments, dispatch } = useCommentsContext();
 
-    // Temporary user id
-    const commentingUserId = "661f385d7bc0dc0597752644";
+    // Id of user currently logged in 
+    const { user: commentingUser } = useAuthContext()
+    const { _id: commentingUserId } = commentingUser.user
+    // const commentingUserId = "661f385d7bc0dc0597752644";
 
     const handlePostComment = async () => {
-        if (!newComment.trim() || !post) return; // Avoid posting empty comments
+        if (!newComment.trim()) return; // Avoid posting empty comments
 
         try {
-        const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
+        const response = await axios.post(`http://localhost:4000/api/comments/${postId}`, {
             userId: commentingUserId,
             content: newComment
+        },{
+            headers: { "Authorization": `Bearer ${commentingUser.token}`}
         });
         setNewComment(""); // Clear the input field after posting the comment
-        console.log("in modal comment, res from post ", response.data)
         dispatch({
             type: 'CREATE_COMMENT',
             payload: response.data
@@ -46,7 +49,6 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
         console.error("Error posting comment:", error);
         }
     };
-
 
     return (
         <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="inside">

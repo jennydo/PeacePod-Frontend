@@ -3,7 +3,6 @@ import SexualityModal from "./SexualityModal.js";
 import { pronouns, genders, sexualities, countries, interestList } from "./userConstants.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import axios from "axios";
 import {
     Container,
     Button,
@@ -18,16 +17,20 @@ import {
     InputGroup,
     InputRightElement,
     Grid,
-    Image,
     Divider,
     Textarea,
-    Select
+    Select, 
+    Alert, AlertDescription, AlertIcon
 } from "@chakra-ui/react";
 import InterestModal from "./InterestModal.js";
+import { useAuthContext } from "../../../hooks/useAuthContext.js";
 
 const SignUp = () => {
-    const [username, setUsername] = useState("")
+    const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(null)
+    const {dispatch} = useAuthContext()
 
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
 
     const [password, setPassword] = useState("")
@@ -51,7 +54,7 @@ const SignUp = () => {
 
     const [bio, setBio] = useState("");
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const newUser = {
             username,
             password,
@@ -64,73 +67,84 @@ const SignUp = () => {
             bio
         }
 
-        // console.log(newUser);
-        axios.post("http://localhost:4000/api/users/signUp", newUser)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        const response = await fetch('http://localhost:4000/api/users/signUp', {
+            method: "POST", 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newUser)
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+            setIsLoading(false)
+            setError(json.error)
+            console.log("error sign up", error)
+        }
+
+        if (response.ok) {
+            localStorage.setItem('user', JSON.stringify(json))
+            dispatch({type: "LOGIN", payload: json})
+            setIsLoading(false)
+        }
     }
 
     return (
         <Container className="signup-page">
             <Stack>
-                <Grid templateColumns="70% 30%" gap={15}>
-                    <Stack>
-                        {/* Username, Email */}
-                        <Stack className="username">
-                            <FormControl isRequired>
-                                <FormLabel>Username</FormLabel>
-                                <Input 
-                                    placeholder='Username' 
-                                    onChange={(e) => setUsername(e.target.value)} />
-                            </FormControl>
-                        </Stack>
-                        <Stack className="email">
-                            <FormControl isRequired>
-                                <FormLabel>Email</FormLabel>
-                                <Input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
-                            </FormControl>
-                        </Stack>
-
-                        {/* Password */}
-                        <Stack className="password">
-                            <FormLabel>Password</FormLabel>
-                            <InputGroup size='md'>
-                                <Input
-                                    pr='4.5rem'
-                                    type={showPw ? 'text' : 'password'}
-                                    placeholder='Enter password' 
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClickPassword}>
-                                        {showPw ? 'Hide' : 'Show'}
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                        </Stack>
-
-                        <Stack className="password">
-                            <FormLabel>Re-type Password</FormLabel>
-                            <InputGroup size='md'>
-                                <Input
-                                    pr='4.5rem'
-                                    type={showRetypePw ? 'text' : 'password'}
-                                    placeholder='Re-type password'
-                                />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClickPasswordReType}>
-                                        {showRetypePw ? 'Hide' : 'Show'}
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                        </Stack>
+                {/* <Grid templateColumns="70% 30%" gap={15}> */}
+                <Stack>
+                    {/* Username, Email */}
+                    <Stack className="username">
+                        <FormControl isRequired>
+                            <FormLabel>Username</FormLabel>
+                            <Input 
+                                placeholder='Username' 
+                                onChange={(e) => setUsername(e.target.value)} />
+                        </FormControl>
+                    </Stack>
+                    <Stack className="email">
+                        <FormControl isRequired>
+                            <FormLabel>Email</FormLabel>
+                            <Input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
+                        </FormControl>
                     </Stack>
 
-                    <Stack align="center">
+                    {/* Password */}
+                    <Stack className="password">
+                        <FormLabel>Password</FormLabel>
+                        <InputGroup size='md'>
+                            <Input
+                                pr='4.5rem'
+                                type={showPw ? 'text' : 'password'}
+                                placeholder='Enter password' 
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClickPassword}>
+                                    {showPw ? 'Hide' : 'Show'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </Stack>
+
+                    <Stack className="password">
+                        <FormLabel>Re-type Password</FormLabel>
+                        <InputGroup size='md'>
+                            <Input
+                                pr='4.5rem'
+                                type={showRetypePw ? 'text' : 'password'}
+                                placeholder='Re-type password'
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClickPasswordReType}>
+                                    {showRetypePw ? 'Hide' : 'Show'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </Stack>
+                </Stack>
+
+                    {/* <Stack align="center">
                         <Heading as="h4" size="sm">
                             Avatar Upload
                         </Heading>
@@ -143,9 +157,9 @@ const SignUp = () => {
                         <Button colorScheme='teal' variant='solid'>
                             Upload
                         </Button>
-                    </Stack>
+                    </Stack> */}
 
-                </Grid>
+                {/* </Grid> */}
 
                 {/* CHOOSE PRONOUN */}
                 <Stack className="pronouns">
@@ -310,11 +324,20 @@ const SignUp = () => {
                     <Button 
                         onClick={() => handleSubmit()}
                         rightIcon={<FontAwesomeIcon icon={faArrowRight} />} 
+                        disabled={isLoading}
                         colorScheme='teal' 
                         variant='outline'>
                         Create
                     </Button>
                 </Stack>
+                
+                {error && 
+                    <Alert status="error">
+                        <AlertIcon />
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                }   
+                
                 <Box w='100%' h="50px"></Box>
             </Stack>
         </Container>

@@ -5,15 +5,15 @@ import NormalPost from "./NormalPost";
 import { VStack } from "@chakra-ui/react";
 import { usePostsContext } from "../../hooks/usePostsContext";
 import PromptPost from "./PromptPost";
+import { useAuthContext } from '../../hooks/useAuthContext'
 
 const AllPosts = () => {
-
+    const { user } = useAuthContext()
     const { posts, dispatch } = usePostsContext();
 
     const peacepodUserId = "661f3d5f7bc0dc0597752679"
     const [ prompt, setPrompt ] = useState(() => {
         const currentPrompt = JSON.parse(localStorage.getItem('prompt'))
-
 
         if (currentPrompt)
         {
@@ -44,7 +44,9 @@ const AllPosts = () => {
             type: 'UPDATE_POST'
           })
 
-          response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId: peacepodUserId })
+          response = await axios.post("http://localhost:4000/api/posts/prompt/", { peacepodUserId }, {
+            headers: { "Authorization": `Bearer ${user.token}`}
+          })
   
           dispatch({
             type: 'CREATE_POST',
@@ -69,8 +71,6 @@ const AllPosts = () => {
         tmr.setDate(now.getDate() + 1)
         tmr.setTime(0, 0, 0, 0)
 
-
-
         const timeUntilMidnight = tmr - now
 
         setTimeout(() => {
@@ -87,14 +87,16 @@ const AllPosts = () => {
 
     /// Get all current post
     useEffect(() => {
-        axios.get("http://localhost:4000/api/posts/")
+        axios.get("http://localhost:4000/api/posts/", {
+          headers: { "Authorization": `Bearer ${user.token}`}
+        })
             .then((response) => {
                 dispatch({
                     type: "GET_POSTS",
                     payload: response.data
                 })
             });
-    }, [dispatch]);
+    }, [dispatch])
 
     return (
         <>

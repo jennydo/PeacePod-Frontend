@@ -28,6 +28,7 @@ import Comment from './Comment';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useCommentsContext } from "../../hooks/useCommentsContext";
 import PostModal from "./PostModal";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const NormalPost = ({ post }) => {
 
