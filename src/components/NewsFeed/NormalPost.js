@@ -19,6 +19,7 @@ import { FaHeart, FaComment } from "react-icons/fa";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useCommentsContext } from "../../hooks/useCommentsContext";
 import PostModal from "./PostModal";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const NormalPost = ({ post }) => {
 
@@ -28,8 +29,6 @@ const NormalPost = ({ post }) => {
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
 
   const [user, setUser] = useState(null);
-  // const [newComment, setNewComment] = useState("");
-
   const { comments, dispatch } = useCommentsContext();
 
   const finalRef = React.useRef(null);
@@ -65,7 +64,7 @@ const NormalPost = ({ post }) => {
         type: 'CLEAR_COMMENTS', 
       })
     }
-  }, [dispatch, isOpen]);
+  }, [postId, userId, dispatch, isOpen]);
 
   const { avatar, username } = user || {};
 
@@ -130,9 +129,7 @@ const NormalPost = ({ post }) => {
 
       </Card>
 
-      <PostModal postId={postId} isOpen={isOpen} onClose={onClose} finalRef={finalRef} 
-                title={title} username={username} avatar={avatar} formattedTimeStamp={formattedTimeStamp} 
-                content={content} comments={comments} dispatch={dispatch}/>
+      <PostModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} post={post} user={user} formattedTimeStamp={formattedTimeStamp}/>
     </>
   );
 };

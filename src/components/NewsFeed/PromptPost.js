@@ -13,38 +13,58 @@ import {
   IconButton,
   Flex,
   Avatar,
+  Box
 } from "@chakra-ui/react";
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { FaHeart, FaComment } from "react-icons/fa";
 import axios from 'axios';
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
+import Comment from './Comment';
 import { useCommentsContext } from '../../hooks/useCommentsContext';
 import PostModal from "./PostModal";
-import Comment from './Comment';
+
+import Logo from '../../assets/images/sign.png'
 
 const PromptPost = ({ post }) => {
-    console.log("Prompt Post object: ", post)
-    const { comments, dispatch: commentsDispatch} = useCommentsContext()
-    const [ displayedComments, setDisplayedComments ] = useState([])
-    const formattedTimeStamp = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })
+    const timeStamp = post?.createdAt;
+    // format the timestamp to be more readable: "x minutes ago"
+    const formattedTimeStamp = post && formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
+
+    const [user, setUser] = useState(null);
+    const { comments, dispatch } = useCommentsContext()
+    const [ displayedComments, setDisplayedComments ] = useState(null)
 
     const finalRef = React.useRef(null);
 
     const { isOpen: isOpenPrompt, onOpen: onOpenPrompt, onClose: onClosePrompt } = useDisclosure();
 
-    useEffect(() => {   
+    /// Get all comments for prompt
+    useEffect(() => {
+      if (!post)
+        return
+
+      // get the User object by userId
+      axios.get(`http://localhost:4000/api/users/findUser/${post.userId}`)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user:", error);
+      });
+      
+      // get the Comments object for the post
       axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
         .then((response) => {
-          const latestComments = response.data.slice(Math.max(response.data.length - 2, 0));
+          const latestComments = response.data.slice(0, 3)
+          console.log("Comments previewed ", latestComments)
           setDisplayedComments(latestComments)
-          console.log("Display coments ", displayedComments)
-          console.log("Comments response", response.data);
+
           if (isOpenPrompt) {
-            commentsDispatch({
+            dispatch({
               type: 'GET_COMMENTS', 
               payload: response.data
             })
           } else {
-              commentsDispatch({
+              dispatch({
                 type: 'CLEAR_COMMENTS', 
               })
           }
@@ -52,7 +72,7 @@ const PromptPost = ({ post }) => {
         .catch((error) => {
           console.error("Error fetching comments:", error);
         });
-    }, [commentsDispatch, isOpenPrompt]);
+    }, [post, dispatch, isOpenPrompt]);
 
     return (
     <>
@@ -60,8 +80,13 @@ const PromptPost = ({ post }) => {
         <CardHeader mb="-8">
             <Flex spacing="4">
               <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
-                <Avatar name="PeacePod" src="https://res-console.cloudinary.com/dirace6tl/thumbnails/v1/image/upload/v1713207021/c2lnbl9rcTl3dW4=/preview" bg='green.100'/>
-                <Text fontSize="md" marginBottom="0px">PeacePod</Text>
+                <Avatar name="PeacePod" src={Logo} bg='green.100'/>
+                <Box>
+                  <Text fontSize="md">PeacePod</Text>
+                  <Text fontSize="xs">
+                    {formattedTimeStamp}
+                  </Text>
+                </Box>
               </Flex>
               <IconButton
                 variant="ghost"
@@ -109,7 +134,7 @@ const PromptPost = ({ post }) => {
           _hover={{ color: "blue.500", textDecoration: "underline" }}
           marginLeft='15px' marginRight='15px' marginTop='5px' 
           justifyContent='left' width='max-content'>
-          View more comments
+          {displayedComments && displayedComments.length > 0? "View more comments": ""}
         </Text>
 
         {/* Comment for Prompt Post */}
@@ -122,10 +147,8 @@ const PromptPost = ({ post }) => {
         </VStack>
       </Card>
       
-      <PostModal postId={post._id} isOpen={isOpenPrompt} onClose={onClosePrompt} finalRef={finalRef} 
-                title={post.title} username={post.username} avatar={post.avatar} 
-                formattedTimeStamp={formattedTimeStamp} 
-                content={post.content} comments={comments} dispatch={commentsDispatch}/>
+      <PostModal finalRef={finalRef} isOpen={isOpenPrompt} onClose={onClosePrompt} post={post} user={user} formattedTimeStamp={formattedTimeStamp}/>
+
     </>
   )
 }

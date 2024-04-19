@@ -1,38 +1,39 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from 'react'
 import {
-  Text,
-  Flex,
-  Avatar,
-  Box,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Input,
-  Divider,
-} from "@chakra-ui/react";
-import Comment from './Comment';
+    Modal,
+    ModalOverlay,
+    ModalContent, 
+    ModalHeader,
+    ModalBody,
+    ModalCloseButton,
+    ModalFooter,
+    Flex,
+    Box,
+    Text,
+    Input,
+    Avatar,
+    Button,
+    Divider
+} from '@chakra-ui/react'
+import axios from 'axios'
+import { useCommentsContext } from '../../hooks/useCommentsContext'
 import { useAuthContext } from "../../hooks/useAuthContext";
+import Comment from './Comment'
 
+const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp}) => {
 
-const PostModal = ({postId, isOpen, onClose, finalRef, title, username, avatar, formattedTimeStamp, content, comments, dispatch}) => {
-    const [newComment, setNewComment] = useState("");
+    const [ newComment, setNewComment ] = useState("")
+    const { comments, dispatch } = useCommentsContext();
 
     // Id of user currently logged in 
     const { user: commentingUser } = useAuthContext()
     const { _id: commentingUserId } = commentingUser.user
-    console.log("commening user", commentingUser.user)
 
     const handlePostComment = async () => {
         if (!newComment.trim()) return; // Avoid posting empty comments
 
         try {
-        const response = await axios.post(`http://localhost:4000/api/comments/${postId}`, {
+        const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
             userId: commentingUserId,
             content: newComment
         },{
@@ -58,13 +59,13 @@ const PostModal = ({postId, isOpen, onClose, finalRef, title, username, avatar, 
                 paddingRight: "20px",
             }}
             >
-                <ModalHeader>{title}</ModalHeader>
+                <ModalHeader>{post && post.title}</ModalHeader>
                 <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
                     {" "}
                     {/* Added padding here */}
-                    <Avatar name={username} src={avatar} />
+                    <Avatar name={user && user.username} src={user && user.avatar} />
                     <Box>
-                    <Text fontSize="md">{username}</Text>
+                    <Text fontSize="md">{user?.username}</Text>
                     <Text fontSize="xs">
                         {formattedTimeStamp}
                     </Text>
@@ -74,16 +75,15 @@ const PostModal = ({postId, isOpen, onClose, finalRef, title, username, avatar, 
                 <ModalCloseButton />
 
                 <ModalBody style={{ whiteSpace: 'pre-line' }}>
-                  {content}
-                  <Box padding={7}>
+                    {post?.content}
+                    <Box padding={7}>
                     <Divider w='100%' borderWidth='1px' margin={0}/>  
-                  </Box>
-                  {comments && comments.map((comment, idx) => (
-                      <Comment comment={comment} key={idx} />
+                    </Box>
+                    {comments && comments.map((comment, idx) => (
+                        <Comment comment={comment} key={idx} />
                     ))
-                  }
+                    }
                 </ModalBody>
-
 
                 <ModalFooter>
                     <Input placeholder="Your thought" value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
@@ -92,9 +92,8 @@ const PostModal = ({postId, isOpen, onClose, finalRef, title, username, avatar, 
                     </Button>
                 </ModalFooter>
             </ModalContent>
-
         </Modal>
-     );
+    )
 }
- 
-export default PostModal;
+
+export default PostModal
