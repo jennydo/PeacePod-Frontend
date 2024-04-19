@@ -10,6 +10,7 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 const AllPosts = () => {
     const { user } = useAuthContext()
     const { posts, dispatch } = usePostsContext();
+    const promptPost = posts.find(p => p.isPrompt === true);
 
     const peacepodUserId = "661f3d5f7bc0dc0597752679"
     const [ prompt, setPrompt ] = useState(() => {
@@ -21,7 +22,7 @@ const AllPosts = () => {
             const currentDate = new Date().getDate()
             const promptDate = new Date(currentPrompt.createdAt).getDate()
 
-            if (currentDate != promptDate)
+            if (currentDate !== promptDate)
                 return null
             else
                 return currentPrompt
@@ -96,12 +97,11 @@ const AllPosts = () => {
                     payload: response.data
                 })
             });
-    }, [dispatch])
+    }, [dispatch, user.token])
 
     return (
         <>
-            {/* <PromptPost post={posts.filter(p => p.isPrompt == true)[0]}/> */}
-            <PromptPost post={prompt} />
+            {promptPost && <PromptPost post={promptPost}/>}
             <VStack
                 spacing={4}
                 align='stretch'

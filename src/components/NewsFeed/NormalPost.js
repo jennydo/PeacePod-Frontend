@@ -11,48 +11,33 @@ import {
   Box,
   IconButton,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  Input,
   Divider,
   Center
 } from "@chakra-ui/react";
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
-import Comment from './Comment';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useCommentsContext } from "../../hooks/useCommentsContext";
-import PostModal from "./PostModal";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import PostModal from "./PostModal";
 
 const NormalPost = ({ post }) => {
 
   // data from post 
-  const title = post.title;
-  const content = post.content;
-  const timeStamp = post.createdAt;
+  const { title, content, createdAt: timeStamp, userId, _id: postId } = post
   // format the timestamp to be more readable: "x minutes ago"
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
-  const userId = post.userId;
-  const postId = post._id;
 
   const [user, setUser] = useState(null);
-  const [newComment, setNewComment] = useState("");
   const [likes, setLikes] = useState("0"); // count of likes
   const [reacted, setReacted] = useState(false); // boolean to check if the user has reacted to the post
-
   const { comments, dispatch } = useCommentsContext();
 
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Temporary user id
-  const commentingUserId = "66196ea6536f9e9410f53de9";
+  const { user: commentingUser } = useAuthContext()
+  const { _id: commentingUserId } = commentingUser.user
 
   // to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
@@ -67,7 +52,7 @@ const NormalPost = ({ post }) => {
 
     // get the Comments object for the post
     if (isOpen) {
-      axios.get(`http://localhost:4000/api/comments/${postId}/post`)
+      axios.get(`http://localhost:4000/api/comments/post/${postId}`)
         .then((response) => {
           dispatch({
             type: 'GET_COMMENTS',
@@ -85,24 +70,6 @@ const NormalPost = ({ post }) => {
       })
     }
   }, [postId, userId, dispatch, isOpen]);
-
-  // handle posting a comment
-  const handlePostComment = async () => {
-    if (!newComment.trim()) return; // Avoid posting empty comments
-
-    try {
-      const response = await axios.post(`http://localhost:4000/api/comments/${postId}/${commentingUserId}`, {
-        content: newComment
-      });
-      setNewComment(""); // Clear the input field after posting the comment
-      dispatch({
-        type: 'CREATE_COMMENT',
-        payload: response.data
-      })
-    } catch (error) {
-      console.error("Error posting comment:", error);
-    }
-  };
 
   // get the count of likes when the component is mounted
   useEffect(() => {
@@ -139,7 +106,6 @@ const NormalPost = ({ post }) => {
       console.log("Reacted");
     }
   };
-
   const { avatar, username } = user || {};
 
   const previewNum = 50

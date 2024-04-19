@@ -6,15 +6,7 @@ import {
   CardFooter,
   Card,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  Input,
   Center,
   Divider,
   VStack,
@@ -23,50 +15,50 @@ import {
   Avatar,
   Box
 } from "@chakra-ui/react";
-
 import { FaHeart, FaComment } from "react-icons/fa";
-import { BsSendFill } from "react-icons/bs";
 import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
-
 import Comment from './Comment';
 import { useCommentsContext } from '../../hooks/useCommentsContext';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import PostModal from "./PostModal";
 
 import Logo from '../../assets/images/sign.png'
 
 const PromptPost = ({ post }) => {
-
     const timeStamp = post?.createdAt;
     // format the timestamp to be more readable: "x minutes ago"
     const formattedTimeStamp = post && formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
 
-    const [ newComment, setNewComment ] = useState("")
+    const [user, setUser] = useState(null);
     const { comments, dispatch } = useCommentsContext()
     const [ displayedComments, setDisplayedComments ] = useState(null)
 
     const finalRef = React.useRef(null);
 
-    const { isOpen, onOpen, onClose } = useDisclosure();
-
-    // Id of user currently logged in 
-  const { user: commentingUser } = useAuthContext()
-  const { _id: commentingUserId } = commentingUser.user
+    const { isOpen: isOpenPrompt, onOpen: onOpenPrompt, onClose: onClosePrompt } = useDisclosure();
 
     /// Get all comments for prompt
     useEffect(() => {
       if (!post)
         return
+
+      // get the User object by userId
+      axios.get(`http://localhost:4000/api/users/findUser/${post.userId}`)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user:", error);
+      });
       
       // get the Comments object for the post
       axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
         .then((response) => {
-
           const latestComments = response.data.slice(0, 3)
           console.log("Comments previewed ", latestComments)
           setDisplayedComments(latestComments)
 
-          if (isOpen) {
+          if (isOpenPrompt) {
             dispatch({
               type: 'GET_COMMENTS', 
               payload: response.data
@@ -80,29 +72,7 @@ const PromptPost = ({ post }) => {
         .catch((error) => {
           console.error("Error fetching comments:", error);
         });
-    }, [post, dispatch, isOpen]);
-
-    /// Send comment
-    const handlePostComment = async () => {
-      if (!newComment.trim() || !post) return; // Avoid posting empty comments
-  
-      try {
-        const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
-          userId: commentingUserId,
-          content: newComment
-        }, {
-          headers: { "Authorization": `Bearer ${commentingUser.token}`}
-        });
-        setNewComment(""); // Clear the input field after posting the comment
-        dispatch({
-          type: 'CREATE_COMMENT',
-          payload: response.data
-        })
-      } catch (error) {
-        console.error("Error posting comment:", error);
-      }
-    };
-    /// End handle send comment
+    }, [post, dispatch, isOpenPrompt]);
 
     return (
     <>
@@ -148,7 +118,7 @@ const PromptPost = ({ post }) => {
           <Button variant="ghost" flex="1" leftIcon={<FaHeart />}>
             Like
           </Button>
-          <Button variant="ghost" flex="1" onClick={onOpen} leftIcon={<FaComment />}>
+          <Button variant="ghost" flex="1" onClick={onOpenPrompt} leftIcon={<FaComment />}>
             Comment
           </Button>
         </CardFooter>
@@ -158,7 +128,7 @@ const PromptPost = ({ post }) => {
         </Center>
 
         <Text 
-          onClick={onOpen} 
+          onClick={onOpenPrompt} 
           color="gray.500" 
           fontStyle="italic" 
           _hover={{ color: "blue.500", textDecoration: "underline" }}
@@ -177,56 +147,8 @@ const PromptPost = ({ post }) => {
         </VStack>
       </Card>
       
-      {/* Pop up modal when click comment or see more */}
-      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size='5xl' >
-        <ModalOverlay />
-        <ModalContent
-          sx={{
-            borderRadius: "30px",
-            paddingLeft: "20px",
-            paddingRight: "20px",
-            backgroundColor: "aliceblue", // Replace 'yourBackgroundColor' with your desired color
-          }}
-        >
-          <ModalHeader></ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Card>
-              <CardHeader>
-                <Text fontSize='xl'>Prompt of the day!!!</Text>
-              </CardHeader>
+      <PostModal finalRef={finalRef} isOpen={isOpenPrompt} onClose={onClosePrompt} post={post} user={user} formattedTimeStamp={formattedTimeStamp}/>
 
-              <CardBody paddingTop={0} paddingBottom={0}>
-                <Text>{post && post.content}</Text>
-              </CardBody>
-
-              <Center margin={0}>
-                <Divider width='95%' borderWidth='1px' margin={0}/>          
-              </Center>
-
-              {/* Comment for Prompt Post */}
-              <VStack align='left'>
-                {
-                  comments && comments.map((comment, idx) => (
-                    <Comment comment={comment} key={idx} />
-                  ))
-                }
-              </VStack>
-            </Card>
-          </ModalBody>
-          <ModalFooter>
-            <Input placeholder='Your thought' marginRight={3} value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
-            <IconButton 
-              aria-label='comment' 
-              background='blanchedalmond'
-              size="md" 
-              icon={<div color='red'><BsSendFill style={{color: 'red'}}/></div>}   
-              onClick={handlePostComment}
-            />
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-      {/* End modal */}
     </>
   )
 }

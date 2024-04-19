@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { useCommentsContext } from '../../hooks/useCommentsContext'
-
+import { useAuthContext } from "../../hooks/useAuthContext";
 import Comment from './Comment'
 
 const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp}) => {
@@ -28,13 +28,12 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
     // Id of user currently logged in 
     const { user: commentingUser } = useAuthContext()
     const { _id: commentingUserId } = commentingUser.user
-    // const commentingUserId = "661f385d7bc0dc0597752644";
 
     const handlePostComment = async () => {
         if (!newComment.trim()) return; // Avoid posting empty comments
 
         try {
-        const response = await axios.post(`http://localhost:4000/api/comments/${postId}`, {
+        const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
             userId: commentingUserId,
             content: newComment
         },{
@@ -50,7 +49,7 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
         }
     };
 
-    return (
+    return ( 
         <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="inside">
             <ModalOverlay />
             <ModalContent
@@ -85,7 +84,6 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
                     ))
                     }
                 </ModalBody>
-
 
                 <ModalFooter>
                     <Input placeholder="Your thought" value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
