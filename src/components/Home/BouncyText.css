@@ -11,14 +11,4 @@
     /* -webkit-background-clip: text; */
     /* -webkit-text-fill-color: transparent; */
     color: transparent;
-    animation: animate 5s linear infinite alternate;
-}
-
-@keyframes  animate {
-  0% {
-    background-position: 0;
-  }
-  100% {
-    background-position: 400px;
-  }
 }

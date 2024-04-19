@@ -12,6 +12,15 @@ export const postsReducer = (state, action) => {
             return {
                 posts: [action.payload, ...state.posts]
             }
+        case 'UPDATE_POST':
+            return {
+                posts: state.posts.map(post => {
+                    if (post.isPrompt) {
+                        post.isPrompt = false
+                    }
+                    return post
+                })
+            }
         case 'DELETE_POST':
             return {
                 posts: state.posts.filter(p => p._id !== action.payload._id) 
@@ -23,7 +32,7 @@ export const postsReducer = (state, action) => {
 
 export const PostsContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(postsReducer, {
-        posts: null
+        posts: []
     })
 
     return (

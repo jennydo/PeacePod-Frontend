@@ -41,7 +41,7 @@ const QuotesAndTipsCards = () => {
           color="white"
           flex="1"
           variant="ghost"
-          leftIcon={<i class="bi bi-heart"></i>}
+          leftIcon={<i className="bi bi-heart"></i>}
         >
           Like
         </Button>
@@ -50,7 +50,7 @@ const QuotesAndTipsCards = () => {
           color="white"
           flex="1"
           variant="ghost"
-          leftIcon={<i class="bi bi-share" color="white"></i>}
+          leftIcon={<i className="bi bi-share" color="white"></i>}
         >
           Share
         </Button>

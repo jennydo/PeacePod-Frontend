@@ -5,9 +5,6 @@ import {
   CardBody,
   CardFooter,
   Card,
-  Flex,
-  Avatar,
-  Box,
   Button,
   Modal,
   ModalOverlay,
@@ -22,60 +19,116 @@ import {
   Divider,
   VStack,
   IconButton,
+  Flex,
+  Avatar,
+  Box
 } from "@chakra-ui/react";
+
 import { FaHeart, FaComment } from "react-icons/fa";
 import { BsSendFill } from "react-icons/bs";
 import axios from 'axios';
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
 
 import Comment from './Comment';
+import { useCommentsContext } from '../../hooks/useCommentsContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
-const PromptPost = () => {
-    const avatar =
-        "https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg";
-    const username = "khoale";
+import Logo from '../../assets/images/sign.png'
 
-    const [ prompt, setPrompt ] = useState("")
-    /// axios to get prompt
-    const getPrompt = async () => {
+const PromptPost = ({ post }) => {
 
-      const newPrompt = await axios.get("http://localhost:4000/api/posts/prompt")
-      console.log("New Prompt is ", newPrompt.data)
-      setPrompt(newPrompt.data)
-    }
+    const timeStamp = post?.createdAt;
+    // format the timestamp to be more readable: "x minutes ago"
+    const formattedTimeStamp = post && formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
 
-    // useEffect(() => {
-    //   getPrompt()
-    //   setInterval(() => {
-    //     getPrompt()
-    //   }, 5 * 1000)
-    // }, [])
+    const [ newComment, setNewComment ] = useState("")
+    const { comments, dispatch } = useCommentsContext()
+    const [ displayedComments, setDisplayedComments ] = useState(null)
 
     const finalRef = React.useRef(null);
-    const timeStamp = new Date();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    /// Replace with axios get later to get comments
-    const comments = [
-      "Hom nay luon ne minh vua tu chuoi non duoc len chuoi noi ne",
-      "Anh khue la con de non",
-      `Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non,
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non
-      Anh khue la con de non, Anh khue la con de non, Anh khue la con de non, Anh khue la con de non`
-    ]
+    // Id of user currently logged in 
+  const { user: commentingUser } = useAuthContext()
+  const { _id: commentingUserId } = commentingUser.user
+
+    /// Get all comments for prompt
+    useEffect(() => {
+      if (!post)
+        return
+      
+      // get the Comments object for the post
+      axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
+        .then((response) => {
+
+          const latestComments = response.data.slice(0, 3)
+          console.log("Comments previewed ", latestComments)
+          setDisplayedComments(latestComments)
+
+          if (isOpen) {
+            dispatch({
+              type: 'GET_COMMENTS', 
+              payload: response.data
+            })
+          } else {
+              dispatch({
+                type: 'CLEAR_COMMENTS', 
+              })
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+        });
+    }, [post, dispatch, isOpen]);
+
+    /// Send comment
+    const handlePostComment = async () => {
+      if (!newComment.trim() || !post) return; // Avoid posting empty comments
+  
+      try {
+        const response = await axios.post(`http://localhost:4000/api/comments/${post._id}`, {
+          userId: commentingUserId,
+          content: newComment
+        }, {
+          headers: { "Authorization": `Bearer ${commentingUser.token}`}
+        });
+        setNewComment(""); // Clear the input field after posting the comment
+        dispatch({
+          type: 'CREATE_COMMENT',
+          payload: response.data
+        })
+      } catch (error) {
+        console.error("Error posting comment:", error);
+      }
+    };
+    /// End handle send comment
 
     return (
     <>
       <Card w='100%' mt={4} mb={4}>
-        <CardHeader>
-            <Text fontSize='3xl'>Prompt of the day!!!</Text>
-        </CardHeader>
+        <CardHeader mb="-8">
+            <Flex spacing="4">
+              <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
+                <Avatar name="PeacePod" src={Logo} bg='green.100'/>
+                <Box>
+                  <Text fontSize="md">PeacePod</Text>
+                  <Text fontSize="xs">
+                    {formattedTimeStamp}
+                  </Text>
+                </Box>
+              </Flex>
+              <IconButton
+                variant="ghost"
+                colorScheme="gray"
+                aria-label="See menu"
+              />
+            </Flex>
+            <Text fontSize="xl">{post && post.title}</Text>
+          </CardHeader>
 
         <CardBody paddingTop='0px' paddingBottom='0px' >
-          <Text fontSize='2xl'>{prompt}</Text>
+          <Text fontSize='2xl'>{post && post.content}</Text>
         </CardBody>
 
         <Center margin={0}>
@@ -111,13 +164,13 @@ const PromptPost = () => {
           _hover={{ color: "blue.500", textDecoration: "underline" }}
           marginLeft='15px' marginRight='15px' marginTop='5px' 
           justifyContent='left' width='max-content'>
-          View more comments
+          {displayedComments && displayedComments.length > 0? "View more comments": ""}
         </Text>
 
         {/* Comment for Prompt Post */}
         <VStack align='left'>
           {
-            comments && comments.slice(0, 2).map((comment, idx) => (
+            displayedComments && displayedComments.map((comment, idx) => (
               <Comment comment={comment} key={idx} />
             ))
           }
@@ -144,7 +197,7 @@ const PromptPost = () => {
               </CardHeader>
 
               <CardBody paddingTop={0} paddingBottom={0}>
-                <Text>{prompt}</Text>
+                <Text>{post && post.content}</Text>
               </CardBody>
 
               <Center margin={0}>
@@ -162,12 +215,13 @@ const PromptPost = () => {
             </Card>
           </ModalBody>
           <ModalFooter>
-            <Input placeholder='Your thought' marginRight={3} />
+            <Input placeholder='Your thought' marginRight={3} value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
             <IconButton 
               aria-label='comment' 
               background='blanchedalmond'
               size="md" 
               icon={<div color='red'><BsSendFill style={{color: 'red'}}/></div>}   
+              onClick={handlePostComment}
             />
           </ModalFooter>
         </ModalContent>
