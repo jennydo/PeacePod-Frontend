@@ -11,23 +11,15 @@ import {
   Box,
   IconButton,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  Input,
   Divider,
   Center
 } from "@chakra-ui/react";
-import { FaHeart, FaComment } from "react-icons/fa";
-import Comment from './Comment';
+import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useCommentsContext } from "../../hooks/useCommentsContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import PostModal from "./PostModal";
 
 const NormalPost = ({ post }) => {
 
@@ -37,30 +29,33 @@ const NormalPost = ({ post }) => {
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
 
   const [user, setUser] = useState(null);
-  const [newComment, setNewComment] = useState("");
-
+  const [likes, setLikes] = useState("0"); // count of likes
+  const [reacted, setReacted] = useState(false); // boolean to check if the user has reacted to the post
   const { comments, dispatch } = useCommentsContext();
 
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { user: commentingUser } = useAuthContext()
+  const { _id: commentingUserId } = commentingUser.user
+
+  // to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
-    
     // get the User object by userId
-    axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
+    axios.get(`http://localhost:4000/api/users/${userId}`)
       .then((response) => {
         setUser(response.data);
       })
       .catch((error) => {
         console.error("Error fetching user:", error);
       });
-      
+
     // get the Comments object for the post
     if (isOpen) {
       axios.get(`http://localhost:4000/api/comments/post/${postId}`)
         .then((response) => {
           dispatch({
-            type: 'GET_COMMENTS', 
+            type: 'GET_COMMENTS',
             payload: response.data
           })
           console.log("Comments response", response.data);
@@ -71,36 +66,46 @@ const NormalPost = ({ post }) => {
     } else {
       dispatch({
         // clear comments when the modal is closed to avoid showing the previous comments when opening the modal again
-        type: 'CLEAR_COMMENTS', 
+        type: 'CLEAR_COMMENTS',
       })
     }
   }, [postId, userId, dispatch, isOpen]);
 
-  // Id of user currently logged in 
-  const { user: commentingUser } = useAuthContext()
-  const { _id: commentingUserId } = commentingUser.user
-  // const commentingUserId = "661f385d7bc0dc0597752644";
-
-  const handlePostComment = async () => {
-    if (!newComment.trim()) return; // Avoid posting empty comments
-
-    try {
-      const response = await axios.post(`http://localhost:4000/api/comments/${postId}`, {
-        userId: commentingUserId,
-        content: newComment
-      },{
-        headers: { "Authorization": `Bearer ${commentingUser.token}`}
-      });
-      setNewComment(""); // Clear the input field after posting the comment
-      dispatch({
-        type: 'CREATE_COMMENT',
-        payload: response.data
+  // get the count of likes when the component is mounted
+  useEffect(() => {
+    axios.get(`http://localhost:4000/api/reactions/${postId}/total`)
+      .then((response) => {
+        const likes = response.data;
+        setLikes(likes);
       })
-    } catch (error) {
-      console.error("Error posting comment:", error);
+      .catch((error) => {
+        console.error("Error fetching likes:", error);
+      });
+  }, [postId, reacted]);
+
+  // check if the user has reacted to the post
+  useEffect(() => {
+    axios.get(`http://localhost:4000/api/reactions/${postId}/${commentingUserId}/isReacted`)
+      .then((response) => {
+        setReacted(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching reaction:", error);
+      });
+  }, [postId]);
+
+  // handle the like/unlike functionality
+  const handleReact = async () => {
+    if (reacted) {
+      await axios.delete(`http://localhost:4000/api/reactions/${postId}/${commentingUserId}`)
+      setReacted(false);
+      console.log("Unreacted");
+    } else {
+      await axios.post(`http://localhost:4000/api/reactions/${postId}/${commentingUserId}`);
+      setReacted(true);
+      console.log("Reacted");
     }
   };
-
   const { avatar, username } = user || {};
 
   const previewNum = 50
@@ -131,16 +136,16 @@ const NormalPost = ({ post }) => {
         </CardHeader>
 
         <CardBody>
-          <Text>{preview}</Text> 
+          <Text>{preview}</Text>
           <Text onClick={onOpen}
-                color="gray.500" 
-                fontStyle="italic" 
-                _hover={{ color: "blue.500", textDecoration: "underline" }}>
-                  Read more...</Text>
+            color="gray.500"
+            fontStyle="italic"
+            _hover={{ color: "blue.500", textDecoration: "underline" }}>
+            Read more...</Text>
         </CardBody>
 
         <Center>
-          <Divider width='95%' borderWidth='1px' margin={0}/>          
+          <Divider width='95%' borderWidth='1px' margin={0} />
         </Center>
 
 
@@ -154,8 +159,8 @@ const NormalPost = ({ post }) => {
           }}
           padding={2}
         >
-          <Button flex="1" variant="ghost" leftIcon={<FaHeart />}>
-            Like
+          <Button flex="1" variant="ghost" onClick={handleReact} leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}>
+            {likes.count === 0 ? "" : likes.count}
           </Button>
           <Button flex="1" variant="ghost" onClick={onOpen} leftIcon={<FaComment />} >
             Comment
@@ -164,51 +169,7 @@ const NormalPost = ({ post }) => {
 
       </Card>
 
-      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="inside">
-            <ModalOverlay />
-            <ModalContent
-            sx={{
-                borderRadius: "30px",
-                paddingLeft: "20px",
-                paddingRight: "20px",
-            }}
-            >
-                <ModalHeader>{title}</ModalHeader>
-                <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
-                    {" "}
-                    {/* Added padding here */}
-                    <Avatar name={username} src={avatar} />
-                    <Box>
-                    <Text fontSize="md">{username}</Text>
-                    <Text fontSize="xs">
-                        {formattedTimeStamp}
-                    </Text>
-                    </Box>
-                </Flex>
-
-                <ModalCloseButton />
-
-                <ModalBody style={{ whiteSpace: 'pre-line' }}>
-                  {content}
-                  <Box padding={7}>
-                    <Divider w='100%' borderWidth='1px' margin={0}/>  
-                  </Box>
-                  {comments && comments.map((comment, idx) => (
-                      <Comment comment={comment} key={idx} />
-                    ))
-                  }
-                </ModalBody>
-
-
-                <ModalFooter>
-                    <Input placeholder="Your thought" value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
-                    <Button colorScheme="teal" size="md" onClick={handlePostComment}>
-                    Send
-                    </Button>
-                </ModalFooter>
-            </ModalContent>
-
-        </Modal>
+      <PostModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} post={post} user={user} formattedTimeStamp={formattedTimeStamp}/>
     </>
   );
 };

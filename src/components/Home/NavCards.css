@@ -55,7 +55,7 @@
     z-index: 100;
     position: absolute;
     top: 0;
-    left: 0;
+    left: -150px;
     width: 300px;
     height: auto;
 }
@@ -64,5 +64,5 @@
     z-index: 200;
     position: absolute;
     top: 120px;
-    left: 0;
+    left: -150px;
 }
