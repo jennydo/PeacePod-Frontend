@@ -1,7 +1,13 @@
+import { useEffect } from "react";
+import Messages from "../components/Messages/Messages";
+
 const Chat = () => {
-    return ( 
-        <h1>Your Messages</h1>
-     );
+
+  return (
+    <div>
+        <Messages/>
+    </div>
+  );
 }
  
 export default Chat;
