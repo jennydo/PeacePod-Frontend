@@ -27,6 +27,7 @@ import { FaHeart, FaComment } from "react-icons/fa";
 import Comment from './Comment';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useCommentsContext } from "../../hooks/useCommentsContext";
+import PostModal from "./PostModal";
 
 const NormalPost = ({ post }) => {
 
@@ -40,7 +41,6 @@ const NormalPost = ({ post }) => {
   const postId = post._id;
 
   const [user, setUser] = useState(null);
-  const [newComment, setNewComment] = useState("");
 
   const { comments, dispatch } = useCommentsContext();
 
@@ -79,26 +79,6 @@ const NormalPost = ({ post }) => {
     }
   }, [postId, userId, dispatch, isOpen]);
 
-  // Temporary user id
-  const commentingUserId = "66196ea6536f9e9410f53de9";
-
-  const handlePostComment = async () => {
-    if (!newComment.trim()) return; // Avoid posting empty comments
-
-    try {
-      const response = await axios.post(`http://localhost:4000/api/comments/${postId}`, {
-        userId: commentingUserId,
-        content: newComment
-      });
-      setNewComment(""); // Clear the input field after posting the comment
-      dispatch({
-        type: 'CREATE_COMMENT',
-        payload: response.data
-      })
-    } catch (error) {
-      console.error("Error posting comment:", error);
-    }
-  };
 
   const { avatar, username } = user || {};
 
@@ -163,51 +143,7 @@ const NormalPost = ({ post }) => {
 
       </Card>
 
-      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="inside">
-            <ModalOverlay />
-            <ModalContent
-            sx={{
-                borderRadius: "30px",
-                paddingLeft: "20px",
-                paddingRight: "20px",
-            }}
-            >
-                <ModalHeader>{title}</ModalHeader>
-                <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
-                    {" "}
-                    {/* Added padding here */}
-                    <Avatar name={username} src={avatar} />
-                    <Box>
-                    <Text fontSize="md">{username}</Text>
-                    <Text fontSize="xs">
-                        {formattedTimeStamp}
-                    </Text>
-                    </Box>
-                </Flex>
-
-                <ModalCloseButton />
-
-                <ModalBody style={{ whiteSpace: 'pre-line' }}>
-                  {content}
-                  <Box padding={7}>
-                    <Divider w='100%' borderWidth='1px' margin={0}/>  
-                  </Box>
-                  {comments && comments.map((comment, idx) => (
-                      <Comment comment={comment} key={idx} />
-                    ))
-                  }
-                </ModalBody>
-
-
-                <ModalFooter>
-                    <Input placeholder="Your thought" value={newComment} onChange={(e) => setNewComment(e.target.value)}/>
-                    <Button colorScheme="teal" size="md" onClick={handlePostComment}>
-                    Send
-                    </Button>
-                </ModalFooter>
-            </ModalContent>
-
-        </Modal>
+      <PostModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} post={post} user={user} formattedTimeStamp={formattedTimeStamp}/>
     </>
   );
 };

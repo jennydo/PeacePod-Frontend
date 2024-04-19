@@ -21,12 +21,13 @@ import {
   IconButton,
   Flex,
   Avatar,
-  
+  Box
 } from "@chakra-ui/react";
 
 import { FaHeart, FaComment } from "react-icons/fa";
 import { BsSendFill } from "react-icons/bs";
 import axios from 'axios';
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
 
 import Comment from './Comment';
 import { useCommentsContext } from '../../hooks/useCommentsContext';
@@ -34,6 +35,10 @@ import { useCommentsContext } from '../../hooks/useCommentsContext';
 import Logo from '../../assets/images/sign.png'
 
 const PromptPost = ({ post }) => {
+
+    const timeStamp = post?.createdAt;
+    // format the timestamp to be more readable: "x minutes ago"
+    const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
 
     const [ newComment, setNewComment ] = useState("")
     const { comments, dispatch } = useCommentsContext()
@@ -102,7 +107,12 @@ const PromptPost = ({ post }) => {
             <Flex spacing="4">
               <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
                 <Avatar name="PeacePod" src={Logo} bg='green.100'/>
-                <Text fontSize="md" marginBottom="0px">PeacePod</Text>
+                <Box>
+                  <Text fontSize="md">PeacePod</Text>
+                  <Text fontSize="xs">
+                    {formattedTimeStamp}
+                  </Text>
+                </Box>
               </Flex>
               <IconButton
                 variant="ghost"

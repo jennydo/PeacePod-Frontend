@@ -8,6 +8,9 @@ import {
 import './Comment.css'
 
 const Comment = ({ comment }) => {
+
+  console.log("Comment in comment ", comment)
+
   const {content} = comment
   const {username, avatar} = comment.userId;
 
