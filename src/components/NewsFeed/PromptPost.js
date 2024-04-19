@@ -38,7 +38,7 @@ const PromptPost = ({ post }) => {
 
     const timeStamp = post?.createdAt;
     // format the timestamp to be more readable: "x minutes ago"
-    const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
+    const formattedTimeStamp = post && formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
 
     const [ newComment, setNewComment ] = useState("")
     const { comments, dispatch } = useCommentsContext()
