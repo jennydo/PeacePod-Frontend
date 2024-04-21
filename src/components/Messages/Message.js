@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import {Button, HStack, Input, Text, Avatar} from '@chakra-ui/react';
+import {Button, HStack, Input, Avatar} from '@chakra-ui/react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import axios from 'axios';
+import { useChatsContext } from '../../hooks/useChatsContext'
 
 // connect to server
-var socket;
+var socket, selectedChatCompare;
 
 const Message = ({chat}) => {
 
+  const { selectedChat } = useChatsContext()
   const { _id: chatId, users } = chat 
 
   // get information of the sender (logged in user)
@@ -20,12 +22,21 @@ const Message = ({chat}) => {
   const { username: receiverUsername, avatar: receiverAvatar } = receiver[0];
 
   // const [handle, setHandle] = useState("")
-  const [message, setMessage] = useState("")
+  const [socketConnected, setSocketConnected] = useState(false)
+  const [newMessage, setNewMessage] = useState("")
   const [allMessages, setAllMessages] = useState([])
   const [typingUsername, setTypingUsername] = useState("")
 
+  useEffect(() => {
+    // connect to server
+    socket = io.connect('http://localhost:4000');
+    socket.emit("setup", sender);
+    socket.on("connection", () => setSocketConnected(true))
+  }, [])
+
   // Fetch all messages initially when first opened the chat 
-  useEffect(()=>{
+  const fetchMessages = async () => {
+    if (!selectedChat) return;
     axios.get(`http://localhost:4000/api/messages/${chatId}`, {
       headers: { Authorization: `Bearer ${sender.token}`}
     })
@@ -34,12 +45,26 @@ const Message = ({chat}) => {
         console.log("all messages: ", response.data)
       })
       .catch ( error => console.log(error))
-  }, [chatId])
+
+    socket.emit('join chat', chatId)
+  }
 
   useEffect(() => {
-    // connect to server
-    socket = io.connect('http://localhost:4000');
-  }, [])
+    socket.on("message received", (newMessageReceived) => {
+      if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
+        // give notification
+      } else {
+        setAllMessages([...allMessages, newMessageReceived])
+      }
+    })
+  })
+
+  useEffect(() => {
+    fetchMessages();
+
+    selectedChatCompare = selectedChat;
+    // eslint-disable-next-line
+  }, [selectedChat]);
 
   // Chat Event
   // send chat message
@@ -48,7 +73,20 @@ const Message = ({chat}) => {
     //   message: message,
     //   handle: username
     // });
-    setMessage("");
+    axios.post('http://localhost:4000/api/messages/', {
+      content: newMessage, 
+      chatId
+      }, {
+        headers: {Authorization: `Bearer ${sender.token}`}
+      })
+      .then( response => {
+        console.log("new message here", response.data)
+        socket.emit('new message', response.data)
+        setAllMessages([...allMessages, response.data]);
+      })
+      .catch( error => console.log(error))
+    
+    setNewMessage("");
   };
 
   // Listen for Chat event
@@ -79,8 +117,10 @@ const Message = ({chat}) => {
         <h1>Chat with {receiverUsername}</h1>
         <div height="400px" overflow="auto">
           <div>
-            {allMessages.map((message, index) => (
-              <div key={index}>{message}</div>
+            {allMessages && allMessages.map((message, index) => (
+              <div key={index}>
+                {message.sender.username} : {message.content} 
+              </div>
             ))}
           </div>
           <div>
@@ -91,9 +131,9 @@ const Message = ({chat}) => {
           <Avatar size="sm" name={senderUsername} src={senderAvatar}/>
           <Input
             id="message"
-            value={message}
+            value={newMessage}
             placeholder="Message"
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e) => setNewMessage(e.target.value)}
             // onKeyDown={handleTyping}
           />
           <Button w="30px" onClick={sendMessage}>Send</Button>
