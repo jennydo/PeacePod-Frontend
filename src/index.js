@@ -8,13 +8,16 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { AuthContextProvider } from './context/AuthContext';
 import { PostsContextProvider } from './context/PostsContext';
 import { CommentsContextProvider } from './context/CommentsContext';
+import { ChatsContextProvider } from './context/ChatsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <AuthContextProvider>
         <PostsContextProvider>
             <CommentsContextProvider>
-                <App />
+                <ChatsContextProvider>
+                    <App />
+                </ChatsContextProvider>
             </CommentsContextProvider>
         </PostsContextProvider>
     </AuthContextProvider>
