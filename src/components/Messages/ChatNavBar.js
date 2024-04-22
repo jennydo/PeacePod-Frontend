@@ -3,18 +3,19 @@ import axios from 'axios';
 import { useAuthContext } from '../../hooks/useAuthContext'
 import {VStack, Heading} from '@chakra-ui/react';
 import ChatBox from './ChatBox';
+import { useChatsContext } from '../../hooks/useChatsContext';
 
 const ChatNavBar = () => {
     const { user } = useAuthContext()
-    const [allChats, setAllChats] = useState([])
+    // const [allChats, setAllChats] = useState([])
+    const { chats, dispatch } = useChatsContext()
 
     useEffect(() => {
         axios.get("http://localhost:4000/api/chats", {
             headers: {Authorization: `Bearer ${user.token}`}
         })
             .then( response => {
-                console.log(response);
-                setAllChats(response.data)
+                dispatch({ type: "GET_CHATS", payload: response.data })
             })
             .catch ( error => console.log(error) )     
     }, [])
@@ -23,7 +24,7 @@ const ChatNavBar = () => {
         <Heading>Your Messages</Heading>
         <VStack 
             align='stretch'>
-            {allChats && allChats.map(chat => (
+            {chats && chats.map(chat => (
                 <ChatBox key={chat._id} chat={chat}/>
             ))}
         </VStack>
