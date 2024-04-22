@@ -7,7 +7,6 @@ import { useChatsContext } from '../../hooks/useChatsContext';
 
 const ChatNavBar = () => {
     const { user } = useAuthContext()
-    // const [allChats, setAllChats] = useState([])
     const { chats, dispatch } = useChatsContext()
 
     useEffect(() => {
