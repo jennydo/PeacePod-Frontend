@@ -1,146 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-import {Button, HStack, Input, Avatar} from '@chakra-ui/react';
-import { useAuthContext } from '../../hooks/useAuthContext';
-import axios from 'axios';
-import { useChatsContext } from '../../hooks/useChatsContext'
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { Stack, Avatar, Box, Text } from '@chakra-ui/react';
 
-// connect to server
-var socket, selectedChatCompare;
+const Message = ( {message} ) => {
+    var isSender;
+    const { user: sender } = useAuthContext()
+    if (message.sender._id == sender.user._id) { isSender = true }
+    else { isSender = false }
+    const { username, avatar } = message.sender
+    const { content } = message
 
-const Message = ({chat}) => {
-
-  const { selectedChat } = useChatsContext()
-  const { _id: chatId, users } = chat 
-
-  // get information of the sender (logged in user)
-  const {user: sender} = useAuthContext()
-  const {username: senderUsername, avatar: senderAvatar} = sender.user;
-
-  // get info of the receiver
-  const receiver = users.filter(user => user._id !== sender.user._id);
-  const { username: receiverUsername, avatar: receiverAvatar } = receiver[0];
-
-  // const [handle, setHandle] = useState("")
-  const [socketConnected, setSocketConnected] = useState(false)
-  const [newMessage, setNewMessage] = useState("")
-  const [allMessages, setAllMessages] = useState([])
-  const [typingUsername, setTypingUsername] = useState("")
-
-  useEffect(() => {
-    // connect to server
-    socket = io.connect('http://localhost:4000');
-    socket.emit("setup", sender);
-    socket.on("connection", () => setSocketConnected(true))
-  }, [])
-
-  // Fetch all messages initially when first opened the chat 
-  const fetchMessages = async () => {
-    if (!selectedChat) return;
-    axios.get(`http://localhost:4000/api/messages/${chatId}`, {
-      headers: { Authorization: `Bearer ${sender.token}`}
-    })
-      .then( response => {
-        setAllMessages(response.data)
-        console.log("all messages: ", response.data)
-      })
-      .catch ( error => console.log(error))
-
-    socket.emit('join chat', chatId)
-  }
-
-  useEffect(() => {
-    socket.on("message received", (newMessageReceived) => {
-      if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
-        // give notification
-      } else {
-        setAllMessages([...allMessages, newMessageReceived])
-      }
-    })
-  })
-
-  useEffect(() => {
-    fetchMessages();
-
-    selectedChatCompare = selectedChat;
-    // eslint-disable-next-line
-  }, [selectedChat]);
-
-  // Chat Event
-  // send chat message
-  const sendMessage = () => {
-    // socket.emit("chat", {
-    //   message: message,
-    //   handle: username
-    // });
-    axios.post('http://localhost:4000/api/messages/', {
-      content: newMessage, 
-      chatId
-      }, {
-        headers: {Authorization: `Bearer ${sender.token}`}
-      })
-      .then( response => {
-        console.log("new message here", response.data)
-        socket.emit('new message', response.data)
-        setAllMessages([...allMessages, response.data]);
-      })
-      .catch( error => console.log(error))
-    
-    setNewMessage("");
-  };
-
-  // Listen for Chat event
-  // useEffect(() => {
-  //   socket.on("chat", (data) => {
-  //     setTypingUsername("");
-  //     const newMessage = data.handle + ":" + data.message;
-  //     setAllMessages((prevAllMessages) => [...prevAllMessages, newMessage]);
-  //   });
-  // }, [])
-
-
-  // Typing Event
-  // const handleTyping = () => {
-  //   socket.emit('typing', username);
-  // }
-
-  // Listen for Typing event
-  // useEffect(() => {
-  //   socket.on("typing", (data) => {
-  //     setTypingUsername(data + " is typing ...");
-  //   })
-  // }, [])
-
-  return (
-    <div>
-      <div>
-        <h1>Chat with {receiverUsername}</h1>
-        <div height="400px" overflow="auto">
-          <div>
-            {allMessages && allMessages.map((message, index) => (
-              <div key={index}>
-                {message.sender.username} : {message.content} 
-              </div>
-            ))}
-          </div>
-          <div>
-            {typingUsername}
-          </div>
-        </div>
-        <HStack>
-          <Avatar size="sm" name={senderUsername} src={senderAvatar}/>
-          <Input
-            id="message"
-            value={newMessage}
-            placeholder="Message"
-            onChange={(e) => setNewMessage(e.target.value)}
-            // onKeyDown={handleTyping}
-          />
-          <Button w="30px" onClick={sendMessage}>Send</Button>
-        </HStack>
-      </div>
-    </div>
-  );
+    return ( 
+        <Stack direction="row" w="100%" justifyContent={isSender ? "flex-end" : "flex-start"} p={0.5}>
+            {!isSender && <Avatar size="sm" name={username} src={avatar}/>}
+            <Box borderRadius={30}>
+                <Text color={'black'}>{content}</Text>
+            </Box>
+            {isSender && <Avatar size="sm" name={username} src={avatar}/>}
+        </Stack>
+     );
 }
-
+ 
 export default Message;

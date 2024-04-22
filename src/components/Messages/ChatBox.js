@@ -1,4 +1,4 @@
-import { Avatar, Stack, Text } from "@chakra-ui/react";
+import { Avatar, Stack, Text, Card } from "@chakra-ui/react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useChatsContext } from '../../hooks/useChatsContext'
 
@@ -23,13 +23,15 @@ const ChatBox = ({chat}) => {
     }
 
     return ( 
-        <Stack direction="row" w="100%" onClick={() => selectChat(chat)}>
-            <Avatar name={username} src={avatar}/>
-            <Stack direction="column">
-                <Text>{username}</Text>
-                <Text>{displayedLatestMessage}</Text>
+        <Card w="100%" borderRadius={15} bg="#feeafa" p={2}>
+            <Stack direction="row" w="100%" onClick={() => selectChat(chat)}>
+                <Avatar name={username} src={avatar}/>
+                <Stack direction="column">
+                    <Text>{username}</Text>
+                    <Text fontSize="xs" mt={-5} mb={-2} as='i'>{displayedLatestMessage}</Text>
+                </Stack>
             </Stack>
-        </Stack>
+        </Card>
      );
 }
  

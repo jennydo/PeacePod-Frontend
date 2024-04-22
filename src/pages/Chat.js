@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Message from "../components/Messages/Message";
+import SingleChat from "../components/Messages/SingleChat";
 import ChatNavBar from "../components/Messages/ChatNavBar";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { useChatsContext } from "../hooks/useChatsContext";
@@ -14,7 +14,7 @@ const Chat = () => {
           <ChatNavBar/>
           </GridItem>
           <GridItem w='100%' >
-            {selectedChat && <Message chat={selectedChat}/>}
+            {selectedChat && <SingleChat chat={selectedChat}/>}
           </GridItem>
         </Grid>
     </div>
