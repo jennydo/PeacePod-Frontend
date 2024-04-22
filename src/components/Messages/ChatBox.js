@@ -12,8 +12,7 @@ const ChatBox = ({chat}) => {
     const { username, avatar } = receiver[0];
 
     // get the latest message 
-    const latestMessage = chat.latestMessage || ""
-    const displayedLatestMessage = latestMessage.content || ""
+    const latestMessage = chat.latestMessage.content || ""
 
     const selectChat = (chat) => {
         dispatch({
@@ -28,7 +27,7 @@ const ChatBox = ({chat}) => {
                 <Avatar name={username} src={avatar}/>
                 <Stack direction="column">
                     <Text>{username}</Text>
-                    <Text fontSize="xs" mt={-5} mb={-2} as='i'>{displayedLatestMessage}</Text>
+                    <Text fontSize="xs" mt={-5} mb={-2} as='i'>{latestMessage}</Text>
                 </Stack>
             </Stack>
         </Card>
