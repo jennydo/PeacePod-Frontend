@@ -5,6 +5,8 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import axios from 'axios';
 import { useChatsContext } from '../../hooks/useChatsContext';
 import Message from './Message';
+import Lottie from "react-lottie";
+import animationData from "./typing.json";
 
 // connect to server
 var socket, selectedChatCompare;
@@ -20,23 +22,27 @@ const SingleChat = ({chat}) => {
 
   // get info of the receiver
   const receiver = users.filter(user => user._id !== sender.user._id);
-  const { username: receiverUsername, avatar: receiverAvatar } = receiver[0];
+  const { username: receiverUsername } = receiver[0];
 
   // const [handle, setHandle] = useState("")
   const [socketConnected, setSocketConnected] = useState(false)
   const [newMessage, setNewMessage] = useState("")
   const [allMessages, setAllMessages] = useState([])
-  const [typingUsername, setTypingUsername] = useState("")
+  const [typing, setTyping] = useState(false);
+  const [istyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     // connect to server
     socket = io.connect('http://localhost:4000');
     socket.emit("setup", sender);
-    socket.on("connection", () => setSocketConnected(true))
+    socket.on("connected", () => setSocketConnected(true))
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
   }, [])
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
+      // if chat is not selected or doesn't match current chat
       if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
         // give notification
       } else {
@@ -68,6 +74,7 @@ const SingleChat = ({chat}) => {
   // Chat Event
   // send chat message
   const sendMessage = () => {
+    socket.emit("stop typing", selectedChat._id);
     axios.post('http://localhost:4000/api/messages/', {
       content: newMessage, 
       chatId
@@ -84,43 +91,52 @@ const SingleChat = ({chat}) => {
     setNewMessage("");
   };
 
-  // Listen for Chat event
-  // useEffect(() => {
-  //   socket.on("chat", (data) => {
-  //     setTypingUsername("");
-  //     const newMessage = data.handle + ":" + data.message;
-  //     setAllMessages((prevAllMessages) => [...prevAllMessages, newMessage]);
-  //   });
-  // }, [])
+  const typingHandler = (e) => {
+    setNewMessage(e.target.value);
 
+    if (!socketConnected) return;
 
-  // Typing Event
-  // const handleTyping = () => {
-  //   socket.emit('typing', username);
-  // }
-
-  // Listen for Typing event
-  // useEffect(() => {
-  //   socket.on("typing", (data) => {
-  //     setTypingUsername(data + " is typing ...");
-  //   })
-  // }, [])
+    if (!typing) {
+      setTyping(true);
+      socket.emit("typing", selectedChat._id);
+    }
+    let lastTypingTime = new Date().getTime();
+    var timerLength = 10000;
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDiff = timeNow - lastTypingTime;
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop typing", selectedChat._id);
+        setTyping(false);
+      }
+    }, timerLength);
+  };
 
   return (
     <div>
       <div>
         <h1>Chat with {receiverUsername}</h1>
         <div height="400px" overflow="auto">
-          <div>
             <Box maxHeight="570px" overflowY="auto" p={3} mb={5}>
             {allMessages && allMessages.map((message, index) => (
               <Message key={index} message={message}/>
             ))}
             </Box>
-          </div>
-          <div>
-            {typingUsername}
-          </div>
+            {istyping && (
+             <Lottie
+                options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: animationData,
+                    rendererSettings: {
+                        preserveAspectRatio: "xMidYMid slice",
+                    }
+                }}
+                // height={50}
+                width={70}
+                style={{ marginBottom: 15, marginLeft: 0 }}
+              /> 
+            )}
         </div>
         <HStack>
           <Avatar size="sm" name={senderUsername} src={senderAvatar}/>
@@ -128,8 +144,7 @@ const SingleChat = ({chat}) => {
             id="message"
             value={newMessage}
             placeholder="Message"
-            onChange={(e) => setNewMessage(e.target.value)}
-            // onKeyDown={handleTyping}
+            onChange={typingHandler}
           />
           <Button w="30px" onClick={sendMessage}>Send</Button>
         </HStack>
