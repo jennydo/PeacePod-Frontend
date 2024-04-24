@@ -26,14 +26,4 @@ const earringConstants = ["variant01", "variant02", "variant03"]
 
 const glassConstants = ["variant01", "variant02", "variant03", "variant04", "variant05"]
 
-
-
-// const [frecklesProbability, setFrecklesProbability] = useState(0) // or 100
-//     const [beardProbability, setBeardProbability] = useState(0) // or 100
-//     const [earringsProbability, setEarringsProbability] = useState(0) // or 100 
-//     const [glassesProbability, setGlassesProbability] = useState(0)
-//     const [hairAccessoriesProbability, setHairAccessoriesProbability] = useState(0)
-//     const [backgroundColor, setBackgroundColor] = useState("c0aede")
-//     const [backgroundType, setBackgroundType] = useState("solid") // or gradientLinear
-
 module.exports = { headConstants, eyeConstants, eyebrowConstants, mouthConstants, noseConstants, hairConstants, beardConstants, earringConstants, glassConstants } 

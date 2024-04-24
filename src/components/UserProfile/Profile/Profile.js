@@ -21,27 +21,7 @@ import { useAvatarContext } from '../../../hooks/useAvatarContext'
 const Profile = () => {
     const { user } = useAuthContext()
     const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user 
-    // const [avatar, setAvatar] = useState(null);
     const { avatar } = useAvatarContext()
-
-    // useEffect(() => {
-    //     const fetchAvatars = async () => {
-    //       try {
-    //         const response = await axios.get(
-    //           'http://localhost:5000/api/users/getAvatars',
-    //           {
-    //             headers: {
-    //               Authorization: `Bearer ${exampleTokenForPhuoc}`,
-    //             },
-    //           },
-    //         );
-    //         await dispatch(setAllAvatars(response.data));
-    //       } catch (error) {
-    //         console.log('There is something wrong with fetching avatars');
-    //       }
-    //     };
-    //     fetchAvatars();
-    //   }, [purchasedAvatar, dispatch]);
 
     console.log("avatar", avatar)
 
@@ -54,15 +34,16 @@ const Profile = () => {
             <EditIcon w={10} h={10} color='aliceblue'/>                
         </HStack>
         
-        <Circle>
-            <Image 
-                // src={svg}
-                alt={username}
-                borderRadius='full'
-                boxSize='200px'
-                objectFit='cover'
-            />
-        </Circle>
+        {avatar && 
+            <Circle>
+                <img
+                    src={avatar}
+                    alt="User Profile"
+                    borderRadius='full'
+                    objectFit='cover'
+                    />
+            </Circle>}
+        <AvatarModal/>
         <Text fontSize='2xl' color='#98B9F2' marginBottom={0}>{username}</Text>
         <Text fontSize='xl'>{`(${pronounce})`}</Text>
 
@@ -140,13 +121,6 @@ const Profile = () => {
                 {bio}
             </Text>          
         </Box>
-
-        <AvatarModal/>
-        {avatar && 
-        <img
-              src={avatar}
-              alt="User Profile"
-            />}
     </VStack>
     )
 }
