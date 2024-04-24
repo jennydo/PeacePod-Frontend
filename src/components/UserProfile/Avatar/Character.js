@@ -13,7 +13,6 @@ const Character = ( {variant, attribute}) => {
         ...avatarData,
         size: 100,
         [attribute]: [variant],
-        beardProbability: (attribute === "beard") ? 100 : 0
     }), [avatarData, variant]);
 
     useEffect(() => {

@@ -51,7 +51,7 @@ const CustomizeAvatar = () => {
               payload: {
                 attribute: "beard",
                 value: currentValue, 
-                probability: 0 
+                probability: null
               }
             });
     }}

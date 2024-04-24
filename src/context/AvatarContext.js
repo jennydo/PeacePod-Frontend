@@ -35,10 +35,10 @@ export const AvatarContextProvider = ( {children} ) => {
             head: ["variant01"], 
             eyes: ["variant01"], 
             eyebrows: ["variant01"],
-            mouth: ["happy02"],
+            mouth: ["happy02"], 
             nose: ["variant01"], 
             hair: ["variant37"], 
-            frecklesProbability: 0,
+            frecklesProbability: 0, 
             beard: ["variant01"], 
             beardProbability: 0,
             earrings: ["variant01"],
@@ -56,7 +56,7 @@ export const AvatarContextProvider = ( {children} ) => {
     })
 
     useEffect(() => {
-        const generateAvatar = async () => {
+        const generateAvatar = async () => {  
             await createAvatar(lorelei, state.avatarData).toDataUri()
             .then(promise => 
                 {

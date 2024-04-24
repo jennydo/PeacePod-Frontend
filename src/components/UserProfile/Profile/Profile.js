@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { createAvatar } from '@dicebear/core';
-import { lorelei } from '@dicebear/collection';
+import React from 'react'
 import { 
     Center,
     VStack,
@@ -35,14 +33,13 @@ const Profile = () => {
         </HStack>
         
         {avatar && 
-            <Circle>
-                <img
-                    src={avatar}
-                    alt="User Profile"
-                    borderRadius='full'
-                    objectFit='cover'
-                    />
-            </Circle>}
+            <Image
+                src={avatar}
+                alt="User Profile"
+                borderRadius='full'
+                objectFit='cover'
+                />
+            }
         <AvatarModal/>
         <Text fontSize='2xl' color='#98B9F2' marginBottom={0}>{username}</Text>
         <Text fontSize='xl'>{`(${pronounce})`}</Text>
