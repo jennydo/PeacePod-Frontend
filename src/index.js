@@ -9,17 +9,21 @@ import { AuthContextProvider } from './context/AuthContext';
 import { PostsContextProvider } from './context/PostsContext';
 import { CommentsContextProvider } from './context/CommentsContext';
 import { ChatsContextProvider } from './context/ChatsContext';
+import { AvatarContextProvider } from './context/AvatarContext';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <AuthContextProvider>
-        <PostsContextProvider>
-            <CommentsContextProvider>
-                <ChatsContextProvider>
-                    <App />
-                </ChatsContextProvider>
-            </CommentsContextProvider>
-        </PostsContextProvider>
+        <AvatarContextProvider>
+            <PostsContextProvider>
+                <CommentsContextProvider>
+                    <ChatsContextProvider>
+                        <App />
+                    </ChatsContextProvider>
+                </CommentsContextProvider>
+            </PostsContextProvider>
+        </AvatarContextProvider>
     </AuthContextProvider>
 );
 

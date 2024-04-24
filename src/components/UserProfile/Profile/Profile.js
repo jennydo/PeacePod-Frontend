@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { createAvatar } from '@dicebear/core';
+import { lorelei } from '@dicebear/collection';
 import { 
     Center,
     VStack,
@@ -13,10 +15,35 @@ import {
 import { EditIcon } from '@chakra-ui/icons'
 import './Profile.css'
 import { useAuthContext } from '../../../hooks/useAuthContext'
+import AvatarModal from '../Avatar/AvatarModal'
+import { useAvatarContext } from '../../../hooks/useAvatarContext'
 
 const Profile = () => {
     const { user } = useAuthContext()
-    const { username, avatar, gender, interests, location, pronounce, sexualOrientation, bio } = user.user
+    const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user 
+    // const [avatar, setAvatar] = useState(null);
+    const { avatar } = useAvatarContext()
+
+    // useEffect(() => {
+    //     const fetchAvatars = async () => {
+    //       try {
+    //         const response = await axios.get(
+    //           'http://localhost:5000/api/users/getAvatars',
+    //           {
+    //             headers: {
+    //               Authorization: `Bearer ${exampleTokenForPhuoc}`,
+    //             },
+    //           },
+    //         );
+    //         await dispatch(setAllAvatars(response.data));
+    //       } catch (error) {
+    //         console.log('There is something wrong with fetching avatars');
+    //       }
+    //     };
+    //     fetchAvatars();
+    //   }, [purchasedAvatar, dispatch]);
+
+    console.log("avatar", avatar)
 
     return (
     <VStack>
@@ -29,7 +56,7 @@ const Profile = () => {
         
         <Circle>
             <Image 
-                src={avatar}
+                // src={svg}
                 alt={username}
                 borderRadius='full'
                 boxSize='200px'
@@ -114,6 +141,12 @@ const Profile = () => {
             </Text>          
         </Box>
 
+        <AvatarModal/>
+        {avatar && 
+        <img
+              src={avatar}
+              alt="User Profile"
+            />}
     </VStack>
     )
 }
