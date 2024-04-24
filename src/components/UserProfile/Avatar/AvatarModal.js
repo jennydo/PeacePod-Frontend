@@ -8,7 +8,8 @@ import {
     ModalCloseButton,
     Button,
     useDisclosure,
-    VStack
+    VStack, 
+    Image
   } from '@chakra-ui/react'
 import CustomizeAvatar from './CustomizeAvatar'
 import React from 'react'
@@ -30,9 +31,11 @@ const AvatarModal = () => {
                 <VStack>
                     <h1>Customize your Avatar</h1>
                     {avatar && 
-                        <img
-                            src={avatar}
-                            alt="User Profile"
+                        <Image
+                        src={avatar}
+                        alt="User Profile"
+                        borderRadius='full'
+                        objectFit='cover'
                         />}
                 </VStack>
             </ModalHeader>

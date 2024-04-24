@@ -1,4 +1,4 @@
-import { GridItem} from '@chakra-ui/react'
+import { GridItem, Image } from '@chakra-ui/react'
 import { useAvatarContext } from '../../../hooks/useAvatarContext'
 import { createAvatar } from '@dicebear/core';
 import { lorelei } from '@dicebear/collection';
@@ -36,8 +36,9 @@ const Character = ( {variant, attribute}) => {
     }
 
     return ( 
-        <GridItem onClick={handleClick}>
-            <img
+        <GridItem onClick={handleClick} >
+            <Image
+                borderRadius='full'
                 src={character}
                 alt="User Profile"
             />
