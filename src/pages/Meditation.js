@@ -10,18 +10,15 @@ const Meditation = () => {
       };
 
     const getPlaylistItems = async (accessToken, playlistId) => {
-        const limit = 20;
-        let offset = 0;
-
-        const queryParams = new URLSearchParams({
-            market: 'ES',
-            fields: 'items(track(name,artists(name),album(name),duration_ms))',
-            limit,
-            offset
-        }).toString();
+        // const queryParams = new URLSearchParams({
+        //     market: 'ES',
+        //     fields: 'items(track(name,artists(name),album(name),duration_ms))',
+        //     limit: 20,
+        //     offset: 0
+        // }).toString();
         
         // const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?${queryParams}`, {
-        const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+        const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=20`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${accessToken}`
@@ -37,7 +34,8 @@ const Meditation = () => {
     
 
     useEffect(() => {
-        const playlistId = '37i9dQZF1DZ06evO4iRboc'
+        // const playlistId = '37i9dQZF1DZ06evO4iRboc'
+        const playlistId = '37i9dQZF1DWZqd5JICZI0u'
         getAccessToken()
             .then(accessToken => 
                 getPlaylistItems(accessToken, playlistId)
@@ -52,16 +50,16 @@ const Meditation = () => {
             <h1>Meditation</h1>      
             {items && items.map((item, idx) => (
                 <div key={idx}>
-                     <h4>{item.track.name} - {item.track.artists[0].name}</h4>
-                     <h5>{item.track.duration_ms}</h5>
-                     <h5>{item.track.external_urls.spotify.replace("open.spotify.com/track", "open.spotify.com/embed/track") + "?utm_source=generator"}</h5>
-                     {/* <iframe src={item.track.external_urls.spotify} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                     <iframe 
-                         style={{ borderRadius: '12px' }} 
-                         src="https://open.spotify.com/embed/track/2SPbioo65CuUB3H0aW1ID5?utm_source=generator" 
-                         width="100%" height="352" allowFullScreen={true} 
-                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                         loading="lazy"></iframe> */}
+                     <h5>{item.track.name} - {item.track.artists[0].name}</h5>
+                     <h6>{item.track.duration_ms}</h6>
+                     <h6>{item.track.external_urls.spotify.replace("open.spotify.com/track", "open.spotify.com/embed/track") + "?utm_source=generator"}</h6>
+                     <iframe
+                        style={{ borderRadius: '12px' }}
+                        src={item.track.external_urls.spotify.replace("open.spotify.com/track", "open.spotify.com/embed/track") + "?utm_source=generator"}
+                        width="30%"
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"
+                     ></iframe>
                 </div>
             ))}
         </>
