@@ -1,4 +1,3 @@
-import Spotify from '../components/Meditation/Music/Spotify';
 import SpotifyList from '../components/Meditation/Music/SpotifyList';
 import SpotifyLogin from '../components/Meditation/Music/SpotifyLogin';
 import { useSpotifyContext } from '../hooks/useSpotifyContext'
@@ -8,7 +7,6 @@ const Meditation = () => {
 
     return ( 
         <>
-            {/* <Spotify/> */}
             {spotifyCode? <SpotifyList code={spotifyCode}/> : <SpotifyLogin/>}
         </>
 

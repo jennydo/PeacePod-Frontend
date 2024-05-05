@@ -1,22 +1,16 @@
 import axios from 'axios';
 import { useSpotifyContext } from '../hooks/useSpotifyContext'
-import { useEffect, useState } from'react';
+import { useEffect } from'react';
 
 function useSpotifyAuth(code) {
     const { refreshToken, accessToken, expiresIn, dispatch } = useSpotifyContext();
-    const [isAuthComplete, setAuthComplete] = useState(false);
 
     useEffect(() => {
-        if (!code) {
-            setAuthComplete(true); // Mark as complete if no code is provided
-            return;
-        }
 
         axios.post('http://localhost:4000/api/spotify/login', {
             code
         })
         .then(res => {
-            // console.log(res.data)
             dispatch({
                 type: 'SET_SPOTIFY_TOKEN', 
                 payload: {
@@ -25,11 +19,11 @@ function useSpotifyAuth(code) {
                     expiresIn: res.data.expiresIn
                 }
             })
-            // window.history.pushState({}, null, '/') // check this again 
+            // window.history.pushState({}, null, '/') 
         })
         .catch(err => {
             console.log(err)
-            window.location = '/';
+            // window.location = '/';
         })
     }, [code])
 
@@ -49,19 +43,10 @@ function useSpotifyAuth(code) {
                         expiresIn: res.data.expiresIn
                     }
                 })
-                // dispatch({
-                //     type: 'SET_SPOTIFY_TOKEN', 
-                //     payload: {
-                //         accessToken: res.data.accessToken,
-                //         refreshToken: res.data.refreshToken,
-                //         expiresIn: res.data.expiresIn
-                //     }
-                // })
-                // window.history.pushState({}, null, '/') // check this again 
             })
             .catch(err => {
                 console.log(err)
-                window.location = '/';
+                // window.location = '/';
             })
         }, (expiresIn - 60) * 1000)
 
@@ -69,7 +54,7 @@ function useSpotifyAuth(code) {
     }, 
     [refreshToken, expiresIn])
 
-    return isAuthComplete; 
+    return accessToken
 }
  
 export default useSpotifyAuth;
