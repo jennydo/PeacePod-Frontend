@@ -32,10 +32,10 @@ const LogInPage = () => {
     if (response.ok) {
       localStorage.setItem('user', JSON.stringify(json))
       dispatch({type: "LOGIN", payload: json})
-      if (json.user.spotifyCode !== '') {
-        // localStorage.setItem('spotifyCode', JSON.stringify(json.user.spotifyCode))
-        spotifyDispatch({type: 'SET_SPOTIFY_CODE', payload: json.user.spotifyCode})
-      }
+      // if (json.user.spotifyCode !== '') {
+      //   // localStorage.setItem('spotifyCode', JSON.stringify(json.user.spotifyCode))
+      //   spotifyDispatch({type: 'SET_SPOTIFY_CODE', payload: json.user.spotifyCode})
+      // }
       setIsLoading(false)
     }
   }

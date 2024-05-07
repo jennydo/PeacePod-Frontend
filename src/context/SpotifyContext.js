@@ -35,21 +35,34 @@ export const SpotifyContextProvider = ( {children} ) => {
         playingTrack: null
     })
 
-    useEffect(()=> {
-        const spotifyCode = JSON.parse(localStorage.getItem('spotifyCode'))
-        if (spotifyCode) {
-            dispatch({
-                type: 'SET_SPOTIFY_CODE', 
-                payload: spotifyCode
-            })
-        }
-    }, [])
+    // useEffect(()=> {
+    //     const spotifyCode = JSON.parse(localStorage.getItem('spotifyCode'))
+    //     if (spotifyCode) {
+    //         dispatch({
+    //             type: 'SET_SPOTIFY_CODE', 
+    //             payload: spotifyCode
+    //         })
+    //     }
+    //     const accessToken = JSON.parse(localStorage.getItem('spotifyAccessToken'))
+    //     if (accessToken) {
+    //         dispatch({
+    //             type: 'SET_SPOTIFY_TOKEN', 
+    //             payload: accessToken
+    //         })
+    //     }
+    // }, [])
 
-    useEffect(() => {
-        if (state.spotifyCode) {
-            localStorage.setItem('spotifyCode', JSON.stringify(state.spotifyCode))
-        }
-    }, [state.spotifyCode])
+    // useEffect(() => {
+    //     if (state.spotifyCode) {
+    //         localStorage.setItem('spotifyCode', JSON.stringify(state.spotifyCode))
+    //     }
+    // }, [state.spotifyCode])
+
+    // useEffect(() => {
+    //     if (state.accessToken) {
+    //         localStorage.setItem('spotifyAccessToken', JSON.stringify(state.accessToken))
+    //     }
+    // }, [state.accessToken])
     
     console.log("SpotifyContext state: ", state)
 
