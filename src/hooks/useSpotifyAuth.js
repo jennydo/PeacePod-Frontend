@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useSpotifyContext } from '../hooks/useSpotifyContext'
-import { useEffect } from'react';
+import { useEffect, useState } from'react';
 
 function useSpotifyAuth(code) {
-    const { refreshToken, accessToken, expiresIn, dispatch } = useSpotifyContext();
+    const { accessToken, dispatch } = useSpotifyContext();
+    const [refreshToken, setRefreshToken] = useState()
+    const [expiresIn, setExpiresIn] = useState()
 
     useEffect(() => {
 
@@ -11,12 +13,12 @@ function useSpotifyAuth(code) {
             code
         })
         .then(res => {
+            setRefreshToken(res.data.refreshToken)
+            setExpiresIn(res.data.expiresIn)
             dispatch({
                 type: 'SET_SPOTIFY_TOKEN', 
                 payload: {
                     accessToken: res.data.accessToken,
-                    refreshToken: res.data.refreshToken,
-                    expiresIn: res.data.expiresIn
                 }
             })
             // window.history.pushState({}, null, '/') 
@@ -36,11 +38,11 @@ function useSpotifyAuth(code) {
             })
             .then(res => {
                 console.log(res)
+                setExpiresIn(res.data.expiresIn)
                 dispatch({
                     type: 'SET_SPOTIFY_TOKEN', 
                     payload: {
                         accessToken: res.data.accessToken,
-                        expiresIn: res.data.expiresIn
                     }
                 })
             })
@@ -51,8 +53,7 @@ function useSpotifyAuth(code) {
         }, (expiresIn - 60) * 1000)
 
         return () => { clearTimeout(timeout) }
-    }, 
-    [refreshToken, expiresIn])
+    }, [refreshToken, expiresIn])
 
     return accessToken
 }
