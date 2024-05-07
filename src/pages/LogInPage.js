@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { useSpotifyContext } from "../hooks/useSpotifyContext"
 
 const LogInPage = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(null)
   const {dispatch} = useAuthContext()
+  const { dispatch: spotifyDispatch } = useSpotifyContext()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -28,9 +30,13 @@ const LogInPage = () => {
     }
 
     if (response.ok) {
-        localStorage.setItem('user', JSON.stringify(json))
-        dispatch({type: "LOGIN", payload: json})
-        setIsLoading(false)
+      localStorage.setItem('user', JSON.stringify(json))
+      dispatch({type: "LOGIN", payload: json})
+      if (json.user.spotifyCode !== '') {
+        // localStorage.setItem('spotifyCode', JSON.stringify(json.user.spotifyCode))
+        spotifyDispatch({type: 'SET_SPOTIFY_CODE', payload: json.user.spotifyCode})
+      }
+      setIsLoading(false)
     }
   }
 
