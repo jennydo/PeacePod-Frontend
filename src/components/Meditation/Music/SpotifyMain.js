@@ -5,6 +5,7 @@ import { Box } from '@chakra-ui/react';
 
 const SpotifyMain = () => {
     const {spotifyCode} = useSpotifyContext();
+    console.log('spotifyCode in SpotifyMain', spotifyCode)
     return ( 
         <Box>
             <p>Choose from spotify</p>

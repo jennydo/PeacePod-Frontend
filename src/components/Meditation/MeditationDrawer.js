@@ -13,6 +13,7 @@ import {
     Box, Text,
     Tabs, TabList, TabPanels, Tab, TabPanel
   } from '@chakra-ui/react'
+import { HamburgerIcon } from '@chakra-ui/icons';
 import SpotifyMain from './Music/SpotifyMain';
 
 const MeditationDrawer = () => {
@@ -21,7 +22,7 @@ const MeditationDrawer = () => {
   
     return (
       <>
-        <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+        <Button ref={btnRef} onClick={onOpen} rightIcon={<HamburgerIcon/>}>
           Menu
         </Button>
         <Drawer
