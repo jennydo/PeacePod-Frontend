@@ -1,0 +1,21 @@
+._DevicesRSWP {
+    display: none !important
+  }
+
+._ControlsButtonRSWP {
+    display: none !important
+} 
+
+.rswp__toggle {
+    display: flex !important;
+}
+
+/* Play button */
+._ControlsButtonRSWP svg path {
+    fill: #eb4b98; 
+}
+
+/* Volumne button */
+._VolumeInlineRSWP span svg path {
+    fill: #eb4b98; 
+}
