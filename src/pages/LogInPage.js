@@ -28,9 +28,9 @@ const LogInPage = () => {
     }
 
     if (response.ok) {
-        localStorage.setItem('user', JSON.stringify(json))
-        dispatch({type: "LOGIN", payload: json})
-        setIsLoading(false)
+      localStorage.setItem('user', JSON.stringify(json))
+      dispatch({type: "LOGIN", payload: json})
+      setIsLoading(false)
     }
   }
 

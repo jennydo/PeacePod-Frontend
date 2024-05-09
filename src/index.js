@@ -9,8 +9,8 @@ import { AuthContextProvider } from './context/AuthContext';
 import { PostsContextProvider } from './context/PostsContext';
 import { CommentsContextProvider } from './context/CommentsContext';
 import { ChatsContextProvider } from './context/ChatsContext';
+import { SpotifyContextProvider } from './context/SpotifyContext';
 import { AvatarContextProvider } from './context/AvatarContext';
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,7 +19,9 @@ root.render(
             <PostsContextProvider>
                 <CommentsContextProvider>
                     <ChatsContextProvider>
-                        <App />
+                        <SpotifyContextProvider>
+                            <App />
+                        </SpotifyContextProvider>
                     </ChatsContextProvider>
                 </CommentsContextProvider>
             </PostsContextProvider>
