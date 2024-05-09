@@ -9,7 +9,7 @@ const DisplayedBackground = () => {
         <>
         {displayedImage && (
             <Center>
-                <Image src={displayedImage} w="95%" h="700" borderRadius={20}/>
+                <Image src={displayedImage} w="95%" h="700" borderRadius={20} objectFit="cover" />
             </Center>
            
         )}

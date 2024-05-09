@@ -25,9 +25,15 @@ const BackgroundList = () => {
             {images && images.map((image, idx) => (
                 <GridItem 
                     key={idx} onClick={() => chooseImage(image)}
-                    style={displayedImage === image ? { border: '2px solid red' } : {}}
                 >
-                    <Image src={image} style={{ height: 100, width: 300, borderRadius: 10 }}/>
+                    <Image src={image}
+                        style={{
+                            ...(displayedImage === image && { border: '3px solid red' }), 
+                            height: 100, 
+                            width: 300, 
+                            borderRadius: 10 
+                        }}
+                    />
                 </GridItem>
             ))}
             </Grid>
