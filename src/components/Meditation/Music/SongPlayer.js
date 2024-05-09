@@ -1,6 +1,7 @@
 import { useState, useEffect } from'react';
 import SpotifyWebPlayer from "react-spotify-web-playback";
 import './SongPlayer.css';
+import { Box } from '@chakra-ui/react';
 
 const SongPlayer = ({accessToken, trackUri}) => {
     const [play, setPlay] = useState(false)
@@ -28,18 +29,21 @@ const SongPlayer = ({accessToken, trackUri}) => {
       }
 
     return ( 
-        <SpotifyWebPlayer
-            token={accessToken}
-            callback={state => {
-                if (!state.isPlaying) setPlay(false)
-            }}
-            hideAttribution
-            magnifySliderOnHover
-            layout="responsive"
-            play={play}
-            uris={trackUri ? [trackUri] : []}
-            styles={styles}
-        />
+        <Box borderRadius={40} bg="green" overflowWrap={true}>
+            <SpotifyWebPlayer
+                token={accessToken}
+                callback={state => {
+                    if (!state.isPlaying) setPlay(false)
+                }}
+                hideAttribution
+                magnifySliderOnHover
+                layout="responsive"
+                play={play}
+                uris={trackUri ? [trackUri] : []}
+                styles={styles}
+            />
+        </Box>
+        
      );
 }
  

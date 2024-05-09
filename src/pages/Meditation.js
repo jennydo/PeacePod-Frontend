@@ -8,7 +8,7 @@ const Meditation = () => {
 
     return (  
         <Grid gridTemplateRows={'1fr 10%'} height="85vh" gap={6}>
-            <GridItem w='100%' h='100%' bg='blue.500'>
+            <GridItem w='100%' h='100%' bg='pink'>
                 <MeditationDrawer/>
             </GridItem>
             <GridItem w='100%' h='100%'>

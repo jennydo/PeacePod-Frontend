@@ -22,7 +22,8 @@ const MeditationDrawer = () => {
   
     return (
       <>
-        <Button ref={btnRef} onClick={onOpen} rightIcon={<HamburgerIcon/>}>
+        <Button 
+          ref={btnRef} onClick={onOpen} rightIcon={<HamburgerIcon/>}>
           Menu
         </Button>
         <Drawer
