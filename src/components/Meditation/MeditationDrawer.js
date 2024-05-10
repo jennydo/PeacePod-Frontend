@@ -15,6 +15,7 @@ import {
   } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons';
 import SpotifyMain from './Music/SpotifyMain';
+import CreateOwnSession from './CreateOwnSession';
 
 const MeditationDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -53,7 +54,7 @@ const MeditationDrawer = () => {
 
                         <TabPanels>
                             <TabPanel>
-                                <p>Create your own here</p>
+                              <CreateOwnSession />
                             </TabPanel>
                             <TabPanel>
                                 <SpotifyMain/>
