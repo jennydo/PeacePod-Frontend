@@ -13,9 +13,9 @@ const UploadBackground = () => {
   const config = {
     cloudName,
     uploadPreset,
-    folder: "PeacePod",
     tags: ["meditation_background", "peacepod"],
     context: { alt: "user_uploaded" },
+    // folder: "PeacePod",
     // cropping: true,
     // showAdvancedOptions: true,  //add advanced options (public_id and tag)
     // sources: [ "local", "url"], // restrict the upload sources to URL and local files
@@ -29,6 +29,7 @@ const UploadBackground = () => {
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
+    console.log(cloudinaryRef.current)
     if (cloudinaryRef.current) {
       widgetRef.current = cloudinaryRef.current.createUploadWidget(config, 
         function (error, result) {
