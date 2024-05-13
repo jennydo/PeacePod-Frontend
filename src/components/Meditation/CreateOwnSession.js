@@ -6,13 +6,11 @@ import {
     Textarea
 } from '@chakra-ui/react'
 
-const CreateOwnSession = () => {
+const CreateOwnSession = ({ session, setSession }) => {
     const [ duration, setDuration ] = useState("")
     const [ mood, setMood ] = useState("")
     const [ tone, setTone ] = useState("")
     const [ extraNotes, setExtraNotes ] = useState("")
-
-    const user = JSON.parse(localStorage.getItem('user'))
 
     return (
         <Flex flexDirection='column'>
@@ -20,28 +18,40 @@ const CreateOwnSession = () => {
             <Input 
                 placeholder='duration of the session in minutes'
                 value={duration}
-                onChange={(e) => setDuration(e.target.value)}    
+                onChange={(e) => {
+                    setDuration(e.target.value)
+                    setSession({...session, duration: e.target.value})
+                }}    
             />
 
             <Text fontSize='2xl'>Mood</Text>
             <Input 
                 placeholder='e.g. sad, happy'
                 value={mood}
-                onChange={(e) => setMood(e.target.value)}    
+                onChange={(e) => {
+                    setMood(e.target.value)
+                    setSession({...session, mood: e.target.value})    
+                }}    
             />
 
             <Text fontSize='2xl'>Tone</Text>
             <Input 
                 placeholder='reading tone of the session'
                 value={tone}
-                onChange={(e) => setTone(e.target.value)}    
+                onChange={(e) => {
+                    setTone(e.target.value)
+                    setSession({...session, tone: e.target.value})    
+                }}    
             />
 
             <Text fontSize='2xl'>Extra notes</Text>
             <Textarea 
                 placeholder='any extra notes...'
                 value={extraNotes}
-                onChange={(e) => setExtraNotes(e.target.value)}
+                onChange={(e) => {
+                    setExtraNotes(e.target.value)
+                    setSession({...session, extraNotes: e.target.value})    
+                }}
                 sz='sm'
             />
         </Flex>
