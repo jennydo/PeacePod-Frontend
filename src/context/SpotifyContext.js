@@ -13,8 +13,6 @@ export const spotifyReducer = (state, action) => {
             return {
                ...state,
                 accessToken: action.payload.accessToken,
-                // refreshToken: action.payload.refreshToken !== undefined ? action.payload.refreshToken : state.refreshToken,
-                // expiresIn: action.payload.expiresIn !== undefined ? action.payload.expiresIn : state.expiresIn,
             }
         case 'SET_SPOTIFY_PLAYING_TRACK':
             return {
@@ -30,39 +28,8 @@ export const SpotifyContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(spotifyReducer, {
         spotifyCode: null,
         accessToken: null,
-        // refreshToken: null, 
-        // expiresIn: null,
         playingTrack: null
     })
-
-    // useEffect(()=> {
-    //     const spotifyCode = JSON.parse(localStorage.getItem('spotifyCode'))
-    //     if (spotifyCode) {
-    //         dispatch({
-    //             type: 'SET_SPOTIFY_CODE', 
-    //             payload: spotifyCode
-    //         })
-    //     }
-    //     const accessToken = JSON.parse(localStorage.getItem('spotifyAccessToken'))
-    //     if (accessToken) {
-    //         dispatch({
-    //             type: 'SET_SPOTIFY_TOKEN', 
-    //             payload: accessToken
-    //         })
-    //     }
-    // }, [])
-
-    // useEffect(() => {
-    //     if (state.spotifyCode) {
-    //         localStorage.setItem('spotifyCode', JSON.stringify(state.spotifyCode))
-    //     }
-    // }, [state.spotifyCode])
-
-    // useEffect(() => {
-    //     if (state.accessToken) {
-    //         localStorage.setItem('spotifyAccessToken', JSON.stringify(state.accessToken))
-    //     }
-    // }, [state.accessToken])
     
     console.log("SpotifyContext state: ", state)
 
