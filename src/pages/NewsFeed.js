@@ -11,7 +11,7 @@ const NewsFeed = () => {
 
             <Prompts/>
 
-            {/* <Grid gridTemplateColumns={'1fr 30%'} m={10} gap={6}>
+            <Grid gridTemplateColumns={'1fr 30%'} m={10} gap={6}>
                 <GridItem w='100%' h='10'> 
                   <CreatePost/>
                   <AllPosts/>
@@ -19,7 +19,7 @@ const NewsFeed = () => {
                 <GridItem w='100%' >
                   <QuotesAndTipsCards />
                 </GridItem>
-            </Grid> */}
+            </Grid>
         </div>
     );
 }
