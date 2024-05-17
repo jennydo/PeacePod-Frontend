@@ -7,24 +7,6 @@ const AudioList = () => {
   /// Dummy data for testing UI, later fetch from DB
   const { audios, chosenAudio, dispatch } = useContext(AudioContext);
 
-  const voices = [
-    {
-      title: "Heartbreak",
-      isFavorite: false,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-  ];
-
-  useEffect(() => {
-    /// TODO: fetch from DB
-
-    dispatch({ type: "GET_AUDIOS", payload: voices });
-
-  }, [dispatch]);
-
   return (
     <>
     {audios.length ? (

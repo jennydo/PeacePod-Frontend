@@ -17,7 +17,7 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Flex,
+  IconButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import SpotifyMain from "./Music/SpotifyMain";
@@ -103,7 +103,7 @@ const MeditationDrawer = () => {
                   <TabPanels>
                     <TabPanel padding={0}>
                       <AudioList />
-                      <Button>Add new</Button>
+                      <IconButton icon={<TiPlus />} isRound={true}></IconButton>
                       {/* <CreateOwnSession
                         session={ownSession}
                         setSession={setOwnSession}
