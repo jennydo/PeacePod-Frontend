@@ -20,41 +20,39 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import SpotifyMain from "./Music/SpotifyMain";
-import BackgroundMain from './Background/BackgroundMain';
+import BackgroundMain from "./Background/BackgroundMain";
 import CreateOwnSession from "./CreateOwnSession";
 import axios from "axios";
 
 const MeditationDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-  const user = JSON.parse(localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [ownSession, setOwnSession] = useState();
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleCreateSession = async () => {
-    console.log("Current tab index ", tabIndex)
+    console.log("Current tab index ", tabIndex);
 
     /// Index == 0 <=> Create Own Session
     if (tabIndex == 0) {
-
-      console.log("Submitted session", ownSession)
+      console.log("Submitted session", ownSession);
 
       try {
         const response = await axios.post(
-          'http://localhost:4000/api/meditation/sessions',
+          "http://localhost:4000/api/meditation/sessions",
           ownSession,
           {
             headers: {
-              Authorization: `Bearer ${user?.token}`
-            }
+              Authorization: `Bearer ${user?.token}`,
+            },
           }
-        )
+        );
 
-        console.log("Response from creating session", response.data)
-        
+        console.log("Response from creating session", response.data);
       } catch (err) {
-        console.log("Error while creating session...", err)
+        console.log("Error while creating session...", err);
       }
     }
   };
@@ -76,17 +74,22 @@ const MeditationDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader>Create your Meditation Session</DrawerHeader>
 
-          <DrawerBody>
-            <VStack h='100%'>
-              <Box w='100%' h='50%'>
-                  <BackgroundMain/>
+          <DrawerBody
+            sx={{
+              "::-webkit-scrollbar": {
+                display: 'none',
+              },
+            }}
+          >
+            <VStack h="100%">
+              <Box w="100%" h="50%">
+                <BackgroundMain />
               </Box>
-              <Box w='100%' h="50%">
-                <Tabs onChange={(idx) => setTabIndex(idx)}>
+              <Box w="100%" h="50%">
+                <Tabs onChange={(idx) => setTabIndex(idx)} isFitted={true}>
                   <TabList>
-                    <Tab>Create your own</Tab>
+                    <Tab>Choose from your own audio list</Tab>
                     <Tab>Choose from Spotify</Tab>
-                    <Tab>Saved Voices</Tab>
                   </TabList>
 
                   <TabPanels>
@@ -98,9 +101,6 @@ const MeditationDrawer = () => {
                     </TabPanel>
                     <TabPanel>
                       <SpotifyMain />
-                    </TabPanel>
-                    <TabPanel>
-                      <p>Choose from your list of saved voices</p>
                     </TabPanel>
                   </TabPanels>
                 </Tabs>
