@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Drawer,
   DrawerBody,
@@ -24,6 +24,7 @@ import SpotifyMain from "./Music/SpotifyMain";
 import BackgroundMain from "./Background/BackgroundMain";
 import CreateOwnSession from "./CreateOwnSession";
 import axios from "axios";
+import AudioList from "./MeditationAudio/MeditationAudioList";
 
 const MeditationDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,18 +33,6 @@ const MeditationDrawer = () => {
 
   const [ownSession, setOwnSession] = useState();
   const [tabIndex, setTabIndex] = useState(0);
-
-  /// Dummy data for testing UI
-  const voices = [
-    {
-      title: "Heartbreak",
-      isFavorite: false,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-  ];
 
   const handleCreateSession = async () => {
     console.log("Current tab index ", tabIndex);
@@ -112,22 +101,7 @@ const MeditationDrawer = () => {
 
                   <TabPanels>
                     <TabPanel padding={0}>
-                      {voices.map((voice, idx) => {
-                        return (
-                          <Flex
-                            w="100%"
-                            h={10}
-                            bg="green.100"
-                            marginBottom={2}
-                            marginTop={3}
-                            justifyContent='center'
-                            alignItems='center'
-                            borderRadius={10}
-                          >
-                            {voice.title}
-                          </Flex>
-                        );
-                      })}
+                      <AudioList />
                       {/* <CreateOwnSession
                         session={ownSession}
                         setSession={setOwnSession}

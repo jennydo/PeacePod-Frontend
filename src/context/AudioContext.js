@@ -19,6 +19,8 @@ export const audioReducer = (state, action) => {
                 ...state,
                 audios: [action.payload, ...state.audios]
             }
+        default: 
+            return state
     }
 }
 
@@ -27,6 +29,8 @@ export const AudioContextProvider = ( { children }) => {
         audios: [],
         chosenAudio: null
     })
+
+    /// TODO: useEffect here to get current voices attached with this user
 
     return (
         <AudioContext.Provider value={ {...state, dispatch }}>
