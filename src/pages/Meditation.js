@@ -4,24 +4,26 @@ import SongPlayer from '../components/Meditation/Music/SongPlayer';
 import { Grid, GridItem } from '@chakra-ui/react';
 import { CloudinaryContextProvider } from '../context/CloudinaryContext';
 import DisplayedBackground from '../components/Meditation/Background/DisplayedBackground';
+import Player from '../components/Meditation/Music/AudioPlayer';
 
 const Meditation = () => {
-    const {accessToken, playingTrack} = useSpotifyContext();
+    const { accessToken, playingTrack } = useSpotifyContext();
 
-    return ( 
+    return (
         <CloudinaryContextProvider>
-             <Grid gridTemplateRows={'1fr 10%'} height="85vh" gap={6}>
+            <Grid gridTemplateRows={'1fr 10%'} height="85vh" gap={6}>
                 <GridItem w='100%' h='100%'>
-                    <MeditationDrawer/>
-                    <DisplayedBackground/>
+                    <MeditationDrawer />
+                    <DisplayedBackground />
                 </GridItem>
                 <GridItem w='100%' h='100%'>
-                    {playingTrack && <SongPlayer accessToken={accessToken} trackUri={playingTrack?.uri}/>}
+                    {playingTrack && <SongPlayer accessToken={accessToken} trackUri={playingTrack?.uri} />}
+                    <Player />
                 </GridItem>
             </Grid>
-        </CloudinaryContextProvider> 
-       
-     );
+        </CloudinaryContextProvider>
+
+    );
 }
- 
+
 export default Meditation;
