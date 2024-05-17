@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Drawer,
   DrawerBody,
@@ -20,11 +20,14 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { GiHamburger } from "react-icons/gi";
 import SpotifyMain from "./Music/SpotifyMain";
 import BackgroundMain from "./Background/BackgroundMain";
 import CreateOwnSession from "./CreateOwnSession";
 import axios from "axios";
 import AudioList from "./MeditationAudio/MeditationAudioList";
+import { TiPlus } from "react-icons/ti";
+import NewAudioModal from "./MeditationAudio/NewAudioModal";
 
 const MeditationDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,6 +36,15 @@ const MeditationDrawer = () => {
 
   const [ownSession, setOwnSession] = useState();
   const [tabIndex, setTabIndex] = useState(0);
+
+  /// Modal logic
+  const finalRef = useRef(null);
+
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
 
   /// This is old version for old design, not working for new design yet
   const handleSave = async () => {
@@ -62,7 +74,13 @@ const MeditationDrawer = () => {
 
   return (
     <>
-      <Button ref={btnRef} onClick={onOpen} rightIcon={<HamburgerIcon />}>
+      <Button
+        marginLeft={10}
+        marginBottom={1}
+        ref={btnRef}
+        onClick={onOpen}
+        rightIcon={<GiHamburger fontSize={20} />}
+      >
         Menu
       </Button>
       <Drawer
@@ -103,7 +121,14 @@ const MeditationDrawer = () => {
                   <TabPanels>
                     <TabPanel padding={0}>
                       <AudioList />
-                      <IconButton icon={<TiPlus />} isRound={true}></IconButton>
+                      <Button leftIcon={<TiPlus />} borderRadius={10} size="sm" onClick={onModalOpen}>
+                        Generate new audio
+                      </Button>
+                      <NewAudioModal
+                        finalRef={finalRef}
+                        onClose={onModalClose}
+                        isOpen={isModalOpen}
+                      />
                       {/* <CreateOwnSession
                         session={ownSession}
                         setSession={setOwnSession}

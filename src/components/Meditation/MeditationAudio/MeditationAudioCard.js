@@ -4,10 +4,9 @@ import { AudioContext } from "../../../context/AudioContext";
 
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import { TbTrash } from "react-icons/tb";
 
 const AudioCard = ({ audio }) => {
-  const { audios, chosenAudio, dispatch } = useContext(AudioContext);
+  const { chosenAudio, dispatch } = useContext(AudioContext);
 
   const [favorite, setFavorite] = useState(audio.isFavorite);
 
@@ -28,7 +27,7 @@ const AudioCard = ({ audio }) => {
     <Flex w="100%" h={12} marginBottom={3} marginTop={3} justifyContent={'space-between'}>
       <Flex
         w="100%"
-        bg="green.100"
+        bg="yellow.100"
         justifyContent="center"
         alignItems="center"
         borderRadius={10}
@@ -41,20 +40,20 @@ const AudioCard = ({ audio }) => {
           },
         }}
         onClick={chooseAudio}
-        borderColor={audio === chosenAudio ? "red.200" : "none"}
-        borderWidth={2}
+        borderColor={audio === chosenAudio ? "red.100" : "none"}
+        borderWidth={audio === chosenAudio ? 3 : 0}
       >
         {audio.title}
       </Flex>
       <IconButton
         variant="ghost"
-        icon={favorite ? <FaHeart size={20} color='blue'/> : <FaRegHeart size={20}/>}
+        icon={favorite ? <FaHeart size={20} fill="#FFAFCC"/> : <FaRegHeart size={20}/>}
         onClick={handleFavorite}
         h={12}
         sx={{
           _hover: {
             'background': 'none'
-          }
+          },
         }}
       />
     </Flex>
