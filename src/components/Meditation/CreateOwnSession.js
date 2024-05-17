@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Flex, Text, Input, Textarea } from "@chakra-ui/react";
 
-const CreateOwnSession = ({ session, setSession }) => {
+const CreateOwnSession = () => {
+
+  const [title, setTitle] = useState("")
   const [duration, setDuration] = useState("");
   const [mood, setMood] = useState("");
   const [tone, setTone] = useState("");
@@ -10,6 +12,18 @@ const CreateOwnSession = ({ session, setSession }) => {
   return (
     <Flex flexDirection="column">
       <Text fontSize="xl" marginBottom={2}>
+        Title
+      </Text>
+      <Input
+        placeholder="title for this audio..."
+        value={title}
+        onChange={(e) => {
+          setTitle(e.target.value);
+          // setSession({ ...session, duration: e.target.value });
+        }}
+      />
+
+      <Text fontSize="xl" marginBottom={2}>
         Duration
       </Text>
       <Input
@@ -17,7 +31,7 @@ const CreateOwnSession = ({ session, setSession }) => {
         value={duration}
         onChange={(e) => {
           setDuration(e.target.value);
-          setSession({ ...session, duration: e.target.value });
+          // setSession({ ...session, duration: e.target.value });
         }}
       />
 
@@ -29,7 +43,7 @@ const CreateOwnSession = ({ session, setSession }) => {
         value={mood}
         onChange={(e) => {
           setMood(e.target.value);
-          setSession({ ...session, mood: e.target.value });
+          // setSession({ ...session, mood: e.target.value });
         }}
       />
 
@@ -41,7 +55,7 @@ const CreateOwnSession = ({ session, setSession }) => {
         value={tone}
         onChange={(e) => {
           setTone(e.target.value);
-          setSession({ ...session, tone: e.target.value });
+          // setSession({ ...session, tone: e.target.value });
         }}
       />
 
@@ -53,7 +67,7 @@ const CreateOwnSession = ({ session, setSession }) => {
         value={extraNotes}
         onChange={(e) => {
           setExtraNotes(e.target.value);
-          setSession({ ...session, extraNotes: e.target.value });
+          // setSession({ ...session, extraNotes: e.target.value });
         }}
         sz="sm"
       />
