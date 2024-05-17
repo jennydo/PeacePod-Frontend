@@ -42,7 +42,7 @@ const NormalPost = ({ post }) => {
   // to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
     // get the User object by userId
-    axios.get(`http://localhost:4000/api/users/${userId}`)
+    axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
       .then((response) => {
         setUser(response.data);
       })
