@@ -17,6 +17,7 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Flex,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import SpotifyMain from "./Music/SpotifyMain";
@@ -31,6 +32,18 @@ const MeditationDrawer = () => {
 
   const [ownSession, setOwnSession] = useState();
   const [tabIndex, setTabIndex] = useState(0);
+
+  /// Dummy data for testing UI
+  const voices = [
+    {
+      title: "Heartbreak",
+      isFavorite: false,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+  ];
 
   const handleCreateSession = async () => {
     console.log("Current tab index ", tabIndex);
@@ -72,12 +85,14 @@ const MeditationDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader paddingTop={0} paddingBottom={0}>Create your Meditation Session</DrawerHeader>
+          <DrawerHeader paddingTop={0} paddingBottom={0}>
+            Create your Meditation Session
+          </DrawerHeader>
 
           <DrawerBody
             sx={{
               "::-webkit-scrollbar": {
-                display: 'none',
+                display: "none",
               },
             }}
           >
@@ -86,19 +101,37 @@ const MeditationDrawer = () => {
                 <BackgroundMain />
               </Box>
               <Box w="100%" marginTop={5}>
-                <Tabs onChange={(idx) => setTabIndex(idx)} isFitted={true} variant='enclosed'>
-                  <Text fontSize='xl' marginBottom={0}>Session</Text>
+                <Tabs onChange={(idx) => setTabIndex(idx)} isFitted={true}>
+                  <Text fontSize="xl" marginBottom={0}>
+                    Session
+                  </Text>
                   <TabList>
                     <Tab>Choose from your list</Tab>
                     <Tab>Choose from Spotify</Tab>
                   </TabList>
 
                   <TabPanels>
-                    <TabPanel>
-                      <CreateOwnSession
+                    <TabPanel padding={0}>
+                      {voices.map((voice, idx) => {
+                        return (
+                          <Flex
+                            w="100%"
+                            h={10}
+                            bg="green.100"
+                            marginBottom={2}
+                            marginTop={3}
+                            justifyContent='center'
+                            alignItems='center'
+                            borderRadius={10}
+                          >
+                            {voice.title}
+                          </Flex>
+                        );
+                      })}
+                      {/* <CreateOwnSession
                         session={ownSession}
                         setSession={setOwnSession}
-                      />
+                      /> */}
                     </TabPanel>
                     <TabPanel>
                       <SpotifyMain />
