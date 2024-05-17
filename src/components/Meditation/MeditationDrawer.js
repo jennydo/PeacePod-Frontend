@@ -23,7 +23,6 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { GiHamburger } from "react-icons/gi";
 import SpotifyMain from "./Music/SpotifyMain";
 import BackgroundMain from "./Background/BackgroundMain";
-import CreateOwnSession from "./CreateOwnSession";
 import axios from "axios";
 import AudioList from "./MeditationAudio/MeditationAudioList";
 import { TiPlus } from "react-icons/ti";
