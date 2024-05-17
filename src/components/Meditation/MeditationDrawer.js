@@ -34,7 +34,8 @@ const MeditationDrawer = () => {
   const [ownSession, setOwnSession] = useState();
   const [tabIndex, setTabIndex] = useState(0);
 
-  const handleCreateSession = async () => {
+  /// This is old version for old design, not working for new design yet
+  const handleSave = async () => {
     console.log("Current tab index ", tabIndex);
 
     /// Index == 0 <=> Create Own Session
@@ -69,7 +70,7 @@ const MeditationDrawer = () => {
         placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
-        size="md"
+        size="sm"
       >
         <DrawerOverlay />
         <DrawerContent>
@@ -95,13 +96,14 @@ const MeditationDrawer = () => {
                     Session
                   </Text>
                   <TabList>
-                    <Tab>Choose from your list</Tab>
-                    <Tab>Choose from Spotify</Tab>
+                    <Tab>Your list</Tab>
+                    <Tab>Spotify</Tab>
                   </TabList>
 
                   <TabPanels>
                     <TabPanel padding={0}>
                       <AudioList />
+                      <Button>Add new</Button>
                       {/* <CreateOwnSession
                         session={ownSession}
                         setSession={setOwnSession}
@@ -120,7 +122,7 @@ const MeditationDrawer = () => {
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue" onClick={handleCreateSession}>
+            <Button colorScheme="blue" onClick={handleSave}>
               Save
             </Button>
           </DrawerFooter>

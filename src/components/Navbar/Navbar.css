@@ -22,6 +22,7 @@
     text-decoration: none;
     padding: 6px;
     background-color: transparent; 
+    transition: all 250ms linear
 }
 
 .peacepod-navbar button {
@@ -42,6 +43,5 @@
 .peacepod-navlink.active {
     color: #eb4b98;
     text-decoration: none; 
-    transition: background-color 0.3s ease; 
 }
 
