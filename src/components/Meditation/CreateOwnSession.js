@@ -14,7 +14,7 @@ const CreateOwnSession = ({ session, setSession }) => {
 
     return (
         <Flex flexDirection='column'>
-            <Text fontSize='2xl'>Duration</Text>
+            <Text fontSize='xl' marginBottom={2}>Duration</Text>
             <Input 
                 placeholder='duration of the session in minutes'
                 value={duration}
@@ -24,7 +24,7 @@ const CreateOwnSession = ({ session, setSession }) => {
                 }}    
             />
 
-            <Text fontSize='2xl'>Mood</Text>
+            <Text fontSize='xl' marginBottom={2}>Mood</Text>
             <Input 
                 placeholder='e.g. sad, happy'
                 value={mood}
@@ -34,7 +34,7 @@ const CreateOwnSession = ({ session, setSession }) => {
                 }}    
             />
 
-            <Text fontSize='2xl'>Tone</Text>
+            <Text fontSize='xl' marginBottom={2}>Tone</Text>
             <Input 
                 placeholder='reading tone of the session'
                 value={tone}
@@ -44,7 +44,7 @@ const CreateOwnSession = ({ session, setSession }) => {
                 }}    
             />
 
-            <Text fontSize='2xl'>Extra notes</Text>
+            <Text fontSize='xl' marginBottom={2}>Extra notes</Text>
             <Textarea 
                 placeholder='any extra notes...'
                 value={extraNotes}

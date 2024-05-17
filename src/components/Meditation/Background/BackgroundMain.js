@@ -5,7 +5,7 @@ import { Box, Text } from "@chakra-ui/react";
 const BackgroundMain = () => {
     return ( 
         <Box w="100%" h="100%"> 
-            <Text>Background</Text>
+            <Text fontSize='xl'>Background</Text>
             <BackgroundList/>
             <UploadBackground/>
         </Box>

@@ -36,7 +36,7 @@ const MeditationDrawer = () => {
     console.log("Current tab index ", tabIndex);
 
     /// Index == 0 <=> Create Own Session
-    if (tabIndex == 0) {
+    if (tabIndex === 0) {
       console.log("Submitted session", ownSession);
 
       try {
@@ -67,12 +67,12 @@ const MeditationDrawer = () => {
         placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
-        size="sm"
+        size="md"
       >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your Meditation Session</DrawerHeader>
+          <DrawerHeader paddingTop={0} paddingBottom={0}>Create your Meditation Session</DrawerHeader>
 
           <DrawerBody
             sx={{
@@ -85,10 +85,11 @@ const MeditationDrawer = () => {
               <Box w="100%" h="50%">
                 <BackgroundMain />
               </Box>
-              <Box w="100%" h="50%">
-                <Tabs onChange={(idx) => setTabIndex(idx)} isFitted={true}>
+              <Box w="100%" marginTop={5}>
+                <Tabs onChange={(idx) => setTabIndex(idx)} isFitted={true} variant='enclosed'>
+                  <Text fontSize='xl' marginBottom={0}>Session</Text>
                   <TabList>
-                    <Tab>Choose from your own audio list</Tab>
+                    <Tab>Choose from your list</Tab>
                     <Tab>Choose from Spotify</Tab>
                   </TabList>
 
