@@ -3,7 +3,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import './AudioPlayer.css';
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
-import { Button, ButtonGroup, Stack, HStack, VStack, StackDivider, Flex } from '@chakra-ui/react'
+import { Button, VStack, StackDivider } from '@chakra-ui/react'
 
 const Player = () => {
     const [audioUrl, setAudioUrl] = useState('');
