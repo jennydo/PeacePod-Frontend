@@ -1,9 +1,9 @@
-import { useState, useEffect } from'react';
+import { useState, useEffect } from 'react';
 import SpotifyWebPlayer from "react-spotify-web-playback";
 import './SongPlayer.css';
 import { Box } from '@chakra-ui/react';
 
-const SongPlayer = ({accessToken, trackUri}) => {
+const SongPlayer = ({ accessToken, trackUri }) => {
     const [play, setPlay] = useState(false)
 
     useEffect(() => setPlay(true), [trackUri])
@@ -25,10 +25,10 @@ const SongPlayer = ({accessToken, trackUri}) => {
         trackNameColor: "#eb4b98",
         ".ButtonRSWP": {
             display: "none",
-          }
-      }
+        }
+    }
 
-    return ( 
+    return (
         <Box borderRadius={40} bg="green" overflowWrap={true}>
             <SpotifyWebPlayer
                 token={accessToken}
@@ -43,8 +43,8 @@ const SongPlayer = ({accessToken, trackUri}) => {
                 styles={styles}
             />
         </Box>
-        
-     );
+
+    );
 }
- 
+
 export default SongPlayer;
