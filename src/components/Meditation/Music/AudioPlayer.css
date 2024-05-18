@@ -1,9 +1,6 @@
 .audio-player {
     background-color: #f5f5f5;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+    border-radius: 25px;
     padding-left: 60px;
     padding-right: 60px;
     padding-top: 10px;
