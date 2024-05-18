@@ -1,32 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import { AuthContextProvider } from './context/AuthContext';
-import { PostsContextProvider } from './context/PostsContext';
-import { CommentsContextProvider } from './context/CommentsContext';
-import { ChatsContextProvider } from './context/ChatsContext';
-import { SpotifyContextProvider } from './context/SpotifyContext';
-import { AvatarContextProvider } from './context/AvatarContext';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { AuthContextProvider } from "./context/AuthContext";
+import { PostsContextProvider } from "./context/PostsContext";
+import { CommentsContextProvider } from "./context/CommentsContext";
+import { ChatsContextProvider } from "./context/ChatsContext";
+import { SpotifyContextProvider } from "./context/SpotifyContext";
+import { AvatarContextProvider } from "./context/AvatarContext";
+import { AudioContextProvider } from "./context/AudioContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <AuthContextProvider>
-        <AvatarContextProvider>
-            <PostsContextProvider>
-                <CommentsContextProvider>
-                    <ChatsContextProvider>
-                        <SpotifyContextProvider>
-                            <App />
-                        </SpotifyContextProvider>
-                    </ChatsContextProvider>
-                </CommentsContextProvider>
-            </PostsContextProvider>
-        </AvatarContextProvider>
-    </AuthContextProvider>
+  <AuthContextProvider>
+    <AudioContextProvider>
+      <AvatarContextProvider>
+        <PostsContextProvider>
+          <CommentsContextProvider>
+            <ChatsContextProvider>
+              <SpotifyContextProvider>
+                <App />
+              </SpotifyContextProvider>
+            </ChatsContextProvider>
+          </CommentsContextProvider>
+        </PostsContextProvider>
+      </AvatarContextProvider>
+    </AudioContextProvider>
+  </AuthContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -51,13 +51,15 @@ const UploadBackground = () => {
   })
 
   return (
-    <div>
       <Button 
         id="upload_widget"
-        onClick={() => widgetRef.current.open()}>
+        onClick={() => widgetRef.current.open()}
+        marginTop={2}
+        marginBottom={2}  
+        size='sm'
+      >
         Upload your own image
       </Button>
-    </div> 
   );
 }
 
