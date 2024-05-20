@@ -19,13 +19,25 @@ export const audioReducer = (state, action) => {
         ...state,
         audios: [action.payload, ...state.audios],
       };
-    case "TOGGLE_FAVORITE":
+    case "FAVORITE_AUDIO":
       return {
         ...state,
         audios: state.audios.map((audio, _) => {
-          if (audio === action.payload) audio.isFavorite = !audio.isFavorite;
+          if (audio === action.payload) audio.isFavorite = true;
           return audio;
         }),
+        favoriteAudios: [...state.favoriteAudios, action.payload]
+      };
+    case "UNFAVORITE_AUDIO":
+      return {
+        ...state,
+        audios: state.audios.map((audio, _) => {
+          if (audio === action.payload) audio.isFavorite = false;
+          return audio;
+        }),
+        favoriteAudios: state.favoriteAudios.filter((audio, _) => {
+          return audio !== action.payload
+        })
       };
     default:
       return state;
@@ -34,8 +46,9 @@ export const audioReducer = (state, action) => {
 
 export const AudioContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(audioReducer, {
-    audios: [],
-    chosenAudio: null,
+    audios: [], /// list of all audios
+    chosenAudio: null, /// currently chosen audio 
+    favoriteAudios: [] /// list of favorite audios
   });
 
   /// Dummy data

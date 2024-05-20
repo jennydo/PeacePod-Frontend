@@ -18,8 +18,13 @@ const AudioCard = ({ audio }) => {
   };
 
   const handleFavorite = () => {
+    if (favorite)
+      dispatch({ type: 'UNFAVORITE_AUDIO', payload: audio})
+    else
+      dispatch({ type: "FAVORITE_AUDIO", payload: audio})
+    
     setFavorite(!favorite);
-    dispatch({type: "TOGGLE_FAVORITE", payload: audio})
+    
   };
   console.log("Chosen audio", chosenAudio, audio, chosenAudio === audio);
 
