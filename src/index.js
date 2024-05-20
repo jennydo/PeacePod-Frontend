@@ -14,8 +14,8 @@ import { AvatarContextProvider } from './context/AvatarContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <AuthContextProvider>
-        <AvatarContextProvider>
+    <AvatarContextProvider>
+        <AuthContextProvider>
             <PostsContextProvider>
                 <CommentsContextProvider>
                     <ChatsContextProvider>
@@ -25,8 +25,8 @@ root.render(
                     </ChatsContextProvider>
                 </CommentsContextProvider>
             </PostsContextProvider>
-        </AvatarContextProvider>
-    </AuthContextProvider>
+        </AuthContextProvider>
+    </AvatarContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer } from 'react';
+import { useAvatarContext } from '../hooks/useAvatarContext';
 
 export const AuthContext = createContext();
 
@@ -18,12 +19,18 @@ export const AuthContextProvider = ( {children} ) => {
         user: null
     })
 
+    const {dispatch: avatarDispatch} = useAvatarContext();
+
     useEffect(()=> {
         const user = JSON.parse(localStorage.getItem('user'))
         if (user) {
             dispatch({
                 type: 'LOGIN', 
                 payload: user
+            })
+            avatarDispatch({
+                type: "SET_AVATAR", 
+                payload: user.user.avatar
             })
         }
     }, [])
