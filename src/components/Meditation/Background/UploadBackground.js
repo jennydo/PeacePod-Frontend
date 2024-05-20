@@ -6,8 +6,8 @@ const UploadBackground = () => {
 
   const cloudinaryRef = useRef(null);
   const widgetRef = useRef(null);
-  const cloudName = "di6doert4";
-  const uploadPreset = "peacepod_preset";
+  const cloudName = "dufirricm";
+  const uploadPreset = "peacepod-backgrounds-users";
   const {dispatch} = useContext(CloudinaryContext);
 
   const config = {
