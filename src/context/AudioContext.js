@@ -61,6 +61,54 @@ export const AudioContextProvider = ({ children }) => {
       title: "Happy day",
       isFavorite: true,
     },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Bad day",
+      isFavorite: false,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Failed the exam",
+      isFavorite: false,
+    },
+    {
+      title: "Ahuhu",
+      isFavorite: false,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
   ];
 
   useEffect(() => {
