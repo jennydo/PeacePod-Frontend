@@ -1,0 +1,24 @@
+/* .fade-in-text {
+    animation: fadeIn 5s;
+  } */
+
+  .fade-in-text {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in-text.show {
+    opacity: 1;
+}
+
+.wave{
+    aspect-ratio: 900/300;
+    height: 92vh; 
+    width: 100%;
+    background-repeat: no-repeat;
+    /* background-position: 0 0; */
+    background-size: cover;
+    background-image: url('../../../assets/images/blob-haikei.svg');
+    z-index: -1;
+    position: absolute;
+}
