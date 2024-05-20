@@ -8,6 +8,7 @@ export const audioReducer = (state, action) => {
       return {
         ...state,
         audios: action.payload,
+        favoriteAudios: action.payload.filter((audio, _) => audio.isFavorite )
       };
     case "CHOOSE_AUDIO":
       return {
@@ -19,26 +20,15 @@ export const audioReducer = (state, action) => {
         ...state,
         audios: [action.payload, ...state.audios],
       };
-    case "FAVORITE_AUDIO":
+    case "TOGGLE_FAVORITE":
       return {
         ...state,
         audios: state.audios.map((audio, _) => {
-          if (audio === action.payload) audio.isFavorite = true;
-          return audio;
+          if (audio === action.payload) audio.isFavorite = !audio.isFavorite
+            return audio
         }),
-        favoriteAudios: [...state.favoriteAudios, action.payload]
-      };
-    case "UNFAVORITE_AUDIO":
-      return {
-        ...state,
-        audios: state.audios.map((audio, _) => {
-          if (audio === action.payload) audio.isFavorite = false;
-          return audio;
-        }),
-        favoriteAudios: state.favoriteAudios.filter((audio, _) => {
-          return audio !== action.payload
-        })
-      };
+        favoriteAudios: state.audios.filter((audio, _) => audio.isFavorite)
+      }
     default:
       return state;
   }
