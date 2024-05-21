@@ -12,7 +12,8 @@ import {
   Input,
   Flex,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AudioContext } from "../../../context/AudioContext";
 
 const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
   const [title, setTitle] = useState("");
@@ -20,6 +21,13 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
   const [mood, setMood] = useState("");
   const [tone, setTone] = useState("");
   const [extraNotes, setExtraNotes] = useState("");
+
+  const { dispatch } = useContext(AudioContext)
+
+  const handleCreateAudio = () => {
+    dispatch({ type: "ADD_AUDIO", payload: { title, duration, mood, tone, extraNotes, isFavorite: false}})
+    onClose()
+  }
 
   return (
     <Modal
@@ -108,7 +116,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
         </ModalBody>
 
         <ModalFooter justifyContent="center">
-          <Button>Create</Button>
+          <Button onClick={handleCreateAudio}>Create</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
