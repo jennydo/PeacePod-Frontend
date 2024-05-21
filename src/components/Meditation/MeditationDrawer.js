@@ -114,8 +114,8 @@ const MeditationDrawer = () => {
                   isFitted={true}
                   h="100%"
                 >
-                  <Text fontSize="xl" marginBottom={0}>
-                    Session
+                  <Text fontSize="xl" marginBottom={0} mt={3}>
+                    Meditation Audio
                   </Text>
                   <TabList>
                     <Tab>Your list</Tab>
