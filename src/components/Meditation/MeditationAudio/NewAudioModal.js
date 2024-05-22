@@ -14,20 +14,46 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { AudioContext } from "../../../context/AudioContext";
+import axios from "axios";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
+  const user = useAuthContext();
+
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
   const [mood, setMood] = useState("");
   const [tone, setTone] = useState("");
   const [extraNotes, setExtraNotes] = useState("");
 
-  const { dispatch } = useContext(AudioContext)
+  const { dispatch } = useContext(AudioContext);
 
-  const handleCreateAudio = () => {
-    dispatch({ type: "ADD_AUDIO", payload: { title, duration, mood, tone, extraNotes, isFavorite: false}})
-    onClose()
-  }
+  const handleCreateAudio = async () => {
+    try {
+      /// DB
+      // const response = await axios.post(
+      //   "http://localhost:4000/api/meditation/createVoice",
+      //   { title, duration, mood, tone, extraNotes },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${user?.token}`,
+      //     },
+      //   }
+      // );
+
+      // console.log("Newly created audio", response.data)
+
+      /// Context
+      dispatch({
+        type: "ADD_AUDIO",
+        payload: { title, duration, mood, tone, extraNotes, isFavorite: false },
+      });
+    } catch (err) {
+      console.log("Error while creating new audio", err);
+    }
+
+    onClose();
+  };
 
   return (
     <Modal
@@ -53,7 +79,10 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
         >
           <Flex flexDirection="column">
             <Text fontSize="xl" marginBottom={2}>
-              Title <Text color='red' as='span'>*</Text>
+              Title{" "}
+              <Text color="red" as="span">
+                *
+              </Text>
             </Text>
             <Input
               placeholder="title for this audio..."
@@ -65,7 +94,10 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
             />
 
             <Text fontSize="xl" marginBottom={2}>
-              Duration <Text color='red' as='span'>*</Text>
+              Duration{" "}
+              <Text color="red" as="span">
+                *
+              </Text>
             </Text>
             <Input
               placeholder="duration of the session in minutes"
@@ -77,7 +109,10 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
             />
 
             <Text fontSize="xl" marginBottom={2}>
-              Mood <Text color='red' as='span'>*</Text>
+              Mood{" "}
+              <Text color="red" as="span">
+                *
+              </Text>
             </Text>
             <Input
               placeholder="e.g. sad, happy"
@@ -89,7 +124,10 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
             />
 
             <Text fontSize="xl" marginBottom={2}>
-              Tone <Text color='red' as='span'>*</Text>
+              Tone{" "}
+              <Text color="red" as="span">
+                *
+              </Text>
             </Text>
             <Input
               placeholder="reading tone of the session"
