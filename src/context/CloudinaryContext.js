@@ -8,12 +8,18 @@ export const cloudinaryReducer = (state, action) => {
         case 'GET_IMAGES':
             return {
                 ...state,
-                images: action.payload
+                images: [...state.images,...action.payload]
+            }
+        case 'GET_USER_IMAGES':
+            return {
+                ...state,
+                userImages: action.payload,
+                images: [...action.payload, ...state.images]
             }
         case 'UPLOAD_IMAGE':
             return {
                 ...state,
-                images: [action.payload, ...state.images]
+                userImages: [action.payload, ...state.userImages]
             }
         case 'DISPLAY_IMAGE':
             return {
@@ -28,6 +34,7 @@ export const cloudinaryReducer = (state, action) => {
 export const CloudinaryContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(cloudinaryReducer, {
         images: [],
+        userImages: [],
         displayedImage: null // change to the initial value of the list of images or the last image used
     })
 
