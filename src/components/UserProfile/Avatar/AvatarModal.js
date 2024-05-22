@@ -40,7 +40,7 @@ const AvatarModal = () => {
             const userLocalStorage = JSON.parse(localStorage.getItem('user'));
             userLocalStorage.user.avatar = response.data.avatar; 
             userLocalStorage.user.avatarData = response.data.avatarData;
-            console.log('Avatar saved in localStorage successfully:', userLocalStorage)
+            // console.log('Avatar saved in localStorage successfully:', userLocalStorage)
             localStorage.setItem('user', JSON.stringify(userLocalStorage));
 
             // update the userContext 

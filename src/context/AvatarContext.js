@@ -67,7 +67,7 @@ export const AvatarContextProvider = ( {children} ) => {
             .then(promise => 
                 {
                     dispatch({ type: "SET_AVATAR", payload: promise });
-                    console.log(promise)
+                    // console.log(promise)
                 }
             ).catch(error => console.log(error))
         }
@@ -88,7 +88,7 @@ export const AvatarContextProvider = ( {children} ) => {
         }
     }, [])
     
-    console.log("AvatarContext stata: ", state)
+    // console.log("AvatarContext stata: ", state)
 
     return (
         <AvatarContext.Provider value={ {...state, dispatch} }>
