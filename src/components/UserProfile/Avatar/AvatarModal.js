@@ -32,12 +32,17 @@ const AvatarModal = () => {
         .then(response => {
             // Handle success
             console.log('Avatar updated successfully:', response.data);
+            // update that field in localStorage
+            const userLocalStorage = JSON.parse(localStorage.getItem('user'));
+            userLocalStorage.user.avatar = response.data.avatar; 
+            console.log('Avatar saved in localStorage successfully:', userLocalStorage)
+            localStorage.setItem('user', JSON.stringify(userLocalStorage));
         })
         .catch(error => {
             // Handle error
             console.error('Error updating avatar:', error);
         });
-    }
+        }
 
     return ( 
         <>
