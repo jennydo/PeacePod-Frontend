@@ -231,7 +231,7 @@ const Prompt = () => {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={`${promptQuote}...`}
+              placeholder={`${promptQuote.slice(0, 30)}...`}
               size="md"
               // variant='unstyled'
               variant="flushed"
