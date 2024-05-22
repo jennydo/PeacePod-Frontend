@@ -26,13 +26,13 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
       finalFocusRef={finalRef}
       isOpen={isOpen}
       onClose={onClose}
-      size="5xl"
+      size="xl"
       scrollBehavior="inside"
     >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader textAlign="center">
-          Create your own meditation audio
+          Create your own meditation audio 🎶
         </ModalHeader>
         <ModalCloseButton />
 
@@ -45,7 +45,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
         >
           <Flex flexDirection="column">
             <Text fontSize="xl" marginBottom={2}>
-              Title
+              Title <Text color='red' as='span'>*</Text>
             </Text>
             <Input
               placeholder="title for this audio..."
@@ -57,7 +57,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
             />
 
             <Text fontSize="xl" marginBottom={2}>
-              Duration
+              Duration <Text color='red' as='span'>*</Text>
             </Text>
             <Input
               placeholder="duration of the session in minutes"
@@ -69,7 +69,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
             />
 
             <Text fontSize="xl" marginBottom={2}>
-              Mood
+              Mood <Text color='red' as='span'>*</Text>
             </Text>
             <Input
               placeholder="e.g. sad, happy"
@@ -81,7 +81,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
             />
 
             <Text fontSize="xl" marginBottom={2}>
-              Tone
+              Tone <Text color='red' as='span'>*</Text>
             </Text>
             <Input
               placeholder="reading tone of the session"
