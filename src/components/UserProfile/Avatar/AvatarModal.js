@@ -14,11 +14,30 @@ import {
 import CustomizeAvatar from './CustomizeAvatar'
 import React from 'react'
 import { useAvatarContext } from '../../../hooks/useAvatarContext'
+import axios from 'axios';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 
 const AvatarModal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const finalRef = React.useRef(null)
     const { avatar } = useAvatarContext()
+    const { user } = useAuthContext()
+    const userId = user.user._id;
+
+    const handleClick = () => {
+        onClose();
+        axios.patch(`http://localhost:4000/api/users/${userId}`, {
+            avatar: avatar
+        })
+        .then(response => {
+            // Handle success
+            console.log('Avatar updated successfully:', response.data);
+        })
+        .catch(error => {
+            // Handle error
+            console.error('Error updating avatar:', error);
+        });
+    }
 
     return ( 
         <>
@@ -46,7 +65,7 @@ const AvatarModal = () => {
             </ModalBody>
                 
             <ModalFooter display="flex" justifyContent="center" alignItems="center">
-                <Button colorScheme='blue' mr={3} onClick={onClose} >
+                <Button colorScheme='blue' mr={3} onClick={handleClick} >
                     Save
                 </Button>
             </ModalFooter>
