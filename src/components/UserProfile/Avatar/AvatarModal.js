@@ -16,11 +16,12 @@ import React from 'react'
 import { useAvatarContext } from '../../../hooks/useAvatarContext'
 import axios from 'axios';
 import { useAuthContext } from '../../../hooks/useAuthContext';
+import { useEffect} from 'react';
 
 const AvatarModal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const finalRef = React.useRef(null)
-    const { avatar } = useAvatarContext()
+    const { avatar, dispatch } = useAvatarContext()
     const { user } = useAuthContext()
     const userId = user.user._id;
 
@@ -32,11 +33,20 @@ const AvatarModal = () => {
         .then(response => {
             // Handle success
             console.log('Avatar updated successfully:', response.data);
+
             // update that field in localStorage
             const userLocalStorage = JSON.parse(localStorage.getItem('user'));
             userLocalStorage.user.avatar = response.data.avatar; 
             console.log('Avatar saved in localStorage successfully:', userLocalStorage)
             localStorage.setItem('user', JSON.stringify(userLocalStorage));
+
+            // update the userContext 
+            // user.user.avatar = response.data.avatar; 
+            dispatch({
+                type: 'LOGIN',
+                // dispatch: user
+                payload: { ...user, avatar: response.data.avatar}
+            })
         })
         .catch(error => {
             // Handle error
@@ -63,7 +73,7 @@ const AvatarModal = () => {
                         />}
                 </VStack>
             </ModalHeader>
-            <ModalCloseButton />
+            {/* <ModalCloseButton /> */}
 
             <ModalBody>
                 <CustomizeAvatar/>
