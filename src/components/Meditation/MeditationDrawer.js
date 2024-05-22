@@ -35,6 +35,7 @@ const MeditationDrawer = () => {
 
   const [ownSession, setOwnSession] = useState();
   const [tabIndex, setTabIndex] = useState(0);
+  const [isFilter, setIsFilter] = useState(false);
 
   /// Modal logic
   const finalRef = useRef(null);
@@ -107,10 +108,14 @@ const MeditationDrawer = () => {
               <Box w="100%" h="50%">
                 <BackgroundMain />
               </Box>
-              <Box w="100%" marginTop={5}>
-                <Tabs onChange={(idx) => setTabIndex(idx)} isFitted={true}>
-                  <Text fontSize="xl" marginBottom={0}>
-                    Session
+              <Box w="100%" h="50%">
+                <Tabs
+                  onChange={(idx) => setTabIndex(idx)}
+                  isFitted={true}
+                  h="100%"
+                >
+                  <Text fontSize="xl" marginBottom={0} mt={3}>
+                    Meditation Audio
                   </Text>
                   <TabList>
                     <Tab>Your list</Tab>
@@ -119,8 +124,22 @@ const MeditationDrawer = () => {
 
                   <TabPanels>
                     <TabPanel padding={0}>
-                      <AudioList />
-                      <Button leftIcon={<TiPlus />} borderRadius={10} size="sm" onClick={onModalOpen}>
+                      <Button
+                        mt={3}
+                        borderRadius={10}
+                        size="sm"
+                        onClick={() => setIsFilter(!isFilter)}
+                        bg={isFilter? 'pink.100' : 'gray.100'}
+                      >
+                        Filter favorite
+                      </Button>
+                      <AudioList isFilter={isFilter} />
+                      <Button
+                        leftIcon={<TiPlus />}
+                        borderRadius={10}
+                        size="sm"
+                        onClick={onModalOpen}
+                      >
                         Generate new audio
                       </Button>
                       <NewAudioModal

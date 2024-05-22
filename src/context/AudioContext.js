@@ -8,6 +8,7 @@ export const audioReducer = (state, action) => {
       return {
         ...state,
         audios: action.payload,
+        favoriteAudios: action.payload.filter((audio, _) => audio.isFavorite )
       };
     case "CHOOSE_AUDIO":
       return {
@@ -23,10 +24,11 @@ export const audioReducer = (state, action) => {
       return {
         ...state,
         audios: state.audios.map((audio, _) => {
-          if (audio === action.payload) audio.isFavorite = !audio.isFavorite;
-          return audio;
+          if (audio === action.payload) audio.isFavorite = !audio.isFavorite
+            return audio
         }),
-      };
+        favoriteAudios: state.audios.filter((audio, _) => audio.isFavorite)
+      }
     default:
       return state;
   }
@@ -34,8 +36,9 @@ export const audioReducer = (state, action) => {
 
 export const AudioContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(audioReducer, {
-    audios: [],
-    chosenAudio: null,
+    audios: [], /// list of all audios
+    chosenAudio: null, /// currently chosen audio 
+    favoriteAudios: [] /// list of favorite audios
   });
 
   /// Dummy data
@@ -43,6 +46,54 @@ export const AudioContextProvider = ({ children }) => {
     {
       title: "Heartbreak",
       isFavorite: false,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Bad day",
+      isFavorite: false,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Failed the exam",
+      isFavorite: false,
+    },
+    {
+      title: "Ahuhu",
+      isFavorite: false,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
+    },
+    {
+      title: "Happy day",
+      isFavorite: true,
     },
     {
       title: "Happy day",
