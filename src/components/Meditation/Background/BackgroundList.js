@@ -22,7 +22,7 @@ const BackgroundList = () => {
             console.log('')
         })
         .catch(err => console.log(err))
-    }, [dispatch])
+    }, [])
 
     const chooseImage = (image) => {
         console.log(image)
