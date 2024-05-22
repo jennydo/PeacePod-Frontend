@@ -23,6 +23,11 @@ export const avatarReducer = (state, action) => {
                 ...state,
                 avatar: action.payload
             }
+        case "SET_AVATAR_DATA": 
+            return {
+                ...state,
+                avatarData: action.payload
+            }
         default:
             return state
     }
@@ -75,6 +80,10 @@ export const AvatarContextProvider = ( {children} ) => {
             dispatch({
                 type: "SET_AVATAR", 
                 payload: user.user.avatar
+            })
+            dispatch({
+                type: "SET_AVATAR_DATA", 
+                payload: user.user.avatarData
             })
         }
     }, [])
