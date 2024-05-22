@@ -8,8 +8,6 @@ import { FaHeart } from "react-icons/fa";
 const AudioCard = ({ audio }) => {
   const { chosenAudio, dispatch } = useContext(AudioContext);
 
-  const [favorite, setFavorite] = useState(audio.isFavorite);
-
   const chooseAudio = () => {
     dispatch({
       type: "CHOOSE_AUDIO",
@@ -18,13 +16,18 @@ const AudioCard = ({ audio }) => {
   };
 
   const handleFavorite = () => {
-    setFavorite(!favorite);
-    dispatch({type: "TOGGLE_FAVORITE", payload: audio})
+    dispatch({ type: "TOGGLE_FAVORITE", payload: audio });
   };
-  console.log("Chosen audio", chosenAudio, audio, chosenAudio === audio);
+  // console.log("Chosen audio", chosenAudio, audio, chosenAudio === audio);
 
   return (
-    <Flex w="100%" h={12} marginBottom={3} marginTop={3} justifyContent={'space-between'}>
+    <Flex
+      w="100%"
+      h={12}
+      marginBottom={3}
+      marginTop={3}
+      justifyContent={"space-between"}
+    >
       <Flex
         w="100%"
         bg="yellow.100"
@@ -47,12 +50,18 @@ const AudioCard = ({ audio }) => {
       </Flex>
       <IconButton
         variant="ghost"
-        icon={favorite ? <FaHeart size={20} fill="#FFAFCC"/> : <FaRegHeart size={20}/>}
+        icon={
+          audio.isFavorite ? (
+            <FaHeart size={20} fill="#FFAFCC" />
+          ) : (
+            <FaRegHeart size={20} />
+          )
+        }
         onClick={handleFavorite}
         h={12}
         sx={{
           _hover: {
-            'background': 'none'
+            background: "none",
           },
         }}
       />
