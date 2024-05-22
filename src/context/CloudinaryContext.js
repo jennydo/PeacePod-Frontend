@@ -8,18 +8,22 @@ export const cloudinaryReducer = (state, action) => {
         case 'GET_IMAGES':
             return {
                 ...state,
-                images: [...state.images,...action.payload]
+                // images: [...state.images,...action.payload]
+                images: Array.from(new Set([...state.images, ...action.payload]))
             }
         case 'GET_USER_IMAGES':
             return {
                 ...state,
                 userImages: action.payload,
-                images: [...action.payload, ...state.images]
+                // images: [...action.payload, ...state.images]
+                images: Array.from(new Set([...action.payload, ...state.images]))
             }
         case 'UPLOAD_IMAGE':
             return {
                 ...state,
-                userImages: [action.payload, ...state.userImages]
+                userImages: [action.payload, ...state.userImages],
+                // images: [action.payload, ...state.images]
+                images: Array.from(new Set([action.payload, ...state.images]))
             }
         case 'DISPLAY_IMAGE':
             return {
