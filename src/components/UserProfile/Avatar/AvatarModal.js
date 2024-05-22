@@ -21,14 +21,16 @@ import { useEffect} from 'react';
 const AvatarModal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const finalRef = React.useRef(null)
-    const { avatar, dispatch } = useAvatarContext()
+    const { avatar, avatarData } = useAvatarContext()
     const { user } = useAuthContext()
     const userId = user.user._id;
 
     const handleClick = () => {
         onClose();
+        console.log('avatar data', avatarData);
         axios.patch(`http://localhost:4000/api/users/${userId}`, {
-            avatar: avatar
+            avatar: avatar,
+            avatarData: avatarData
         })
         .then(response => {
             // Handle success
@@ -37,16 +39,22 @@ const AvatarModal = () => {
             // update that field in localStorage
             const userLocalStorage = JSON.parse(localStorage.getItem('user'));
             userLocalStorage.user.avatar = response.data.avatar; 
+            userLocalStorage.user.avatarData = response.data.avatarData;
             console.log('Avatar saved in localStorage successfully:', userLocalStorage)
             localStorage.setItem('user', JSON.stringify(userLocalStorage));
 
             // update the userContext 
             // user.user.avatar = response.data.avatar; 
-            dispatch({
-                type: 'LOGIN',
-                // dispatch: user
-                payload: { ...user, avatar: response.data.avatar}
-            })
+            // dispatch({
+            //     type: 'UPDATE',
+            //     // payload: user
+            //     // payload: { ...user, avatar: response.data.avatar}
+            //     // payload: response.data.avatar
+            //     payload: userLocalStorage
+            // })
+
+            // console.log('User after dispatch:', user);
+
         })
         .catch(error => {
             // Handle error
