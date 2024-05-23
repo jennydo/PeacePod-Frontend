@@ -41,69 +41,9 @@ export const AudioContextProvider = ({ children }) => {
     favoriteAudios: [] /// list of favorite audios
   });
 
-  /// Dummy data
-  const voices = [
-    {
-      title: "Heartbreak",
-      isFavorite: false,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Bad day",
-      isFavorite: false,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Failed the exam",
-      isFavorite: false,
-    },
-    {
-      title: "Ahuhu",
-      isFavorite: false,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-    {
-      title: "Happy day",
-      isFavorite: true,
-    },
-  ];
-
   useEffect(() => {
     /// TODO: fetch from DB
-    dispatch({ type: "GET_AUDIOS", payload: voices });
+    dispatch({ type: "GET_AUDIOS", payload: [] });
   }, [dispatch]);
 
   return (
