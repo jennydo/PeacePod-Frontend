@@ -42,9 +42,9 @@ const MeditationDrawer = () => {
   /// Get chosen image from cloudinary context
   const { userImages, displayedImage } = useContext(CloudinaryContext);
   /// Get spotify from Spotify Context
-  const { playingTrack } = useContext(SpotifyContext)
+  const { playingTrack } = useContext(SpotifyContext);
   /// Get audio from Audio Context
-  const { chosenAudio } = useContext(AudioContext)
+  const { chosenAudio } = useContext(AudioContext);
 
   /// Modal logic
   const finalRef = useRef(null);
@@ -67,6 +67,7 @@ const MeditationDrawer = () => {
     };
 
     try {
+      /// Create session
       const response = await axios.post(
         "http://localhost:4000/api/meditation/sessions",
         session,
@@ -77,7 +78,20 @@ const MeditationDrawer = () => {
         }
       );
 
-      console.log("Response from creating session", response.data);
+      console.log("Response from creating session", response.data); 
+
+      // /// Update user uploaded images
+      // await axios.patch(
+      //   `http://localhost:4000/api/users/${user._id}`,
+      //   {
+      //     uploadedBackgrounds: userImages
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${user?.token}`,
+      //     },
+      //   }
+      // );
     } catch (err) {
       console.log("Error while creating session...", err);
     }
