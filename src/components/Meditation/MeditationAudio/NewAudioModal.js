@@ -11,6 +11,10 @@ import {
   Textarea,
   Input,
   Flex,
+  Spinner,
+  Alert,
+  AlertDescription,
+  AlertIcon,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { AudioContext } from "../../../context/AudioContext";
@@ -28,31 +32,37 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
 
   const { dispatch } = useContext(AudioContext);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleCreateAudio = async () => {
     try {
-      /// DB
-      // const response = await axios.post(
-      //   "http://localhost:4000/api/meditation/createVoice",
-      //   { title, duration, mood, tone, extraNotes },
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${user?.token}`,
-      //     },
-      //   }
-      // );
+      setIsLoading(true);
+      // DB
+      const response = await axios.post(
+        "http://localhost:4000/api/meditation/audios",
+        { title, duration, mood, tone, extraNotes },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
 
-      // console.log("Newly created audio", response.data)
+      setIsLoading(false);
+      console.log("Newly created audio", response.data);
 
       /// Context
       dispatch({
         type: "ADD_AUDIO",
         payload: { title, duration, mood, tone, extraNotes, isFavorite: false },
       });
+      onClose();
     } catch (err) {
+      setIsLoading(false);
+      setError(err);
       console.log("Error while creating new audio", err);
     }
-
-    onClose();
   };
 
   return (
@@ -91,6 +101,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
                 setTitle(e.target.value);
                 // setSession({ ...session, duration: e.target.value });
               }}
+              isRequired={true}
             />
 
             <Text fontSize="xl" marginBottom={2}>
@@ -106,6 +117,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
                 setDuration(e.target.value);
                 // setSession({ ...session, duration: e.target.value });
               }}
+              isRequired={true}
             />
 
             <Text fontSize="xl" marginBottom={2}>
@@ -121,6 +133,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
                 setMood(e.target.value);
                 // setSession({ ...session, mood: e.target.value });
               }}
+              isRequired={true}
             />
 
             <Text fontSize="xl" marginBottom={2}>
@@ -136,6 +149,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
                 setTone(e.target.value);
                 // setSession({ ...session, tone: e.target.value });
               }}
+              isRequired={true}
             />
 
             <Text fontSize="xl" marginBottom={2}>
@@ -156,6 +170,26 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
         <ModalFooter justifyContent="center">
           <Button onClick={handleCreateAudio}>Create</Button>
         </ModalFooter>
+
+        {isLoading ? (
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+            position={"absolute"}
+            top="45%"
+            left="45%"
+          />
+        ) : undefined}
+
+        {error ? (
+          <Alert status="error">
+            <AlertIcon />
+            <AlertDescription>{error?.response?.data?.error}</AlertDescription>
+          </Alert>
+        ) : undefined}
       </ModalContent>
     </Modal>
   );
