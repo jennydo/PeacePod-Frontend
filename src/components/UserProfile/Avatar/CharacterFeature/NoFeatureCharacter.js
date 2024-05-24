@@ -1,10 +1,10 @@
 import { GridItem, Image } from '@chakra-ui/react'
-import { useAvatarContext } from '../../../hooks/useAvatarContext'
+import { useAvatarContext } from '../../../../hooks/useAvatarContext'
 import { createAvatar } from '@dicebear/core';
 import { lorelei } from '@dicebear/collection';
 import { useState, useEffect, useMemo } from 'react'
 
-const Character = ( {variant, attribute}) => {
+const NoFeatureCharacter = ( {attribute}) => {
 
     const [character, setCharacter] = useState(null);
     const { avatarData, dispatch } = useAvatarContext()
@@ -12,8 +12,8 @@ const Character = ( {variant, attribute}) => {
     const characterData = useMemo(() => ({
         ...avatarData,
         size: 100,
-        [attribute]: [variant],
-    }), [avatarData, variant]);
+        [`${attribute}Probability`]: 0
+    }), [avatarData]);
 
     useEffect(() => {
         const generateCharacter = async () => {
@@ -26,12 +26,13 @@ const Character = ( {variant, attribute}) => {
     
     const handleClick = () => {
         dispatch({
-            type: "SET_ATTRIBUTE",
+            type: "SET_PROBABILITY",
             payload: {
-              attribute,
-              value: variant,
+                attribute: [`${attribute}Probability`],
+                value: 0 
             }
-          })
+            
+        })
     }
 
     return ( 
@@ -45,4 +46,4 @@ const Character = ( {variant, attribute}) => {
      );
 }
  
-export default Character;
+export default NoFeatureCharacter;

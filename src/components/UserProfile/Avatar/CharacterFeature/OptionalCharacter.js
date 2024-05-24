@@ -1,5 +1,5 @@
 import { GridItem, Image } from '@chakra-ui/react'
-import { useAvatarContext } from '../../../hooks/useAvatarContext'
+import { useAvatarContext } from '../../../../hooks/useAvatarContext'
 import { createAvatar } from '@dicebear/core';
 import { lorelei } from '@dicebear/collection';
 import { useState, useEffect, useMemo } from 'react'
