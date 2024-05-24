@@ -9,6 +9,7 @@ import {
   InputRightElement,
   Button,
   InputGroup,
+  Spacer
 } from "@chakra-ui/react";
 import { useState, useRef, useEffect } from "react";
 import "./Prompt.css";
@@ -199,7 +200,7 @@ const Prompt = () => {
   };
 
   return (
-    <Box w="100%" h="100%">
+    <Box h="75vh" w="100%">
       <VStack h="100%" alignItems="stretch">
         <HStack alignItems="flex-start">
           <Box w="40%" onClick={handleClickPrompt} textAlign="right">
@@ -226,6 +227,9 @@ const Prompt = () => {
             </Grid>
           </Box>
         </HStack>
+
+        <Spacer />
+
         <Box>
           <InputGroup size="md">
             <Input
