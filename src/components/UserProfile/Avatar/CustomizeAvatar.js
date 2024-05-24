@@ -2,11 +2,11 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Grid, Switch, FormLabel, FormC
 import { headConstants, eyeConstants, eyebrowConstants, mouthConstants, noseConstants, hairConstants, beardConstants, earringConstants, glassConstants, colors } 
 from './avatarConstants';
 import './AvatarStyle.css';
-import Character from './Character';
+import Character from './CharacterFeature/Character';
 import { useState } from 'react';
 import { useAvatarContext } from '../../../hooks/useAvatarContext'
-import OptionalCharacter from './OptionalCharacter';
-import NoFeatureCharacter from './NoFeatureCharacter';
+import OptionalCharacter from './CharacterFeature/OptionalCharacter';
+import NoFeatureCharacter from './CharacterFeature/NoFeatureCharacter';
 
 const CustomizeAvatar = () => {
     const { avatarData, dispatch } = useAvatarContext()
@@ -22,13 +22,15 @@ const CustomizeAvatar = () => {
     };
 
     const handleHasFreckles = (e) => {
-        setHasFreckles(e.target.checked ? 100 : 0)
-        dispatch({
-            type: "SET_ATTRIBUTE",
-            payload: {
-            attribute: "frecklesProbability",
-            value: e.target.checked ? "100" : "0"
-    }})}
+      setHasFreckles(e.target.checked ? 100 : 0)
+      dispatch({
+        type: "SET_PROBABILITY",
+        payload: {
+          attribute: "frecklesProbability",
+          value: e.target.checked ? 100 : 0
+        }
+      })
+    }
 
     return ( 
     <Tabs isFitted isLazy>
@@ -131,10 +133,6 @@ const CustomizeAvatar = () => {
           </TabPanel>
 
           <TabPanel>  
-           {/* <Grid templateColumns='repeat(4, 1fr)' gap={6}>
-              <NoFeatureCharacter attribute="freckles" />
-              <OptionalCharacter variant={"none"} attribute="freckles"/>
-            </Grid>   */}
             <HStack>
                 <FormLabel htmlFor='addFreckles'>Add Freckles:</FormLabel>
                 <Switch id='addFreckles' checked={hasFreckles} onChange={handleHasFreckles}/>
