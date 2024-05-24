@@ -11,12 +11,18 @@ export const avatarReducer = (state, action) => {
                 ...state,
                 avatarData: {
                 ...state.avatarData,
-                [action.payload.attribute]: [action.payload.value],
-                ...(action.payload.probability !== undefined && {
-                    [action.payload.attribute + "Probability"]: action.payload.probability
-                })
+                [action.payload.attribute]: [action.payload.value]
                 }
             };
+        
+        case "SET_PROBABILITY":
+            return {
+                ...state,
+                avatarData: {
+                    ...state.avatarData, 
+                    [action.payload.attribute]: action.payload.value
+                }
+            }
 
         case "SET_AVATAR": 
             return {
