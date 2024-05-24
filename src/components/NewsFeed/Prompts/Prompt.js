@@ -200,7 +200,8 @@ const Prompt = () => {
   };
 
   return (
-    <Box h="75vh" w="100%">
+    <Box h="75vh" w="100%" onClick={handleClickPrompt}>
+      <div className="wave"></div>
       <VStack h="100%" alignItems="stretch">
         <HStack alignItems="flex-start">
           <Box w="40%" onClick={handleClickPrompt} textAlign="right">
@@ -230,7 +231,7 @@ const Prompt = () => {
 
         <Spacer />
 
-        <Box>
+        <Box mb={20}>
           <InputGroup size="md">
             <Input
               value={input}
