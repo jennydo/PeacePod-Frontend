@@ -122,6 +122,7 @@ const MeditationDrawer = () => {
       //     },
       //   }
       // );
+      onClose()
     } catch (err) {
       console.log("Error while creating session...", err);
     }
