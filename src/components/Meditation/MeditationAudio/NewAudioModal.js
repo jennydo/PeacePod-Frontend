@@ -41,10 +41,10 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
       // DB
       const response = await axios.post(
         "http://localhost:4000/api/meditation/audios",
-        { title, duration, mood, tone, extraNotes },
+        { title, duration, mood, tone, extraNotes, isFavorite: false },
         {
           headers: {
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${user?.user?.token}`,
           },
         }
       );
@@ -99,7 +99,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
-                // setSession({ ...session, duration: e.target.value });
+                setError(null)
               }}
               isRequired={true}
             />
@@ -115,7 +115,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
               value={duration}
               onChange={(e) => {
                 setDuration(e.target.value);
-                // setSession({ ...session, duration: e.target.value });
+                setError(null)
               }}
               isRequired={true}
             />
@@ -131,7 +131,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
               value={mood}
               onChange={(e) => {
                 setMood(e.target.value);
-                // setSession({ ...session, mood: e.target.value });
+                setError(null)
               }}
               isRequired={true}
             />
@@ -147,7 +147,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
               value={tone}
               onChange={(e) => {
                 setTone(e.target.value);
-                // setSession({ ...session, tone: e.target.value });
+                setError(null)
               }}
               isRequired={true}
             />
@@ -160,7 +160,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
               value={extraNotes}
               onChange={(e) => {
                 setExtraNotes(e.target.value);
-                // setSession({ ...session, extraNotes: e.target.value });
+                setError(null)
               }}
               sz="sm"
             />
