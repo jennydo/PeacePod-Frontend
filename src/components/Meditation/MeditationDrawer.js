@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import {
   Drawer,
   DrawerBody,
@@ -40,11 +40,41 @@ const MeditationDrawer = () => {
   const [isFilter, setIsFilter] = useState(false);
 
   /// Get chosen image from cloudinary context
-  const { userImages, displayedImage } = useContext(CloudinaryContext);
+  const { userImages, displayedImage, dispatch: cloudinaryDispatch } = useContext(CloudinaryContext);
   /// Get spotify from Spotify Context
   const { playingTrack } = useContext(SpotifyContext);
   /// Get audio from Audio Context
-  const { chosenAudio } = useContext(AudioContext);
+  const { audios, chosenAudio, dispatch: audioDispatch } = useContext(AudioContext);
+
+  const [currentSession, setCurrentSession] = useState("");
+
+  /// Function to fetch session from DB
+  const fetchSession = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:4000/api/meditation/sessions/last",
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      console.log("Response from get last session", res.data);
+      /// Update chosen audio from last session
+      audioDispatch({ type: "CHOOSE_AUDIO", payload: res.data.meditationAudio });
+
+      /// Update chosen background from last session
+      cloudinaryDispatch({ type: "DISPLAY_IMAGE", payload: res.data.lastBackground})
+    } catch (error) {
+      console.log("Error while getting session", error);
+    }
+  };
+
+  /// Fetch session from DB
+  useEffect(() => {
+    fetchSession();
+    console.log("chosen audio from last session ", chosenAudio);
+  }, []);
 
   /// Modal logic
   const finalRef = useRef(null);
@@ -78,7 +108,7 @@ const MeditationDrawer = () => {
         }
       );
 
-      console.log("Response from creating session", response.data); 
+      console.log("Response from creating session", response.data);
 
       // /// Update user uploaded images
       // await axios.patch(

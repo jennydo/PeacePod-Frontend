@@ -9,7 +9,7 @@ export const audioReducer = (state, action) => {
       return {
         ...state,
         audios: action.payload,
-        favoriteAudios: action.payload.filter((audio, _) => audio.isFavorite )
+        favoriteAudios: action.payload.filter((audio, _) => audio.isFavorite),
       };
     case "CHOOSE_AUDIO":
       return {
@@ -25,11 +25,11 @@ export const audioReducer = (state, action) => {
       return {
         ...state,
         audios: state.audios.map((audio, _) => {
-          if (audio === action.payload) audio.isFavorite = !audio.isFavorite
-            return audio
+          if (audio === action.payload) audio.isFavorite = !audio.isFavorite;
+          return audio;
         }),
-        favoriteAudios: state.audios.filter((audio, _) => audio.isFavorite)
-      }
+        favoriteAudios: state.audios.filter((audio, _) => audio.isFavorite),
+      };
     default:
       return state;
   }
@@ -38,11 +38,11 @@ export const audioReducer = (state, action) => {
 export const AudioContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(audioReducer, {
     audios: [], /// list of all audios
-    chosenAudio: null, /// currently chosen audio 
-    favoriteAudios: [] /// list of favorite audios
+    chosenAudio: null, /// currently chosen audio
+    favoriteAudios: [], /// list of favorite audios
   });
 
-  const user  = JSON.parse(localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(async () => {
     /// TODO: fetch from DB
@@ -58,11 +58,10 @@ export const AudioContextProvider = ({ children }) => {
 
       // console.log("Response from all audios", response.data)
 
-      dispatch({ type: "GET_AUDIOS", payload: response.data });      
+      dispatch({ type: "GET_AUDIOS", payload: response.data });
     } catch (error) {
-      console.log("Error from getting all audios", error)
+      console.log("Error from getting all audios", error);
     }
-
   }, [dispatch]);
 
   return (
