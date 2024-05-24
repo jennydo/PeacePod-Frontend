@@ -30,7 +30,6 @@ const Character = ( {variant, attribute}) => {
             payload: {
               attribute,
               value: variant,
-              probability: (attribute === "beard" || attribute === "earrings" || attribute === "glasses") ? 100 : undefined
             }
           })
     }
