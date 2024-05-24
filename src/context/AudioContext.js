@@ -46,18 +46,23 @@ export const AudioContextProvider = ({ children }) => {
 
   useEffect(async () => {
     /// TODO: fetch from DB
-    const response = await axios.get(
-      "http://localhost:4000/api/meditation/audios",
-      {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      }
-    );
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/meditation/audios",
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
 
-    console.log("Response from all audios", response.data)
+      // console.log("Response from all audios", response.data)
 
-    dispatch({ type: "GET_AUDIOS", payload: response.data });
+      dispatch({ type: "GET_AUDIOS", payload: response.data });      
+    } catch (error) {
+      console.log("Error from getting all audios", error)
+    }
+
   }, [dispatch]);
 
   return (
