@@ -11,7 +11,6 @@ import NoFeatureCharacter from './NoFeatureCharacter';
 const CustomizeAvatar = () => {
     const { avatarData, dispatch } = useAvatarContext()
     const [selectedColor, setSelectedColor] = useState(avatarData.backgroundColor[0]);
-    const [wearFlowers, setWearFlowers] = useState(avatarData.hairAccessoriesProbability)
     const [hasFreckles, setHasFreckles] = useState(avatarData.frecklesProbability)
 
     const handleBackgroundColorChange = (color) => {
@@ -21,15 +20,6 @@ const CustomizeAvatar = () => {
             payload: { attribute: "backgroundColor", value: color.substring(1) }
         })
     };
-
-    const handleWearFlowers = (e) => {
-        setWearFlowers(e.target.checked ? 100 : 0)
-        dispatch({
-            type: "SET_ATTRIBUTE",
-            payload: {
-            attribute: "hairAccessoriesProbability",
-            value: e.target.checked ? "100" : "0"
-    }})}
 
     const handleHasFreckles = (e) => {
         setHasFreckles(e.target.checked ? 100 : 0)
@@ -52,7 +42,8 @@ const CustomizeAvatar = () => {
           <Tab>Beard</Tab>
           <Tab>Earrings</Tab>
           <Tab>Glasses</Tab>
-          <Tab>Other</Tab>
+          <Tab>Flowers</Tab>
+          <Tab>Freckles</Tab>
           <Tab>Background Color</Tab>
         </TabList>
 
@@ -133,10 +124,17 @@ const CustomizeAvatar = () => {
           </TabPanel>
 
           <TabPanel>
-            <HStack>
-                <FormLabel htmlFor='wearFlowers'>Wear Flowers:</FormLabel>
-                <Switch id='wearFlowers' checked={wearFlowers} onChange={handleWearFlowers}/>
-            </HStack>
+            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+              <NoFeatureCharacter attribute="hairAccessories" />
+              <OptionalCharacter variant={"flowers"} attribute="hairAccessories"/>
+            </Grid>
+          </TabPanel>
+
+          <TabPanel>  
+           {/* <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+              <NoFeatureCharacter attribute="freckles" />
+              <OptionalCharacter variant={"none"} attribute="freckles"/>
+            </Grid>   */}
             <HStack>
                 <FormLabel htmlFor='addFreckles'>Add Freckles:</FormLabel>
                 <Switch id='addFreckles' checked={hasFreckles} onChange={handleHasFreckles}/>
