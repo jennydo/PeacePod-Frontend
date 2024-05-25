@@ -26,4 +26,31 @@ const earringConstants = ["variant01", "variant02", "variant03"]
 
 const glassConstants = ["variant01", "variant02", "variant03", "variant04", "variant05"]
 
-module.exports = { headConstants, eyeConstants, eyebrowConstants, mouthConstants, noseConstants, hairConstants, beardConstants, earringConstants, glassConstants } 
+const colors = [
+    "#FFFFF",
+    "#FFC0CB", // Pink
+    "#FFD700", // Gold
+    "#87CEEB", // Sky Blue
+    "#FFA07A", // Light Salmon
+    "#FF69B4", // Hot Pink
+    "#ADD8E6", // Light Blue
+    "#FF6347", // Tomato
+    "#F08080", // Light Coral
+    "#FFDAB9", // Peachpuff
+    "#20B2AA", // Light Sea Green
+    "#FAFAD2", // Light Goldenrod Yellow
+    "#9370DB", // Lavender
+    "#00CED1", // Dark Turquoise
+];
+
+module.exports = { 
+    headConstants, 
+    eyeConstants, 
+    eyebrowConstants,
+    mouthConstants, 
+    noseConstants, 
+    hairConstants, 
+    beardConstants, 
+    earringConstants, 
+    glassConstants,  
+    colors} 

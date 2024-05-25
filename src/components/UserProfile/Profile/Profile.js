@@ -21,7 +21,7 @@ const Profile = () => {
     const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user 
     const { avatar } = useAvatarContext()
 
-    console.log("avatar", avatar)
+    // console.log("avatar", avatar)
 
     return (
     <VStack>
