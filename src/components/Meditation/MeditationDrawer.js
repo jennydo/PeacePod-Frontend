@@ -110,18 +110,6 @@ const MeditationDrawer = () => {
 
       console.log("Response from creating session", response.data);
 
-      // /// Update user uploaded images
-      // await axios.patch(
-      //   `http://localhost:4000/api/users/${user._id}`,
-      //   {
-      //     uploadedBackgrounds: userImages
-      //   },
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${user?.token}`,
-      //     },
-      //   }
-      // );
       onClose()
     } catch (err) {
       console.log("Error while creating session...", err);
