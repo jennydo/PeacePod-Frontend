@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import {
   Drawer,
   DrawerBody,
@@ -27,15 +27,54 @@ import axios from "axios";
 import AudioList from "./MeditationAudio/MeditationAudioList";
 import { TiPlus } from "react-icons/ti";
 import NewAudioModal from "./MeditationAudio/NewAudioModal";
+import { CloudinaryContext } from "../../context/CloudinaryContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { SpotifyContext } from "../../context/SpotifyContext";
+import { AudioContext } from "../../context/AudioContext";
 
 const MeditationDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const user = JSON.parse(localStorage.getItem("user"));
-
-  const [ownSession, setOwnSession] = useState();
   const [tabIndex, setTabIndex] = useState(0);
   const [isFilter, setIsFilter] = useState(false);
+
+  /// Get chosen image from cloudinary context
+  const { userImages, displayedImage, dispatch: cloudinaryDispatch } = useContext(CloudinaryContext);
+  /// Get spotify from Spotify Context
+  const { playingTrack } = useContext(SpotifyContext);
+  /// Get audio from Audio Context
+  const { audios, chosenAudio, dispatch: audioDispatch } = useContext(AudioContext);
+
+  const [currentSession, setCurrentSession] = useState("");
+
+  /// Function to fetch session from DB
+  const fetchSession = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:4000/api/meditation/sessions/last",
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      console.log("Response from get last session", res.data);
+      /// Update chosen audio from last session
+      audioDispatch({ type: "CHOOSE_AUDIO", payload: res.data.meditationAudio });
+
+      /// Update chosen background from last session
+      cloudinaryDispatch({ type: "DISPLAY_IMAGE", payload: res.data.lastBackground})
+    } catch (error) {
+      console.log("Error while getting session", error);
+    }
+  };
+
+  /// Fetch session from DB
+  useEffect(() => {
+    fetchSession();
+    console.log("chosen audio from last session ", chosenAudio);
+  }, []);
 
   /// Modal logic
   const finalRef = useRef(null);
@@ -50,25 +89,30 @@ const MeditationDrawer = () => {
   const handleSave = async () => {
     console.log("Current tab index ", tabIndex);
 
-    /// Index == 0 <=> Create Own Session
-    if (tabIndex === 0) {
-      console.log("Submitted session", ownSession);
+    const session = {
+      lastBackground: displayedImage,
+      meditationAudio: chosenAudio,
+      music: playingTrack,
+      isPlayingAudio: tabIndex == 0, /// index === 0: audio, index = 1: spotify
+    };
 
-      try {
-        const response = await axios.post(
-          "http://localhost:4000/api/meditation/sessions",
-          ownSession,
-          {
-            headers: {
-              Authorization: `Bearer ${user?.token}`,
-            },
-          }
-        );
+    try {
+      /// Create session
+      const response = await axios.post(
+        "http://localhost:4000/api/meditation/sessions",
+        session,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
 
-        console.log("Response from creating session", response.data);
-      } catch (err) {
-        console.log("Error while creating session...", err);
-      }
+      console.log("Response from creating session", response.data);
+
+      onClose()
+    } catch (err) {
+      console.log("Error while creating session...", err);
     }
   };
 
@@ -129,7 +173,7 @@ const MeditationDrawer = () => {
                         borderRadius={10}
                         size="sm"
                         onClick={() => setIsFilter(!isFilter)}
-                        bg={isFilter? 'pink.100' : 'gray.100'}
+                        bg={isFilter ? "pink.100" : "gray.100"}
                       >
                         Filter favorite
                       </Button>
