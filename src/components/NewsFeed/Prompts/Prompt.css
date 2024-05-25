@@ -21,4 +21,10 @@
     background-image: url('../../../assets/images/blob-haikei.svg');
     z-index: -1;
     position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.css-yr1x2i {
+    margin-bottom: 0 !important;
 }

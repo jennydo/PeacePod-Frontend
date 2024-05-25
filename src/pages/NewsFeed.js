@@ -14,7 +14,7 @@ const NewsFeed = () => {
     return (
         <div className="newsfeed">
             <h1>NewsFeed</h1>
-            <div className="wave"></div>
+            {/* <div className="wave"></div> */}
             <Grid gridTemplateColumns={'25% 1fr'} m={10} gap={6} minHeight="75vh"> 
               <GridItem w='100%'> 
                 <VStack w='100%' display='flex' justifyContent='flex-end' alignItems='flex-end'>
