@@ -1,37 +1,17 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Grid, Switch, FormLabel, FormControl, SimpleGrid, HStack } from '@chakra-ui/react'
-import { headConstants, eyeConstants, eyebrowConstants, mouthConstants, noseConstants, hairConstants, beardConstants, earringConstants, glassConstants } 
+import { headConstants, eyeConstants, eyebrowConstants, mouthConstants, noseConstants, hairConstants, beardConstants, earringConstants, glassConstants, colors } 
 from './avatarConstants';
 import './AvatarStyle.css';
-import Character from './Character';
+import Character from './CharacterFeature/Character';
 import { useState } from 'react';
 import { useAvatarContext } from '../../../hooks/useAvatarContext'
+import OptionalCharacter from './CharacterFeature/OptionalCharacter';
+import NoFeatureCharacter from './CharacterFeature/NoFeatureCharacter';
 
 const CustomizeAvatar = () => {
     const { avatarData, dispatch } = useAvatarContext()
-
-    const [hasBeard, setHasBeard] = useState(avatarData.beardProbability)
-    const [hasEarrings, setHasEarrings] = useState(avatarData.earringsProbability)
-    const [hasGlasses, setHasGlasses] = useState(avatarData.glassesProbability)
     const [selectedColor, setSelectedColor] = useState(avatarData.backgroundColor[0]);
-    const [wearFlowers, setWearFlowers] = useState(avatarData.hairAccessoriesProbability)
     const [hasFreckles, setHasFreckles] = useState(avatarData.frecklesProbability)
-
-    const colors = [
-        "#FFFFF",
-        "#FFC0CB", // Pink
-        "#FFD700", // Gold
-        "#87CEEB", // Sky Blue
-        "#FFA07A", // Light Salmon
-        "#FF69B4", // Hot Pink
-        "#ADD8E6", // Light Blue
-        "#FF6347", // Tomato
-        "#F08080", // Light Coral
-        "#FFDAB9", // Peachpuff
-        "#20B2AA", // Light Sea Green
-        "#FAFAD2", // Light Goldenrod Yellow
-        "#9370DB", // Lavender
-        "#00CED1", // Dark Turquoise
-    ];
 
     const handleBackgroundColorChange = (color) => {
         setSelectedColor(color);
@@ -41,68 +21,16 @@ const CustomizeAvatar = () => {
         })
     };
 
-    const handleCheckBeard = (e) => {
-        setHasBeard(e.target.checked)
-        if (!e.target.checked) {
-            const currentValue = avatarData.beard; 
-        
-            dispatch({
-              type: "SET_ATTRIBUTE",
-              payload: {
-                attribute: "beard",
-                value: currentValue, 
-                probability: null
-              }
-            });
-    }}
-
-    const handleCheckEarrings = (e) => {
-        setHasEarrings(e.target.checked)
-        if (!e.target.checked) {
-            const currentValue = avatarData.earrings; 
-        
-            dispatch({
-              type: "SET_ATTRIBUTE",
-              payload: {
-                attribute: "earrings",
-                value: currentValue, 
-                probability: 0 
-              }
-            });
-    }}
-
-    const handleCheckGlasses = (e) => {
-        setHasGlasses(e.target.checked)
-        if (!e.target.checked) {
-            const currentValue = avatarData.glasses; 
-        
-            dispatch({
-              type: "SET_ATTRIBUTE",
-              payload: {
-                attribute: "glasses",
-                value: currentValue, 
-                probability: 0 
-              }
-            });
-    }}
-
-    const handleWearFlowers = (e) => {
-        setWearFlowers(e.target.checked ? 100 : 0)
-        dispatch({
-            type: "SET_ATTRIBUTE",
-            payload: {
-            attribute: "hairAccessoriesProbability",
-            value: e.target.checked ? "100" : "0"
-    }})}
-
     const handleHasFreckles = (e) => {
-        setHasFreckles(e.target.checked ? 100 : 0)
-        dispatch({
-            type: "SET_ATTRIBUTE",
-            payload: {
-            attribute: "frecklesProbability",
-            value: e.target.checked ? "100" : "0"
-    }})}
+      setHasFreckles(e.target.checked ? 100 : 0)
+      dispatch({
+        type: "SET_PROBABILITY",
+        payload: {
+          attribute: "frecklesProbability",
+          value: e.target.checked ? 100 : 0
+        }
+      })
+    }
 
     return ( 
     <Tabs isFitted isLazy>
@@ -116,7 +44,8 @@ const CustomizeAvatar = () => {
           <Tab>Beard</Tab>
           <Tab>Earrings</Tab>
           <Tab>Glasses</Tab>
-          <Tab>Other</Tab>
+          <Tab>Flowers</Tab>
+          <Tab>Freckles</Tab>
           <Tab>Background Color</Tab>
         </TabList>
 
@@ -170,49 +99,40 @@ const CustomizeAvatar = () => {
           </TabPanel>
 
           <TabPanel>
-            <div className="attribute-checked">
-                <Switch checked={hasBeard} onChange={handleCheckBeard}/>
-            </div>
-            {hasBeard && 
-                <Grid templateColumns='repeat(4, 1fr)' gap={6}>
-                    {beardConstants.map((beardConstant, idx) => (
-                        <Character key={idx} variant={beardConstant} attribute="beard"/>
-                    ))}
-                </Grid>
-            }  
+            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+              <NoFeatureCharacter attribute="beard" />
+              {beardConstants.map((beardConstant, idx) => (
+                  <OptionalCharacter key={idx} variant={beardConstant} attribute="beard"/>
+              ))}
+            </Grid>
           </TabPanel>
 
           <TabPanel>
-            <div className="attribute-checked">
-                <Switch checked={hasEarrings} onChange={handleCheckEarrings}/>
-            </div>
-            {hasEarrings && 
-                <Grid templateColumns='repeat(4, 1fr)' gap={6}>
-                    {earringConstants.map((earringConstant, idx) => (
-                        <Character key={idx} variant={earringConstant} attribute="earrings"/>
-                    ))}
-                </Grid>
-            }  
+            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+              <NoFeatureCharacter attribute="earrings" />
+              {earringConstants.map((earringConstant, idx) => (
+                  <OptionalCharacter key={idx} variant={earringConstant} attribute="earrings"/>
+              ))}
+            </Grid>
           </TabPanel>
 
           <TabPanel>
-            <div className="attribute-checked">
-                <Switch checked={hasGlasses} onChange={handleCheckGlasses}/>
-            </div>
-            {hasGlasses && 
-                <Grid templateColumns='repeat(4, 1fr)' gap={6}>
-                    {glassConstants.map((glassConstant, idx) => (
-                        <Character key={idx} variant={glassConstant} attribute="glasses"/>
-                    ))}
-                </Grid>
-            }  
+            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+              <NoFeatureCharacter attribute="glasses" />
+              {glassConstants.map((glassConstant, idx) => (
+                  <OptionalCharacter key={idx} variant={glassConstant} attribute="glasses"/>
+              ))}
+            </Grid>
           </TabPanel>
 
           <TabPanel>
-            <HStack>
-                <FormLabel htmlFor='wearFlowers'>Wear Flowers:</FormLabel>
-                <Switch id='wearFlowers' checked={wearFlowers} onChange={handleWearFlowers}/>
-            </HStack>
+            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+              <NoFeatureCharacter attribute="hairAccessories" />
+              <OptionalCharacter variant={"flowers"} attribute="hairAccessories"/>
+            </Grid>
+          </TabPanel>
+
+          <TabPanel>  
             <HStack>
                 <FormLabel htmlFor='addFreckles'>Add Freckles:</FormLabel>
                 <Switch id='addFreckles' checked={hasFreckles} onChange={handleHasFreckles}/>

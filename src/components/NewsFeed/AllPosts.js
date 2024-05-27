@@ -45,7 +45,7 @@ const AllPosts = () => {
             type: 'UPDATE_POST'
           })
 
-          response = await axios.post("http://localhost:4000/api/posts/prompt/", { peacepodUserId }, {
+          response = await axios.post("http://localhost:4000/api/posts/prompt/", { userId: peacepodUserId }, {
             headers: { "Authorization": `Bearer ${user.token}`}
           })
   

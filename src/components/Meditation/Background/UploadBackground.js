@@ -1,6 +1,8 @@
 import { Button, border } from "@chakra-ui/react";
 import { useState, useEffect, useRef, useContext } from "react";
 import { CloudinaryContext } from '../../../context/CloudinaryContext';
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import axios from 'axios';
 
 const UploadBackground = () => {
 
@@ -8,7 +10,9 @@ const UploadBackground = () => {
   const widgetRef = useRef(null);
   const cloudName = "dufirricm";
   const uploadPreset = "peacepod-backgrounds-users";
-  const {dispatch} = useContext(CloudinaryContext);
+  const {dispatch, userImages} = useContext(CloudinaryContext);
+  const user = useAuthContext();
+  const userId = user.user.user._id;
 
   const config = {
     cloudName,
@@ -29,14 +33,23 @@ const UploadBackground = () => {
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
-    console.log(cloudinaryRef.current)
+    // console.log(cloudinaryRef.current)
     if (cloudinaryRef.current) {
       widgetRef.current = cloudinaryRef.current.createUploadWidget(config, 
         function (error, result) {
         if (!error && result && result.event === "success") {
           console.log("Done! Here is the image info: ", result.info);
           dispatch({type: "UPLOAD_IMAGE", payload: result.info.url })
-          // will fetch the public id of the uploaded image to the Database here 
+
+          axios.patch(`http://localhost:4000/api/users/${userId}`, {
+            uploadedBackgrounds: [result.info.url, ...userImages]
+          })
+          .then((response) => {
+            console.log('User background updated:', response.data);
+          })
+          .catch((error) => {
+            console.error('Error updating user background:', error);
+          });
         }
       })
 

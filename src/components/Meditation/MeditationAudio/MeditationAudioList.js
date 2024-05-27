@@ -18,7 +18,7 @@ const AudioList = ({ isFilter }) => {
         })
       ) : (
         <Text mt={3}>
-          You currently have no saved voices. Try to create one.
+          {`You currently have no ${isFilter? "favorite" : "saved"} voices. Try to create one.`}
         </Text>
       )}
     </Box>

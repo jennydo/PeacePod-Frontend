@@ -11,14 +11,24 @@ import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider,
     ModalBody,
     ModalCloseButton,
     HStack, } from '@chakra-ui/react';
+import { useAvatarContext } from '../../hooks/useAvatarContext';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
     const { user } = useAuthContext()?.user || {};
-    const { username, avatar } = user || {};
+    // const { username, avatar } = user || {};
+    const { username } = user || {};
+    const { avatar: avatarContext } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { logOut } = useLogOut();
+
+    const [avatar, setAvatar] = useState('');
+    useEffect(() => {
+        setAvatar(avatarContext);
+      }, [avatarContext]);
+
     const handleLogOut = () => {
         logOut()
         onClose()
