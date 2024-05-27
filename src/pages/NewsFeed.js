@@ -1,5 +1,5 @@
 // import CreatePost from "../components/NewsFeed/CreatePost";
-// import AllPosts from "../components/NewsFeed/AllPosts";
+import AllPosts from "../components/NewsFeed/Posts/AllPosts";
 // import QuotesAndTipsCards from "../components/NewsFeed/QuotesAndTipsCards";
 import {Grid, GridItem, Text, useDisclosure, Button, IconButton, Icon, VStack } from "@chakra-ui/react"
 import Prompt from "../components/NewsFeed/Prompts/Prompt";
@@ -31,8 +31,8 @@ const NewsFeed = () => {
                 <Prompt/>
                 </VStack>
               </GridItem>
-              <GridItem w='100%'>
-                <Text> Postcards go here </Text>
+              <GridItem w='100%' m='20px'>
+                <AllPosts/>
               </GridItem>
             </Grid>
 
