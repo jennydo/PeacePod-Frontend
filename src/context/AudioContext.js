@@ -30,6 +30,12 @@ export const audioReducer = (state, action) => {
         }),
         favoriteAudios: state.audios.filter((audio, _) => audio.isFavorite),
       };
+    case "CLEAR":
+      return { 
+        audios: [],
+        chosenAudio: null,
+        favoriteAudios: []
+      }
     default:
       return state;
   }
@@ -42,27 +48,31 @@ export const AudioContextProvider = ({ children }) => {
     favoriteAudios: [], /// list of favorite audios
   });
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  // const user = JSON.parse(localStorage.getItem("user"));
 
-  useEffect(async () => {
-    /// TODO: fetch from DB
-    try {
-      const response = await axios.get(
-        "http://localhost:4000/api/meditation/audios",
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      );
+  // const fetchAudios = async () => {
+  //   /// TODO: fetch from DB
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:4000/api/meditation/audios",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${user?.token}`,
+  //         },
+  //       }
+  //     );
 
-      // console.log("Response from all audios", response.data)
+  //     console.log("Response from all audios", response.data);
 
-      dispatch({ type: "GET_AUDIOS", payload: response.data });
-    } catch (error) {
-      console.log("Error from getting all audios", error);
-    }
-  }, [dispatch]);
+  //     dispatch({ type: "GET_AUDIOS", payload: response.data });
+  //   } catch (error) {
+  //     console.log("Error from getting all audios", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchAudios()
+  // }, [dispatch]);
 
   return (
     <AudioContext.Provider value={{ ...state, dispatch }}>
