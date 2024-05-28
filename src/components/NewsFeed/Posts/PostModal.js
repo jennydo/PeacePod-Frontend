@@ -6,13 +6,10 @@ import {
     ModalHeader,
     ModalBody,
     ModalCloseButton,
-    ModalFooter,
     Flex,
     Box,
     Text,
-    Input,
     Avatar,
-    Button,
     Divider
 } from '@chakra-ui/react'
 
