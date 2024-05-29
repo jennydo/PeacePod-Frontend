@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 import {
   Text,
-  CardHeader,
-  CardBody,
-  Card,
   Flex,
-  Avatar,
   Box,
   useDisclosure,
   Image,
-  CardFooter,
   GridItem, Grid
 } from "@chakra-ui/react";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import PostModal from "./PostModal";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useAvatarContext } from "../../../hooks/useAvatarContext";
 import envelopeImage from '../../../assets/images/envelope.jpg'; 
 import stampImage from '../../../assets/images/stamp3.png'; 
 import stampLoveImage from '../../../assets/images/stamplove.png';
@@ -23,14 +17,12 @@ import stampLoveImage from '../../../assets/images/stamplove.png';
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext()
   // data from post 
-  const { title, content, createdAt: timeStamp, userId, _id: postId } = post
+  const { title, content, createdAt: timeStamp } = post
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
 
   const finalRef = React.useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // const { avatar, username } = user || {};
-  // const { avatarData, avatar } = useAvatarContext();
   const { avatar, username, avatarData } = post.userId;
   const stampBackgroundColor = "#" + avatarData.backgroundColor[0]
 
@@ -46,6 +38,7 @@ const NormalPost = ({ post }) => {
       bgSize="cover" 
       bgPosition="center" 
       bgRepeat="no-repeat" 
+      onClick={onOpen}
       >
       <Grid templateRows='repeat(5, 1fr)' gap={0}
             w="100%" h={300} p={1}

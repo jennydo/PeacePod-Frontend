@@ -20,7 +20,14 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
     const { avatar, username } = post.userId;
 
     return ( 
-        <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="inside">
+        <Modal 
+            finalFocusRef={finalRef} 
+            isOpen={isOpen} 
+            onClose={onClose} 
+            size="5xl" 
+            scrollBehavior="inside"
+            motionPreset='slideInBottom'
+        >
             <ModalOverlay />
             <ModalContent
             sx={{
