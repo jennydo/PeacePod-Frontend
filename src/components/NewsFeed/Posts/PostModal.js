@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react'
 
 const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp}) => {
+    const { avatar, username } = post.userId;
 
     return ( 
         <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="inside">
@@ -32,9 +33,9 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
                 <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
                     {" "}
                     {/* Added padding here */}
-                    <Avatar name={user && user.username} src={user && user.avatar} />
+                    <Avatar name={username} src={avatar} />
                     <Box>
-                    <Text fontSize="md">{user?.username}</Text>
+                    <Text fontSize="md">{username}</Text>
                     <Text fontSize="xs">
                         {formattedTimeStamp}
                     </Text>
