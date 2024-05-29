@@ -80,7 +80,7 @@ const NormalPost = ({ post }) => {
         </GridItem>
 
         <GridItem w='100%' h='50%'>
-          <Box w="100%" h="100%" overflow='hidden'>
+          <Box w="100%" h="100%">
             <Text>From: {username}</Text>
             <Text>Title: {title}</Text>
             <Text fontStyle="italic">
