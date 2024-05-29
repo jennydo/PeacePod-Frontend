@@ -30,7 +30,7 @@ const NormalPost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // const { avatar, username } = user || {};
-  const { avatarData } = useAvatarContext();
+  const { avatarData, avatar } = useAvatarContext();
   const stampBackgroundColor = "#" + avatarData.backgroundColor[0]
 
   const previewNum = 50
@@ -72,7 +72,7 @@ const NormalPost = ({ post }) => {
               ml="-40px"
               > 
               <Box w="80%" h="100%" bg={stampBackgroundColor} ml='7px' pt={3}>
-                <Image src={user.user.avatar}/>
+                <Image src={avatar}/>
               </Box>
             </Box>
           </Flex>
