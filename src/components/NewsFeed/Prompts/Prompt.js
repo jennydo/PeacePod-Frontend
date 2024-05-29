@@ -9,14 +9,15 @@ import {
   InputRightElement,
   Button,
   InputGroup,
-  Spacer
+  Spacer,
 } from "@chakra-ui/react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import "./Prompt.css";
 import { IoIosSend } from "react-icons/io";
 import { Icon } from "@chakra-ui/react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import axios from "axios";
+import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 
 const Prompt = () => {
   const { user } = useAuthContext();
@@ -115,7 +116,7 @@ const Prompt = () => {
   }, []);
 
   const promptQuote = prompt ? prompt.content : "I love it when you";
-  const promptResponses = [
+  const promptResponsesList = [
     "love me too",
     "cook me dinner",
     "sing with me",
@@ -173,10 +174,14 @@ const Prompt = () => {
     "celebrate our love",
   ];
 
-  const [firstPromptResponse, setFirstPromptResponse] = useState("");
+  const { firstPromptResponse, promptResponses, dispatch } = useContext(
+    PromptResponsesContext
+  );
+
+  const [firstResponse, setFirstResponse] = useState(firstPromptResponse);
   const [idx, setIdx] = useState(0);
   const [promptsDisplay, setPromptsDisplay] = useState([]);
-  const [showFirstPrompt, setShowFirstPrompt] = useState(false);
+  const [showFirstPrompt, setShowFirstPrompt] = useState(true);
   const firstPromptRef = useRef(null);
   const [input, setInput] = useState("");
 
@@ -186,11 +191,11 @@ const Prompt = () => {
     setTimeout(() => {
       if (promptResponses) {
         setPromptsDisplay((prevPromptsDisplay) => [
-          firstPromptResponse,
+          firstResponse,
           ...prevPromptsDisplay,
         ]);
       }
-      setFirstPromptResponse(promptResponses[idx]);
+      setFirstResponse(promptResponses[idx]);
       if (firstPromptRef.current) {
         firstPromptRef.current.focus();
       }
@@ -199,32 +204,71 @@ const Prompt = () => {
     setIdx(idx + 1);
   };
 
+  const handleSendResponse = async () => {
+    const prompt = JSON.parse(localStorage.getItem("new-prompt"));
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!prompt) return;
+
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/api/promptResponses/${prompt._id}`,
+        {
+          content: input,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+
+      console.log("Newly created prompt response", response.data);
+      // dispatch({ type: "CREATE_PROMPT_RESPONSE", payload: response.data });
+
+      setFirstResponse(response.data);
+      setShowFirstPrompt(false);
+      setTimeout(() => {
+        if (firstPromptRef.current) {
+          firstPromptRef.current.focus();
+        }
+        setShowFirstPrompt(true);
+
+        dispatch({ type: "CREATE_PROMPT_RESPONSE", payload: response.data });
+      }, 500);
+    } catch (error) {
+      console.log("Error while creating prompt response", error);
+    }
+  };
+
   return (
-    <Box h="75vh" w="100%" onClick={handleClickPrompt}>
+    <Box h="75vh" w="100%">
       <div className="wave"></div>
       <VStack h="100%" alignItems="stretch">
         <HStack alignItems="flex-start">
-          <Box w="40%" onClick={handleClickPrompt} textAlign="right">
+          <Box w="40%" textAlign="left">
             <Text>{promptQuote}</Text>
           </Box>
           <Box w="60%" overflowY="hidden" maxH="65vh">
             <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
               <GridItem
-                onClick={handleClickPrompt}
+                // onClick={handleClickPrompt}
                 ref={firstPromptRef}
                 className={
                   showFirstPrompt ? "fade-in-text show" : "fade-in-text"
                 }
                 tabIndex={-1}
               >
-                {firstPromptResponse}
+                {firstPromptResponse.content}
               </GridItem>
-              {promptsDisplay &&
-                promptsDisplay.map((promptRes, promptIdx) => (
-                  <GridItem key={promptIdx} w="100%" h="10">
-                    {promptRes}
-                  </GridItem>
-                ))}
+              {promptResponses &&
+                promptResponses.map((promptRes, promptIdx) =>
+                  promptIdx ? (
+                    <GridItem key={promptIdx} w="100%" h="10">
+                      {promptRes.content}
+                    </GridItem>
+                  ) : undefined
+                )}
             </Grid>
           </Box>
         </HStack>
@@ -247,6 +291,7 @@ const Prompt = () => {
                 h="1.75rem"
                 size="sm"
                 variant="ghost"
+                onClick={handleSendResponse}
               >
                 Send
               </Button>
