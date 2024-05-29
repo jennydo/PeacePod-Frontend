@@ -30,7 +30,8 @@ const NormalPost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // const { avatar, username } = user || {};
-  const { avatarData, avatar } = useAvatarContext();
+  // const { avatarData, avatar } = useAvatarContext();
+  const { avatar, username, avatarData } = post.userId;
   const stampBackgroundColor = "#" + avatarData.backgroundColor[0]
 
   const previewNum = 50
@@ -80,7 +81,7 @@ const NormalPost = ({ post }) => {
 
         <GridItem w='100%' h='50%'>
           <Box w="100%" h="100%" overflow='hidden'>
-            <Text>From: {user.user.username}</Text>
+            <Text>From: {username}</Text>
             <Text>Title: {title}</Text>
             <Text fontStyle="italic">
               {preview}
