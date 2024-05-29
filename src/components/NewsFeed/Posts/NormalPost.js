@@ -18,6 +18,7 @@ import {
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import PostModal from "./PostModal";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import envelopeImage from '../../../assets/images/envelope.jpg'; // Ensure this path is correct
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext()
@@ -36,15 +37,25 @@ const NormalPost = ({ post }) => {
   const preview = words.slice(0, previewNum).join(' ');
 
   return (
-    <div> 
-      <Card w="100%" borderRadius={15} bgImage={"https://marketplace.canva.com/EAFTtc-SKzI/1/0/1131w/canva-green-watercolor-illustrated-leaves-nature-letter-uhSqMv8PSxU.jpg"}>
+    <Box
+      width="100%"
+      p="5"
+      // border="2px solid red"
+      bgImage={envelopeImage}
+      bgSize="cover" 
+      bgPosition="center" 
+      bgRepeat="no-repeat" 
+      >
+      <Card 
+        w="100%" h={300}
+        bgImage={"https://marketplace.canva.com/EAFTtc-SKzI/1/0/1131w/canva-green-watercolor-illustrated-leaves-nature-letter-uhSqMv8PSxU.jpg"}>
         <CardHeader>
           <Flex justify="end">
             <Avatar name={user.user.username} src={user.user.avatar}/>
           </Flex>
         </CardHeader>
 
-        <CardBody mt="15">
+        <CardBody>
           <Text>From: {user.user.username}</Text>
           <Text>Date: {formattedTimeStamp}</Text>
           <Text>Title: {title}</Text>
@@ -62,7 +73,7 @@ const NormalPost = ({ post }) => {
       </Card>
 
       <PostModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} post={post} user={user} formattedTimeStamp={formattedTimeStamp}/>
-    </div>
+    </Box>
   );
 };
 
