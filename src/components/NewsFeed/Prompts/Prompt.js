@@ -22,24 +22,11 @@ import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 const Prompt = () => {
   const { user } = useAuthContext();
 
+  const { firstPromptResponse, promptResponses, dispatch } = useContext(
+    PromptResponsesContext
+  );
+
   const peacepodUserId = "661f3d5f7bc0dc0597752679";
-  // const [prompt, setPrompt] = useState(() => {
-  //   const currentPrompt = JSON.parse(localStorage.getItem("new-prompt"));
-
-  //   if (currentPrompt) {
-  //     /// New day, clear local storage prompt
-  //     const currentDate = new Date().getDate();
-  //     const promptDate = new Date(
-  //       currentPrompt.updatedAt
-  //         ? currentPrompt.updatedAt
-  //         : currentPrompt.createdAt
-  //     ).getDate();
-
-  //     if (currentDate !== promptDate) return null;
-  //     else return currentPrompt;
-  //   } else return null;
-  // });
-
   /// Check if we have to call api or not
 
   const checkNewDay = () => {
@@ -83,6 +70,7 @@ const Prompt = () => {
       localStorage.setItem("new-prompt", JSON.stringify(response.data));
 
       setPrompt(response.data);
+      dispatch({ type: "CLEAR" });
     } catch (err) {
       console.log("error while creating prompt ", err);
     }
@@ -114,6 +102,33 @@ const Prompt = () => {
     /// Schedule new prompt
     scheduleDailyPrompt();
   }, []);
+
+
+  const fetchPromptResponses = async () => {
+    const prompt = JSON.parse(localStorage.getItem("new-prompt"));
+
+    if (!prompt || !user) return;
+
+    try {
+      const responses = await axios.get(
+        `http://localhost:4000/api/promptResponses/prompt/${prompt._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+
+      console.log("All responses for prompt", responses.data);
+      dispatch({ type: "GET_PROMPT_RESPONSES", payload: responses.data });
+    } catch (error) {
+      console.log("Error while fetching prompt responses", error);
+    }
+  };
+  useEffect(() => {
+    fetchPromptResponses();
+    console.log("Refetch prompt responses");
+  }, [dispatch, prompt]);
 
   const promptQuote = prompt ? prompt.content : "I love it when you";
   const promptResponsesList = [
@@ -174,10 +189,6 @@ const Prompt = () => {
     "celebrate our love",
   ];
 
-  const { firstPromptResponse, promptResponses, dispatch } = useContext(
-    PromptResponsesContext
-  );
-
   const [firstResponse, setFirstResponse] = useState(firstPromptResponse);
   const [idx, setIdx] = useState(0);
   const [promptsDisplay, setPromptsDisplay] = useState([]);
@@ -233,6 +244,7 @@ const Prompt = () => {
           firstPromptRef.current.focus();
         }
         setShowFirstPrompt(true);
+        setInput("");
 
         dispatch({ type: "CREATE_PROMPT_RESPONSE", payload: response.data });
       }, 500);
@@ -259,7 +271,7 @@ const Prompt = () => {
                 }
                 tabIndex={-1}
               >
-                {firstPromptResponse.content}
+                {firstPromptResponse?.content}
               </GridItem>
               {promptResponses &&
                 promptResponses.map((promptRes, promptIdx) =>
