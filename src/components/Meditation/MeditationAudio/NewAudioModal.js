@@ -62,7 +62,7 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
       setIsLoading(false);
       setError(err);
       console.log("Error while creating new audio", err);
-      onClose()
+      // onClose()
     }
   };
 

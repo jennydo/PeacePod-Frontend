@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createContext, useReducer, useEffect } from "react";
+import axios from 'axios'
 
 export const AudioContext = createContext();
 
@@ -48,31 +48,31 @@ export const AudioContextProvider = ({ children }) => {
     favoriteAudios: [], /// list of favorite audios
   });
 
-  // const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  // const fetchAudios = async () => {
-  //   /// TODO: fetch from DB
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:4000/api/meditation/audios",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${user?.token}`,
-  //         },
-  //       }
-  //     );
+  const fetchAudios = async () => {
+    /// TODO: fetch from DB
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/meditation/audios",
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
 
-  //     console.log("Response from all audios", response.data);
+      console.log("Response from all audios", response.data);
 
-  //     dispatch({ type: "GET_AUDIOS", payload: response.data });
-  //   } catch (error) {
-  //     console.log("Error from getting all audios", error);
-  //   }
-  // };
+      dispatch({ type: "GET_AUDIOS", payload: response.data });
+    } catch (error) {
+      console.log("Error from getting all audios", error);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchAudios()
-  // }, [dispatch]);
+  useEffect(() => {
+    fetchAudios()
+  }, [dispatch]);
 
   return (
     <AudioContext.Provider value={{ ...state, dispatch }}>

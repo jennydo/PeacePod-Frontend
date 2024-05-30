@@ -40,11 +40,19 @@ const MeditationDrawer = () => {
   const [isFilter, setIsFilter] = useState(false);
 
   /// Get chosen image from cloudinary context
-  const { userImages, displayedImage, dispatch: cloudinaryDispatch } = useContext(CloudinaryContext);
+  const {
+    userImages,
+    displayedImage,
+    dispatch: cloudinaryDispatch,
+  } = useContext(CloudinaryContext);
   /// Get spotify from Spotify Context
   const { playingTrack } = useContext(SpotifyContext);
   /// Get audio from Audio Context
-  const { audios, chosenAudio, dispatch: audioDispatch } = useContext(AudioContext);
+  const {
+    audios,
+    chosenAudio,
+    dispatch: audioDispatch,
+  } = useContext(AudioContext);
 
   const [currentSession, setCurrentSession] = useState("");
 
@@ -61,10 +69,16 @@ const MeditationDrawer = () => {
       );
       console.log("Response from get last session", res.data);
       /// Update chosen audio from last session
-      audioDispatch({ type: "CHOOSE_AUDIO", payload: res.data.meditationAudio });
+      audioDispatch({
+        type: "CHOOSE_AUDIO",
+        payload: res.data.meditationAudio,
+      });
 
       /// Update chosen background from last session
-      cloudinaryDispatch({ type: "DISPLAY_IMAGE", payload: res.data.lastBackground})
+      cloudinaryDispatch({
+        type: "DISPLAY_IMAGE",
+        payload: res.data.lastBackground,
+      });
     } catch (error) {
       console.log("Error while getting session", error);
     }
@@ -110,7 +124,7 @@ const MeditationDrawer = () => {
 
       console.log("Response from creating session", response.data);
 
-      onClose()
+      onClose();
     } catch (err) {
       console.log("Error while creating session...", err);
     }

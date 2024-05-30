@@ -1,19 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   CardHeader,
   CardBody,
-  CardFooter,
   Card,
   Flex,
   Avatar,
-  Box,
-  IconButton,
-  Button,
   useDisclosure,
-  Divider,
-  Center,
-  Spacer
 } from "@chakra-ui/react";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import PostModal from "./PostModal";

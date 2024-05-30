@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
 import React from "react";
-import NormalPost from "./NormalPost";
-import { VStack } from "@chakra-ui/react";
 import { usePostsContext } from "../../../hooks/usePostsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import PostsLayout from "./PostsLayout";

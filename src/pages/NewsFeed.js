@@ -1,7 +1,7 @@
 // import CreatePost from "../components/NewsFeed/CreatePost";
 import AllPosts from "../components/NewsFeed/Posts/AllPosts";
 // import QuotesAndTipsCards from "../components/NewsFeed/QuotesAndTipsCards";
-import {Grid, GridItem, Text, useDisclosure, Button, IconButton, Icon, VStack } from "@chakra-ui/react"
+import {Grid, GridItem, useDisclosure, IconButton, Icon, VStack } from "@chakra-ui/react"
 import Prompt from "../components/NewsFeed/Prompts/Prompt";
 import '../components/NewsFeed/Prompts/Prompt.css';
 import CreatePostcard from "../components/NewsFeed/Postcards/CreatePostcard";
