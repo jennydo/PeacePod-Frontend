@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   Flex,
   Box,
   useDisclosure,
   Image,
-  GridItem, Grid
+  GridItem, Grid,
 } from "@chakra-ui/react";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import PostModal from "./PostModal";

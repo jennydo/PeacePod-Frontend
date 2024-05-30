@@ -4,23 +4,12 @@ import './AudioPlayer.css';
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
 import { Button, VStack, StackDivider } from '@chakra-ui/react'
+import { AudioContext } from '../../../context/AudioContext';
 
 const Player = () => {
-    const [audioUrl, setAudioUrl] = useState('');
+    const { chosenAudio } = useContext(AudioContext)
 
-    const getAudio = async () => {
-        try {
-            const response = await axios.get('http://localhost:4000/api/cloudinary/audios/most-recent');
-            console.log("Response from get audio", response.data)
-            setAudioUrl(response.data);
-        } catch (error) {
-            console.error('Error getting audio:', error);
-        }
-    }
-
-    useEffect(() => {
-        getAudio();
-    }, [audioUrl]);
+    console.log("chosen audio in audio playerrrrr", chosenAudio)
 
     return (
 
@@ -31,16 +20,15 @@ const Player = () => {
         >
             < AudioPlayer className='audio-player'
                 // src="https://res.cloudinary.com/dufirricm/video/upload/v1715991294/PeacePod/Audios/Sample02_vjcfi8.wav"
-                src={audioUrl}
+                src={chosenAudio?.audio}
                 onPlay={(e) => console.log("onPlay")}
                 autoPlay={false}
                 volume={0.5}
                 progressJumpStep={10000}
                 layout="horizontal"
                 controls
-                header="Now playing: Let it go!"
+                header={`Now playing: ${chosenAudio?.title}`}
             />
-            <Button colorScheme='blue' onClick={getAudio}>Generate</Button>
         </VStack>
 
     );
