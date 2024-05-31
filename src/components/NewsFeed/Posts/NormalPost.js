@@ -26,7 +26,7 @@ const NormalPost = ({ post }) => {
   const { avatar, username, avatarData } = post.userId;
   const stampBackgroundColor = "#" + avatarData.backgroundColor[0]
 
-  const previewNum = 50
+  const previewNum = 20
   const words = content.split(' ');
   const preview = words.slice(0, previewNum).join(' ');
 
@@ -40,11 +40,11 @@ const NormalPost = ({ post }) => {
       bgRepeat="no-repeat" 
       onClick={onOpen}
       >
-      <Grid templateRows='repeat(5, 1fr)' gap={0}
+      <Grid gridTemplateRows={'35% 1fr 10%'} gap={0}
             w="100%" h={300} p={1}
             bgImage={"https://marketplace.canva.com/EAFTtc-SKzI/1/0/1131w/canva-green-watercolor-illustrated-leaves-nature-letter-uhSqMv8PSxU.jpg"}
       >
-        <GridItem w='100%' h='30%'>
+        <GridItem w='100%' h='100%'>
           <Flex justify="end" position="relative">
             <Box w='80px' mt={8}
                  position="relative" 
@@ -72,23 +72,20 @@ const NormalPost = ({ post }) => {
           </Flex>
         </GridItem>
 
-        <GridItem w='100%' h='50%'>
+        <GridItem w='100%' h='100%'>
           <Box w="100%" h="100%">
+            <Text>{title}</Text>
             <Text>From: {username}</Text>
-            <Text>Title: {title}</Text>
             <Text fontStyle="italic">
               {preview}
             </Text>
-            <Text onClick={onOpen}
-              color="gray.500"
-              fontStyle="italic"
-              _hover={{ color: "blue.500", textDecoration: "underline" }}>
-              Read more...</Text>
           </Box> 
         </GridItem>
 
-        <GridItem w='100%' h='20%' >
-          <Text>Date: {formattedTimeStamp}</Text>
+        <GridItem w='100%' h='100%' >
+          <Flex justify="end" position="relative">
+            <Text>{formattedTimeStamp}</Text>
+          </Flex>
         </GridItem>
       
       </Grid>
