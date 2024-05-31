@@ -1,5 +1,5 @@
-import axios from "axios";
 import { createContext, useReducer, useEffect } from "react";
+import axios from 'axios'
 
 export const AudioContext = createContext();
 
@@ -30,6 +30,12 @@ export const audioReducer = (state, action) => {
         }),
         favoriteAudios: state.audios.filter((audio, _) => audio.isFavorite),
       };
+    case "CLEAR":
+      return { 
+        audios: [],
+        chosenAudio: null,
+        favoriteAudios: []
+      }
     default:
       return state;
   }
@@ -44,7 +50,7 @@ export const AudioContextProvider = ({ children }) => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  useEffect(async () => {
+  const fetchAudios = async () => {
     /// TODO: fetch from DB
     try {
       const response = await axios.get(
@@ -56,12 +62,16 @@ export const AudioContextProvider = ({ children }) => {
         }
       );
 
-      // console.log("Response from all audios", response.data)
+      console.log("Response from all audios", response.data);
 
       dispatch({ type: "GET_AUDIOS", payload: response.data });
     } catch (error) {
       console.log("Error from getting all audios", error);
     }
+  };
+
+  useEffect(() => {
+    fetchAudios()
   }, [dispatch]);
 
   return (

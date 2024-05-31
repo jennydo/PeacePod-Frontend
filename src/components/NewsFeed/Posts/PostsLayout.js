@@ -1,10 +1,6 @@
-import axios from "axios";
-import { useEffect } from "react";
 import React from "react";
 import NormalPost from "./NormalPost";
-import { Grid, GridItem } from "@chakra-ui/react";
-import { usePostsContext } from "../../../hooks/usePostsContext";
-import { useAuthContext } from "../../../hooks/useAuthContext";
+import { Grid, GridItem } from "@chakra-ui/react"; 
 
 const PostsLayout = ({fourPosts}) => {
   if (fourPosts.length > 4) {
@@ -18,7 +14,7 @@ const PostsLayout = ({fourPosts}) => {
         h="200px"
         templateRows="repeat(2, 1fr)"
         templateColumns="repeat(2, 1fr)"
-        gap={4}
+        gap={5}
       >
         {postsArray.map((post) => (
           <GridItem key={post._id}>
