@@ -36,7 +36,6 @@ const MeditationDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const user = JSON.parse(localStorage.getItem("user"));
-  const [tabIndex, setTabIndex] = useState(0);
   const [isFilter, setIsFilter] = useState(false);
 
   /// Get chosen image from cloudinary context
@@ -46,7 +45,7 @@ const MeditationDrawer = () => {
     dispatch: cloudinaryDispatch,
   } = useContext(CloudinaryContext);
   /// Get spotify from Spotify Context
-  const { playingTrack } = useContext(SpotifyContext);
+  const { playingTrack, isPlayingSpotify, dispatch: spotifyDispatch } = useContext(SpotifyContext);
   /// Get audio from Audio Context
   const {
     audios,
@@ -81,11 +80,11 @@ const MeditationDrawer = () => {
 
       /// Update state of choosing audio for choosing spotify
       if (res.data.isPlayingAudio) {
-        audioDispatch({ type: "CHOOSE_PLAY_AUDIO " });
-        setTabIndex(0)
+        audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
+        spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"})
       } else {
         audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
-        setTabIndex(1)
+        spotifyDispatch({ type: "CHOOSE_PLAY_SPOTIFY" });
       }
     } catch (error) {
       console.log("Error while getting session", error);
@@ -108,13 +107,13 @@ const MeditationDrawer = () => {
   } = useDisclosure();
 
   const handleSave = async () => {
-    console.log("Current tab index ", tabIndex);
+    // console.log("Current tab index ", tabIndex);
 
     const session = {
       lastBackground: displayedImage,
       meditationAudio: chosenAudio,
       music: playingTrack,
-      isPlayingAudio, /// index === 0: audio, index = 1: spotify
+      isPlayingAudio
     };
 
     try {
@@ -136,15 +135,6 @@ const MeditationDrawer = () => {
       console.log("Error while creating session...", err);
     }
   };
-
-  const handleChangeTab = (idx) => {
-    if (idx == 0) {
-      audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
-    } else {
-      audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
-    }
-    setTabIndex(idx)
-  }
 
   return (
     <>
@@ -184,10 +174,8 @@ const MeditationDrawer = () => {
               </Box>
               <Box w="100%" h="50%">
                 <Tabs
-                  onChange={(idx) => handleChangeTab(idx)}
                   isFitted={true}
                   h="100%"
-                  defaultIndex={tabIndex}
                 >
                   <Text fontSize="xl" marginBottom={0} mt={3}>
                     Meditation Audio
@@ -222,10 +210,6 @@ const MeditationDrawer = () => {
                         onClose={onModalClose}
                         isOpen={isModalOpen}
                       />
-                      {/* <CreateOwnSession
-                        session={ownSession}
-                        setSession={setOwnSession}
-                      /> */}
                     </TabPanel>
                     <TabPanel>
                       <SpotifyMain />
