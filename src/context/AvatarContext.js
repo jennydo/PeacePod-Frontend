@@ -84,10 +84,10 @@ export const AvatarContextProvider = ( {children} ) => {
     useEffect(()=> {
         const user = JSON.parse(localStorage.getItem('user'))
         if (user) {
-            dispatch({
-                type: "SET_AVATAR", 
-                payload: user.user.avatar
-            })
+            // dispatch({
+            //     type: "SET_AVATAR", 
+            //     payload: user.user.avatar
+            // })
             dispatch({
                 type: "SET_AVATAR_DATA", 
                 payload: user.user.avatarData
