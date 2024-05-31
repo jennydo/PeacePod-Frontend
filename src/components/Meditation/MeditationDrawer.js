@@ -52,9 +52,8 @@ const MeditationDrawer = () => {
     audios,
     chosenAudio,
     dispatch: audioDispatch,
+    isPlayingAudio
   } = useContext(AudioContext);
-
-  const [currentSession, setCurrentSession] = useState("");
 
   /// Function to fetch session from DB
   const fetchSession = async () => {
@@ -79,6 +78,15 @@ const MeditationDrawer = () => {
         type: "DISPLAY_IMAGE",
         payload: res.data.lastBackground,
       });
+
+      /// Update state of choosing audio for choosing spotify
+      if (res.data.isPlayingAudio) {
+        audioDispatch({ type: "CHOOSE_PLAY_AUDIO " });
+        setTabIndex(0)
+      } else {
+        audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
+        setTabIndex(1)
+      }
     } catch (error) {
       console.log("Error while getting session", error);
     }
@@ -99,7 +107,6 @@ const MeditationDrawer = () => {
     onClose: onModalClose,
   } = useDisclosure();
 
-  /// This is old version for old design, not working for new design yet
   const handleSave = async () => {
     console.log("Current tab index ", tabIndex);
 
@@ -107,7 +114,7 @@ const MeditationDrawer = () => {
       lastBackground: displayedImage,
       meditationAudio: chosenAudio,
       music: playingTrack,
-      isPlayingAudio: tabIndex == 0, /// index === 0: audio, index = 1: spotify
+      isPlayingAudio, /// index === 0: audio, index = 1: spotify
     };
 
     try {
@@ -129,6 +136,15 @@ const MeditationDrawer = () => {
       console.log("Error while creating session...", err);
     }
   };
+
+  const handleChangeTab = (idx) => {
+    if (idx == 0) {
+      audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
+    } else {
+      audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
+    }
+    setTabIndex(idx)
+  }
 
   return (
     <>
@@ -168,9 +184,10 @@ const MeditationDrawer = () => {
               </Box>
               <Box w="100%" h="50%">
                 <Tabs
-                  onChange={(idx) => setTabIndex(idx)}
+                  onChange={(idx) => handleChangeTab(idx)}
                   isFitted={true}
                   h="100%"
+                  defaultIndex={tabIndex}
                 >
                   <Text fontSize="xl" marginBottom={0} mt={3}>
                     Meditation Audio
