@@ -35,8 +35,11 @@ import { useAuthContext } from "../../../hooks/useAuthContext.js";
 
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { useAvatarContext } from "../../../hooks/useAvatarContext.js";
 
 const SignUp = () => {
+  const { dispatch: avatarDispatch } = useAvatarContext();
+
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
@@ -94,6 +97,10 @@ const SignUp = () => {
 
     if (response.ok) {
       localStorage.setItem("user", JSON.stringify(json));
+      avatarDispatch({
+        type: "SET_AVATAR_DATA", 
+        payload: json.user.avatarData
+      })
       dispatch({ type: "LOGIN", payload: json });
       setIsLoading(false);
     }
