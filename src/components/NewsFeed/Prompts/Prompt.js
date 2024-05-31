@@ -103,7 +103,6 @@ const Prompt = () => {
     scheduleDailyPrompt();
   }, []);
 
-
   const fetchPromptResponses = async () => {
     const prompt = JSON.parse(localStorage.getItem("new-prompt"));
 
@@ -131,71 +130,12 @@ const Prompt = () => {
   }, [dispatch, prompt]);
 
   const promptQuote = prompt ? prompt.content : "I love it when you";
-  const promptResponsesList = [
-    "love me too",
-    "cook me dinner",
-    "sing with me",
-    "fix my resume for the 100th time",
-    "care for me the tiniest",
-    "take a walk together",
-    "watch a movie",
-    "have deep conversations",
-    "go on a road trip",
-    "try new recipes together",
-    "explore new places",
-    "give me surprises",
-    "read books together",
-    "help me with chores",
-    "plan our future",
-    "encourage me",
-    "support my dreams",
-    "comfort me when I'm sad",
-    "make me laugh",
-    "dance with me",
-    "share our secrets",
-    "celebrate my achievements",
-    "learn new things together",
-    "forgive my mistakes",
-    "be patient with me",
-    "listen to my thoughts",
-    "appreciate my efforts",
-    "be there for me always",
-    "dream big with me",
-    "enjoy the little moments",
-    "cherish our memories",
-    "trust me",
-    "be my best friend",
-    "respect my opinions",
-    "show affection",
-    "inspire me",
-    "make me feel special",
-    "surprise me with gifts",
-    "give me hugs",
-    "kiss me goodnight",
-    "say 'I love you'",
-    "make me breakfast in bed",
-    "encourage my passions",
-    "admire my strengths",
-    "lift me up when I'm down",
-    "be my rock",
-    "grow together",
-    "create beautiful memories",
-    "be honest with me",
-    "understand my feelings",
-    "be my partner in crime",
-    "support my decisions",
-    "make me feel safe",
-    "share our fears",
-    "celebrate our love",
-  ];
-
   const [firstResponse, setFirstResponse] = useState(firstPromptResponse);
   const [idx, setIdx] = useState(0);
   const [promptsDisplay, setPromptsDisplay] = useState([]);
   const [showFirstPrompt, setShowFirstPrompt] = useState(true);
   const firstPromptRef = useRef(null);
   const [input, setInput] = useState("");
-
   const handleClickPrompt = () => {
     if (idx >= promptResponses.length) return;
     setShowFirstPrompt(false);
@@ -237,7 +177,7 @@ const Prompt = () => {
       console.log("Newly created prompt response", response.data);
       // dispatch({ type: "CREATE_PROMPT_RESPONSE", payload: response.data });
 
-      setFirstResponse(response.data);
+      // setFirstResponse(response.data);
       setShowFirstPrompt(false);
       setTimeout(() => {
         if (firstPromptRef.current) {
