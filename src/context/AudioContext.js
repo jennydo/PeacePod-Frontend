@@ -34,7 +34,18 @@ export const audioReducer = (state, action) => {
       return { 
         audios: [],
         chosenAudio: null,
-        favoriteAudios: []
+        favoriteAudios: [],
+        isPlayingAudio: true
+      }
+    case "CHOOSE_PLAY_AUDIO":
+      return {
+        ...state,
+        isPlayingAudio: true 
+      }
+    case "UNCHOOSE_PLAY_AUDIO":
+      return {
+        ...state,
+        isPlayingAudio: false
       }
     default:
       return state;
@@ -46,6 +57,7 @@ export const AudioContextProvider = ({ children }) => {
     audios: [], /// list of all audios
     chosenAudio: null, /// currently chosen audio
     favoriteAudios: [], /// list of favorite audios
+    isPlayingAudio: true
   });
 
   const user = JSON.parse(localStorage.getItem("user"));
