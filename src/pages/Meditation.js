@@ -17,7 +17,7 @@ const Meditation = () => {
                     <DisplayedBackground />
                 </GridItem>
                 <GridItem w='100%' h='100%'>
-                    {playingTrack && <SongPlayer accessToken={accessToken} trackUri={playingTrack?.uri} />}
+                    {/* {playingTrack && <SongPlayer accessToken={accessToken} trackUri={playingTrack?.uri} />} */}
                     <Player />
                 </GridItem>
             </Grid>
