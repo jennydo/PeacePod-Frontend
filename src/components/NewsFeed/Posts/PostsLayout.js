@@ -6,6 +6,7 @@ const PostsLayout = ({fourPosts}) => {
   if (fourPosts.length > 4) {
     console.error("Can have at most 4 posts");
   }
+  const postsArray = Array.isArray(fourPosts) ? fourPosts : [];
 
   return (
     <div>
@@ -15,9 +16,9 @@ const PostsLayout = ({fourPosts}) => {
         templateColumns="repeat(2, 1fr)"
         gap={5}
       >
-        {fourPosts.map((post) => (
-          <GridItem>
-            <NormalPost key={post._id} post={post} />
+        {postsArray.map((post) => (
+          <GridItem key={post._id}>
+            <NormalPost post={post} />
           </GridItem>
         ))}
       </Grid>
