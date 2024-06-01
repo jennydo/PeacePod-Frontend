@@ -4,8 +4,8 @@ import React from "react";
 import { usePostsContext } from "../../../hooks/usePostsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import PostsLayout from "./PostsLayout";
-import { IconButton, Flex, Text, Box } from "@chakra-ui/react"; 
-import { ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons'
+import { IconButton, Flex, Text, Box, Divider } from "@chakra-ui/react"; 
+import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
 
 const AllPosts = () => {
   const { user } = useAuthContext();
@@ -47,17 +47,17 @@ const AllPosts = () => {
     <Flex flexDir="column" alignItems="center">
       {pageNum > 3 ? (
         <IconButton
-          icon={<ArrowUpIcon />}
+          icon={<ChevronUpIcon />}
           onClick={retrievePreviousPage}
           colorScheme="blue"
-          mb={5}
+          size='lg'
         />
       ) : (
-        <IconButton icon={<ArrowUpIcon />} disabled mb={5} />
+        <IconButton icon={<ChevronUpIcon />} disabled size='lg'/>
       )}
 
 
-      <Box w="100%">
+      <Box w="100%" m={5} h={800}>
         <PostsLayout fourPosts={fourPosts} />
       </Box>
 
@@ -68,15 +68,14 @@ const AllPosts = () => {
           : pageNum < posts.length - (posts.length % 4)
       ) ? (
         <IconButton
-          icon={<ArrowDownIcon />}
+          icon={<ChevronDownIcon />}
           onClick={retrieveNewPage}
           colorScheme="blue"
-          mt={5}
+          size='lg'
         />
       ) : (
-        <IconButton icon={<ArrowDownIcon />} disabled mt={5} />
+        <IconButton icon={<ChevronDownIcon />} disabled size='lg'/>
       )}
-      <Text>{pageNum}</Text>
     </Flex>
   );
 };
