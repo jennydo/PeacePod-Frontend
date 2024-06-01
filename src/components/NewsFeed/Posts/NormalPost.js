@@ -71,6 +71,8 @@ const NormalPost = ({ post }) => {
     }
   }, [post, dispatch, isOpen]);
 
+  console.log(comments)
+
   // get the count of likes when the component is mounted
   useEffect(() => {
       axios.get(`http://localhost:4000/api/reactions/total/${post._id}`, {
@@ -101,31 +103,25 @@ const NormalPost = ({ post }) => {
   // handle the like/unlike functionality
   const handleReact = async () => {
     if (reacted) {
+      await axios.delete(`http://localhost:4000/api/reactions/${post._id}`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
       setReacted(false);
       console.log("Unreacted");
     } else {
+      const newReaction = {
+        postId: post._id,
+        userId: user.user._id,
+      };
+      await axios.post(`http://localhost:4000/api/reactions/${post._id}`, 
+      newReaction, 
+      {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
       setReacted(true);
       console.log("Reacted");
     }
   };
-
-  useEffect(() => {
-    if (reacted) {
-      axios.delete(
-        `http://localhost:4000/api/reactions/${post._id}`,
-        {
-          headers: { Authorization: `Bearer ${user.token}` },
-        }
-      );
-    } else {
-      axios.post(
-        `http://localhost:4000/api/reactions/${post._id}`,
-        {
-          headers: { Authorization: `Bearer ${user.token}` },
-        }
-      );
-    }
-  }, [post, user.token]);
 
   return (
     <Box
