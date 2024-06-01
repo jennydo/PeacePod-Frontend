@@ -24,7 +24,7 @@ import stampImage from '../../../assets/images/stamp3.png';
 import stampLoveImage from '../../../assets/images/stamplove.png';
 import letterImage from '../../../assets/images/letter.png';
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
-import postBackgroundImage from '../../../assets/images/Bg7.avif';
+import postBackgroundImage from '../../../assets/images/Bg9.avif';
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext()
