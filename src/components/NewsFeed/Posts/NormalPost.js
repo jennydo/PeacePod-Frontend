@@ -3,14 +3,9 @@ import {
   Text,
   Flex,
   Box,
-  useDisclosure,
   Image,
   GridItem, Grid,
-  Spacer,
   Button,
-  CardFooter,
-  CardBody,
-  Card,
   Heading
 } from "@chakra-ui/react";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -19,12 +14,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useCommentsContext } from '../../../hooks/useCommentsContext';
-import envelopeImage from '../../../assets/images/envelope.jpg'; 
+// import envelopeImage from '../../../assets/images/envelope.jpg'; 
 import stampImage from '../../../assets/images/stamp3.png'; 
 import stampLoveImage from '../../../assets/images/stamplove.png';
-import letterImage from '../../../assets/images/letter.png';
+// import letterImage from '../../../assets/images/letter.png';
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
 import postBackgroundImage from '../../../assets/images/Bg9.avif';
+import backBackgroundImage from '../../../assets/images/back-background.jpg';
+import './NormalPost.css'
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext()
@@ -32,8 +29,8 @@ const NormalPost = ({ post }) => {
   const { title, content, createdAt: timeStamp } = post
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
 
-  const finalRef = React.useRef(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isFlipped, setIsFlipped] = useState(false);
+  const handleFlip = () => setIsFlipped(!isFlipped);
 
   const { avatar, username, avatarData } = post.userId;
   const stampBackgroundColor = "#" + avatarData.backgroundColor[0]
@@ -50,7 +47,7 @@ const NormalPost = ({ post }) => {
   // to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
     // get the Comments object for the post
-    if (isOpen) {
+    if (!isFlipped) {
       axios
         .get(`http://localhost:4000/api/comments/post/${post._id}`, {
           headers: { Authorization: `Bearer ${user.token}` },
@@ -71,7 +68,7 @@ const NormalPost = ({ post }) => {
         type: "CLEAR_COMMENTS",
       });
     }
-  }, [post, dispatch, isOpen]);
+  }, [post, dispatch, isFlipped]);
 
   console.log(comments)
 
@@ -126,8 +123,12 @@ const NormalPost = ({ post }) => {
   };
 
   return (
-    <>
+  <div className="flip-container" ontouchstart="this.classList.toggle('hover');">
+    <div className="flipper">
     <Grid 
+      className="front"
+      // onClick={handleFlip}
+      // className={`flip-container ${isFlipped ? 'flipped' : ''}`}
       gridTemplateRows={'30% 10% 1fr 10%'} 
       // m={10} 
       w="100%" h="100%"
@@ -196,7 +197,7 @@ const NormalPost = ({ post }) => {
             >
               {likes.count === 0 ? "" : likes.count}
             </Button>
-            <Button variant="ghost" onClick={onOpen} leftIcon={<FaComment />}>
+            <Button variant="ghost" leftIcon={<FaComment />}>
               Comment
             </Button>
           </Flex>
@@ -204,7 +205,24 @@ const NormalPost = ({ post }) => {
       </GridItem>
 
     </Grid>
-    </>
+
+
+    <Grid 
+      className="back"
+      // onClick={handleFlip}
+      gridTemplateRows={'30% 10% 1fr 10%'} 
+      // m={10} 
+      w="100%" h="100%"
+      bgImage={backBackgroundImage}
+      bgSize="cover"
+      bgPosition="top"
+      bgRepeat="no-repeat"
+      >
+        
+      
+    </Grid>
+    </div>
+  </div>
   );
 };
 
