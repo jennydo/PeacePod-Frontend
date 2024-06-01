@@ -1,4 +1,4 @@
-._DevicesRSWP {
+/* ._DevicesRSWP {
     display: none !important
   }
 
@@ -8,14 +8,14 @@
 
 .rswp__toggle {
     display: flex !important;
-}
+} */
 
 /* Play button */
-._ControlsButtonRSWP svg path {
+/* ._ControlsButtonRSWP svg path {
     fill: #eb4b98; 
-}
+} */
 
 /* Volumne button */
-._VolumeInlineRSWP span svg path {
+/* ._VolumeInlineRSWP span svg path {
     fill: #eb4b98; 
-}
+} */
