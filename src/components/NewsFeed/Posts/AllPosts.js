@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { usePostsContext } from "../../../hooks/usePostsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-// import PostsLayout from "./PostsLayout";
-import { IconButton, Flex, Text, Box, Divider, HStack } from "@chakra-ui/react"; 
+import { IconButton, Grid, GridItem, Center } from "@chakra-ui/react"; 
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import NormalPost from "../Posts/NormalPost";
 
@@ -46,21 +45,31 @@ const AllPosts = () => {
 
     return ( 
         <>
-        <HStack>
-          <IconButton
-            icon={<ChevronLeftIcon />}
-            onClick={retrievePreviousPost}
-            colorScheme="blue"
-            size='lg'
-          />
-          {postShowing && <NormalPost post={postShowing}/>}
-          <IconButton
-            icon={<ChevronRightIcon />}
-            onClick={retrieveNewPost}
-            colorScheme="blue"
-            size='lg'
-          />
-        </HStack>
+        <Grid gridTemplateColumns={'5% 1fr 5%'} m={10} h="60vh" w="70%">
+          <GridItem w='100%' h='100%' > 
+            <IconButton
+              icon={<ChevronLeftIcon />}
+              onClick={idx < 1 ? ()=>{} : retrievePreviousPost}
+              colorScheme="blue"
+              variant='ghost'
+              size='lg'
+              disabled={ idx < 1 }
+            />
+          </GridItem>
+          <GridItem w='100%' h='100%'> 
+            {postShowing && <NormalPost post={postShowing}/>}
+          </GridItem>
+          <GridItem w='100%' h='100%'> 
+            <IconButton
+              icon={<ChevronRightIcon />}
+              onClick={idx > posts.length - 2 ? ()=>{} : retrieveNewPost}
+              colorScheme="blue"
+              variant='ghost'
+              size='lg'
+              disabled={idx > posts.length - 2}
+            />
+          </GridItem>
+        </Grid>
         </>
      );
 }
