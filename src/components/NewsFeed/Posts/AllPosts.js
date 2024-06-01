@@ -46,7 +46,11 @@ const AllPosts = () => {
     return ( 
         <>
         <Grid gridTemplateColumns={'5% 1fr 5%'} m={10} h="60vh" w="70%">
-          <GridItem w='100%' h='100%' > 
+          <GridItem 
+            w='100%' h='100%' 
+            display='flex' 
+            alignItems='center' 
+            justifyContent='center'> 
             <IconButton
               icon={<ChevronLeftIcon />}
               onClick={idx < 1 ? ()=>{} : retrievePreviousPost}
@@ -59,7 +63,11 @@ const AllPosts = () => {
           <GridItem w='100%' h='100%'> 
             {postShowing && <NormalPost post={postShowing}/>}
           </GridItem>
-          <GridItem w='100%' h='100%'> 
+          <GridItem 
+            w='100%' h='100%'
+            display='flex' 
+            alignItems='center' 
+            justifyContent='center'> 
             <IconButton
               icon={<ChevronRightIcon />}
               onClick={idx > posts.length - 2 ? ()=>{} : retrieveNewPost}
