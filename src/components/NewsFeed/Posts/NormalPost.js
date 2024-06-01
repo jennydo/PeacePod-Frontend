@@ -131,7 +131,6 @@ const NormalPost = ({ post }) => {
       bgSize="cover"
       bgPosition="center"
       bgRepeat="no-repeat"
-      onClick={onOpen}
     >
       <Card         
         bgImage={letterImage}
@@ -145,6 +144,7 @@ const NormalPost = ({ post }) => {
         w="100%"
         h={230}
         p={1}
+        onClick={onOpen}
       >
         <GridItem w="100%" h="30%" mt={5} mb={3}>
           <Flex>
