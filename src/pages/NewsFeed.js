@@ -13,7 +13,7 @@ const NewsFeed = () => {
     return (
         <div className="newsfeed">
             <h1>NewsFeed</h1>
-            <Tabs align='center' isFitted>
+            <Tabs align='center' isFitted mt={5}>
               <TabList>
                 <Tab>Catch a Postcard flying in the Sky</Tab>
                 <Tab>The Waterfall of Messages</Tab>
