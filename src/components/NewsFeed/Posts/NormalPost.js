@@ -210,16 +210,27 @@ const NormalPost = ({ post }) => {
     <Grid 
       className="back"
       // onClick={handleFlip}
-      gridTemplateRows={'30% 10% 1fr 10%'} 
-      // m={10} 
+      gridTemplateRows={'10% 1fr'} 
+      p={17} 
       w="100%" h="100%"
-      bgImage={backBackgroundImage}
+      bgImage={postBackgroundImage}
       bgSize="cover"
       bgPosition="top"
       bgRepeat="no-repeat"
       >
-        
-      
+      <GridItem w="100%" h="100%" mt={1}>
+        {title}
+
+      </GridItem>
+
+      <GridItem 
+        w="100%" h="100%" 
+        className="postcard-content" 
+        display='flex' 
+        alignItems='center' 
+        justifyContent='center'>
+        {content}
+      </GridItem>
     </Grid>
     </div>
   </div>
