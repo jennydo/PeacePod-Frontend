@@ -1,24 +1,26 @@
 import { Container, Input } from '@chakra-ui/react';
 import useSpotifyAuth from '../../../hooks/useSpotifyAuth';
 import SpotifyWebApi from 'spotify-web-api-node';
-import { useState, useEffect } from'react';
+import { useState, useEffect, useContext } from'react';
 import TrackSearchResult from './TrackSearchResult';
-import SongPlayer from './SongPlayer';
 import { useSpotifyContext } from '../../../hooks/useSpotifyContext';
+import { AudioContext } from '../../../context/AudioContext';
 
 const SpotifyList = ({code}) => {
     const accessToken = useSpotifyAuth(code);
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([])
-    // const [playingTrack, setPlayingTrack] = useState(null);
     const { dispatch } = useSpotifyContext();
+    const { dispatch: audioDispatch} = useContext(AudioContext);
+    
 
     const chooseTrack = (track) => {
-        // setPlayingTrack(track)
         dispatch({
             type: 'SET_SPOTIFY_PLAYING_TRACK',
             payload: track
         })
+        dispatch({ type: "CHOOSE_PLAY_SPOTIFY" })
+        audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
         setSearch('')
     }
 
@@ -72,7 +74,6 @@ const SpotifyList = ({code}) => {
             {searchResults && searchResults.map((track, idx) => (
                 <TrackSearchResult key={track.uri} track={track} chooseTrack={chooseTrack}/>
             ))}
-            {/* <SongPlayer accessToken={accessToken} trackUri={playingTrack?.uri}/> */}
         </Container>
        
      );

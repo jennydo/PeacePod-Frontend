@@ -19,6 +19,16 @@ export const spotifyReducer = (state, action) => {
                 ...state,
                 playingTrack: action.payload
             }
+        case "CHOOSE_PLAY_SPOTIFY":
+            return {
+                ...state,
+                isPlayingSpotify: true 
+            }
+        case "UNCHOOSE_PLAY_SPOTIFY":
+            return {
+                ...state,
+                isPlayingSpotify: false
+            }
         default:
             return state
     }
@@ -28,7 +38,8 @@ export const SpotifyContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(spotifyReducer, {
         spotifyCode: null,
         accessToken: null,
-        playingTrack: null
+        playingTrack: null,
+        isPlayingSpotify: null
     })
     
     console.log("SpotifyContext state: ", state)

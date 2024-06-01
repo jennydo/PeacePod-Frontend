@@ -5,9 +5,12 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import { CloudinaryContextProvider } from '../context/CloudinaryContext';
 import DisplayedBackground from '../components/Meditation/Background/DisplayedBackground';
 import Player from '../components/Meditation/MeditationAudio/AudioPlayer';
+import { AudioContext } from '../context/AudioContext';
+import { useContext } from'react';
 
 const Meditation = () => {
-    const { accessToken, playingTrack } = useSpotifyContext();
+    const { accessToken, playingTrack, isPlayingSpotify } = useSpotifyContext();
+    const { isPlayingAudio } = useContext(AudioContext);
 
     return (
         <CloudinaryContextProvider>
@@ -17,8 +20,8 @@ const Meditation = () => {
                     <DisplayedBackground />
                 </GridItem>
                 <GridItem w='100%' h='100%'>
-                    {playingTrack && <SongPlayer accessToken={accessToken} trackUri={playingTrack?.uri} />}
-                    <Player />
+                    {(isPlayingSpotify && playingTrack) && <SongPlayer accessToken={accessToken} trackUri={playingTrack?.uri} />}
+                    {isPlayingAudio && <Player />}
                 </GridItem>
             </Grid>
         </CloudinaryContextProvider>
