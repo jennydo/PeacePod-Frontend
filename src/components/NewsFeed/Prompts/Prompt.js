@@ -201,10 +201,12 @@ const Prompt = () => {
 
   return (
     <Box h="75vh" w="100%" onClick={handleClickPrompt}>
-      <div className="wave"></div>
+      {/* <div className="wave"></div> */}
       <VStack h="100%" alignItems="stretch">
         <HStack alignItems="flex-start">
-          <Box w="40%" onClick={handleClickPrompt} textAlign="right">
+          <Box w="40%" textAlign="right"
+            // onClick={handleClickPrompt} 
+          >
             <Text>{promptQuote}</Text>
           </Box>
           <Box w="60%" overflowY="hidden" maxH="65vh">
