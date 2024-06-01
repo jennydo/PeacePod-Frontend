@@ -7,7 +7,10 @@ import {
   Image,
   GridItem, Grid,
   Spacer,
-  Button
+  Button,
+  CardFooter,
+  CardBody,
+  Card
 } from "@chakra-ui/react";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import PostModal from "./PostModal";
@@ -33,7 +36,7 @@ const NormalPost = ({ post }) => {
   const { avatar, username, avatarData } = post.userId;
   const stampBackgroundColor = "#" + avatarData.backgroundColor[0]
 
-  const previewNum = 15
+  const previewNum = 12
   const words = content.split(' ');
   const preview = words.slice(0, previewNum).join(' ');
 
@@ -47,7 +50,9 @@ const NormalPost = ({ post }) => {
     // get the Comments object for the post
     if (isOpen) {
       axios
-        .get(`http://localhost:4000/api/comments/post/${post._id}`)
+        .get(`http://localhost:4000/api/comments/post/${post._id}`, {
+          headers: { Authorization: `Bearer ${user.token}` },
+        })
         .then((response) => {
           dispatch({
             type: "GET_COMMENTS",
@@ -78,7 +83,7 @@ const NormalPost = ({ post }) => {
         .catch((error) => {
           console.error("Error fetching likes:", error);
         });
-    }, [post, reacted]);
+    }, [post, user.token, reacted]);
   
   // check if the user has reacted to the post
   useEffect(() => {
@@ -91,30 +96,36 @@ const NormalPost = ({ post }) => {
         .catch((error) => {
           console.error("Error fetching reaction:", error);
         });
-    }, [post]);
+    }, [post, user.token]);
   
   // handle the like/unlike functionality
   const handleReact = async () => {
     if (reacted) {
-      await axios.delete(
-        `http://localhost:4000/api/reactions/${post._id}`,
-        {
-          headers: { Authorization: `Bearer ${user.token}` },
-        }
-      );
       setReacted(false);
       console.log("Unreacted");
     } else {
-      await axios.post(
-        `http://localhost:4000/api/reactions/${post._id}`,
-        {
-          headers: { Authorization: `Bearer ${user.token}` },
-        }
-      );
       setReacted(true);
       console.log("Reacted");
     }
   };
+
+  useEffect(() => {
+    if (reacted) {
+      axios.delete(
+        `http://localhost:4000/api/reactions/${post._id}`,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
+    } else {
+      axios.post(
+        `http://localhost:4000/api/reactions/${post._id}`,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
+    }
+  }, [post, user.token]);
 
   return (
     <Box
@@ -126,18 +137,20 @@ const NormalPost = ({ post }) => {
       bgRepeat="no-repeat"
       onClick={onOpen}
     >
+      <Card         
+        bgImage={letterImage}
+        bgSize="cover"
+        bgPosition="top"
+        bgRepeat="no-repeat">
+      <CardBody>
       <Grid
         templateRows="repeat(5, 1fr)"
         gap={0}
         w="100%"
-        h={300}
+        h={230}
         p={1}
-        bgImage={letterImage}
-        bgSize="cover"
-        bgPosition="top"
-        bgRepeat="no-repeat"
       >
-        <GridItem w="100%" h="30%" mt={5} mb={2}>
+        <GridItem w="100%" h="30%" mt={5} mb={3}>
           <Flex>
             <Box>
               <Text>From: {username}</Text>
@@ -171,7 +184,7 @@ const NormalPost = ({ post }) => {
           </Flex>
         </GridItem>
 
-        <GridItem w="100%" h="50%" mt={2} mb={2}>
+        <GridItem w="100%" h="50%" mt={2}>
           <Flex flexDir='column'>
           <Box w="100%" h="100%">
             <Text>Title: {title}</Text>
@@ -188,11 +201,17 @@ const NormalPost = ({ post }) => {
               Read more...
             </Text>
           </Box>
+          </Flex>
+        </GridItem>
+        
+      </Grid>
+      </CardBody>
 
-          <Box>
-          <Flex
+      <CardFooter>
+        <Flex
             flexDir='row'
             flexWrap="wrap"
+            justify='space-between'
             sx={{
               "& > button": {
                 minW: "136px",
@@ -207,16 +226,13 @@ const NormalPost = ({ post }) => {
             >
               {likes.count === 0 ? "" : likes.count}
             </Button>
-            <Spacer/>
             <Button variant="ghost" onClick={onOpen} leftIcon={<FaComment />}>
               Comment
             </Button>
           </Flex>
-          </Box>
-          </Flex>
-        </GridItem>
-        
-      </Grid>
+        </CardFooter>
+
+      </Card>
 
       <PostModal
         finalRef={finalRef}

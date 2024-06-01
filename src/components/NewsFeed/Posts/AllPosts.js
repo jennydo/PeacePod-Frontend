@@ -57,7 +57,7 @@ const AllPosts = () => {
       )}
 
 
-      <Box w="100%" m={5}>
+      <Box w="100%" m={5} h={800}>
         <PostsLayout fourPosts={fourPosts} />
       </Box>
 
