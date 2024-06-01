@@ -29,7 +29,7 @@ const NewsFeed = () => {
                       bg='transparent'
                       aria-label='Done'
                       fontSize='20px'
-                      marginBottom={50}
+                      // marginBottom={50}
                       icon={<Icon as={BsFillSendPlusFill} boxSize={8}/>}
                     />
                     <AllPosts/>
