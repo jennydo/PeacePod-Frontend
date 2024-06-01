@@ -127,7 +127,7 @@ const NormalPost = ({ post }) => {
     <Box
       width="100%"
       p="5"
-      bgImage={envelopeImage}
+      // bgImage={envelopeImage}
       bgSize="cover"
       bgPosition="center"
       bgRepeat="no-repeat"

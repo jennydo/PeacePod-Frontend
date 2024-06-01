@@ -40,7 +40,7 @@ const SongPlayer = ({ accessToken, trackUri }) => {
                 layout="responsive"
                 play={play}
                 uris={trackUri ? [trackUri] : []}
-                styles={styles}
+                // styles={styles}
             />
         </Box>
 
