@@ -18,9 +18,10 @@ import {
   Tab,
   TabPanel,
   IconButton,
+  Flex
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { GiHamburger } from "react-icons/gi";
+import { IoIosSettings } from "react-icons/io";
 import SpotifyMain from "./Music/SpotifyMain";
 import BackgroundMain from "./Background/BackgroundMain";
 import axios from "axios";
@@ -45,13 +46,17 @@ const MeditationDrawer = () => {
     dispatch: cloudinaryDispatch,
   } = useContext(CloudinaryContext);
   /// Get spotify from Spotify Context
-  const { playingTrack, isPlayingSpotify, dispatch: spotifyDispatch } = useContext(SpotifyContext);
+  const {
+    playingTrack,
+    isPlayingSpotify,
+    dispatch: spotifyDispatch,
+  } = useContext(SpotifyContext);
   /// Get audio from Audio Context
   const {
     audios,
     chosenAudio,
     dispatch: audioDispatch,
-    isPlayingAudio
+    isPlayingAudio,
   } = useContext(AudioContext);
 
   /// Function to fetch session from DB
@@ -81,7 +86,7 @@ const MeditationDrawer = () => {
       /// Update state of choosing audio for choosing spotify
       if (res.data.isPlayingAudio) {
         audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
-        spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"})
+        spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY" });
       } else {
         audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
         spotifyDispatch({ type: "CHOOSE_PLAY_SPOTIFY" });
@@ -113,7 +118,7 @@ const MeditationDrawer = () => {
       lastBackground: displayedImage,
       meditationAudio: chosenAudio,
       music: playingTrack,
-      isPlayingAudio
+      isPlayingAudio,
     };
 
     try {
@@ -138,15 +143,18 @@ const MeditationDrawer = () => {
 
   return (
     <>
-      <Button
-        marginLeft={10}
-        marginBottom={1}
-        ref={btnRef}
-        onClick={onOpen}
-        rightIcon={<GiHamburger fontSize={20} />}
-      >
-        Menu
-      </Button>
+      <Flex w='100%' justifyContent={'flex-end'}>
+        <Button
+          marginRight={10}
+          marginBottom={1}
+          ref={btnRef}
+          onClick={onOpen}
+          rightIcon={<IoIosSettings fontSize={20} />}
+        >
+          What vibe are you feeling today?
+        </Button>
+      </Flex>
+
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -173,10 +181,7 @@ const MeditationDrawer = () => {
                 <BackgroundMain />
               </Box>
               <Box w="100%" h="50%">
-                <Tabs
-                  isFitted={true}
-                  h="100%"
-                >
+                <Tabs isFitted={true} h="100%">
                   <Text fontSize="xl" marginBottom={0} mt={3}>
                     Meditation Audio
                   </Text>
