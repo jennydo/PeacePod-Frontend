@@ -18,9 +18,9 @@ import {
   Tab,
   TabPanel,
   IconButton,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { IoFilterSharp } from "react-icons/io5";
 import { IoIosSettings } from "react-icons/io";
 import SpotifyMain from "./Music/SpotifyMain";
 import BackgroundMain from "./Background/BackgroundMain";
@@ -143,7 +143,7 @@ const MeditationDrawer = () => {
 
   return (
     <>
-      <Flex w='100%' justifyContent={'flex-end'}>
+      <Flex w="100%" justifyContent={"flex-end"}>
         <Button
           marginRight={10}
           marginBottom={1}
@@ -183,7 +183,7 @@ const MeditationDrawer = () => {
               <Box w="100%" h="50%">
                 <Tabs isFitted={true} h="100%">
                   <Text fontSize="xl" marginBottom={0} mt={3}>
-                    Meditation Audio
+                    Choose gentle harmony for your peace
                   </Text>
                   <TabList>
                     <Tab>Your list</Tab>
@@ -194,6 +194,7 @@ const MeditationDrawer = () => {
                     <TabPanel padding={0}>
                       <Button
                         mt={3}
+                        leftIcon={<IoFilterSharp />}
                         borderRadius={10}
                         size="sm"
                         onClick={() => setIsFilter(!isFilter)}
