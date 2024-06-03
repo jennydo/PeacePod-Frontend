@@ -15,8 +15,12 @@
     height: 100px
 }
 
-.rhap_main-controls, .rhap_progress-section, .rhap_controls-section {
-    height: 20px
+.rhap_progress-section {
+    height: 5px;
+}
+
+.rhap_main-controls, .rhap_controls-section {
+    height: 20px;
 }
 
 .rhap_button-clear {
