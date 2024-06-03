@@ -1,20 +1,20 @@
-import React, { useContext } from'react';
+import React, { useContext } from 'react';
 import { CloudinaryContext } from '../../../context/CloudinaryContext';
 import { Image, Center } from "@chakra-ui/react";
 
 const DisplayedBackground = () => {
-    const {displayedImage} = useContext(CloudinaryContext);
+    const { displayedImage } = useContext(CloudinaryContext);
 
-    return ( 
+    return (
         <>
-        {displayedImage && (
-            <Center>
-                <Image src={displayedImage} w="95%" h="700" borderRadius={20} objectFit="cover" />
-            </Center>
-           
-        )}
+            {displayedImage && (
+                <Center>
+                    {/* <Image src={displayedImage} w="95%" h="700" borderRadius={20} objectFit="cover" /> */}
+                </Center>
+
+            )}
         </>
-     );
+    );
 }
- 
+
 export default DisplayedBackground;
