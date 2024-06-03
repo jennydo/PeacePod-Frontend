@@ -16,11 +16,7 @@ const Player = () => {
   // );
 
   return (
-    <VStack
-      divider={<StackDivider borderColor="gray.200" />}
-      spacing={4}
-      // align='stretch'
-    >
+    <VStack>
       <AudioPlayer
         className="audio-player"
         // src="https://res.cloudinary.com/dufirricm/video/upload/v1715991294/PeacePod/Audios/Sample02_vjcfi8.wav"
@@ -30,7 +26,7 @@ const Player = () => {
         autoPlayAfterSrcChange={false}
         volume={0.5}
         progressJumpStep={10000}
-        layout="horizontal"
+        layout="stacked"
         controls
         header={`Now playing: ${chosenAudio?.title}`}
       />
