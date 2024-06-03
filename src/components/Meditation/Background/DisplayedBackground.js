@@ -8,8 +8,8 @@ const DisplayedBackground = () => {
     return ( 
         <>
         {displayedImage && (
-            <Center>
-                <Image src={displayedImage} w="95%" h="700" borderRadius={20} objectFit="cover" />
+            <Center maxHeight={'100%'} className='image-center'>
+                <Image src={displayedImage} w="95%" h={470} borderRadius={20} objectFit="cover" margin={0}/>
             </Center>
            
         )}

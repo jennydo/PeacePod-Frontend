@@ -14,7 +14,7 @@ const Meditation = () => {
 
     return (
         <CloudinaryContextProvider>
-            <Grid gridTemplateRows={'1fr 10%'} height="85vh" gap={6}>
+            <Grid gridTemplateRows={'1fr 10%'} height="85vh">
                 <GridItem w='100%' h='100%'>
                     <MeditationDrawer />
                     <DisplayedBackground />
