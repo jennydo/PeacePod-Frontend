@@ -10,7 +10,8 @@ import {
   Button,
   CardFooter,
   CardBody,
-  Card
+  Card,
+  Heading
 } from "@chakra-ui/react";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import PostModal from "./PostModal";
@@ -23,6 +24,7 @@ import stampImage from '../../../assets/images/stamp3.png';
 import stampLoveImage from '../../../assets/images/stamplove.png';
 import letterImage from '../../../assets/images/letter.png';
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
+import postBackgroundImage from '../../../assets/images/Bg9.avif';
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext()
@@ -124,87 +126,59 @@ const NormalPost = ({ post }) => {
   };
 
   return (
-    <Box
-      width="100%"
-      p="5"
-      // bgImage={envelopeImage}
+    <>
+    <Grid 
+      gridTemplateRows={'30% 10% 1fr 10%'} 
+      // m={10} 
+      w="100%" h="100%"
+      bgImage={postBackgroundImage}
       bgSize="cover"
-      bgPosition="center"
+      bgPosition="top"
       bgRepeat="no-repeat"
-    >
-      <Card         
-        bgImage={letterImage}
-        bgSize="cover"
-        bgPosition="top"
-        bgRepeat="no-repeat">
-      <CardBody>
-      <Grid
-        templateRows="repeat(5, 1fr)"
-        gap={0}
-        w="100%"
-        h={230}
-        p={1}
-        onClick={onOpen}
       >
-        <GridItem w="100%" h="30%" mt={5} mb={3}>
-          <Flex>
-            <Box>
-              <Text>From: {username}</Text>
-              <Text>Date: {formattedTimeStamp}</Text>
-            </Box>
-            <Spacer />
-            <Flex justify="end" position="relative">
-              <Box w="80px" mt={8} position="relative" zIndex={2}>
-                <Image src={stampLoveImage} />
-              </Box>
-              <Box
-                bgImage={stampImage}
-                w="80px"
-                h="90px"
-                bgSize="cover"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                p="5px"
-                position="relative"
-                zIndex={1}
-                ml="-40px"
-              >
-                <Box w="80%" h="100%" bg={stampBackgroundColor} ml="7px" pt={3}>
-                  <Image src={avatar} />
-                </Box>
-              </Box>
-            </Flex>
-          </Flex>
-        </GridItem>
-
-        <GridItem w="100%" h="50%" mt={2}>
-          <Flex flexDir='column'>
-          <Box w="100%" h="100%">
-            <Text>Title: {title}</Text>
-            <Text fontStyle="italic" as="cite" mr={2}>
-              {preview}
-            </Text>
-            <Text
-              onClick={onOpen}
-              color="gray.500"
-              fontStyle="italic"
-              as="cite"
-              _hover={{ color: "blue.500", textDecoration: "underline" }}
-            >
-              Read more...
-            </Text>
+      <GridItem w='100%' h='100%'> 
+        <Flex justify="end" position="relative">
+          <Box w="140px" mt={20} position="relative" zIndex={2}>
+            <Image src={stampLoveImage} />
           </Box>
-          </Flex>
-        </GridItem>
-        
-      </Grid>
-      </CardBody>
+          <Box
+              bgImage={stampImage}
+              w="140px"
+              h="160px"
+              bgSize="cover"
+              bgPosition="center"
+              bgRepeat="no-repeat"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              m={6}
+              p="5px"
+              position="relative"
+              zIndex={1}
+              ml="-65px"
+            >
+              <Box w="75%" h="95%" bg={stampBackgroundColor} ml="7px" pt={3}>
+                <Image src={avatar} />
+              </Box>
+          </Box>
+        </Flex>
+          
+      </GridItem>
 
-      <CardFooter>
-        <Flex
+      <GridItem w='100%' h='100%'> 
+          <Heading>{title}</Heading>
+      </GridItem>
+
+      <GridItem w='100%' h='100%'> 
+        <Text>From: {username}</Text>
+        <Text fontStyle="italic" as="cite" mr={2}>
+          {preview}
+        </Text>
+      </GridItem>
+
+      <GridItem w='100%' h='100%'> 
+
+           <Flex
             flexDir='row'
             flexWrap="wrap"
             justify='space-between'
@@ -226,19 +200,11 @@ const NormalPost = ({ post }) => {
               Comment
             </Button>
           </Flex>
-        </CardFooter>
+            
+      </GridItem>
 
-      </Card>
-
-      <PostModal
-        finalRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
-        post={post}
-        user={user}
-        formattedTimeStamp={formattedTimeStamp}
-      />
-    </Box>
+    </Grid>
+    </>
   );
 };
 
