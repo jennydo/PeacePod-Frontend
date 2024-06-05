@@ -195,75 +195,81 @@ const Prompt = () => {
 
   return (
     <>
-    <Grid 
-      gridTemplateRows={'1fr 10%'} h="100%" w="100%"
-      // display='flex' 
-      // alignItems='center' 
-      // justifyContent='center'
+      <Grid
+        gridTemplateRows={"1fr 10%"}
+        h="100%"
+        w="100%"
+        // display='flex'
+        // alignItems='center'
+        // justifyContent='center'
       >
-      <GridItem h="65vh" w="100%">
-        <Grid gridTemplateColumns={'1fr 50%'} h="100%" w="100%">
-          <GridItem 
-            h="100%" w="100%" 
-            textAlign="right"
-            onClick={handleClickPrompt} 
-          >
-            <Text>{promptQuote}</Text>
-          </GridItem>
-          <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
-            <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
-              <GridItem
-                // onClick={handleClickPrompt}
-                ref={firstPromptRef}
-                className={
-                  showFirstPrompt ? "fade-in-text show" : "fade-in-text"
-                }
-                tabIndex={-1}
-              >
-                {firstPromptResponse?.content}
-              </GridItem>
-              {promptResponses &&
-                promptResponses.map((promptRes, promptIdx) =>
-                  promptIdx ? (
-                    <GridItem key={promptIdx} w="100%" h="10">
-                      {promptRes.content}
-                    </GridItem>
-                  ) : undefined
-                )}
-            </Grid>
-          </GridItem>
-        </Grid>
-      </GridItem>
-
-      <GridItem 
-        h="100%" w="100%"
-        display='flex' 
-        alignItems='center' 
-        justifyContent='center'
-      >
-        <InputGroup size="md" w="50%">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={`${promptQuote.slice(0, 30)}...`}
-            size="md"
-            // variant='unstyled'
-            variant="flushed"
-          />
-          <InputRightElement width="4.5rem">
-            <Button
-              rightIcon={<Icon as={IoIosSend} />}
-              h="1.75rem"
-              size="sm"
-              variant="ghost"
+        <GridItem h="60vh" w="100%">
+          <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
+            <GridItem
+              h="100%"
+              w="100%"
+              textAlign="right"
+              onClick={handleClickPrompt}
             >
-              Send
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+              <Text mr={5} fontSize={20}>
+                {promptQuote.slice(0, promptQuote?.length - 3)}
+              </Text>
+            </GridItem>
+            <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
+              <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
+                <GridItem
+                  // onClick={handleClickPrompt}
+                  ref={firstPromptRef}
+                  className={
+                    showFirstPrompt ? "fade-in-text show" : "fade-in-text"
+                  }
+                  tabIndex={-1}
+                >
+                  <Text fontSize={20}>{firstPromptResponse?.content}</Text>
+                </GridItem>
+                {promptResponses &&
+                  promptResponses.map((promptRes, promptIdx) =>
+                    promptIdx ? (
+                      <GridItem key={promptIdx} w="100%" h="10">
+                        <Text fontSize={20}>{promptRes.content}</Text>
+                      </GridItem>
+                    ) : undefined
+                  )}
+              </Grid>
+            </GridItem>
+          </Grid>
+        </GridItem>
 
-      </GridItem>
-    </Grid>
+        <GridItem
+          h="100%"
+          w="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <InputGroup size="md" w="54%">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={`${promptQuote.slice(0, 300)}`}
+              size="lg"
+              // variant='unstyled'
+              variant="flushed"
+            />
+            <InputRightElement width="4.5rem">
+              <Button
+                rightIcon={<Icon as={IoIosSend} />}
+                h="1.75rem"
+                size="sm"
+                variant="ghost"
+                onClick={handleSendResponse}
+              >
+                Send
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </GridItem>
+      </Grid>
     </>
   );
 };
