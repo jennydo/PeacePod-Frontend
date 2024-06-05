@@ -29,7 +29,6 @@ import AudioList from "./MeditationAudio/MeditationAudioList";
 import { TiPlus } from "react-icons/ti";
 import NewAudioModal from "./MeditationAudio/NewAudioModal";
 import { CloudinaryContext } from "../../context/CloudinaryContext";
-import { useAuthContext } from "../../hooks/useAuthContext";
 import { SpotifyContext } from "../../context/SpotifyContext";
 import { AudioContext } from "../../context/AudioContext";
 
@@ -141,17 +140,28 @@ const MeditationDrawer = () => {
     }
   };
 
+  const [hovered, setHovered] = useState(false)
+
   return (
     <>
-      <Flex w="100%" justifyContent={"flex-end"}>
+      <Flex w="100%" justifyContent={"flex-end"} position={'absolute'}>
         <Button
-          marginRight={10}
+          // marginRight={10}
           marginBottom={1}
           ref={btnRef}
           onClick={onOpen}
-          rightIcon={<IoIosSettings fontSize={20} />}
+          rightIcon={<IoIosSettings fontSize={20} justifyContent='center'/>}
+          position={'absolute'}
+          top={1}
+          right={42}
+          borderRadius={15}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          w={hovered? 300 : 10}
+          transition="width 0.3s ease"
+          pr={hovered? 'default' : 6}
         >
-          What vibe are you feeling today?
+          {hovered? "What vibe are you feeling today?" : ""}
         </Button>
       </Flex>
 
