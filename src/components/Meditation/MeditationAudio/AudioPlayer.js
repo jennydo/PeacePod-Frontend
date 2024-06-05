@@ -16,7 +16,7 @@ const Player = () => {
   // );
 
   return (
-    <VStack>
+    <VStack maxH={'100%'}>
       <AudioPlayer
         className="audio-player"
         // src="https://res.cloudinary.com/dufirricm/video/upload/v1715991294/PeacePod/Audios/Sample02_vjcfi8.wav"
