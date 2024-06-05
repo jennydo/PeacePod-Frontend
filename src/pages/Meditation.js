@@ -17,7 +17,7 @@ const Meditation = () => {
       <Grid
         gridTemplateRows={"1fr 12%"}
         bg="green.100"
-        h={'calc(100vh - 101px)'}
+        h={"calc(100vh - 100px)"}
       >
         <GridItem w="100%" h="100%">
           <MeditationDrawer />
