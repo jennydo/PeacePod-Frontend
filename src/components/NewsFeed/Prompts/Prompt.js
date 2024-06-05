@@ -253,7 +253,7 @@ const Prompt = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <InputGroup size="md" w="54%">
+          <InputGroup size="md" w="54%" mt={3}>
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
