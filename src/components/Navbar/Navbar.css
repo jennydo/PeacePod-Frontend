@@ -1,6 +1,8 @@
 
 .peacepod-navbar {
     padding: 20px;
+    padding-top: 15px;
+    padding-bottom: 5px;
     display: flex;
     align-items: center;
     max-width: 100%;
