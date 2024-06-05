@@ -16,7 +16,7 @@ const Meditation = () => {
     <CloudinaryContextProvider>
       <Grid
         gridTemplateRows={"1fr 12%"}
-        bg="green.100"
+        // bg="green.100"
         h={"calc(100vh - 100px)"}
       >
         <GridItem w="100%" h="100%">
