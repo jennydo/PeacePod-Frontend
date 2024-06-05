@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { CloudinaryContext } from '../../../context/CloudinaryContext';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import axios from 'axios';
+import { MdCloudUpload } from "react-icons/md";
 
 const UploadBackground = () => {
 
@@ -70,6 +71,7 @@ const UploadBackground = () => {
         marginTop={2}
         marginBottom={2}  
         size='sm'
+        leftIcon={<MdCloudUpload />}
       >
         Upload your own image
       </Button>

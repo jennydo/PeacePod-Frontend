@@ -54,21 +54,22 @@ const AudioCard = ({ audio }) => {
     >
       <Flex
         w="100%"
-        bg="yellow.100"
+        // bg="#BDE0FE"
         justifyContent="center"
         alignItems="center"
         borderRadius={10}
         sx={{
           _hover: {
-            background: "blue.100",
+            background: "#FFAFCC",
           },
           "&": {
             transition: "all 250ms linear",
           },
         }}
         onClick={chooseAudio}
-        borderColor={audio && chosenAudio && audio._id === chosenAudio._id ? "red.100" : "none"}
-        borderWidth={audio && chosenAudio && audio._id === chosenAudio._id ? 3 : 0}
+        // borderColor={audio && chosenAudio && audio._id === chosenAudio._id ? "red.100" : "none"}
+        // borderWidth={audio && chosenAudio && audio._id === chosenAudio._id ? 5 : 0}
+        bg={audio && chosenAudio && audio._id === chosenAudio._id ? "#FFAFCC" : "#BDE0FE"}
       >
         {audio.title}
       </Flex>
