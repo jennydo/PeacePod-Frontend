@@ -130,7 +130,7 @@ const Prompt = () => {
   }, [dispatch, prompt]);
 
   const promptQuote = prompt ? prompt.content : "I love it when you";
-  const [firstResponse, setFirstResponse] = useState(firstPromptResponse);
+  const [firstResponse, setFirstResponse] = useState(null);
   const [idx, setIdx] = useState(0);
   const [promptsDisplay, setPromptsDisplay] = useState([]);
   const [showFirstPrompt, setShowFirstPrompt] = useState(true);
@@ -140,13 +140,12 @@ const Prompt = () => {
     if (idx >= promptResponses.length) return;
     setShowFirstPrompt(false);
     setTimeout(() => {
-      if (promptResponses) {
-        setPromptsDisplay((prevPromptsDisplay) => [
-          firstResponse,
-          ...prevPromptsDisplay,
-        ]);
-      }
+      setPromptsDisplay((prevPromptsDisplay) => [
+        promptResponses[idx],
+        ...prevPromptsDisplay,
+      ]);
       setFirstResponse(promptResponses[idx]);
+      dispatch({ type: "UPDATE_FIRST_RESPONSE", payload: promptResponses[idx]})
       if (firstPromptRef.current) {
         firstPromptRef.current.focus();
       }
@@ -174,10 +173,11 @@ const Prompt = () => {
         }
       );
 
-      console.log("Newly created prompt response", response.data);
-      // dispatch({ type: "CREATE_PROMPT_RESPONSE", payload: response.data });
-
       // setFirstResponse(response.data);
+      // setPromptsDisplay((prevPromptsDisplay) => [
+      //   response.data,
+      //   ...prevPromptsDisplay,
+      // ]);
       setShowFirstPrompt(false);
       setTimeout(() => {
         if (firstPromptRef.current) {
@@ -187,7 +187,13 @@ const Prompt = () => {
         setInput("");
 
         dispatch({ type: "CREATE_PROMPT_RESPONSE", payload: response.data });
+
+        setPromptsDisplay((prevPromptsDisplay) => [
+          response.data,
+          ...prevPromptsDisplay,
+        ]);
       }, 500);
+      setIdx(idx + 1);
     } catch (error) {
       console.log("Error while creating prompt response", error);
     }
@@ -227,8 +233,8 @@ const Prompt = () => {
                 >
                   <Text fontSize={20}>{firstPromptResponse?.content}</Text>
                 </GridItem>
-                {promptResponses &&
-                  promptResponses.map((promptRes, promptIdx) =>
+                {promptsDisplay &&
+                  promptsDisplay.map((promptRes, promptIdx) =>
                     promptIdx ? (
                       <GridItem key={promptIdx} w="100%" h="10">
                         <Text fontSize={20}>{promptRes.content}</Text>

@@ -8,7 +8,6 @@ export const promptResponsesReducer = (state, action) => {
     case "GET_PROMPT_RESPONSES":
       return {
         promptResponses: action.payload,
-        firstPromptResponse: action.payload.length ? action.payload[0] : "",
       };
     case "CREATE_PROMPT_RESPONSE":
       return {
@@ -18,6 +17,11 @@ export const promptResponsesReducer = (state, action) => {
         ],
         firstPromptResponse: action.payload,
       };
+    case "UPDATE_FIRST_RESPONSE":
+      return {
+        ...state,
+        firstPromptResponse: action.payload
+      }
     case "CLEAR":
       return {
         promptResponses: [],
@@ -31,7 +35,7 @@ export const promptResponsesReducer = (state, action) => {
 export const PromptResponsesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(promptResponsesReducer, {
     promptResponses: [],
-    firstPromptResponse: "",
+    firstPromptResponse: null,
   });
   
   // const user = JSON.parse(localStorage.getItem("user"));
