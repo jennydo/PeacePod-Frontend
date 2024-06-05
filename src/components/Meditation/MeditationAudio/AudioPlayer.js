@@ -21,40 +21,6 @@ const Player = () => {
             spacing={4}
         // align='stretch'
         >
-            {/* <AudioPlayer
-                className="audio-player"
-                src={chosenAudio?.audio}
-                onPlay={(e) => console.log("onPlay")}
-                autoPlay={false}
-                autoPlayAfterSrcChange={false}
-                volume={0.5}
-                progressJumpStep={10000}
-                // layout="stacked-reverse"
-                showJumpControls={false}
-                showSkipControls={true}
-                // customAdditionalControls={[]}
-                header={
-                    <div className="audio-header">
-                        Now playing
-                        <br />
-                        {chosenAudio?.title}
-                    </div>
-                }
-
-                customProgressBarSection={[
-                    RHAP_UI.CURRENT_TIME,
-                    RHAP_UI.PROGRESS_BAR,
-                    RHAP_UI.DURATION
-                ]}
-                customControlsSection={[
-                    RHAP_UI.ADDITIONAL_CONTROLS,
-                    RHAP_UI.MAIN_CONTROLS,
-                    RHAP_UI.VOLUME_CONTROLS
-                ]}
-                customAdditionalControls={[]}
-                customVolumeControls={[RHAP_UI.VOLUME]}
-            /> */}
-
             <div className="audio-player-wrapper">
                 <div className="audio-header">
                     Now playing
