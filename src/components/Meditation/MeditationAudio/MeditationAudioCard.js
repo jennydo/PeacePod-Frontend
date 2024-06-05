@@ -1,22 +1,46 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Flex, IconButton } from "@chakra-ui/react";
 import { AudioContext } from "../../../context/AudioContext";
+import { SpotifyContext } from "../../../context/SpotifyContext";
 
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
+import axios from 'axios'
+
 const AudioCard = ({ audio }) => {
   const { chosenAudio, dispatch } = useContext(AudioContext);
+  const { dispatch: spotifyDispatch } = useContext(SpotifyContext);
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const chooseAudio = () => {
     dispatch({
       type: "CHOOSE_AUDIO",
       payload: audio,
     });
+    dispatch({ type: "CHOOSE_PLAY_AUDIO" })
+    spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"})
   };
 
-  const handleFavorite = () => {
+  const handleFavorite = async () => {
     dispatch({ type: "TOGGLE_FAVORITE", payload: audio });
+
+    try {
+      const response = await axios.patch(
+        `http://localhost:4000/api/meditation/audios/${audio._id}`,
+        {
+          isFavorite: !audio.isFavorite
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+    } catch (err) {
+      console.log("Error while update is favorite of audio", err)
+    }
   };
   // console.log("Chosen audio", chosenAudio, audio, chosenAudio === audio);
 
@@ -43,8 +67,8 @@ const AudioCard = ({ audio }) => {
           },
         }}
         onClick={chooseAudio}
-        borderColor={audio._id === chosenAudio._id ? "red.100" : "none"}
-        borderWidth={audio._id === chosenAudio._id ? 3 : 0}
+        borderColor={audio && chosenAudio && audio._id === chosenAudio._id ? "red.100" : "none"}
+        borderWidth={audio && chosenAudio && audio._id === chosenAudio._id ? 3 : 0}
       >
         {audio.title}
       </Flex>

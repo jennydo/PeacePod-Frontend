@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Text, Button, Box } from "@chakra-ui/react";
+import { Text, Box } from "@chakra-ui/react";
 import AudioCard from "./MeditationAudioCard";
 import { AudioContext } from "../../../context/AudioContext";
 import axios from 'axios'
@@ -45,7 +45,7 @@ const AudioList = ({ isFilter }) => {
         })
       ) : (
         <Text mt={3}>
-          {`You currently have no ${isFilter? "favorite" : "saved"} voices. Try to create one.`}
+          {`You currently have no ${isFilter? "favorite" : "saved"} voices. ${isFilter? "":"Try to create one."}`}
         </Text>
       )}
     </Box>

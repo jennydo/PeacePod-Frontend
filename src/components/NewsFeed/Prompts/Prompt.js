@@ -194,14 +194,23 @@ const Prompt = () => {
   };
 
   return (
-    <Box h="75vh" w="100%">
-      <div className="wave"></div>
-      <VStack h="100%" alignItems="stretch">
-        <HStack alignItems="flex-start">
-          <Box w="40%" textAlign="left">
+    <>
+    <Grid 
+      gridTemplateRows={'1fr 10%'} h="100%" w="100%"
+      // display='flex' 
+      // alignItems='center' 
+      // justifyContent='center'
+      >
+      <GridItem h="65vh" w="100%">
+        <Grid gridTemplateColumns={'1fr 50%'} h="100%" w="100%">
+          <GridItem 
+            h="100%" w="100%" 
+            textAlign="right"
+            onClick={handleClickPrompt} 
+          >
             <Text>{promptQuote}</Text>
-          </Box>
-          <Box w="60%" overflowY="hidden" maxH="65vh">
+          </GridItem>
+          <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
             <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
               <GridItem
                 // onClick={handleClickPrompt}
@@ -222,36 +231,40 @@ const Prompt = () => {
                   ) : undefined
                 )}
             </Grid>
-          </Box>
-        </HStack>
+          </GridItem>
+        </Grid>
+      </GridItem>
 
-        <Spacer />
+      <GridItem 
+        h="100%" w="100%"
+        display='flex' 
+        alignItems='center' 
+        justifyContent='center'
+      >
+        <InputGroup size="md" w="50%">
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={`${promptQuote.slice(0, 30)}...`}
+            size="md"
+            // variant='unstyled'
+            variant="flushed"
+          />
+          <InputRightElement width="4.5rem">
+            <Button
+              rightIcon={<Icon as={IoIosSend} />}
+              h="1.75rem"
+              size="sm"
+              variant="ghost"
+            >
+              Send
+            </Button>
+          </InputRightElement>
+        </InputGroup>
 
-        <Box mb={20}>
-          <InputGroup size="md">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={`${promptQuote.slice(0, 30)}...`}
-              size="md"
-              // variant='unstyled'
-              variant="flushed"
-            />
-            <InputRightElement width="4.5rem">
-              <Button
-                rightIcon={<Icon as={IoIosSend} />}
-                h="1.75rem"
-                size="sm"
-                variant="ghost"
-                onClick={handleSendResponse}
-              >
-                Send
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </Box>
-      </VStack>
-    </Box>
+      </GridItem>
+    </Grid>
+    </>
   );
 };
 

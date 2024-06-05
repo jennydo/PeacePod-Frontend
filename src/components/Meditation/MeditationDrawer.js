@@ -36,17 +36,23 @@ const MeditationDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const user = JSON.parse(localStorage.getItem("user"));
-  const [tabIndex, setTabIndex] = useState(0);
   const [isFilter, setIsFilter] = useState(false);
 
   /// Get chosen image from cloudinary context
-  const { userImages, displayedImage, dispatch: cloudinaryDispatch } = useContext(CloudinaryContext);
+  const {
+    userImages,
+    displayedImage,
+    dispatch: cloudinaryDispatch,
+  } = useContext(CloudinaryContext);
   /// Get spotify from Spotify Context
-  const { playingTrack } = useContext(SpotifyContext);
+  const { playingTrack, isPlayingSpotify, dispatch: spotifyDispatch } = useContext(SpotifyContext);
   /// Get audio from Audio Context
-  const { audios, chosenAudio, dispatch: audioDispatch } = useContext(AudioContext);
-
-  const [currentSession, setCurrentSession] = useState("");
+  const {
+    audios,
+    chosenAudio,
+    dispatch: audioDispatch,
+    isPlayingAudio
+  } = useContext(AudioContext);
 
   /// Function to fetch session from DB
   const fetchSession = async () => {
@@ -61,10 +67,25 @@ const MeditationDrawer = () => {
       );
       console.log("Response from get last session", res.data);
       /// Update chosen audio from last session
-      audioDispatch({ type: "CHOOSE_AUDIO", payload: res.data.meditationAudio });
+      audioDispatch({
+        type: "CHOOSE_AUDIO",
+        payload: res.data.meditationAudio,
+      });
 
       /// Update chosen background from last session
-      cloudinaryDispatch({ type: "DISPLAY_IMAGE", payload: res.data.lastBackground})
+      cloudinaryDispatch({
+        type: "DISPLAY_IMAGE",
+        payload: res.data.lastBackground,
+      });
+
+      /// Update state of choosing audio for choosing spotify
+      if (res.data.isPlayingAudio) {
+        audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
+        spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"})
+      } else {
+        audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
+        spotifyDispatch({ type: "CHOOSE_PLAY_SPOTIFY" });
+      }
     } catch (error) {
       console.log("Error while getting session", error);
     }
@@ -85,15 +106,14 @@ const MeditationDrawer = () => {
     onClose: onModalClose,
   } = useDisclosure();
 
-  /// This is old version for old design, not working for new design yet
   const handleSave = async () => {
-    console.log("Current tab index ", tabIndex);
+    // console.log("Current tab index ", tabIndex);
 
     const session = {
       lastBackground: displayedImage,
       meditationAudio: chosenAudio,
       music: playingTrack,
-      isPlayingAudio: tabIndex == 0, /// index === 0: audio, index = 1: spotify
+      isPlayingAudio
     };
 
     try {
@@ -110,7 +130,7 @@ const MeditationDrawer = () => {
 
       console.log("Response from creating session", response.data);
 
-      onClose()
+      onClose();
     } catch (err) {
       console.log("Error while creating session...", err);
     }
@@ -154,7 +174,6 @@ const MeditationDrawer = () => {
               </Box>
               <Box w="100%" h="50%">
                 <Tabs
-                  onChange={(idx) => setTabIndex(idx)}
                   isFitted={true}
                   h="100%"
                 >
@@ -191,10 +210,6 @@ const MeditationDrawer = () => {
                         onClose={onModalClose}
                         isOpen={isModalOpen}
                       />
-                      {/* <CreateOwnSession
-                        session={ownSession}
-                        setSession={setOwnSession}
-                      /> */}
                     </TabPanel>
                     <TabPanel>
                       <SpotifyMain />

@@ -19,6 +19,7 @@ const Navbar = () => {
     // const { username, avatar } = user || {};
     const { username } = user || {};
     const { avatar: avatarContext } = useAvatarContext()
+    // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -27,6 +28,7 @@ const Navbar = () => {
     const [avatar, setAvatar] = useState('');
     useEffect(() => {
         setAvatar(avatarContext);
+        // console.log("Changing avatar because of avatarContext...")
       }, [avatarContext]);
 
     const handleLogOut = () => {

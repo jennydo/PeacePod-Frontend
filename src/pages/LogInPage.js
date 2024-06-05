@@ -24,6 +24,7 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { useAvatarContext } from "../hooks/useAvatarContext";
 
 const LogInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +32,7 @@ const LogInPage = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
+  const { dispatch: avatarDispatch } = useAvatarContext()
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -55,6 +57,10 @@ const LogInPage = () => {
 
     if (response.ok) {
       localStorage.setItem("user", JSON.stringify(json));
+      avatarDispatch({
+        type: "SET_AVATAR_DATA", 
+        payload: json.user.avatarData
+      })
       dispatch({ type: "LOGIN", payload: json });
       setIsLoading(false);
     }

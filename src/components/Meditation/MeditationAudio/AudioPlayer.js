@@ -1,48 +1,59 @@
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-import './AudioPlayer.css';
-import axios from 'axios';
-import { useEffect, useState, useContext } from 'react';
-import { Button, VStack, StackDivider } from '@chakra-ui/react'
+import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
+import "./AudioPlayer.css";
+import { useContext } from "react";
+import { VStack, StackDivider } from "@chakra-ui/react";
+import { AudioContext } from "../../../context/AudioContext";
 
 const Player = () => {
-    const [audioUrl, setAudioUrl] = useState('');
+    const { chosenAudio, isPlayingAudio } = useContext(AudioContext);
 
-    const getAudio = async () => {
-        try {
-            const response = await axios.get('http://localhost:4000/api/cloudinary/audios/most-recent');
-            console.log("Response from get audio", response.data)
-            setAudioUrl(response.data);
-        } catch (error) {
-            console.error('Error getting audio:', error);
-        }
-    }
-
-    useEffect(() => {
-        getAudio();
-    }, [audioUrl]);
+    // console.log(
+    //   "chosen audio in audio player and spotify track",
+    //   chosenAudio,
+    //   playingTrack?.uri,
+    //   isPlayingAudio
+    // );
 
     return (
-
         <VStack
-            divider={<StackDivider borderColor='gray.200' />}
+            divider={<StackDivider borderColor="gray.200" />}
             spacing={4}
-            // align='stretch'
+        // align='stretch'
         >
-            < AudioPlayer className='audio-player'
-                // src="https://res.cloudinary.com/dufirricm/video/upload/v1715991294/PeacePod/Audios/Sample02_vjcfi8.wav"
-                src={audioUrl}
-                onPlay={(e) => console.log("onPlay")}
-                autoPlay={false}
-                volume={0.5}
-                progressJumpStep={10000}
-                layout="horizontal"
-                controls
-                header="Now playing: Let it go!"
-            />
-            <Button colorScheme='blue' onClick={getAudio}>Generate</Button>
-        </VStack>
+            <div className="audio-player-wrapper">
+                <div className="audio-header">
+                    Now playing
+                    <br />
+                    {chosenAudio?.title}
+                </div>
+                <AudioPlayer
+                    className="audio-player"
+                    src={chosenAudio?.audio}
+                    onPlay={(e) => console.log("onPlay")}
+                    autoPlay={false}
+                    autoPlayAfterSrcChange={false}
+                    volume={0.5}
+                    layout="stacked-reverse"
+                    progressJumpStep={10000}
+                    showJumpControls={false}
+                    showSkipControls={true}
+                    customProgressBarSection={[
+                        RHAP_UI.CURRENT_TIME,
+                        RHAP_UI.PROGRESS_BAR,
+                        RHAP_UI.DURATION
+                    ]}
+                    customControlsSection={[
+                        RHAP_UI.ADDITIONAL_CONTROLS,
+                        RHAP_UI.MAIN_CONTROLS,
+                        RHAP_UI.VOLUME_CONTROLS
+                    ]}
+                    customAdditionalControls={[]}
+                    customVolumeControls={[RHAP_UI.VOLUME]}
+                />
+            </div>
 
+        </VStack>
     );
 };
 
