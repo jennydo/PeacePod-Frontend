@@ -114,7 +114,7 @@ const SingleChat = ({chat}) => {
   };
 
   return (
-    <Grid gridTemplateRows={'10% 1fr 8%'}  w='100%' h='100%'>
+    <Grid gridTemplateRows={'8% 1fr 15%'}  w='100%' h='100%'>
       <GridItem w='100%' h='100%'> 
         <HStack className='chatbox-header'>
           <Avatar src={receiverAvatar}/>
@@ -123,7 +123,7 @@ const SingleChat = ({chat}) => {
       </GridItem>
       <GridItem w='100%' h='100%'> 
         <div className='chatbox-divider'></div>
-        <Box maxHeight="570px" overflowY="auto" p={3} mb={5}>
+        <Box maxHeight="530px" overflowY="auto" p={3} mb={5}>
           {allMessages && allMessages.map((message, index) => (
             <Message 
               key={index} 
