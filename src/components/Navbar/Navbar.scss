@@ -1,3 +1,4 @@
+@import "../../App.scss";
 
 .peacepod-navbar {
     padding: 20px;
@@ -7,12 +8,11 @@
     align-items: center;
     max-width: 100%;
     margin: 0 auto;
+    font-family: $nav-font;
 }
 
 .peacepod-navbar h1 {
-    /* color: #7398dc; */
-    color: #a663cc;
-    /* color: #ef6fad; */
+    color: $logo-color !important;
 }
 
 .peacepod-navbar .links {
@@ -35,15 +35,15 @@
 }
 
 .peacepod-navbar a:hover {
-    color: #ff72b6;
+    color: $nav-link-color;
 }
 
 .peacepod-navbar button:hover {
-    color: #ff72b6;
+    color: $nav-link-color;
 }
 
 .peacepod-navlink.active {
-    color: #eb4b98;
+    color: $nav-link-active;
     text-decoration: none; 
 }
 

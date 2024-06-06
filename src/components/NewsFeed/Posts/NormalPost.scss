@@ -1,3 +1,5 @@
+@import "../../../App.scss";
+
 /* entire container, keeps perspective */
 .flip-container {
 	perspective: 1000;
@@ -44,9 +46,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
 .postcard-content {
-    font-family: "Reenie Beanie", cursive;
-    /* font-family: "Parisienne", cursive; */
-
+    font-family: $letter-font;
     font-weight: 500;
     font-style: normal;
     font-size: 22px;

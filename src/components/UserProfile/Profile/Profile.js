@@ -27,7 +27,7 @@ const Profile = () => {
     <VStack>
         <HStack>
             <Center h='75px' fontSize='3xl' color='#98B9F2'>
-                User Profile
+                <h1>User Profile</h1>
             </Center>   
             <EditIcon w={10} h={10} color='aliceblue'/>                
         </HStack>

@@ -1,7 +1,7 @@
 import {Link, useLocation} from 'react-router-dom';
 import { useLogOut } from '../../hooks/useLogOut';
 import { useAuthContext } from '../../hooks/useAuthContext'
-import './Navbar.css'
+import './Navbar.scss'
 import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider, 
     useDisclosure, Button, Modal,
     ModalOverlay,
