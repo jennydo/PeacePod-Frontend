@@ -9,36 +9,24 @@ import {
   InputRightElement,
   Button,
   InputGroup,
-  Spacer
+  Spacer,
 } from "@chakra-ui/react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import "./Prompt.css";
 import { IoIosSend } from "react-icons/io";
 import { Icon } from "@chakra-ui/react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import axios from "axios";
+import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 
 const Prompt = () => {
   const { user } = useAuthContext();
 
+  const { firstPromptResponse, promptResponses, dispatch } = useContext(
+    PromptResponsesContext
+  );
+
   const peacepodUserId = "661f3d5f7bc0dc0597752679";
-  // const [prompt, setPrompt] = useState(() => {
-  //   const currentPrompt = JSON.parse(localStorage.getItem("new-prompt"));
-
-  //   if (currentPrompt) {
-  //     /// New day, clear local storage prompt
-  //     const currentDate = new Date().getDate();
-  //     const promptDate = new Date(
-  //       currentPrompt.updatedAt
-  //         ? currentPrompt.updatedAt
-  //         : currentPrompt.createdAt
-  //     ).getDate();
-
-  //     if (currentDate !== promptDate) return null;
-  //     else return currentPrompt;
-  //   } else return null;
-  // });
-
   /// Check if we have to call api or not
 
   const checkNewDay = () => {
@@ -82,6 +70,7 @@ const Prompt = () => {
       localStorage.setItem("new-prompt", JSON.stringify(response.data));
 
       setPrompt(response.data);
+      dispatch({ type: "CLEAR" });
     } catch (err) {
       console.log("error while creating prompt ", err);
     }
@@ -114,83 +103,49 @@ const Prompt = () => {
     scheduleDailyPrompt();
   }, []);
 
-  const promptQuote = prompt ? prompt.content : "I love it when you";
-  const promptResponses = [
-    "love me too",
-    "cook me dinner",
-    "sing with me",
-    "fix my resume for the 100th time",
-    "care for me the tiniest",
-    "take a walk together",
-    "watch a movie",
-    "have deep conversations",
-    "go on a road trip",
-    "try new recipes together",
-    "explore new places",
-    "give me surprises",
-    "read books together",
-    "help me with chores",
-    "plan our future",
-    "encourage me",
-    "support my dreams",
-    "comfort me when I'm sad",
-    "make me laugh",
-    "dance with me",
-    "share our secrets",
-    "celebrate my achievements",
-    "learn new things together",
-    "forgive my mistakes",
-    "be patient with me",
-    "listen to my thoughts",
-    "appreciate my efforts",
-    "be there for me always",
-    "dream big with me",
-    "enjoy the little moments",
-    "cherish our memories",
-    "trust me",
-    "be my best friend",
-    "respect my opinions",
-    "show affection",
-    "inspire me",
-    "make me feel special",
-    "surprise me with gifts",
-    "give me hugs",
-    "kiss me goodnight",
-    "say 'I love you'",
-    "make me breakfast in bed",
-    "encourage my passions",
-    "admire my strengths",
-    "lift me up when I'm down",
-    "be my rock",
-    "grow together",
-    "create beautiful memories",
-    "be honest with me",
-    "understand my feelings",
-    "be my partner in crime",
-    "support my decisions",
-    "make me feel safe",
-    "share our fears",
-    "celebrate our love",
-  ];
+  const fetchPromptResponses = async () => {
+    const prompt = JSON.parse(localStorage.getItem("new-prompt"));
 
-  const [firstPromptResponse, setFirstPromptResponse] = useState("");
+    if (!prompt || !user) return;
+
+    try {
+      const responses = await axios.get(
+        `http://localhost:4000/api/promptResponses/prompt/${prompt._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+
+      console.log("All responses for prompt", responses.data);
+      dispatch({ type: "GET_PROMPT_RESPONSES", payload: responses.data });
+    } catch (error) {
+      console.log("Error while fetching prompt responses", error);
+    }
+  };
+  useEffect(() => {
+    fetchPromptResponses();
+    console.log("Refetch prompt responses");
+  }, [dispatch, prompt]);
+
+  const promptQuote = prompt ? prompt.content : "I love it when you";
+  const [firstResponse, setFirstResponse] = useState(null);
   const [idx, setIdx] = useState(0);
   const [promptsDisplay, setPromptsDisplay] = useState([]);
-  const [showFirstPrompt, setShowFirstPrompt] = useState(false);
+  const [showFirstPrompt, setShowFirstPrompt] = useState(true);
   const firstPromptRef = useRef(null);
   const [input, setInput] = useState("");
-
   const handleClickPrompt = () => {
     if (idx >= promptResponses.length) return;
     setShowFirstPrompt(false);
     setTimeout(() => {
-      if (promptResponses) {
-        setPromptsDisplay((prevPromptsDisplay) => [
-          firstPromptResponse,
-          ...prevPromptsDisplay,
-        ]);
-      }
-      setFirstPromptResponse(promptResponses[idx]);
+      setPromptsDisplay((prevPromptsDisplay) => [
+        promptResponses[idx],
+        ...prevPromptsDisplay,
+      ]);
+      setFirstResponse(promptResponses[idx]);
+      dispatch({ type: "UPDATE_FIRST_RESPONSE", payload: promptResponses[idx]})
       if (firstPromptRef.current) {
         firstPromptRef.current.focus();
       }
@@ -199,75 +154,128 @@ const Prompt = () => {
     setIdx(idx + 1);
   };
 
+  const handleSendResponse = async () => {
+    const prompt = JSON.parse(localStorage.getItem("new-prompt"));
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!prompt) return;
+
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/api/promptResponses/${prompt._id}`,
+        {
+          content: input,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+
+      // setFirstResponse(response.data);
+      // setPromptsDisplay((prevPromptsDisplay) => [
+      //   response.data,
+      //   ...prevPromptsDisplay,
+      // ]);
+      setShowFirstPrompt(false);
+      setTimeout(() => {
+        if (firstPromptRef.current) {
+          firstPromptRef.current.focus();
+        }
+        setShowFirstPrompt(true);
+        setInput("");
+
+        dispatch({ type: "CREATE_PROMPT_RESPONSE", payload: response.data });
+
+        setPromptsDisplay((prevPromptsDisplay) => [
+          response.data,
+          ...prevPromptsDisplay,
+        ]);
+      }, 500);
+      setIdx(idx + 1);
+    } catch (error) {
+      console.log("Error while creating prompt response", error);
+    }
+  };
+
   return (
     <>
-    <Grid 
-      gridTemplateRows={'1fr 10%'} h="100%" w="100%"
-      // display='flex' 
-      // alignItems='center' 
-      // justifyContent='center'
+      <Grid
+        gridTemplateRows={"1fr 10%"}
+        h="100%"
+        w="100%"
+        // display='flex'
+        // alignItems='center'
+        // justifyContent='center'
       >
-      <GridItem h="65vh" w="100%">
-        <Grid gridTemplateColumns={'1fr 50%'} h="100%" w="100%">
-          <GridItem 
-            h="100%" w="100%" 
-            textAlign="right"
-            onClick={handleClickPrompt} 
-          >
-            <Text>{promptQuote}</Text>
-          </GridItem>
-          <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
-            <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
-              <GridItem
-                onClick={handleClickPrompt}
-                ref={firstPromptRef}
-                className={
-                  showFirstPrompt ? "fade-in-text show" : "fade-in-text"
-                }
-                tabIndex={-1}
-              >
-                {firstPromptResponse}
-              </GridItem>
-              {promptsDisplay &&
-                promptsDisplay.map((promptRes, promptIdx) => (
-                  <GridItem key={promptIdx} w="100%" h="10">
-                    {promptRes}
-                  </GridItem>
-                ))}
-            </Grid>
-          </GridItem>
-        </Grid>
-      </GridItem>
-
-      <GridItem 
-        h="100%" w="100%"
-        display='flex' 
-        alignItems='center' 
-        justifyContent='center'
-      >
-        <InputGroup size="md" w="50%">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={`${promptQuote.slice(0, 30)}...`}
-            size="md"
-            // variant='unstyled'
-            variant="flushed"
-          />
-          <InputRightElement width="4.5rem">
-            <Button
-              rightIcon={<Icon as={IoIosSend} />}
-              h="1.75rem"
-              size="sm"
-              variant="ghost"
+        <GridItem h="60vh" w="100%">
+          <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
+            <GridItem
+              h="100%"
+              w="100%"
+              textAlign="right"
+              onClick={handleClickPrompt}
             >
-              Send
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+              <Text mr={5} fontSize={20}>
+                {promptQuote.slice(0, promptQuote?.length - 3)}
+              </Text>
+            </GridItem>
+            <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
+              <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
+                <GridItem
+                  // onClick={handleClickPrompt}
+                  ref={firstPromptRef}
+                  className={
+                    showFirstPrompt ? "fade-in-text show" : "fade-in-text"
+                  }
+                  tabIndex={-1}
+                >
+                  <Text fontSize={20}>{firstPromptResponse?.content}</Text>
+                </GridItem>
+                {promptsDisplay &&
+                  promptsDisplay.map((promptRes, promptIdx) =>
+                    promptIdx ? (
+                      <GridItem key={promptIdx} w="100%" h="10">
+                        <Text fontSize={20}>{promptRes.content}</Text>
+                      </GridItem>
+                    ) : undefined
+                  )}
+              </Grid>
+            </GridItem>
+          </Grid>
+        </GridItem>
 
-      </GridItem>
-    </Grid>
+        <GridItem
+          h="100%"
+          w="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <InputGroup size="md" w="54%" mt={3}>
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={`${promptQuote.slice(0, 300)}`}
+              size="lg"
+              // variant='unstyled'
+              variant="flushed"
+            />
+            <InputRightElement width="4.5rem">
+              <Button
+                rightIcon={<Icon as={IoIosSend} />}
+                h="1.75rem"
+                size="sm"
+                variant="ghost"
+                onClick={handleSendResponse}
+              >
+                Send
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </GridItem>
+      </Grid>
     </>
   );
 };

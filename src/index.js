@@ -12,21 +12,24 @@ import { ChatsContextProvider } from "./context/ChatsContext";
 import { SpotifyContextProvider } from "./context/SpotifyContext";
 import { AvatarContextProvider } from "./context/AvatarContext";
 import { AudioContextProvider } from "./context/AudioContext";
+import { PromptResponsesContextProvider } from "./context/PromptResponseContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthContextProvider>
     <AudioContextProvider>
       <AvatarContextProvider>
-        <PostsContextProvider>
-          <CommentsContextProvider>
-            <ChatsContextProvider>
-              <SpotifyContextProvider>
-                <App />
-              </SpotifyContextProvider>
-            </ChatsContextProvider>
-          </CommentsContextProvider>
-        </PostsContextProvider>
+        <PromptResponsesContextProvider>
+          <PostsContextProvider>
+            <CommentsContextProvider>
+              <ChatsContextProvider>
+                <SpotifyContextProvider>
+                  <App />
+                </SpotifyContextProvider>
+              </ChatsContextProvider>
+            </CommentsContextProvider>
+          </PostsContextProvider>
+        </PromptResponsesContextProvider>
       </AvatarContextProvider>
     </AudioContextProvider>
   </AuthContextProvider>

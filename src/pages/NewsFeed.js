@@ -20,7 +20,7 @@ const NewsFeed = () => {
               </TabList>
 
               <TabPanels>
-                <TabPanel>
+                <TabPanel pb={0} pt={3}>
                   <Box>
                     <IconButton
                       onClick={onOpen}
@@ -37,7 +37,7 @@ const NewsFeed = () => {
                   </Box>
                 </TabPanel>
                 
-                <TabPanel>
+                <TabPanel  pb={0}>
                   <Prompt/>
                 </TabPanel>
               </TabPanels>
