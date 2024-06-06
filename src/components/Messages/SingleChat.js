@@ -119,7 +119,12 @@ const SingleChat = ({chat}) => {
         <div height="400px" overflow="auto">
             <Box maxHeight="570px" overflowY="auto" p={3} mb={5}>
             {allMessages && allMessages.map((message, index) => (
-              <Message key={index} message={message}/>
+              // <Message key={index} message={message}/>
+              <Message 
+                key={index} 
+                message={message} 
+                previousMessage={index > 0 ? allMessages[index - 1] : null} 
+              />
             ))}
             </Box>
             {istyping && (

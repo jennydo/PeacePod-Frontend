@@ -7,8 +7,8 @@ import { useChatsContext } from "../hooks/useChatsContext";
 const Chat = () => {
   const { selectedChat } = useChatsContext()
   return (
-    <div>
-        <Grid gridTemplateColumns={'30% 1fr'} m={10} gap={6} h="80vh">
+    <div className="chat-page">
+        <Grid gridTemplateColumns={'35% 1fr'} m={10} gap={10} h="80vh" w="70%">
           <GridItem w='100%' h='100%'> 
           <ChatNavBar/>
           </GridItem>

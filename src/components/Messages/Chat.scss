@@ -1,0 +1,31 @@
+@import "../../App.scss";
+
+.chat-page {
+    @include center-flex;
+}
+
+.message-container{
+    @include center-flex;
+    background-color: white;
+    border-radius: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.app-message {
+    font-family: $message-font;
+    color: black;
+    margin-bottom: 0;
+    font-size: 15px;
+    display: inline-block;
+    text-align: left;
+
+    &.sender {
+        text-align: right;
+    }
+
+    &.receiver {
+        text-align: left;
+    }
+
+}

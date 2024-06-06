@@ -23,7 +23,7 @@ const ChatBox = ({chat}) => {
     }
 
     return ( 
-        <Card w="100%" borderRadius={15} bg="#feeafa" p={2}>
+        <Card w="100%" borderRadius={15} bg="white" p={2}>
             <Stack direction="row" w="100%" onClick={() => selectChat(chat)}>
                 <Avatar name={username} src={avatar}/>
                 <Stack direction="column">
