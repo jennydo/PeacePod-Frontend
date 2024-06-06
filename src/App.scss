@@ -1,0 +1,41 @@
+// variables
+// colors
+$purple: #a663cc; // used in nav bar h1 (specifically for the logo)
+$light-pink: #ff72b6;
+$pink: #eb4b98;
+$blue: #98B9F2; 
+
+// app-colors
+$logo-color: $purple;
+$nav-link-color: $light-pink;
+$nav-link-active: $pink;
+$heading-color: $blue;
+
+// fonts 
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,500;1,500&display=swap');
+$title-font: "Paytone One";
+$nav-font: "Paytone One";
+$letter-font: "Reenie Beanie";
+$message-font: "Arimo";
+
+// mixins
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// base styles
+
+h1, h2, h3, h4, h5, h6, p {
+  text-align: center;
+  @include center-flex;
+}
+
+h1 {
+  font-family: $title-font;
+  color: $heading-color !important;
+  margin-bottom: 20px !important;
+}
