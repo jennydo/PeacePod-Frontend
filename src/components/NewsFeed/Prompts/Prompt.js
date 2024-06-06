@@ -1,18 +1,13 @@
 import {
-  Box,
   GridItem,
-  HStack,
-  Text,
   Grid,
   Input,
-  VStack,
   InputRightElement,
   Button,
   InputGroup,
-  Spacer,
 } from "@chakra-ui/react";
 import { useState, useRef, useEffect, useContext } from "react";
-import "./Prompt.css";
+import "./Prompt.scss";
 import { IoIosSend } from "react-icons/io";
 import { Icon } from "@chakra-ui/react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
@@ -205,9 +200,7 @@ const Prompt = () => {
         gridTemplateRows={"1fr 10%"}
         h="100%"
         w="100%"
-        // display='flex'
-        // alignItems='center'
-        // justifyContent='center'
+        mt={10}
       >
         <GridItem h="60vh" w="100%">
           <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
@@ -217,27 +210,26 @@ const Prompt = () => {
               textAlign="right"
               onClick={handleClickPrompt}
             >
-              <Text mr={5} fontSize={20}>
+              <p className="prompt-text quote">
                 {promptQuote.slice(0, promptQuote?.length - 3)}
-              </Text>
+              </p>
             </GridItem>
             <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
               <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
                 <GridItem
-                  // onClick={handleClickPrompt}
                   ref={firstPromptRef}
                   className={
                     showFirstPrompt ? "fade-in-text show" : "fade-in-text"
                   }
                   tabIndex={-1}
                 >
-                  <Text fontSize={20}>{firstPromptResponse?.content}</Text>
+                  <p className="prompt-text responses">{firstPromptResponse?.content}</p>
                 </GridItem>
                 {promptsDisplay &&
                   promptsDisplay.map((promptRes, promptIdx) =>
                     promptIdx ? (
                       <GridItem key={promptIdx} w="100%" h="10">
-                        <Text fontSize={20}>{promptRes.content}</Text>
+                        <p className="prompt-text responses">{promptRes.content}</p>
                       </GridItem>
                     ) : undefined
                   )}
