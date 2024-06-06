@@ -1,6 +1,7 @@
 // variables
 // colors
 $purple: #a663cc; // used in nav bar h1 (specifically for the logo)
+$light-purple: #dec9e9;
 $light-pink: #ff72b6;
 $pink: #eb4b98;
 $hot-pink: #DC087D;
@@ -11,16 +12,19 @@ $logo-color: $purple;
 $nav-link-color: $light-pink;
 $nav-link-active: $pink;
 $heading-color: $blue;
+$chatbox-background-color: $light-purple;
 $message-background-color: $hot-pink;
 
 // fonts 
 @import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 $title-font: "Paytone One";
 $nav-font: "Paytone One";
 $letter-font: "Reenie Beanie";
 $message-font: "Arimo";
+$prompt-font: "Playfair";
 
 // mixins
 @mixin center-flex {
@@ -40,4 +44,5 @@ h1 {
   font-family: $title-font;
   color: $heading-color !important;
   margin-bottom: 20px !important;
+  font-size: 60px !important;
 }
