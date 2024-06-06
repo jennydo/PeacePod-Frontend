@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import {Button, HStack, Input, Avatar, Box} from '@chakra-ui/react';
+import {Grid, GridItem, HStack, Input, Avatar, Box, IconButton, Icon, Divider} from '@chakra-ui/react';
+import { IoSend } from "react-icons/io5";
 import { useAuthContext } from '../../hooks/useAuthContext';
 import axios from 'axios';
 import { useChatsContext } from '../../hooks/useChatsContext';
@@ -22,7 +23,7 @@ const SingleChat = ({chat}) => {
 
   // get info of the receiver
   const receiver = users.filter(user => user._id !== sender.user._id);
-  const { username: receiverUsername } = receiver[0];
+  const { username: receiverUsername, avatar: receiverAvatar } = receiver[0];
 
   // const [handle, setHandle] = useState("")
   const [socketConnected, setSocketConnected] = useState(false)
@@ -113,48 +114,60 @@ const SingleChat = ({chat}) => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Chat with {receiverUsername}</h1>
-        <div height="400px" overflow="auto">
-            <Box maxHeight="570px" overflowY="auto" p={3} mb={5}>
-            {allMessages && allMessages.map((message, index) => (
-              // <Message key={index} message={message}/>
-              <Message 
-                key={index} 
-                message={message} 
-                previousMessage={index > 0 ? allMessages[index - 1] : null} 
-              />
-            ))}
-            </Box>
-            {istyping && (
-             <Lottie
-                options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: animationData,
-                    rendererSettings: {
-                        preserveAspectRatio: "xMidYMid slice",
-                    }
-                }}
-                // height={50}
-                width={70}
-                style={{ marginBottom: 15, marginLeft: 0 }}
-              /> 
-            )}
-        </div>
+    <Grid gridTemplateRows={'10% 1fr 8%'}  w='100%' h='100%'>
+      <GridItem w='100%' h='100%'> 
+        <HStack className='chatbox-header'>
+          <Avatar src={receiverAvatar}/>
+          <p className='app-message username'>{receiverUsername}</p>
+        </HStack>
+      </GridItem>
+      <GridItem w='100%' h='100%'> 
+        <div className='chatbox-divider'></div>
+        <Box maxHeight="570px" overflowY="auto" p={3} mb={5}>
+          {allMessages && allMessages.map((message, index) => (
+            <Message 
+              key={index} 
+              message={message} 
+              previousMessage={index > 0 ? allMessages[index - 1] : null} 
+            />
+          ))}
+          </Box>
+          {/* {istyping && (
+            <Lottie
+              options={{
+                  loop: true,
+                  autoplay: true,
+                  animationData: animationData,
+                  rendererSettings: {
+                      preserveAspectRatio: "xMidYMid slice",
+                  }
+              }}
+              // height={50}
+              width={70}
+              style={{ marginBottom: 15, marginLeft: 0 }}
+            /> 
+          )} */}
+      </GridItem>
+
+      <GridItem w='100%' h='100%'> 
         <HStack>
           <Avatar size="sm" name={senderUsername} src={senderAvatar}/>
           <Input
             id="message"
             value={newMessage}
             placeholder="Message"
+            variant='filled'
             onChange={typingHandler}
           />
-          <Button w="30px" onClick={sendMessage}>Send</Button>
+          <IconButton 
+            aria-label='Send' 
+            variant='ghost'
+            colorScheme='pink'
+            icon={<Icon as={IoSend}/>} 
+            onClick={sendMessage}/>
         </HStack>
-      </div>
-    </div>
+      </GridItem>
+    </Grid>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { Stack, Avatar, Box, Text, Grid, GridItem} from '@chakra-ui/react';
+import { Stack, Avatar, Box} from '@chakra-ui/react';
 import './Chat.scss';
 
 const Message = ( {message, previousMessage} ) => {
@@ -7,10 +7,10 @@ const Message = ( {message, previousMessage} ) => {
     var isNewSender;
     const { user: sender } = useAuthContext()
 
-    if (message.sender._id == sender.user._id) { isSender = true }
+    if (message.sender._id === sender.user._id) { isSender = true }
     else { isSender = false }
 
-    if (!previousMessage || message.sender._id != previousMessage.sender._id) { isNewSender = true }
+    if (!previousMessage || message.sender._id !== previousMessage.sender._id) { isNewSender = true }
     else { isNewSender = false }
 
     const { username, avatar } = message.sender

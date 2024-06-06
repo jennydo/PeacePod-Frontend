@@ -20,7 +20,7 @@ const ChatNavBar = () => {
     }, [])
     return ( 
     <>
-        <Heading>Your Messages</Heading>
+        <h2>Your Messages</h2>
         <VStack 
             align='stretch'>
             {chats && chats.map(chat => (
