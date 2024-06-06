@@ -69,7 +69,7 @@ const AudioCard = ({ audio }) => {
         onClick={chooseAudio}
         // borderColor={audio && chosenAudio && audio._id === chosenAudio._id ? "red.100" : "none"}
         // borderWidth={audio && chosenAudio && audio._id === chosenAudio._id ? 5 : 0}
-        bg={audio && chosenAudio && audio._id === chosenAudio._id ? "#FFAFCC" : "#BDE0FE"}
+        bg={audio && chosenAudio && audio._id === chosenAudio._id ? "#FFAFCC" : "#FFD6FF"}
       >
         {audio.title}
       </Flex>
