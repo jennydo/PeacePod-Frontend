@@ -54,6 +54,8 @@ const SignUp = () => {
   const [showRetypePw, setShowRetypePw] = React.useState(false);
   const handleClickPasswordReType = () => setShowRetypePw(!showRetypePw);
 
+  const [dob, setDob] = useState(false);
+
   const [selectedPronoun, setSelectedPronoun] = useState(null);
 
   const [selectedGender, setSelectedGender] = useState(null);
@@ -73,6 +75,7 @@ const SignUp = () => {
       username,
       password,
       email,
+      dob,
       pronounce: selectedPronoun,
       gender: selectedGender,
       sexualOrientation: selectedSexualities,
@@ -179,6 +182,16 @@ const SignUp = () => {
                 />
               </InputRightElement>
             </InputGroup>
+          </Stack>
+
+          <Stack className='dob'>
+            <FormLabel>Your Date of Birth</FormLabel>
+            <Input
+              type="date"
+              value={dob}
+              placeholder="Select Date of Birth"
+              onChange={(event) => setDob(event.target.value)}
+            />
           </Stack>
         </Stack>
 
