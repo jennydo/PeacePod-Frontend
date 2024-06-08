@@ -127,7 +127,7 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
             },
           }}
         >
-          <VStack minH={300} h={'max-content'}>{steps[activeStep].component}</VStack>
+          <VStack minH={300} maxH={300}>{steps[activeStep].component}</VStack>
         </ModalBody>
 
         <ModalFooter justifyContent="flex-end" gap={5}>
