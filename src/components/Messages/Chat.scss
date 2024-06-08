@@ -1,0 +1,80 @@
+@import "../../App.scss";
+
+.chat-page {
+    @include center-flex;
+
+    & h1 {
+        color: black !important;
+        font-size: 30px !important;
+    }
+}
+
+.chat-box {
+    width: 70%;
+    background-color: $chatbox-background-color;
+    padding: 15px;
+    height: 80vh;
+    border-radius: 10px;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chat-navbar {
+    @include center-flex;
+}
+
+.message-container{
+    @include center-flex;
+    background-color: $message-background-color;
+    border-radius: 30px;
+    padding: 5px 13px;
+    margin-bottom: 7px;
+    max-width: 70%;
+}
+
+.app-message {
+    font-family: $message-font;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0;
+    font-size: 15px;
+    display: inline-block;
+    text-align: left;
+
+    &.sender {
+        text-align: right;
+    }
+
+    &.receiver {
+        text-align: left;
+    }
+
+    &.preview {
+        font-size: 12px;
+        color: rgb(102, 100, 100);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 250px;
+    }
+
+    &.username {
+        font-weight: 700;
+        text-align: left;
+        color: black;
+    }
+
+}
+
+.chatbox-divider {
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 1px;
+    width: 100%;
+    margin-top: 5px;
+
+    &.vertical {
+        width: 1px;
+        height: 100%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}

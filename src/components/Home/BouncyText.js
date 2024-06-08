@@ -1,5 +1,5 @@
 import { easeInOut, motion } from 'framer-motion';
-import './BouncyText.css'
+import './BouncyText.scss'
 
 /// list of states, e.g. start state and end state
 const container = {
