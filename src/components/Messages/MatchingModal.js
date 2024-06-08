@@ -22,22 +22,38 @@ import {
   StepTitle,
   Stepper,
   useSteps,
+  VStack,
+  Text,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
-import { genders } from "../UserProfile/SignUp/userConstants";
 
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosSend } from "react-icons/io";
+import ChooseOption from "./Matching Progress/ChooseOption";
+import Survey from "./Matching Progress/Survey";
+import Congratulations from "./Matching Progress/Congratulations";
 
 const MatchingModal = ({ finalRef, isOpen, onClose }) => {
-  const [selectedGender, setSelectedGender] = useState(null);
-  const [showGender, setShowGender] = useState(false);
+
+  const [option, setOption] = useState(null);
 
   const steps = [
-    { title: "First", description: "Choose matching option" },
-    { title: "Second", description: "Fill form" },
-    { title: "Third", description: "Congratulations" },
+    {
+      title: "First",
+      description: "Choose matching option",
+      component: <ChooseOption option={option} setOption={setOption} />,
+    },
+    {
+      title: "Second",
+      description: "Fill form",
+      component: <Survey />,
+    },
+    {
+      title: "Third",
+      description: "Congratulations",
+      component: <Congratulations />,
+    },
   ];
 
   const { activeStep, goToPrevious, goToNext } = useSteps({
@@ -47,12 +63,20 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
 
   const handlePrev = () => {
     if (activeStep === 0) return;
-    else goToPrevious();
+    else {
+        goToPrevious()
+        if (activeStep == steps.length - 1 && option == 1)
+            goToPrevious()
+    }
   };
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) return;
-    else goToNext();
+    else {
+      goToNext();
+      if (activeStep == 0 && option == 1)
+        goToNext()
+    }
   };
 
   return (
@@ -60,7 +84,7 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
       finalFocusRef={finalRef}
       isOpen={isOpen}
       onClose={onClose}
-      size="6xl"
+      size="4xl"
       scrollBehavior="inside"
       isCentered
       motionPreset="slideInBottom"
@@ -69,39 +93,10 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader textAlign="center" fontSize={"3xl"}>
-          👋 Welcome to our matching feature! Please follow the given steps 👋
-        </ModalHeader>
-        <ModalCloseButton />
-
-        <ModalBody
-          sx={{
-            "::-webkit-scrollbar": {
-              display: "none",
-            },
-          }}
-        >
-          {/* <Stack className="genders">
-            <Heading as="h4" size="sm">
-              Gender:{" "}
-            </Heading>
-
-            <ButtonGroup variant="solid">
-              {genders &&
-                genders.map((gender, index) => (
-                  <Button
-                    key={index}
-                    className="gender-option"
-                    colorScheme={selectedGender === gender ? "blue" : "gray"}
-                    value={gender}
-                    onClick={(e) => setSelectedGender(e.target.value)}
-                    borderRadius="100px"
-                  >
-                    {gender}
-                  </Button>
-                ))}
-            </ButtonGroup>
-          </Stack> */}
+        <ModalHeader>
+          <Text textAlign="center" fontSize={"3xl"}>
+            👋 Please follow the given steps 👋
+          </Text>
           <Stepper index={activeStep} size={"lg"}>
             {steps.map((step, index) => (
               <Step key={index}>
@@ -122,6 +117,17 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
               </Step>
             ))}
           </Stepper>
+        </ModalHeader>
+        <ModalCloseButton />
+
+        <ModalBody
+          sx={{
+            "::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
+        >
+          <VStack minH={300} h={'max-content'}>{steps[activeStep].component}</VStack>
         </ModalBody>
 
         <ModalFooter justifyContent="flex-end" gap={5}>
@@ -131,15 +137,15 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
           <Button
             rightIcon={
               activeStep === steps.length - 1 ? (
-                <IoIosSend color="blue" style={{'color': 'blue'}}/>
+                <IoIosSend color="blue" style={{ color: "blue" }} />
               ) : (
                 <IoIosArrowForward />
               )
             }
-            onClick={activeStep === steps.length - 1? onClose : handleNext}
-            colorScheme={activeStep === steps.length - 1? "blue" : "gray"}
+            onClick={activeStep === steps.length - 1 ? onClose : handleNext}
+            colorScheme={activeStep === steps.length - 1 ? "blue" : "gray"}
           >
-            {activeStep === steps.length - 1 ? "Submit" : "Next"}
+            {activeStep === steps.length - 1 ? "Done" : "Next"}
           </Button>
         </ModalFooter>
       </ModalContent>
