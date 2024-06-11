@@ -1,73 +1,44 @@
 // How have you been feeling lately?
-export const meditationFeelings = [
+export const feelings = [
   "Grounded and at peace",
-  "In need of more mindfulness",
   "Calm but seeking deeper clarity",
   "Emotionally unsettled",
   "Overwhelmed by mental fatigue",
   "Radiating inner joy",
-  "Overflowing with gratitude",
 ];
 
-// What type of meditation do you practice most frequently?
-export const meditationPractices = [
-  "Guided",
-  "Mantra",
-  "Body scan",
-  "Breath-focused",
-  "Yoga nidra",
+// What core values light your path?
+export const coreValues = [
+  "Integrity and Truth",
+  "Compassion and Empathy",
+  "Wisdom and Knowledge",
+  "Justice and Fairness",
+  "Innovation and Growth",
 ];
 
-// Where do you usually meditate?
-export const meditationPlaces = [
-  "At home in a dedicated space",
-  "Outdoors in nature",
-  "At a meditation center or class",
-  "At work during breaks",
-  "Anywhere I can find a quiet spot",
+// When you look back on your life, what are you grateful for?
+export const gratefulFor = [
+  "Personal Strengths and Abilities",
+  "Physical and Mental Health",
+  "Freedom and Opportunities",
+  "Supportive Relationships",
+  "Moments of Joy",
 ];
 
-// What guided you to start meditating?
-export const meditationGoals = [
-  "To reduce stress and anxiety",
-  "To improve focus and concentration",
-  "To enhance spiritual growth",
-  "To improve overall health and well-being",
-  "To manage chronic pain or illness",
+// In moments of stress or uncertainty, what practices help you stay grounded?
+export const practices = [
+  "Quality sleep - Restorative focus",
+  "Meditation - Calming the mind",
+  "Social time - Connecting with support",
+  "Therapy - Professional guidance",
+  "Gratitude - Appreciating the positive",
 ];
 
-// Do you use any tools or aids during meditation?
-export const meditationTools = [
-  "Meditation apps",
-  "Music or nature sounds",
-  "Essential oils or incense",
-  "Mala beads or other objects",
-  "None, I prefer a simple, tool-free practice",
-];
-
-// What do you find most challenging about meditation?
-export const meditationChallenges = [
-  "Staying focused and avoiding distractions",
-  "Finding the time to meditate regularly",
-  "Dealing with physical discomfort or restlessness",
-  "Maintaining a consistent practice",
-  "Understanding and applying meditation techniques",
-];
-
-// How has meditation impacted your daily life?
-export const meditationImpacts = [
-  "Improved stress management",
-  "Enhanced emotional regulation",
-  "Increased self-awareness",
-  "Better sleep quality",
-  "Greater sense of peace and contentment",
-];
-
-// Do you prefer to meditate alone or with others?
-export const meditationWith = [
-  "Alone",
-  "With a partner",
-  "In a small group",
-  "In a large group",
-  "It varies depending on my mood",
+// What motivates you to get out of bed in the morning?
+export const motivations = [
+  "Personal Growth",
+  "Family and Relationships",
+  "Health & Well-being",
+  "Pursuing dreams",
+  "Money",
 ];
