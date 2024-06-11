@@ -36,7 +36,7 @@ import Congratulations from "./Matching Progress/Congratulations";
 
 const MatchingModal = ({ finalRef, isOpen, onClose }) => {
 
-  const [option, setOption] = useState(null);
+  const [option, setOption] = useState(1);
 
   const steps = [
     {
