@@ -20,6 +20,7 @@ export const audioReducer = (state, action) => {
       return {
         ...state,
         audios: [action.payload, ...state.audios],
+        chosenAudio: action.payload
       };
     case "TOGGLE_FAVORITE":
       return {

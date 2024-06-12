@@ -7,12 +7,12 @@ const DisplayedBackground = () => {
 
     return (
         <>
-            {displayedImage && (
-                <Center>
-                    <Image src={displayedImage} w="95%" h="700" borderRadius={20} objectFit="cover" />
-                </Center>
-
-            )}
+        {displayedImage && (
+            <Center maxHeight={'100%'} className='image-center'>
+                <Image src={displayedImage} w="95%" h={'75vh'} borderRadius={20} objectFit="cover" margin={0}/>
+            </Center>
+           
+        )}
         </>
     );
 }

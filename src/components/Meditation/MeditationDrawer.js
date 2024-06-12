@@ -18,9 +18,10 @@ import {
   Tab,
   TabPanel,
   IconButton,
+  Flex,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { GiHamburger } from "react-icons/gi";
+import { IoFilterSharp } from "react-icons/io5";
+import { IoIosSettings } from "react-icons/io";
 import SpotifyMain from "./Music/SpotifyMain";
 import BackgroundMain from "./Background/BackgroundMain";
 import axios from "axios";
@@ -28,7 +29,6 @@ import AudioList from "./MeditationAudio/MeditationAudioList";
 import { TiPlus } from "react-icons/ti";
 import NewAudioModal from "./MeditationAudio/NewAudioModal";
 import { CloudinaryContext } from "../../context/CloudinaryContext";
-import { useAuthContext } from "../../hooks/useAuthContext";
 import { SpotifyContext } from "../../context/SpotifyContext";
 import { AudioContext } from "../../context/AudioContext";
 
@@ -45,13 +45,17 @@ const MeditationDrawer = () => {
     dispatch: cloudinaryDispatch,
   } = useContext(CloudinaryContext);
   /// Get spotify from Spotify Context
-  const { playingTrack, isPlayingSpotify, dispatch: spotifyDispatch } = useContext(SpotifyContext);
+  const {
+    playingTrack,
+    isPlayingSpotify,
+    dispatch: spotifyDispatch,
+  } = useContext(SpotifyContext);
   /// Get audio from Audio Context
   const {
     audios,
     chosenAudio,
     dispatch: audioDispatch,
-    isPlayingAudio
+    isPlayingAudio,
   } = useContext(AudioContext);
 
   /// Function to fetch session from DB
@@ -81,7 +85,7 @@ const MeditationDrawer = () => {
       /// Update state of choosing audio for choosing spotify
       if (res.data.isPlayingAudio) {
         audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
-        spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"})
+        spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY" });
       } else {
         audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
         spotifyDispatch({ type: "CHOOSE_PLAY_SPOTIFY" });
@@ -113,7 +117,7 @@ const MeditationDrawer = () => {
       lastBackground: displayedImage,
       meditationAudio: chosenAudio,
       music: playingTrack,
-      isPlayingAudio
+      isPlayingAudio,
     };
 
     try {
@@ -136,17 +140,31 @@ const MeditationDrawer = () => {
     }
   };
 
+  const [hovered, setHovered] = useState(false)
+
   return (
     <>
-      <Button
-        marginLeft={10}
-        marginBottom={1}
-        ref={btnRef}
-        onClick={onOpen}
-        rightIcon={<GiHamburger fontSize={20} />}
-      >
-        Menu
-      </Button>
+      <Flex w="100%" justifyContent={"flex-end"} position={'absolute'}>
+        <Button
+          // marginRight={10}
+          marginBottom={1}
+          ref={btnRef}
+          onClick={onOpen}
+          rightIcon={<IoIosSettings fontSize={20} justifyContent='center'/>}
+          position={'absolute'}
+          top={1}
+          right={42}
+          borderRadius={15}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          w={hovered? 300 : 10}
+          transition="width 0.3s ease"
+          pr={hovered? 'default' : 6}
+        >
+          {hovered? "What vibe are you feeling today?" : ""}
+        </Button>
+      </Flex>
+
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -173,12 +191,9 @@ const MeditationDrawer = () => {
                 <BackgroundMain />
               </Box>
               <Box w="100%" h="50%">
-                <Tabs
-                  isFitted={true}
-                  h="100%"
-                >
+                <Tabs isFitted={true} h="100%">
                   <Text fontSize="xl" marginBottom={0} mt={3}>
-                    Meditation Audio
+                    Choose gentle harmony for your peace
                   </Text>
                   <TabList>
                     <Tab>Your list</Tab>
@@ -189,6 +204,7 @@ const MeditationDrawer = () => {
                     <TabPanel padding={0}>
                       <Button
                         mt={3}
+                        leftIcon={<IoFilterSharp />}
                         borderRadius={10}
                         size="sm"
                         onClick={() => setIsFilter(!isFilter)}
