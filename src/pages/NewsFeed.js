@@ -3,7 +3,7 @@ import AllPosts from "../components/NewsFeed/Posts/AllPosts";
 // import QuotesAndTipsCards from "../components/NewsFeed/QuotesAndTipsCards";
 import {Grid, GridItem, useDisclosure, IconButton, Icon, Tabs, TabList, TabPanels, Tab, TabPanel, Box  } from "@chakra-ui/react"
 import Prompt from "../components/NewsFeed/Prompts/Prompt";
-import '../components/NewsFeed/Prompts/Prompt.css';
+import '../components/NewsFeed/Prompts/Prompt.scss';
 import CreatePostcard from "../components/NewsFeed/Posts/CreatePostcard";
 import { BsFillSendPlusFill } from "react-icons/bs";
 
@@ -21,7 +21,8 @@ const NewsFeed = () => {
 
               <TabPanels>
                 <TabPanel pb={0} pt={3}>
-                  <Box>
+                <Box position="relative">
+                  <Box position="absolute" bottom="0" right="20%">
                     <IconButton
                       onClick={onOpen}
                       isRound={true}
@@ -29,12 +30,14 @@ const NewsFeed = () => {
                       bg='transparent'
                       aria-label='Done'
                       fontSize='20px'
-                      // marginBottom={50}
-                      icon={<Icon as={BsFillSendPlusFill} boxSize={8}/>}
+                      icon={<Icon as={BsFillSendPlusFill} boxSize={10}/>}
                     />
-                    <AllPosts/>
-                    <CreatePostcard isOpen={isOpen} onClose={onClose}/>
                   </Box>
+                  <Box display="flex" justifyContent="center">
+                    <AllPosts/>
+                  </Box>
+                  <CreatePostcard isOpen={isOpen} onClose={onClose}/>
+                </Box>
                 </TabPanel>
                 
                 <TabPanel  pb={0}>

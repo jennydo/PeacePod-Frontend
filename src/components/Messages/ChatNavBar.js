@@ -20,9 +20,8 @@ const ChatNavBar = () => {
     }, [])
     return ( 
     <>
-        <Heading>Your Messages</Heading>
-        <VStack 
-            align='stretch'>
+        <h1>Your Love Box</h1>
+        <VStack className='chat-navbar'>
             {chats && chats.map(chat => (
                 <ChatBox key={chat._id} chat={chat}/>
             ))}

@@ -18,6 +18,7 @@ import { useAvatarContext } from '../../../hooks/useAvatarContext'
 
 const Profile = () => {
     const { user } = useAuthContext()
+    const age = user.age;
     const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user 
     const { avatar } = useAvatarContext()
 
@@ -27,7 +28,7 @@ const Profile = () => {
     <VStack>
         <HStack>
             <Center h='75px' fontSize='3xl' color='#98B9F2'>
-                User Profile
+                <h1>User Profile</h1>
             </Center>   
             <EditIcon w={10} h={10} color='aliceblue'/>                
         </HStack>
@@ -41,7 +42,7 @@ const Profile = () => {
                 />
             }
         <AvatarModal/>
-        <Text fontSize='2xl' color='#98B9F2' marginBottom={0}>{username}</Text>
+        <Text fontSize='2xl' color='#98B9F2' marginBottom={0}>{username} ({age} years old)</Text>
         <Text fontSize='xl'>{`(${pronounce})`}</Text>
 
         {/* Gender */}
