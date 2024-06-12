@@ -40,9 +40,7 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
   const [surveyResponse, setSurveyResponse] = useState(null);
   const [error, setError] = useState(null);
 
-  const {
-    user: { token },
-  } = useAuthContext();
+  const { user, token } = JSON.parse(localStorage.getItem("user"));
 
   const steps = [
     {
@@ -109,8 +107,8 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
           }
         );
 
-        console.log("Response from creating new match user", response.data)
-        goToNext()
+        console.log("Response from creating new match user", response.data);
+        goToNext();
       } catch (err) {
         console.log("Error while submitting survey", err);
         // setError(err?.message)
@@ -119,8 +117,16 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
   };
 
   const handleNext = () => {
-    if (activeStep === steps.length - 1) return;
-    else if (activeStep == 1) {
+    if (activeStep === steps.length - 1) {
+      /// Update state of user in localStorage as waiting for match
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ user, token, isWaitingForMatch: true })
+      );
+
+      /// Close the modal
+      onClose();
+    } else if (activeStep == 1) {
       /// Need to handle submit survey
       if (activeStep === 1) {
         submitSurvey();
@@ -196,7 +202,7 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
                 <IoIosArrowForward />
               )
             }
-            onClick={activeStep === steps.length - 1 ? onClose : handleNext}
+            onClick={handleNext}
             colorScheme={activeStep === steps.length - 1 ? "blue" : "gray"}
           >
             {activeStep === steps.length - 1 ? "Done" : "Next"}
