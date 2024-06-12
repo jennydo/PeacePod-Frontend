@@ -15,7 +15,7 @@ import {
   motivations,
 } from "./matchingConstants";
 
-const Survey = () => {
+const Survey = ({ surveyResponse, setSurveyResponse }) => {
   const [selectedFeeling, setSelectedFeeling] = useState(null);
   const [selectedCoreValue, setSelectedCoreValue] = useState(null);
   const [selectedGratefulFor, setSelectedGratefulFor] = useState(null);
@@ -32,18 +32,20 @@ const Survey = () => {
             How have you been feeling lately?
           </Heading>
 
-          <Select>
-            <option value="" selected disabled hidden>
-              e.g. grounded and at peace
-            </option>
+          <Select
+            placeholder="Select an option"
+            value={selectedFeeling}
+            onChange={(e) => {
+              setSelectedFeeling(e.target.value);
+              setSurveyResponse({
+                ...surveyResponse,
+                feeling: e.target.value,
+              });
+            }}
+          >
             {feelings &&
               feelings.map((feeling, index) => (
-                <option
-                  key={index}
-                  className="feeling-option"
-                  value={feeling}
-                  onClick={(e) => setSelectedFeeling(e.target.value)}
-                >
+                <option key={index} className="feeling-option" value={feeling}>
                   {feeling}
                 </option>
               ))}
@@ -55,17 +57,23 @@ const Survey = () => {
             What core values light your path?
           </Heading>
 
-          <Select>
-            <option value="" selected disabled hidden>
-              e.g. Integrity and Truth
-            </option>
+          <Select
+            placeholder="Select an option"
+            value={selectedCoreValue}
+            onChange={(e) => {
+              setSelectedCoreValue(e.target.value);
+              setSurveyResponse({
+                ...surveyResponse,
+                coreValue: e.target.value,
+              });
+            }}
+          >
             {coreValues &&
               coreValues.map((coreValue, index) => (
                 <option
                   key={index}
                   className="coreValue-option"
                   value={coreValue}
-                  onClick={(e) => setSelectedCoreValue(e.target.value)}
                 >
                   {coreValue}
                 </option>
@@ -78,17 +86,23 @@ const Survey = () => {
             When you look back on your life, what are you grateful for?
           </Heading>
 
-          <Select>
-            <option value="" selected disabled hidden>
-              e.g. Personal Strengths and Abilities
-            </option>
+          <Select
+            placeholder="Select an option"
+            value={selectedGratefulFor}
+            onChange={(e) => {
+              setSelectedGratefulFor(e.target.value);
+              setSurveyResponse({
+                ...surveyResponse,
+                gratefulFor: e.target.value,
+              });
+            }}
+          >
             {gratefulFor &&
               gratefulFor.map((grateful, index) => (
                 <option
                   key={index}
                   className="grateful-option"
                   value={grateful}
-                  onClick={(e) => setSelectedGratefulFor(e.target.value)}
                 >
                   {grateful}
                 </option>
@@ -102,17 +116,23 @@ const Survey = () => {
             grounded?
           </Heading>
 
-          <Select>
-            <option value="" selected disabled hidden>
-              e.g. Quality sleep - Restorative focus
-            </option>
+          <Select
+            placeholder="Select an option"
+            value={selectedPratice}
+            onChange={(e) => {
+              setSelectedPractice(e.target.value);
+              setSurveyResponse({
+                ...surveyResponse,
+                practice: e.target.value,
+              });
+            }}
+          >
             {practices &&
               practices.map((practice, index) => (
                 <option
                   key={index}
                   className="practice-option"
                   value={practice}
-                  onClick={(e) => setSelectedPractice(e.target.value)}
                 >
                   {practice}
                 </option>
@@ -125,17 +145,23 @@ const Survey = () => {
             What motivates you to get out of bed in the morning?
           </Heading>
 
-          <Select>
-            <option value="" selected disabled hidden>
-              e.g. Personal Growth
-            </option>
+          <Select
+            placeholder="Select an option"
+            value={selectedMotivation}
+            onChange={(e) => {
+              setSelectedMotivation(e.target.value);
+              setSurveyResponse({
+                ...surveyResponse,
+                motivation: e.target.value,
+              });
+            }}
+          >
             {motivations &&
               motivations.map((motivation, index) => (
                 <option
                   key={index}
                   className="motivation-option"
                   value={motivation}
-                  onClick={(e) => setSelectedMotivation(e.target.value)}
                 >
                   {motivation}
                 </option>
