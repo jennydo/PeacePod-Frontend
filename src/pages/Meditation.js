@@ -14,6 +14,7 @@ const Meditation = () => {
 
   return (
     <CloudinaryContextProvider>
+      <h1>Meditation Session</h1>
       <Grid
         gridTemplateRows={"1fr 12%"}
         // bg="green.100"
