@@ -8,10 +8,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Flex,
-  ButtonGroup,
-  Stack,
-  Heading,
   Step,
   StepDescription,
   StepIcon,
@@ -24,6 +20,9 @@ import {
   useSteps,
   VStack,
   Text,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 
@@ -33,10 +32,17 @@ import { IoIosSend } from "react-icons/io";
 import ChooseOption from "./Matching Progress/ChooseOption";
 import Survey from "./Matching Progress/Survey";
 import Congratulations from "./Matching Progress/Congratulations";
+import axios from "axios";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const MatchingModal = ({ finalRef, isOpen, onClose }) => {
-
   const [option, setOption] = useState(1);
+  const [surveyResponse, setSurveyResponse] = useState(null);
+  const [error, setError] = useState(null);
+
+  const {
+    user: { token },
+  } = useAuthContext();
 
   const steps = [
     {
@@ -47,7 +53,12 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
     {
       title: "Second",
       description: "Fill form",
-      component: <Survey />,
+      component: (
+        <Survey
+          surveyResponse={surveyResponse}
+          setSurveyResponse={setSurveyResponse}
+        />
+      ),
     },
     {
       title: "Third",
@@ -62,20 +73,61 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
   });
 
   const handlePrev = () => {
+    setError(null);
     if (activeStep === 0) return;
     else {
-        goToPrevious()
-        if (activeStep == steps.length - 1 && option == 1)
-            goToPrevious()
+      goToPrevious();
+      if (activeStep === steps.length - 1 && option === 1) goToPrevious();
+    }
+  };
+
+  const submitSurvey = async () => {
+    console.log("Survey response", surveyResponse);
+
+    if (
+      !surveyResponse ||
+      !surveyResponse.hasOwnProperty("feeling") ||
+      !surveyResponse.hasOwnProperty("coreValue") ||
+      !surveyResponse.hasOwnProperty("gratefulFor") ||
+      !surveyResponse.hasOwnProperty("practice") ||
+      !surveyResponse.hasOwnProperty("motivation")
+    ) {
+      setError("Missing fields");
+    } else {
+      /// Clear error
+      setError(null);
+
+      /// API call
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/api/matchUsers",
+          surveyResponse,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log("Response from creating new match user", response.data)
+        goToNext()
+      } catch (err) {
+        console.log("Error while submitting survey", err);
+        // setError(err?.message)
+      }
     }
   };
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) return;
-    else {
+    else if (activeStep == 1) {
+      /// Need to handle submit survey
+      if (activeStep === 1) {
+        submitSurvey();
+      }
+    } else {
       goToNext();
-      if (activeStep == 0 && option == 1)
-        goToNext()
+      if (activeStep === 0 && option === 1) goToNext();
     }
   };
 
@@ -127,7 +179,9 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
             },
           }}
         >
-          <VStack minH={300} maxH={300}>{steps[activeStep].component}</VStack>
+          <VStack minH={300} maxH={300}>
+            {steps[activeStep].component}
+          </VStack>
         </ModalBody>
 
         <ModalFooter justifyContent="flex-end" gap={5}>
@@ -148,6 +202,12 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
             {activeStep === steps.length - 1 ? "Done" : "Next"}
           </Button>
         </ModalFooter>
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
       </ModalContent>
     </Modal>
   );
