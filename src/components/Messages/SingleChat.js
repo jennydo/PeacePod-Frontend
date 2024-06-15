@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import io from 'socket.io-client';
 import {Grid, GridItem, HStack, Input, Avatar, Box, IconButton, Icon, Divider} from '@chakra-ui/react';
 import { IoSend } from "react-icons/io5";
@@ -14,7 +14,7 @@ var socket, selectedChatCompare;
 
 const SingleChat = ({chat}) => {
 
-  const { selectedChat } = useChatsContext()
+  const { selectedChat, notifications, dispatch: chatDispatch } = useChatsContext()
   const { _id: chatId, users } = chat 
 
   // get information of the sender (logged in user)
@@ -45,17 +45,25 @@ const SingleChat = ({chat}) => {
     socket.on("message received", (newMessageReceived) => {
       // if chat is not selected or doesn't match current chat
       if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
-        // give notification
+        if (!notifications.includes(newMessageReceived.sender)) {
+          chatDispatch({type: 'NEW_NOTI', payload: newMessageReceived.sender})
+        }
       } else {
         setAllMessages([...allMessages, newMessageReceived])
+        scrollToBottom();
       }
     })
-  })
+  }, [])
 
   useEffect(() => {
     fetchMessages();
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
+
+  // Scroll to the bottom of the container after fetching messages
+  useEffect(() => {
+    scrollToBottom();
+  }, [allMessages]);
 
   // Fetch all messages initially when first opened the chat 
   const fetchMessages = async () => {
@@ -90,6 +98,7 @@ const SingleChat = ({chat}) => {
       .catch( error => console.log(error))
     
     setNewMessage("");
+    scrollToBottom();
   };
 
   const typingHandler = (e) => {
@@ -113,6 +122,16 @@ const SingleChat = ({chat}) => {
     }, timerLength);
   };
 
+  const scrollToBottom = useCallback(() => {
+    const messagesContainer = document.getElementById('messagesContainer');
+    if (messagesContainer) {
+      const lastMessage = messagesContainer.lastElementChild;
+      if (lastMessage) {
+        lastMessage.scrollIntoView();
+      }
+    }
+  }, []);
+
   return (
     <Grid gridTemplateRows={'8% 1fr 15%'}  w='100%' h='100%'>
       <GridItem w='100%' h='100%'> 
@@ -123,7 +142,7 @@ const SingleChat = ({chat}) => {
       </GridItem>
       <GridItem w='100%' h='100%'> 
         <div className='chatbox-divider'></div>
-        <Box maxHeight="530px" overflowY="auto" p={3} mb={5}>
+        <Box id="messagesContainer" maxHeight="530px" overflowY="auto" p={3} mb={5}>
           {allMessages && allMessages.map((message, index) => (
             <Message 
               key={index} 
@@ -131,7 +150,7 @@ const SingleChat = ({chat}) => {
               previousMessage={index > 0 ? allMessages[index - 1] : null} 
             />
           ))}
-          </Box>
+        </Box>
           {/* {istyping && (
             <Lottie
               options={{
