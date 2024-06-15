@@ -117,7 +117,7 @@ const MeditationDrawer = () => {
       lastBackground: displayedImage,
       meditationAudio: chosenAudio,
       music: playingTrack,
-      isPlayingAudio,
+      isPlayingAudio: isPlayingAudio ? true : false,
     };
 
     try {
