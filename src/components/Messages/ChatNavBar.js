@@ -48,8 +48,8 @@ const ChatNavBar = () => {
   };
 
   return (
-    <VStack>
-      <Heading>Your Messages</Heading>
+    <>
+      <h1>Your Messages</h1>
       <ButtonGroup w={"100%"} isAttached>
         <Button
           w={"100%"}
@@ -76,10 +76,10 @@ const ChatNavBar = () => {
 
       <MatchingModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} />
 
-      <VStack align="stretch">
+      <VStack className='chat-navbar'>
         {chats && chats.map((chat) => <ChatBox key={chat._id} chat={chat} />)}
       </VStack>
-    </VStack>
+    </>
   );
 };
 
