@@ -5,10 +5,13 @@ import { Box, Stack, Input, Button, Textarea, Text, Divider,
         Alert, AlertIcon, AlertDescription, Avatar, Card, HStack } from '@chakra-ui/react'
 import { usePostsContext } from "../../hooks/usePostsContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAvatarContext } from "../../hooks/useAvatarContext";
 
 const CreatePost = ( ) => {
     const { user } = useAuthContext()
-    const { username, avatar } = user.user
+    const { username } = user.user
+    const { avatar} = useAvatarContext()
+
     const {dispatch} = usePostsContext();
 
     const { isOpen, onOpen, onClose } = useDisclosure()
