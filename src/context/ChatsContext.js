@@ -7,7 +7,8 @@ export const chatsReducer = (state, action) => {
         case 'GET_CHATS':
             return {
                 ...state,
-                chats: action.payload
+                chats: action.payload,
+                selectedChat: action.payload[0]
             }
         case 'CREATE_CHAT':
             return {
@@ -19,6 +20,11 @@ export const chatsReducer = (state, action) => {
                 ...state,
                 selectedChat: action.payload
             }
+        case 'NEW_NOTI':
+            return {
+                ...state,
+                notifications: [action.payload, ...state.notifications]
+            }
         default:
             return state
     }
@@ -27,7 +33,8 @@ export const chatsReducer = (state, action) => {
 export const ChatsContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(chatsReducer, {
         chats: [],
-        selectedChat: null
+        selectedChat: null, 
+        notifications: []
     })
 
     return (
