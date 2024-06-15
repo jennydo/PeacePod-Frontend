@@ -10,9 +10,24 @@ import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider,
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    HStack, } from '@chakra-ui/react';
+    HStack, 
+    Icon,
+    IconButton,
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverHeader,
+    PopoverBody,
+    PopoverFooter,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverAnchor,
+} from '@chakra-ui/react';
 import { useAvatarContext } from '../../hooks/useAvatarContext';
 import { useEffect, useState } from 'react';
+import { IoNotifications } from "react-icons/io5";
+import { useChatsContext } from '../../hooks/useChatsContext';
+
 
 const Navbar = () => {
     const { user } = useAuthContext()?.user || {};
@@ -22,6 +37,7 @@ const Navbar = () => {
     // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
+    const { notifications } = useChatsContext();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { logOut } = useLogOut();
 
@@ -36,6 +52,10 @@ const Navbar = () => {
         onClose()
     }
 
+    const getSender = (loggedUser, users) => {
+        return users[0]?._id === loggedUser?._id ? users[1].name : users[0].name;
+    };
+
     return ( 
         <nav className="peacepod-navbar">
             <h1 className = "app-name"><Link to="/">PeacePod</Link></h1>
@@ -46,6 +66,30 @@ const Navbar = () => {
                         <Link to="/newsfeed" className={`peacepod-navlink ${pathname === "/newsfeed" ? "active" : ""}`}>NewsFeed</Link>
                         <Link to="/chat" className={`peacepod-navlink ${pathname === "/chat" ? "active" : ""}`}>Messages</Link>
                         <Link to="/meditation" className={`peacepod-navlink ${pathname === "/meditation" ? "active" : ""}`}>Meditation</Link>
+                    
+                        <Popover placement='bottom-end'>
+                            <PopoverTrigger>
+                            <IconButton
+                                icon={<Icon as={IoNotifications} boxSize={6}/>}
+                                isRound={true}
+                                ml="16px"
+                            />
+                            </PopoverTrigger>
+                            <PopoverContent>
+                                <PopoverArrow />
+                                <PopoverCloseButton />
+                                <PopoverHeader>New Messages</PopoverHeader>
+                                <PopoverBody>
+                                    {!notifications.length && <p>No new message.</p>}
+                                    {notifications && notifications.map(notif => (
+                                        <p key={notif._id}>
+                                            `New message from ${notif}`
+                                        </p>
+                                    ))}
+                                </PopoverBody>
+                            </PopoverContent>
+                        </Popover>
+                        
                         <Menu bg={"green"}>
                             <MenuButton pl={8}>
                                 <Avatar name={username} src={avatar} size='md'/>
