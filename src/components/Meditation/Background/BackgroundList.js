@@ -18,10 +18,10 @@ const BackgroundList = () => {
 
         axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
         .then(res => {
-            dispatch({ type: 'GET_USER_IMAGES', payload: res.data.uploadedBackgrounds})
-            console.log('')
+            dispatch({ type: 'GET_USER_IMAGES', payload: res.data.user.uploadedBackgrounds})
+            console.log("Response ", res.data.user.uploadedBackgrounds)
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log("Error while getting user images", err))
     }, [])
 
     const chooseImage = (image) => {
