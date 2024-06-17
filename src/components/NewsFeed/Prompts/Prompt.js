@@ -197,12 +197,13 @@ const Prompt = () => {
   return (
     <>
       <Grid
-        gridTemplateRows={"1fr 10%"}
+        gridTemplateRows={"85% 10%"}
         h="100%"
+        maxH={'65vh'}
         w="100%"
-        mt={10}
+        // mt={10}
       >
-        <GridItem h="60vh" w="100%">
+        <GridItem h="100%" w="100%" >
           <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
             <GridItem
               h="100%"
