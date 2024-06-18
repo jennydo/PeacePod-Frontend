@@ -9,12 +9,9 @@ import Message from './Message';
 import Lottie from "react-lottie";
 import animationData from "./typing.json";
 
-// connect to server
-var socket, selectedChatCompare;
-
 const SingleChat = ({chat}) => {
 
-  const { selectedChat, notifications, dispatch: chatDispatch } = useChatsContext()
+  const { selectedChat, dispatch: chatDispatch, socket, selectedChatCompare } = useChatsContext()
   const { _id: chatId, users } = chat 
 
   // get information of the sender (logged in user)
@@ -33,9 +30,6 @@ const SingleChat = ({chat}) => {
   const [istyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    // connect to server
-    socket = io.connect('http://localhost:4000');
-    socket.emit("setup", sender.user);
     socket.on("connected", () => setSocketConnected(true))
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
@@ -43,16 +37,9 @@ const SingleChat = ({chat}) => {
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
-      console.log('getting pass firt one')
-      if (newMessageReceived.sender._id != sender.user._id) {
-        // if chat is not selected or doesn't match current chat
-        console.log("new message received in receiver", newMessageReceived)
-        if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
-          console.log('getting to here')
-          if (!notifications.includes(newMessageReceived.sender)) {
-            chatDispatch({type: 'NEW_NOTI', payload: newMessageReceived.sender})
-          }
-        } else {
+      if (newMessageReceived.sender._id != sender._id) {
+        // if chat is selected and match current chat
+        if (selectedChatCompare && selectedChatCompare._id === newMessageReceived.chat._id) {
           setAllMessages([...allMessages, newMessageReceived])
           scrollToBottom();
         }
@@ -60,23 +47,9 @@ const SingleChat = ({chat}) => {
     })
   }, [])
 
-  // useEffect(() => {
-  //   socket.on("message received", (newMessageReceived) => {
-  //     console.log('getting pass firt one')
-  //     if (newMessageReceived.sender._id != sender._id) {
-  //       // if chat is not selected or doesn't match current chat
-  //       if (selectedChatCompare && selectedChatCompare._id === newMessageReceived.chat._id) {
-  //         setAllMessages([...allMessages, newMessageReceived])
-  //         scrollToBottom();
-  //       }
-  //     }
-  //   })
-  // }, [])
-
   useEffect(() => {
     fetchMessages();
-    selectedChatCompare = selectedChat;
-    // chatDispatch({type: 'SET_SELECTED_CHAT_COMPARE', payload: selectedChat});
+    chatDispatch({type: 'SET_SELECTED_CHAT_COMPARE', payload: selectedChat});
   }, [selectedChat]);
 
   // Scroll to the bottom of the container after fetching messages

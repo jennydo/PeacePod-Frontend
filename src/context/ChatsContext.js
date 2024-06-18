@@ -2,7 +2,6 @@ import {createContext, useReducer } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import io from 'socket.io-client';
 import { useEffect } from 'react';
-import { useChatsContext } from '../hooks/useChatsContext';
 
 export const ChatsContext = createContext();
 
@@ -29,16 +28,16 @@ export const chatsReducer = (state, action) => {
                 ...state,
                 notifications: [action.payload, ...state.notifications]
             }
-        // case 'SET_SOCKET':
-        //     return {
-        //         ...state, 
-        //         socket: action.payload
-        //     }
-        // case 'SET_SELECTED_CHAT_COMPARE':
-        //     return {
-        //         ...state,
-        //         selectedChatCompare: action.payload
-        //     }
+        case 'SET_SOCKET':
+            return {
+                ...state, 
+                socket: action.payload
+            }
+        case 'SET_SELECTED_CHAT_COMPARE':
+            return {
+                ...state,
+                selectedChatCompare: action.payload
+            }
         default:
             return state
     }
@@ -49,38 +48,38 @@ export const ChatsContextProvider = ( {children} ) => {
         chats: [],
         selectedChat: null, 
         notifications: [],
-        // socket: null,
-        // selectedChatCompare: null
+        socket: null,
+        selectedChatCompare: null
     })
 
-    // const { user } = useAuthContext();
+    const { user } = useAuthContext();
 
-    // useEffect(() => {
-    //     if (!user) {
-    //         return;
-    //     }
-    //     // connect to server
-    //     const socket = io.connect('http://localhost:4000');
-    //     dispatch({ type: 'SET_SOCKET', payload: socket });
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+        // connect to server
+        const socket = io.connect('http://localhost:4000');
+        dispatch({ type: 'SET_SOCKET', payload: socket });
+    }, [user]) 
 
-    //     if (socket && state.socket) {
-    //         state.socket.emit("setup", user);
+    useEffect(() => {
+        console.log('state.socket:', state.socket)
 
-    //         state.socket.on("message received", (newMessageReceived) => {
-    //             console.log('getting pass firt one')
-    //             if (newMessageReceived.sender._id !== user._id) {
-    //                 // if chat is not selected or doesn't match current chat
-    //                 console.log("new message received in receiver", newMessageReceived)
-    //                 if (!state.selectedChatCompare || state.selectedChatCompare._id !== newMessageReceived.chat._id) {
-    //                     console.log('getting to here')
-    //                     if (!state.notifications.includes(newMessageReceived.sender)) {
-    //                         dispatch({type: 'NEW_NOTI', payload: newMessageReceived.sender})
-    //                     }
-    //                 }
-    //         }})
-    //     }
+        if (state.socket) {
+            state.socket.emit("setup", user.user);
 
-    // }, [user]) 
+            state.socket.on("message received", (newMessageReceived) => {
+                if (newMessageReceived.sender._id !== user.user._id) {
+                    // if chat is not selected or doesn't match current chat
+                    if (!state.selectedChatCompare || state.selectedChatCompare._id !== newMessageReceived.chat._id) {
+                        if (!state.notifications.includes(newMessageReceived.sender)) {
+                            dispatch({type: 'NEW_NOTI', payload: newMessageReceived.sender})
+                        }
+                    }
+            }})
+        }
+    }, [state.socket])
 
     return (
         <ChatsContext.Provider value={ {...state, dispatch} }>
