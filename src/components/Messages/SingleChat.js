@@ -43,21 +43,40 @@ const SingleChat = ({chat}) => {
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
-      // if chat is not selected or doesn't match current chat
-      if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
-        if (!notifications.includes(newMessageReceived.sender)) {
-          chatDispatch({type: 'NEW_NOTI', payload: newMessageReceived.sender})
+      console.log('getting pass firt one')
+      if (newMessageReceived.sender._id != sender._id) {
+        // if chat is not selected or doesn't match current chat
+        console.log("new message received in receiver", newMessageReceived)
+        if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
+          console.log('getting to here')
+          if (!notifications.includes(newMessageReceived.sender)) {
+            chatDispatch({type: 'NEW_NOTI', payload: newMessageReceived.sender})
+          }
+        } else {
+          setAllMessages([...allMessages, newMessageReceived])
+          scrollToBottom();
         }
-      } else {
-        setAllMessages([...allMessages, newMessageReceived])
-        scrollToBottom();
       }
     })
   }, [])
 
+  // useEffect(() => {
+  //   socket.on("message received", (newMessageReceived) => {
+  //     console.log('getting pass firt one')
+  //     if (newMessageReceived.sender._id != sender._id) {
+  //       // if chat is not selected or doesn't match current chat
+  //       if (selectedChatCompare && selectedChatCompare._id === newMessageReceived.chat._id) {
+  //         setAllMessages([...allMessages, newMessageReceived])
+  //         scrollToBottom();
+  //       }
+  //     }
+  //   })
+  // }, [])
+
   useEffect(() => {
     fetchMessages();
     selectedChatCompare = selectedChat;
+    // chatDispatch({type: 'SET_SELECTED_CHAT_COMPARE', payload: selectedChat});
   }, [selectedChat]);
 
   // Scroll to the bottom of the container after fetching messages
@@ -145,7 +164,7 @@ const SingleChat = ({chat}) => {
         <Box id="messagesContainer" maxHeight="530px" overflowY="auto" p={3} mb={5}>
           {allMessages && allMessages.map((message, index) => (
             <Message 
-              key={index} 
+              key={index} // !!! not use key 
               message={message} 
               previousMessage={index > 0 ? allMessages[index - 1] : null} 
             />
