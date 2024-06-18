@@ -22,6 +22,7 @@ import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider,
     PopoverArrow,
     PopoverCloseButton,
     PopoverAnchor,
+    Stack,
 } from '@chakra-ui/react';
 import { useAvatarContext } from '../../hooks/useAvatarContext';
 import { useEffect, useState } from 'react';
@@ -82,9 +83,12 @@ const Navbar = () => {
                                 <PopoverBody>
                                     {!notifications.length && <p>No new message.</p>}
                                     {notifications && notifications.map(notif => (
-                                        <p key={notif._id}>
-                                            `New message from ${notif}`
-                                        </p>
+                                        <Stack key={notif._id} direction={'row'}>
+                                            <Avatar size='sm' name={notif.username} src={notif.avatar}/>
+                                            <p className='notification-content'>
+                                                New message from {notif.username}
+                                            </p>
+                                        </Stack>
                                     ))}
                                 </PopoverBody>
                             </PopoverContent>
