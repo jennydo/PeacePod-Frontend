@@ -35,7 +35,7 @@ const SingleChat = ({chat}) => {
   useEffect(() => {
     // connect to server
     socket = io.connect('http://localhost:4000');
-    socket.emit("setup", sender);
+    socket.emit("setup", sender.user);
     socket.on("connected", () => setSocketConnected(true))
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
@@ -44,7 +44,7 @@ const SingleChat = ({chat}) => {
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
       console.log('getting pass firt one')
-      if (newMessageReceived.sender._id != sender._id) {
+      if (newMessageReceived.sender._id != sender.user._id) {
         // if chat is not selected or doesn't match current chat
         console.log("new message received in receiver", newMessageReceived)
         if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
