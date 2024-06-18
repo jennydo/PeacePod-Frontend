@@ -26,7 +26,10 @@ export const chatsReducer = (state, action) => {
         case 'NEW_NOTI':
             return {
                 ...state,
-                notifications: [action.payload, ...state.notifications]
+                notifications: {
+                    ...state.notifications,
+                    [action.payload.username] : action.payload
+                }
             }
         case 'SET_SOCKET':
             return {
@@ -47,9 +50,9 @@ export const ChatsContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(chatsReducer, {
         chats: [],
         selectedChat: null, 
-        notifications: [],
-        socket: null,
-        selectedChatCompare: null
+        notifications: {},
+        socket: null, 
+        selectedChatCompare: null 
     })
 
     const { user } = useAuthContext();
@@ -73,8 +76,13 @@ export const ChatsContextProvider = ( {children} ) => {
                 if (newMessageReceived.sender._id !== user.user._id) {
                     // if chat is not selected or doesn't match current chat
                     if (!state.selectedChatCompare || state.selectedChatCompare._id !== newMessageReceived.chat._id) {
-                        if (!state.notifications.includes(newMessageReceived.sender)) {
-                            dispatch({type: 'NEW_NOTI', payload: newMessageReceived.sender})
+                        if (!Object.keys(state.notifications).some(key => key === newMessageReceived.sender.username)) {
+                            const noti = {
+                                username: newMessageReceived.sender.username,
+                                avatar: newMessageReceived.sender.avatar,
+                                chat: newMessageReceived.chat
+                            }
+                            dispatch({type: 'NEW_NOTI', payload: noti})
                         }
                     }
             }})

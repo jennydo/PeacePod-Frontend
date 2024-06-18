@@ -18,10 +18,8 @@ import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider,
     PopoverContent,
     PopoverHeader,
     PopoverBody,
-    PopoverFooter,
     PopoverArrow,
     PopoverCloseButton,
-    PopoverAnchor,
     Stack,
 } from '@chakra-ui/react';
 import { useAvatarContext } from '../../hooks/useAvatarContext';
@@ -35,6 +33,7 @@ const Navbar = () => {
     // const { username, avatar } = user || {};
     const { username } = user || {};
     const { avatar: avatarContext } = useAvatarContext()
+    const { dispatch: chatDispatch } = useChatsContext();
     // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
@@ -53,9 +52,10 @@ const Navbar = () => {
         onClose()
     }
 
-    const getSender = (loggedUser, users) => {
-        return users[0]?._id === loggedUser?._id ? users[1].name : users[0].name;
-    };
+    const handleRemoveNotification = (username) => {
+        delete notifications[username]
+    }
+
 
     return ( 
         <nav className="peacepod-navbar">
@@ -81,13 +81,15 @@ const Navbar = () => {
                                 <PopoverCloseButton />
                                 <PopoverHeader>New Messages</PopoverHeader>
                                 <PopoverBody>
-                                    {!notifications.length && <p>No new message.</p>}
-                                    {notifications && notifications.map((notif, idx) => (
+                                    {!Object.keys(notifications).length && <p>No new message.</p>}
+                                    {notifications && Object.values(notifications).map((notif, idx) => (
                                         <Stack key={idx} direction={'row'}>
                                             <Avatar size='sm' name={notif.username} src={notif.avatar}/>
-                                            <p className='notification-content'>
-                                                New message from {notif.username}
-                                            </p>
+                                            <Link to="/chat" onClick={handleRemoveNotification(notif.username)}>
+                                                <p className='notification-content'>
+                                                    New message from {notif.username}
+                                                </p>
+                                            </Link>  
                                         </Stack>
                                     ))}
                                 </PopoverBody>
