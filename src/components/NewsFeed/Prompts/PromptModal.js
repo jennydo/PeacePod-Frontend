@@ -169,6 +169,8 @@ const PromptModal = () => {
                     h="100%"
                     w="100%"
                     mt={10}
+                    // zIndex={1}  
+                    position="relative" 
                 >
                     <GridItem h="60vh" w="100%">
                     <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
