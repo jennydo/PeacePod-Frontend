@@ -12,10 +12,10 @@ export const promptResponsesReducer = (state, action) => {
     case "CREATE_PROMPT_RESPONSE":
       return {
         promptResponses: [
-            action.payload,
-            ...state.promptResponses
+            ...state.promptResponses,
+            action.payload
         ],
-        firstPromptResponse: action.payload,
+        // firstPromptResponse: action.payload,
       };
     case "UPDATE_FIRST_RESPONSE":
       return {
