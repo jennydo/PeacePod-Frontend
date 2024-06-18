@@ -82,8 +82,8 @@ const Navbar = () => {
                                 <PopoverHeader>New Messages</PopoverHeader>
                                 <PopoverBody>
                                     {!notifications.length && <p>No new message.</p>}
-                                    {notifications && notifications.map(notif => (
-                                        <Stack key={notif._id} direction={'row'}>
+                                    {notifications && notifications.map((notif, idx) => (
+                                        <Stack key={idx} direction={'row'}>
                                             <Avatar size='sm' name={notif.username} src={notif.avatar}/>
                                             <p className='notification-content'>
                                                 New message from {notif.username}
