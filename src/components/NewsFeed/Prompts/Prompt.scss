@@ -47,3 +47,733 @@
 .css-yr1x2i {
     margin-bottom: 0 !important;
 }
+
+// BACKGROUND-IMAGE
+
+$deepgreen: #234e28;
+$green: #8CB372;
+$orange: #FF8138;
+$maroon: #803848;
+$light: #F8FFF4;
+
+$skybg: $orange;
+$ground: $deepgreen;
+$windows: #ffbc49;
+$sun: #ffe11e;
+
+html {
+  font-size: 18px;
+}
+
+@mixin tree($color) {
+  &:before {
+    content: '';
+      position: absolute;
+      width: 100%;
+      height: 150%;
+      background: radial-gradient(ellipse at 70% 35%, $color 0%, $color 40%, lighten($color, 10) 40%, lighten($color, 10) 100%);
+      background-size: 100% 190%;
+      top: 0;
+      left: 0;
+      border-radius: 70% 70% 0 0 / 100% 100% 0 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(50% 90% at 50% 100%, scale-color($color, $lightness: -40%) 0%, transparent 100%);
+  }
+}
+
+@mixin cloud($color) {
+    width: 70%;
+    height: 10%;
+    .bubble {
+      width: 50%;
+      height: 100%;
+      background-image: radial-gradient(ellipse at 50% 58%, $color 0%, $color 50%, transparent 51%);
+      top: 0%;
+      left: 0%;
+      background-repeat: no-repeat;
+      &:nth-child(2) {
+        left: 34%;
+        top: -31%;
+        width: 20%;
+        height: 80%;
+        background-color: transparent;
+        background-image: radial-gradient(ellipse at 25% -50%, transparent 0%, transparent 60%, $color 61%);
+        background-size: 190% 100%;
+        background-repeat: no-repeat;
+      }
+      &:nth-child(3) {
+        left: 35%;
+        top: 8%;
+        height: 90%;
+        background-image: radial-gradient(ellipse at 50% 50%, $color 0%, $color 50%, transparent 51%);
+      }
+      &:nth-child(4) {
+        left: 62%;
+        background-image: radial-gradient(ellipse at 50% 50%, $color 0%, $color 60%, transparent 61%);
+        background-position: 50%;
+        top: 68%;
+        height: 51%;
+        width: 40%;
+      }
+      &:nth-child(5) {
+        background-image: radial-gradient(ellipse at 100% 0%, transparent 0%, transparent 50%, $color 51%);
+        background-size: 100% 100%;
+        width: 20%;
+        left: 71%;
+        height: 50%;
+        top: 40%;
+      }
+      &:nth-child(6) {
+        height: 100%;
+        top: auto;
+        bottom: -10%;
+        width: 35%;
+        transform: rotate(10deg);
+        left: 2%;
+        background-image: radial-gradient(ellipse at 50% 58%, $color 0%, $color 50%, transparent 51%);
+      }
+    }
+    .bottom {
+      width: 65%;
+      height: 55%;
+      background: $color;
+      bottom: -15%;
+      left: 12%;
+      border-bottom-left-radius: 30% 60%;
+    }  
+}
+
+@mixin cloudalt($color) {
+    width: 70%;
+    height: 10%;
+    .bubble {
+      background-repeat: no-repeat;
+      &:nth-child(1) {
+        width: 50%;
+        height: 50%;
+        background-color: $color;
+        bottom: -13%;
+        left: -5%;   
+        border-bottom-left-radius: 30% 50%;   
+        border-top-left-radius: 30% 50%;  
+      }
+      &:nth-child(2) {
+        left: 5%;
+        top: 29%;
+        width: 30%;
+        height: 40%;
+        background-color: transparent;
+        background-image: radial-gradient(ellipse at 0% 0%, transparent 0%, transparent 70%, $color 71%);
+        background-repeat: no-repeat;
+        transform: rotate(5deg);
+      }
+      &:nth-child(3) {
+        left: 33%;
+        top: 2%;
+        height: 70%;
+        width: 45%;
+        background: $color;
+        border-top-left-radius: 50% 80%;
+        border-top-right-radius: 30% 50%;
+      }
+      &:nth-child(4) {
+        left: 68%;
+        background-position: 50%;
+        background: $color;
+        top: 18%;
+        height: 80%;
+        border-top-right-radius: 50% 40%;
+        top: 30%;
+        width: 30%;
+      }
+      &:nth-child(5) {
+        background-image: radial-gradient(ellipse at 40% -20%, transparent 0%, transparent 50%,$color 51%);
+        background-size: 300% 200%;
+        width: 20%;
+        left: 74%;
+        height: 31%;
+        top: 4%;
+        transform: rotate(-3deg);
+      }
+      &:nth-child(6) {
+        height: 50%;
+        top: auto;
+        bottom: -10%;
+        width: 35%;
+        left: 80%;
+        background-color: $color;
+        border-top-right-radius: 40% 50%;
+        border-bottom-right-radius: 30% 30%;
+        &:before {
+          position: absolute;
+          width: 40%;
+          height: 100%;
+          top: -60%;
+          left: 42%;
+          background: radial-gradient(180% 120% at 85% 7%, transparent 0%, transparent 50%, $color 51%);
+          content: '';
+        }
+      }
+    }
+    .bottom {
+      width: 65%;
+      height: 45%;
+      background: $color;
+      bottom: -13%;
+      left: 12%;
+      border-bottom-right-radius: 30%;
+    }  
+}
+
+@mixin mountain($color) {
+  background: linear-gradient(0deg, darken($color, 15) 0%, $color 100%);
+  box-shadow: inset 1.5rem -.6rem 0 0 lighten($color, 10);
+  border-radius: 5%;
+}
+
+html {
+  height: 100%;
+}
+
+.prompt-modal-body {
+  background-color: $green;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  --w: 15rem;
+  .scene {
+    width: var(--w);
+    height: 35rem;
+    position: relative;
+    // transform: translateX(-100%);
+    transform: translateX(20%);
+    // overflow: hidden;
+    div {
+      position: absolute;
+    }
+    .bottom-section {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+  }
+}
+
+.clouds {
+  height: 75%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  .cloud-1 {
+    @include cloud(lighten(scale-color($orange, $green: 20%), 20));
+    width: 80%;
+    top: 40%;
+    left: -18%;
+    transform: skew(30deg, 0deg) scaleX(-1) scaleY(0.5);
+    z-index: 1;
+  }
+
+  .cloud-2 {
+    @include cloudalt(lighten(scale-color($orange, $green: 20%), 30));
+    top: 50%;
+    left: auto;
+    right: -25%;
+    transform: scaleX(-1);
+    z-index: 1;
+    height: 8%;
+    width: 60%;
+  }
+
+  .cloud-3 {
+    @include cloud(lighten(scale-color($orange, $green: 20%), 10));
+    width: 70%;
+    height: 10%;
+    top: 25%;
+    left: 40%;
+  }
+
+  .cloud-alt {
+    @include cloudalt( lighten(scale-color($orange,  $green: 20%), 5 ));
+    top: 5%;
+    left: -15%;
+    width: 70%;
+    height: 10%;
+  }  
+}
+
+.sky {
+  height: 75%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to bottom, $skybg 0%, lighten($skybg, 13) 100%);
+  border-radius: 46% 46% 0 0 / 15% 15% 0 0;
+  overflow: hidden;
+  &:before {
+    background: left 0 / 3px 3px radial-gradient(circle, darken($skybg, 5) 0%, darken($skybg, 5) 60%, darken($skybg, 0) 30%);
+    width: 110%;
+    height: 100%;
+    content: '';
+    top: 0;
+    left: 0;
+    position: absolute;
+    transform: rotate(10deg) translateX(-10%);
+  }
+  &:after {
+    width: 130%;
+    height: 100%;
+    bottom: -20%;
+    left: 30%;
+    content: '';
+    background: linear-gradient(to bottom, darken($skybg, 5), lighten($skybg, 20) 100%);
+    border-top-left-radius: 50% 70%;
+    transform: rotate(45deg);
+    opacity: 0.5;
+    // opacity: 0;
+    position: absolute;
+  }
+
+  .sun {
+    z-index: 2;
+    // background-color: saturate(lighten($windows, 20), 20);
+    background: $sun;
+    opacity: .7;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    top: 65%;
+    left: 30%;
+  }
+
+  .sky-1 {
+    width: 170%;
+    height: 70%;
+    bottom: 10%;
+    left: -60%;
+    background: left 0 / 4px 4px radial-gradient(circle, transparentize(lighten($skybg, 10), 0.3) 0, transparentize(lighten($skybg, 10), 0.3) 1px, transparent 1px),
+               linear-gradient(to bottom, darken($skybg, 10), lighten($skybg, 0) 100%);
+    border-top-right-radius: 60% 80%;
+    transform: rotate(-20deg);
+    &:after {
+      content: '';
+      position: absolute;
+      width: 110%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(to bottom, darken($skybg, 10), lighten($skybg, 0) 100%);
+      border-top-right-radius: 60% 60%;
+      opacity: 0.4;
+      transform: skewY(10deg) scaleY(1.1) translateX(10%) translateY(5%);
+    }
+  }
+
+  .sky-2 {
+    width: 100%;
+    height: 100%;
+    top: 30%;
+    left: -10%;
+    background: linear-gradient(130deg, darken($skybg, 0), lighten($skybg, 30) 100%);
+    border-top-right-radius: 80% 80%;
+    transform: rotate(-58deg);
+    z-index: 0;
+    opacity: 0.5;
+    &:after {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 15%;
+      left: -5%;
+      content: '';
+      background: linear-gradient(130deg, darken($skybg, 5), lighten($skybg, 25) 100%);
+      transform: rotate(-8deg);
+      border-top-right-radius: 50% 70%;
+
+    }
+  }
+
+  .sky-3 {
+    width: 100%;
+    height: 50%;
+    bottom: -12%;
+    left: 15%;
+    z-index: 1;
+    background: center / 3px 3px radial-gradient(circle, transparentize(lighten($skybg, 30), 0.5) 0, transparentize(lighten($skybg, 30), 0.5) 1px, transparent 1px),
+                linear-gradient(to bottom, lighten($skybg, 5), lighten($skybg, 20));
+    opacity: .5;
+    transform: rotate(5deg);
+    border-top-left-radius: 100% 50%;
+    border-top-right-radius: 20%;
+  }
+
+  .background-clouds {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .cloud-1 {
+      @include cloudalt($light);
+      top: 15%;
+      left: 50%;
+      width: 30%;
+      height: 5%;
+      opacity: .6;
+    }
+    .cloud-2 {
+      @include cloud(($light));
+      top: 33%;
+      left: -10%;
+      width: 40%;
+      height: 6%;
+      opacity: 0.5;
+    }
+    .cloud-3 {
+      @include cloudalt(($light));
+      top: 43%;
+      left: 70%;
+      width: 35%;
+      height: 5%;
+      opacity: 0.5;
+    }    
+    .cloud-4 {
+      z-index: 6;
+      @include cloudalt(($light));
+      transform: scaleX(-1) rotate(1deg);
+      top: 68%;
+      left: 40%;
+      width: 35%;
+      height: 5%;
+      opacity: 0.7;
+    }      
+  }
+
+}
+
+.mountains {
+  width: 100%;
+  height: 30%;
+  bottom: 25%;
+  overflow: hidden;
+  z-index: 10;
+  .shadow {
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(ellipse at 100% 100%, black 0, transparent 70%);
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    // mix-blend-mode: multiply;
+    mix-blend-mode: soft-light;
+    z-index: 3;
+  }
+  .mountain {
+    @include mountain($maroon);
+    height: 75%;
+    width: 70%;
+    bottom: 0;
+    left: -10%;
+    transform: rotate(45deg) translate(10%, 10%) skewX(5deg);
+  }  
+  .mountain-2 {
+    @include mountain(saturate(mix($maroon, $orange, 60%), 10));
+    height: 80%;
+    width: 80%;
+    bottom: 0;
+    left: 0%;
+    transform: rotate(45deg) translate(50%, 40%) scaleY(1.2) scaleX(1.1) skewX(10deg) skewY(8deg);
+    z-index: 1;
+  }
+  .mountain-3 {
+    @include mountain(saturate(mix($maroon, $orange, 80%), 10));
+    height: 80%;
+    width: 60%;
+    left: 68%;
+    top: 58%;
+    transform: rotate(33deg) skewY(30deg);
+    z-index: 1;
+  }
+  .mountain-4 {
+    @include mountain($maroon);
+    height: 70%;
+    width: 50%;
+    top: 40%;
+    left: 50%;
+    transform: rotate(35deg) skewY(20deg);
+
+  }
+}
+
+.objects-foreground {
+  height: 15%;
+  width: 100%;
+  right: 0;
+  bottom: 25%;
+  z-index: 20;
+
+  .house-2 {
+    height: 110%;
+    width: 25%;
+    right: 8%;
+    bottom: -10%;
+    z-index: 0;
+
+    .roof {
+      height: 50%;
+      width: 100%;
+      top: 25%;
+      left: 0;
+      .front {
+        width: 70%;
+        height: 100%;
+        top: 0;
+        &:after {
+          // background: darken($maroon, 3);
+          // background: linear-gradient(-135deg, #{darken($maroon, 5)} 0%, darken($maroon, 5) 50%, transparent 50%);
+          background: darken($maroon, 7);
+          mask-image: linear-gradient(-135deg, tan 0%, tan 50%, transparent 50%, transparent);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          transform: rotate(-45deg);
+          border-radius: 4px;
+          content: '';
+          z-index: 2;
+          border-top: 3px solid darken($maroon, 15);
+          border-right: 3px solid darken($maroon, 15);
+        }
+      }
+      .side {
+        width: 40%;
+        height: 64%;
+        left: 58%;
+        top: -15%;
+        &:after {
+          background: linear-gradient( transparent, transparentize(darken($maroon, 15), .2 ) ),
+                      repeating-linear-gradient(darken($maroon, 15) 0px, darken($maroon, 15) 3px, transparent 3px, transparent 6px),
+                      linear-gradient($maroon, $maroon);
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          content: '';
+          transform: skewX(45deg);
+          border-radius: 4px;
+        }
+      }
+    }
+
+    .main {
+      height: 50%;
+      width: 110%;
+      bottom: 0;
+      left: -10%;
+      .front {
+        width: 90%;
+        height: 100%;
+        background: darken($maroon, 3);
+        top: 0;
+        left: 0;
+
+        .window {
+          width: 30%;
+          height: 35%;
+          top: 8%;
+          left: 33%;
+          background: darken($windows, 20);
+          z-index: 5;
+          border-top: 2px solid darken($windows, 30);
+          border-left: 1px solid darken($windows, 30);
+          &:after {
+            width: 90%;
+            height: calc(90% - 2px);
+            top: 10%;
+            left: 7%;
+            background: $windows;
+            content: '';
+            position: absolute;
+          }
+        }
+      }
+      .side {
+        width: 28%;
+        height: 100%;
+        background: darken($maroon, 10);
+        top: -2%;
+        right: -16%;
+        .window {
+          width: 40%;
+          height: 30%;
+          background: darken($windows, 20);
+          left: 30%;
+          top: 10%;
+          transform: skewY(-3deg);
+          &:after {
+            position: absolute;
+            content: '';
+            width: 80%;
+            height: 100%;
+            left: 20%;
+            top: 0;
+            background: $windows;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ground {
+  height: 25%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 30;
+  
+  .ground-bg {
+    width: 100%;
+    height: 100%;
+    top: -10%;
+    background: linear-gradient(to bottom, darken($ground, 5) 0%, $ground 8%);
+    z-index: 1;
+    border-radius: 90%;
+    transform: rotate(36deg) skewX(-23deg) skewY(-35deg) translate(-15%, -9%);
+  }
+  .ground-main {
+    width: 130%;
+    height: 150%;
+    background: linear-gradient(-20deg, transparentize(darken($ground, 10), .5), transparent 80%),
+                repeating-linear-gradient( 45deg, $ground 0, $ground 1px, transparent 1px, transparent 4px ),
+                repeating-linear-gradient( -45deg, $ground 0, $ground 1px, transparent 1px, transparent 4px ),
+                repeating-linear-gradient( 30deg, $ground 0, $ground 2px, transparent 2px, transparent 6px ),
+                linear-gradient(-20deg, darken($ground, 10) 0%, $ground 70%) ;
+    left: -15%;
+    top: -5%;
+    z-index: 1;
+    border-top-right-radius: 100% 20%;
+    overflow: hidden;
+    transform: rotate(-10deg) skewX(-10deg);
+    .light {
+      width: 70%;
+      height: 55%;
+      background: radial-gradient(farthest-side at 50% 0, $windows 0, transparentize($windows, 0.8 ) 70%, transparent);
+      z-index: 50;
+      right: -10%;
+      mix-blend-mode: hard-light;
+      opacity: 0.5;
+      top: 0%;
+      // mask-image: radial-gradient(ellipse at 60% 100%, tan 0, tan 90%, transparent 90%, transparent);
+      // mask-size: 300% 100%;
+    }    
+  }
+
+
+
+  .hill-bottom {
+    width: 150%;
+    height: 110%;
+    --t: #{transparentize($ground, 0.6)};
+    background: repeating-linear-gradient( 45deg, var(--t) 0, var(--t) 1px, transparent 1px, transparent 9px ),
+                linear-gradient(25deg, darken($ground, 15), darken($ground, 2));
+    bottom: 0;
+    z-index: 5;
+    border-radius: 50%;
+    right: 15%;
+    bottom: -40%;
+    transform: rotate(20deg) skewY(-14deg) skewX(50deg);
+  }
+
+  .trees {
+    position: initial;
+  }
+
+  .tree {
+    width: 14%;
+    height: 50%;
+    left: 5%;
+    top: -50%;
+    overflow: hidden;
+    @include tree($green);
+    // z-index: 2;
+    &:nth-child(1) {
+      height: 60%;
+      top: -60%;
+    }
+    &:nth-child(2) {
+      left: 25%;
+      top: -48%;
+    }
+    &:nth-child(3) {
+      left: 13%;
+      top: -40%;
+      z-index: 0;
+      @include tree($ground);
+    }
+    &:nth-child(4) {
+      left: 33%;
+      top: -35%;
+      width: 12%;
+      @include tree($ground);
+    }
+    &:nth-child(5) {
+      @include tree($ground);
+      left: 30%;
+      height: 30%;
+      top: -30%;
+      width: 8%;
+      // z-index: 1;
+    }
+    &:nth-child(6) {
+      @include tree($ground);
+      left: -3%;
+      width: 15%;
+      height: 37%;
+      top: -37%;
+    }
+  }
+
+  .trees-2 {
+    position: initial;
+    .tree {
+      height: 50%;
+      width: 15%;
+      &:nth-child(1) {
+        left: 40%;
+        top: 10%;
+        z-index: 2;
+        height: 55%;
+      }
+      &:nth-child(2) {
+        left: 30%;
+        height: 55%;
+        top: 1%;
+        z-index: 2;
+        @include tree($ground);
+      }
+      &:nth-child(3) {
+        left: 22%;
+        width: 12%;
+        top: 12%;
+        z-index: 1;
+        @include tree($green);
+      }
+    }
+  }  
+}
+
+
