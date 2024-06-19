@@ -132,12 +132,15 @@ const NormalPost = ({ post }) => {
 
   return (
     <div
-      className="flip-container"
-      onTouchStart="this.classList.toggle('hover');"
+      // className="flip-container"
+      className={`flip-container ${isFlipped ? 'flipped' : ''}`} 
+      // onTouchStart="this.classList.toggle('hover');"
+      onClick={handleFlip}
     >
-      <Center className="flipper">
+      <Center className='flipper'>
         <Grid
           className="front"
+          // className={`front ${isFlipped ? '' : 'showing'}`}
           // onClick={handleFlip}
           // className={`flip-container ${isFlipped ? 'flipped' : ''}`}
           gridTemplateRows={"30% 10% 1fr 10%"}
@@ -218,6 +221,7 @@ const NormalPost = ({ post }) => {
 
         <Grid
           className="back"
+          // className={`back ${isFlipped ? 'showing' : ''}`}
           // onClick={handleFlip}
           gridTemplateRows={"10% 1fr"}
           p={17}
