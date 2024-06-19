@@ -30,11 +30,7 @@ const Prompt = () => {
 
     if (currentPrompt) {
       const currentDate = new Date().getDate();
-      const promptDate = new Date(
-        currentPrompt.updatedAt
-          ? currentPrompt.updatedAt
-          : currentPrompt.createdAt
-      ).getDate();
+      const promptDate = new Date(currentPrompt.createdAt).getDate();
 
       if (currentDate !== promptDate) return true;
       else return false;
@@ -54,7 +50,6 @@ const Prompt = () => {
     try {
       response = await axios.post(
         "http://localhost:4000/api/posts/prompt/",
-        { userId: peacepodUserId },
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }
@@ -143,7 +138,10 @@ const Prompt = () => {
         ...prevPromptsDisplay,
       ]);
       setFirstResponse(promptResponses[idx]);
-      dispatch({ type: "UPDATE_FIRST_RESPONSE", payload: promptResponses[idx]})
+      dispatch({
+        type: "UPDATE_FIRST_RESPONSE",
+        payload: promptResponses[idx],
+      });
       if (firstPromptRef.current) {
         firstPromptRef.current.focus();
       }
@@ -227,13 +225,17 @@ const Prompt = () => {
                   }
                   tabIndex={-1}
                 >
-                  <p className="prompt-text responses">{firstPromptResponse?.content}</p>
+                  <p className="prompt-text responses">
+                    {firstPromptResponse?.content}
+                  </p>
                 </GridItem>
                 {promptsDisplay &&
                   promptsDisplay.map((promptRes, promptIdx) =>
                     promptIdx ? (
                       <GridItem key={promptIdx} w="100%" h="10">
-                        <p className="prompt-text responses">{promptRes.content}</p>
+                        <p className="prompt-text responses">
+                          {promptRes.content}
+                        </p>
                       </GridItem>
                     ) : undefined
                   )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import io from 'socket.io-client';
 import {Grid, GridItem, HStack, Input, Avatar, Box, IconButton, Icon, Divider} from '@chakra-ui/react';
 import { IoSend } from "react-icons/io5";
@@ -9,12 +9,9 @@ import Message from './Message';
 import Lottie from "react-lottie";
 import animationData from "./typing.json";
 
-// connect to server
-var socket, selectedChatCompare;
-
 const SingleChat = ({chat}) => {
 
-  const { selectedChat } = useChatsContext()
+  const { selectedChat, dispatch: chatDispatch, socket, selectedChatCompare } = useChatsContext()
   const { _id: chatId, users } = chat 
 
   // get information of the sender (logged in user)
@@ -33,9 +30,6 @@ const SingleChat = ({chat}) => {
   const [istyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    // connect to server
-    socket = io.connect('http://localhost:4000');
-    socket.emit("setup", sender);
     socket.on("connected", () => setSocketConnected(true))
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
@@ -43,19 +37,25 @@ const SingleChat = ({chat}) => {
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
-      // if chat is not selected or doesn't match current chat
-      if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
-        // give notification
-      } else {
-        setAllMessages([...allMessages, newMessageReceived])
+      if (newMessageReceived.sender._id != sender._id) {
+        // if chat is selected and match current chat
+        if (selectedChatCompare && selectedChatCompare._id === newMessageReceived.chat._id) {
+          setAllMessages([...allMessages, newMessageReceived])
+          scrollToBottom();
+        }
       }
     })
-  })
+  }, [])
 
   useEffect(() => {
     fetchMessages();
-    selectedChatCompare = selectedChat;
+    chatDispatch({type: 'SET_SELECTED_CHAT_COMPARE', payload: selectedChat});
   }, [selectedChat]);
+
+  // Scroll to the bottom of the container after fetching messages
+  useEffect(() => {
+    scrollToBottom();
+  }, [allMessages]);
 
   // Fetch all messages initially when first opened the chat 
   const fetchMessages = async () => {
@@ -90,6 +90,7 @@ const SingleChat = ({chat}) => {
       .catch( error => console.log(error))
     
     setNewMessage("");
+    scrollToBottom();
   };
 
   const typingHandler = (e) => {
@@ -113,6 +114,16 @@ const SingleChat = ({chat}) => {
     }, timerLength);
   };
 
+  const scrollToBottom = useCallback(() => {
+    const messagesContainer = document.getElementById('messagesContainer');
+    if (messagesContainer) {
+      const lastMessage = messagesContainer.lastElementChild;
+      if (lastMessage) {
+        lastMessage.scrollIntoView();
+      }
+    }
+  }, []);
+
   return (
     <Grid gridTemplateRows={'8% 1fr 15%'}  w='100%' h='100%'>
       <GridItem w='100%' h='100%'> 
@@ -123,15 +134,15 @@ const SingleChat = ({chat}) => {
       </GridItem>
       <GridItem w='100%' h='100%'> 
         <div className='chatbox-divider'></div>
-        <Box maxHeight="530px" overflowY="auto" p={3} mb={5}>
+        <Box id="messagesContainer" maxHeight="530px" overflowY="auto" p={3} mb={5}>
           {allMessages && allMessages.map((message, index) => (
             <Message 
-              key={index} 
+              key={index} // !!! not use key 
               message={message} 
               previousMessage={index > 0 ? allMessages[index - 1] : null} 
             />
           ))}
-          </Box>
+        </Box>
           {/* {istyping && (
             <Lottie
               options={{
