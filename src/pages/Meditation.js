@@ -14,11 +14,11 @@ const Meditation = () => {
 
   return (
     <CloudinaryContextProvider>
-      <h1>Meditation Session</h1>
+      {/* <h1>Meditation Session</h1> */}
       <Grid
         gridTemplateRows={"1fr 12%"}
         // bg="green.100"
-        h={"calc(100vh - 100px)"}
+        h={"calc(100vh - 95px)"}
       >
         <GridItem w="100%" h="100%">
           <MeditationDrawer />

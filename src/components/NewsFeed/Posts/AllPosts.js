@@ -45,7 +45,7 @@ const AllPosts = () => {
 
     return ( 
         <>
-        <Grid gridTemplateColumns={'5% 1fr 5%'} m={0} h="60vh" w="55%">
+        <Grid gridTemplateColumns={'5% 1fr 5%'} gap={2} m={0} h="60vh" w="60%">
           <GridItem 
             w='100%' h='100%' 
             display='flex' 

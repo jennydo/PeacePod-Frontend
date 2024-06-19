@@ -72,9 +72,12 @@ const Prompt = () => {
 
     // tmr.setTime(tmr.getTime() + 5 * 1000)
     tmr.setDate(now.getDate() + 1);
-    tmr.setTime(0, 0, 0, 0);
+    tmr.setHours(0)
+    tmr.setMinutes(0)
 
     const timeUntilMidnight = tmr - now;
+
+    console.log(timeUntilMidnight, now, tmr)
 
     setTimeout(() => {
       /// This is to update the current prompt
@@ -194,8 +197,14 @@ const Prompt = () => {
 
   return (
     <>
-      <Grid gridTemplateRows={"1fr 10%"} h="100%" w="100%" mt={10}>
-        <GridItem h="60vh" w="100%">
+      <Grid
+        gridTemplateRows={"90% 10%"}
+        h="100%"
+        maxH={'65vh'}
+        w="100%"
+        // mt={10}
+      >
+        <GridItem h="100%" w="100%" >
           <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
             <GridItem
               h="100%"
@@ -207,7 +216,7 @@ const Prompt = () => {
                 {promptQuote.slice(0, promptQuote?.length - 3)}
               </p>
             </GridItem>
-            <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
+            <GridItem h="60vh" w="100%" overflowY="hidden" textAlign="left">
               <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
                 <GridItem
                   ref={firstPromptRef}
