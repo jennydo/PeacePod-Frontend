@@ -218,7 +218,7 @@ const Prompt = () => {
                 {promptQuote.slice(0, promptQuote?.length - 3)}
               </p>
             </GridItem>
-            <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
+            <GridItem h="60vh" w="100%" overflowY="hidden" textAlign="left">
               <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
                 <GridItem
                   ref={firstPromptRef}
