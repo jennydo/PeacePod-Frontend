@@ -85,7 +85,7 @@ const Navbar = () => {
                                     {notifications && Object.values(notifications).map((notif, idx) => (
                                         <Stack key={idx} direction={'row'}>
                                             <Avatar size='sm' name={notif.username} src={notif.avatar}/>
-                                            <Link to="/chat" onClick={handleRemoveNotification(notif.username)}>
+                                            <Link to="/chat" onClick={() => handleRemoveNotification(notif.username)}>
                                                 <p className='notification-content'>
                                                     New message from {notif.username}
                                                 </p>

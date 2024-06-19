@@ -11,7 +11,7 @@ export const chatsReducer = (state, action) => {
             return {
                 ...state,
                 chats: action.payload,
-                selectedChat: action.payload[0]
+                selectedChat: action.payload ? action.payload[0] : null
             }
         case 'CREATE_CHAT':
             return {
