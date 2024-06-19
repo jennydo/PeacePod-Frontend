@@ -77,9 +77,12 @@ const Prompt = () => {
 
     // tmr.setTime(tmr.getTime() + 5 * 1000)
     tmr.setDate(now.getDate() + 1);
-    tmr.setTime(0, 0, 0, 0);
+    tmr.setHours(0)
+    tmr.setMinutes(0)
 
     const timeUntilMidnight = tmr - now;
+
+    console.log(timeUntilMidnight, now, tmr)
 
     setTimeout(() => {
       /// This is to update the current prompt
@@ -197,7 +200,7 @@ const Prompt = () => {
   return (
     <>
       <Grid
-        gridTemplateRows={"85% 10%"}
+        gridTemplateRows={"90% 10%"}
         h="100%"
         maxH={'65vh'}
         w="100%"
