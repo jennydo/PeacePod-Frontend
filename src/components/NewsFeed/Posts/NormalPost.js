@@ -87,7 +87,7 @@ const NormalPost = ({ post }) => {
         setLikes(likes);
       })
       .catch((error) => {
-        console.error("Error fetching likes:", error);
+        console.error("Error fetching total reactions:", error);
       });
   }, [post, user.token, reacted]);
 
