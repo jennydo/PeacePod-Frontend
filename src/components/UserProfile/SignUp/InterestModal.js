@@ -52,7 +52,7 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
                     colorScheme={alreadySelectedInterests.includes(interest) ? "blue" : "gray"}
                     onClick={() => handleInterestSelected(interest)}
                     m={1}>
-                    {interest}
+                    {alreadySelectedInterests.includes(interest) ? `${alreadySelectedInterests.indexOf(interest) + 1}. ${interest}` : interest}
                   </Button>
                 ))}
               </ButtonGroup>
@@ -66,6 +66,9 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
           </ModalFooter>
         </ModalContent>
       </Modal>
+      <div>
+        Selected interests: {alreadySelectedInterests.length}
+      </div>
     </>
   )
 }
