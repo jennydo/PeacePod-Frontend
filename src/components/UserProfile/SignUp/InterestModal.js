@@ -20,9 +20,16 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
     }
   };
 
+  const handleSave = () => {
+    if (alreadySelectedInterests.length === 5) {
+      // Save the selected interests
+      onClose();
+    } else {
+    }
+  };
+
   return (
     <>
-
       <Button mt={4} onClick={onOpen}>
         Select
       </Button>
@@ -60,7 +67,7 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} mx="auto" onClick={onClose}>
+            <Button colorScheme='blue' mr={3} mx="auto" onClick={handleSave}>
               Save
             </Button>
           </ModalFooter>
