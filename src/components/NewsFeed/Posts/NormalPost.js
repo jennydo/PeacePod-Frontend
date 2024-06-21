@@ -29,10 +29,12 @@ import "./NormalPost.scss";
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext();
   // data from post
-  const { title, content, createdAt: timeStamp } = post;
+  const { title, content, createdAt: timeStamp, postImageUrl } = post;
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), {
     addSuffix: true,
   });
+
+  const [postBackgroundImage, setPostBackGroundImage] = useState(<Image src={postImageUrl}/>)
 
   const [isFlipped, setIsFlipped] = useState(false);
   const handleFlip = () => setIsFlipped(!isFlipped);
@@ -132,15 +134,12 @@ const NormalPost = ({ post }) => {
 
   return (
     <div
-      // className="flip-container"
-      className={`flip-container ${isFlipped ? 'flipped' : ''}`} 
-      // onTouchStart="this.classList.toggle('hover');"
-      onClick={handleFlip}
+      className="flip-container"
+      onTouchStart="this.classList.toggle('hover');"
     >
-      <Center className='flipper'>
+      <Center className="flipper">
         <Grid
           className="front"
-          // className={`front ${isFlipped ? '' : 'showing'}`}
           // onClick={handleFlip}
           // className={`flip-container ${isFlipped ? 'flipped' : ''}`}
           gridTemplateRows={"30% 10% 1fr 10%"}
@@ -221,7 +220,6 @@ const NormalPost = ({ post }) => {
 
         <Grid
           className="back"
-          // className={`back ${isFlipped ? 'showing' : ''}`}
           // onClick={handleFlip}
           gridTemplateRows={"10% 1fr"}
           p={17}
