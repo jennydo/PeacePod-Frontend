@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import io from 'socket.io-client';
-import {Grid, GridItem, HStack, Input, Avatar, Box, IconButton, Icon, Divider} from '@chakra-ui/react';
+import {Grid, GridItem, HStack, Input, Avatar, Box, IconButton, Icon, Divider, VStack} from '@chakra-ui/react';
 import { IoSend } from "react-icons/io5";
 import { useAuthContext } from '../../hooks/useAuthContext';
 import axios from 'axios';
@@ -125,7 +125,7 @@ const SingleChat = ({chat}) => {
   }, []);
 
   return (
-    <Grid gridTemplateRows={'8% 1fr 15%'}  w='100%' h='100%'>
+    <Grid gridTemplateRows={'8% 1fr 8%'}  w='100%' h='100%'>
       <GridItem w='100%' h='100%'> 
         <HStack className='chatbox-header'>
           <Avatar src={receiverAvatar}/>
@@ -134,7 +134,7 @@ const SingleChat = ({chat}) => {
       </GridItem>
       <GridItem w='100%' h='100%'> 
         <div className='chatbox-divider'></div>
-        <Box id="messagesContainer" maxHeight="530px" overflowY="auto" p={3} mb={5}>
+        <VStack id="messagesContainer" height="70vh" overflowY="scroll" p={3} mb={5}>
           {allMessages && allMessages.map((message, index) => (
             <Message 
               key={index} // !!! not use key 
@@ -142,7 +142,7 @@ const SingleChat = ({chat}) => {
               previousMessage={index > 0 ? allMessages[index - 1] : null} 
             />
           ))}
-        </Box>
+        </VStack>
           {/* {istyping && (
             <Lottie
               options={{

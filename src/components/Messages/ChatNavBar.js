@@ -3,12 +3,8 @@ import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import {
   VStack,
-  Heading,
+  StackDivider,
   Button,
-  Modal,
-  ModalBody,
-  ModalOverlay,
-  ModalHeader,
   useDisclosure,
   ButtonGroup,
 } from "@chakra-ui/react";
@@ -49,7 +45,7 @@ const ChatNavBar = () => {
 
   return (
     <>
-      <h1>Your Messages</h1>
+      <h2>Your Messages</h2>
       <ButtonGroup w={"100%"} isAttached>
         <Button
           w={"100%"}
@@ -76,7 +72,10 @@ const ChatNavBar = () => {
 
       <MatchingModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} />
 
-      <VStack className='chat-navbar'>
+      <VStack 
+        className='chat-navbar'
+        divider={<StackDivider borderColor='gray.200' />}
+      >
         {chats && chats.map((chat) => <ChatBox key={chat._id} chat={chat} />)}
       </VStack>
     </>
