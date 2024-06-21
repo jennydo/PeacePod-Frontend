@@ -1,6 +1,5 @@
 
 import { Grid, GridItem, useDisclosure, Button, IconButton, Icon, Divider } from "@chakra-ui/react";
-import { IoFilterSharp } from "react-icons/io5";
 import { TiPlus } from "react-icons/ti";
 import { CloudinaryContext, CloudinaryContextProvider } from "../context/CloudinaryContext";
 import { useState, useRef, useContext, useEffect } from "react";
@@ -13,6 +12,7 @@ import { SpotifyContext } from "../context/SpotifyContext";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { AudioContext } from "../context/AudioContext";
+import MeditationModal from "../components/Meditation/MeditationModal";
 
 
 const Meditation = () => {
@@ -25,6 +25,7 @@ const Meditation = () => {
     onClose: onModalClose,
   } = useDisclosure();
   const finalRef = useRef(null);
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
   const {
     displayedImage,
@@ -161,7 +162,10 @@ const Meditation = () => {
           </GridItem>
 
           <GridItem w='100%' h='100%' className="meditation">
-            <Button onClick={handleSave}>
+            <Button onClick={() => {
+              handleSave()
+              onOpen()
+            }}>
               Start!
             </Button>
           </GridItem>
@@ -174,6 +178,8 @@ const Meditation = () => {
         onClose={onModalClose}
         isOpen={isModalOpen}
       />
+
+      <MeditationModal isOpen={isOpen} onClose={onClose}/>
     </>
   );
 };

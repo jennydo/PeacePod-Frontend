@@ -36,6 +36,18 @@
     & .icons {
         justify-content: space-around;
     }
+
+    &.modal-icon {
+        justify-content: end;
+        height: 100vh;
+        z-index: 1;
+        position: relative;
+    }
+
+    &.media-player {
+        z-index: 2;
+        position: relative;
+    }
 }
 
 .meditation-audios {
