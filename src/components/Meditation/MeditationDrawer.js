@@ -70,11 +70,6 @@ const MeditationDrawer = () => {
         }
       );
       console.log("Response from get last session", res.data);
-      /// Update chosen audio from last session
-      audioDispatch({
-        type: "CHOOSE_AUDIO",
-        payload: res.data.meditationAudio,
-      });
 
       /// Update chosen background from last session
       cloudinaryDispatch({
@@ -82,14 +77,25 @@ const MeditationDrawer = () => {
         payload: res.data.lastBackground,
       });
 
+      audioDispatch({
+        type: "CHOOSE_AUDIO",
+        payload: res.data.meditationAudio,
+      });
+      spotifyDispatch({ 
+        type: "SET_SPOTIFY_PLAYING_TRACK",
+        payload: res.data.music})
+
       /// Update state of choosing audio for choosing spotify
-      if (res.data.isPlayingAudio) {
-        audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
-        spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY" });
-      } else {
-        audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
-        spotifyDispatch({ type: "CHOOSE_PLAY_SPOTIFY" });
-      }
+      audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
+      spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY" });
+      // if (res.data.isPlayingAudio) {
+      //   audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
+      //   spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY" });
+      // } else {
+      //   audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
+      //   spotifyDispatch({ type: "CHOOSE_PLAY_SPOTIFY" });
+      // }
+
     } catch (error) {
       console.log("Error while getting session", error);
     }
@@ -116,7 +122,7 @@ const MeditationDrawer = () => {
     const session = {
       lastBackground: displayedImage,
       meditationAudio: chosenAudio,
-      music: playingTrack,
+      music: playingTrack?.uri,
       isPlayingAudio,
     };
 
