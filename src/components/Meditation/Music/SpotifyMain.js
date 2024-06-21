@@ -7,7 +7,6 @@ const SpotifyMain = () => {
     const {spotifyCode} = useSpotifyContext();
     return ( 
         <Box>
-            <p>Choose from spotify</p>
             {spotifyCode? <SpotifyList code={spotifyCode}/> : <SpotifyLogin/>}
         </Box>
      );

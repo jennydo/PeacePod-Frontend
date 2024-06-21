@@ -13,6 +13,7 @@ import { SpotifyContextProvider } from "./context/SpotifyContext";
 import { AvatarContextProvider } from "./context/AvatarContext";
 import { AudioContextProvider } from "./context/AudioContext";
 import { PromptResponsesContextProvider } from "./context/PromptResponseContext";
+import { CloudinaryContextProvider } from "./context/CloudinaryContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,7 +25,9 @@ root.render(
             <CommentsContextProvider>
               <ChatsContextProvider>
                 <SpotifyContextProvider>
-                  <App />
+                  <CloudinaryContextProvider>
+                    <App />
+                  </CloudinaryContextProvider>
                 </SpotifyContextProvider>
               </ChatsContextProvider>
             </CommentsContextProvider>

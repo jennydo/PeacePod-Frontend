@@ -1,42 +1,17 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   useDisclosure,
   Button,
-  VStack,
-  Box,
-  Text,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  IconButton,
-  Flex,
 } from "@chakra-ui/react";
-import { IoFilterSharp } from "react-icons/io5";
-import { IoIosSettings } from "react-icons/io";
-import SpotifyMain from "./Music/SpotifyMain";
 import BackgroundMain from "./Background/BackgroundMain";
 import axios from "axios";
-import AudioList from "./MeditationAudio/MeditationAudioList";
-import { TiPlus } from "react-icons/ti";
-import NewAudioModal from "./MeditationAudio/NewAudioModal";
 import { CloudinaryContext } from "../../context/CloudinaryContext";
 import { SpotifyContext } from "../../context/SpotifyContext";
 import { AudioContext } from "../../context/AudioContext";
 
 const MeditationDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
   const user = JSON.parse(localStorage.getItem("user"));
-  const [isFilter, setIsFilter] = useState(false);
 
   /// Get chosen image from cloudinary context
   const {
@@ -57,64 +32,6 @@ const MeditationDrawer = () => {
     dispatch: audioDispatch,
     isPlayingAudio,
   } = useContext(AudioContext);
-
-  /// Function to fetch session from DB
-  const fetchSession = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:4000/api/meditation/sessions/last",
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      );
-      console.log("Response from get last session", res.data);
-
-      /// Update chosen background from last session
-      cloudinaryDispatch({
-        type: "DISPLAY_IMAGE",
-        payload: res.data.lastBackground,
-      });
-
-      audioDispatch({
-        type: "CHOOSE_AUDIO",
-        payload: res.data.meditationAudio,
-      });
-      spotifyDispatch({ 
-        type: "SET_SPOTIFY_PLAYING_TRACK",
-        payload: res.data.music})
-
-      /// Update state of choosing audio for choosing spotify
-      audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
-      spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY" });
-      // if (res.data.isPlayingAudio) {
-      //   audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
-      //   spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY" });
-      // } else {
-      //   audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
-      //   spotifyDispatch({ type: "CHOOSE_PLAY_SPOTIFY" });
-      // }
-
-    } catch (error) {
-      console.log("Error while getting session", error);
-    }
-  };
-
-  /// Fetch session from DB
-  useEffect(() => {
-    fetchSession();
-    console.log("chosen audio from last session ", chosenAudio);
-  }, []);
-
-  /// Modal logic
-  const finalRef = useRef(null);
-
-  const {
-    isOpen: isModalOpen,
-    onOpen: onModalOpen,
-    onClose: onModalClose,
-  } = useDisclosure();
 
   const handleSave = async () => {
     // console.log("Current tab index ", tabIndex);
@@ -146,112 +63,13 @@ const MeditationDrawer = () => {
     }
   };
 
-  const [hovered, setHovered] = useState(false)
-
   return (
-    <>
-      <Flex w="100%" justifyContent={"flex-end"} position={'absolute'}>
-        <Button
-          // marginRight={10}
-          marginBottom={1}
-          ref={btnRef}
-          onClick={onOpen}
-          rightIcon={<IoIosSettings fontSize={20} justifyContent='center'/>}
-          position={'absolute'}
-          top={1}
-          right={42}
-          borderRadius={15}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          w={hovered? 300 : 10}
-          transition="width 0.3s ease"
-          pr={hovered? 'default' : 6}
-        >
-          {hovered? "What vibe are you feeling today?" : ""}
-        </Button>
-      </Flex>
-
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-        size="sm"
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader paddingTop={0} paddingBottom={0}>
-            Create your Meditation Session
-          </DrawerHeader>
-
-          <DrawerBody
-            sx={{
-              "::-webkit-scrollbar": {
-                display: "none",
-              },
-            }}
-          >
-            <VStack h="100%">
-              <Box w="100%" h="50%">
-                <BackgroundMain />
-              </Box>
-              <Box w="100%" h="50%">
-                <Tabs isFitted={true} h="100%">
-                  <Text fontSize="xl" marginBottom={0} mt={3}>
-                    Choose gentle harmony for your peace
-                  </Text>
-                  <TabList>
-                    <Tab>Your list</Tab>
-                    <Tab>Spotify</Tab>
-                  </TabList>
-
-                  <TabPanels>
-                    <TabPanel padding={0}>
-                      <Button
-                        mt={3}
-                        leftIcon={<IoFilterSharp />}
-                        borderRadius={10}
-                        size="sm"
-                        onClick={() => setIsFilter(!isFilter)}
-                        bg={isFilter ? "pink.100" : "gray.100"}
-                      >
-                        Filter favorite
-                      </Button>
-                      <AudioList isFilter={isFilter} />
-                      <Button
-                        leftIcon={<TiPlus />}
-                        borderRadius={10}
-                        size="sm"
-                        onClick={onModalOpen}
-                      >
-                        Generate new audio
-                      </Button>
-                      <NewAudioModal
-                        finalRef={finalRef}
-                        onClose={onModalClose}
-                        isOpen={isModalOpen}
-                      />
-                    </TabPanel>
-                    <TabPanel>
-                      <SpotifyMain />
-                    </TabPanel>
-                  </TabPanels>
-                </Tabs>
-              </Box>
-            </VStack>
-          </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue" onClick={handleSave}>
-              Save
-            </Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+    <>        
+    <BackgroundMain />
+    <Button colorScheme="blue" onClick={handleSave}>
+      Save
+    </Button>
+         
     </>
   );
 };
