@@ -45,14 +45,15 @@ const ChatNavBar = () => {
 
   return (
     <>
-      <h2>Your Messages</h2>
+      <h1>Messages</h1>
       <ButtonGroup w={"100%"} isAttached>
         <Button
           w={"100%"}
           leftIcon={<FaPeopleArrows />}
-          bg={"#FFAFCC"}
-          _hover={{ background: "#FFD6FF" }}
+          bg={"white"}
+          _hover={{ background: "grey" }}
           onClick={!isWaitingForMatch ? onOpen : null}
+          marginBottom={5}
         >
           {isWaitingForMatch
             ? "Waiting till 21:00..."
@@ -74,7 +75,7 @@ const ChatNavBar = () => {
 
       <VStack 
         className='chat-navbar'
-        divider={<StackDivider borderColor='gray.200' />}
+        divider={<div className="chatbox-divider"/>}
       >
         {chats && chats.map((chat) => <ChatBox key={chat._id} chat={chat} />)}
       </VStack>
