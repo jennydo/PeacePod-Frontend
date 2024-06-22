@@ -62,16 +62,23 @@
         color: black;
     }
 
+    &.timestamp {
+        margin-left: 6px;
+        font-size: 11px;
+        font-style: italic;
+        color: rgb(102, 100, 100);
+    }
+
 }
 
 .chatbox-divider {
-    background-color: grey;
-    height: 1px;
+    background-color: rgb(255, 255, 255);
+    height: 2px;
     width: 100%;
     margin-top: 5px;
 
     &.vertical {
-        width: 1px;
+        width: 2px;
         height: 100%;
         margin-left: 5px;
         margin-right: 5px;
@@ -102,17 +109,8 @@
     align-items: start !important; 
     margin-bottom: 10px;
     font-weight: 500;
-    // font-style: italic;
-
-    // &.content {
-    //     margin-bottom: 25px;
-
-    //     &.interests {
-    //         margin-bottom: 0;
-    //         margin-top: 0;
-    //     }
-    // }
 }
+
 .chat-user-profile-info-title {
     margin-right: 5px;
 }

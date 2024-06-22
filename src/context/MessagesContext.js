@@ -11,10 +11,6 @@ export const messagesReducer = (state, action) => {
                     ...state.messages,
                     [action.payload.chatId]: action.payload.messages
                 },
-                // previewMessages: {
-                //     ...state.previewMessages,
-                //     [action.payload.chatId]: action.payload.messages[0]
-                // }
             }
         case 'SET_PREVIEW_MESSAGE':
             return {
@@ -22,7 +18,11 @@ export const messagesReducer = (state, action) => {
                 previewMessages: {
                     ...state.previewMessages,
                     [action.payload.chatId]: action.payload.message
-                }
+                },
+                previewMessagesTimestamp: {
+                    ...state.previewMessagesTimestamp,
+                    [action.payload.chatId]: action.payload.timestamp,
+                },
             }
         case 'NEW_MESSAGE': 
             const currentMessages = state.messages[action.payload.chatId] || [];
@@ -38,7 +38,11 @@ export const messagesReducer = (state, action) => {
                 previewMessages: {
                    ...state.previewMessages,
                     [action.payload.chatId]: action.payload.message.content
-                }
+                },
+                // previewMessagesTimestamp: {
+                //     ...state.previewMessagesTimestamp,
+                //     [action.payload.chatId]: action.payload.message.createdAt,
+                // },
             }
         default:
             return state
@@ -48,7 +52,8 @@ export const messagesReducer = (state, action) => {
 export const MessagesContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(messagesReducer, {
         messages: {},
-        previewMessages: {}
+        previewMessages: {},
+        previewMessagesTimestamp: {},
     })
 
     return (

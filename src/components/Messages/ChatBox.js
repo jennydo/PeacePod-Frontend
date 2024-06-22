@@ -1,15 +1,16 @@
-import { Avatar, Stack, Box } from "@chakra-ui/react";
+import { Avatar, Stack, Box, HStack, VStack } from "@chakra-ui/react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useChatsContext } from '../../hooks/useChatsContext';
 import { useMessagesContext } from '../../hooks/useMessagesContext';
 import { useEffect } from "react";
 import './Chat.scss';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const ChatBox = ({chat}) => {
     const { selectedChat, dispatch } = useChatsContext()
     const {user: sender} = useAuthContext()
     const { users } = chat
-    const { dispatch: messagesDispatch, previewMessages } = useMessagesContext()
+    const { dispatch: messagesDispatch, previewMessages, previewMessagesTimestamp } = useMessagesContext()
 
     // get the username and avatar of the receiver
     const receiver = users.filter(user => user._id !== sender.user._id);
@@ -19,18 +20,13 @@ const ChatBox = ({chat}) => {
     const latestMessage = chat.latestMessage || ""
     const displayedLatestMessage = latestMessage.content || ""
 
-    if (selectedChat._id === chat._id) {
-        console.log("selectedChat", selectedChat)
-        console.log("chat", chat)
-    }
-    
-
     useEffect(() => {
         messagesDispatch({
             type: 'SET_PREVIEW_MESSAGE', 
             payload: {
                 chatId: chat._id,
-                message: displayedLatestMessage
+                message: displayedLatestMessage,
+                timestamp: formatDistanceToNow(new Date(latestMessage.createdAt), { addSuffix: true })
             }})
     }, [])
 
@@ -46,8 +42,11 @@ const ChatBox = ({chat}) => {
             <Stack direction="row" w="100%" onClick={() => selectChat(chat)}>
                 <Avatar name={username} src={avatar}/>
                 <Stack direction="column" gap='0'>
-                    <p className="app-message username">{username}</p>
-                    <p className="app-message preview">{previewMessages[chat._id]}</p>
+                    <div>
+                        <span className="app-message username">{username}</span>
+                        <span className="app-message timestamp">{previewMessagesTimestamp[chat._id]}</span>
+                    </div>
+                    <div className="app-message preview">{previewMessages[chat._id]}</div>
                 </Stack>
             </Stack>
         </Box>

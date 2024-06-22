@@ -48,6 +48,7 @@ const UserChatProfile = ({chat}) => {
                     </GridItem>
                 ))}
             </Grid>
+            <div className="chatbox-divider"></div>
         </VStack>
      );
 }
