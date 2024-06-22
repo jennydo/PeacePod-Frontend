@@ -13,7 +13,7 @@ const SingleChat = ({chat}) => {
 
   const { selectedChat, dispatch: chatDispatch, socket, selectedChatCompare } = useChatsContext()
   const { dispatch: messagesDispatch, messages } = useMessagesContext()
-  const { _id: chatId, users } = chat 
+  const { _id: chatId, users, chatName } = chat 
 
   // get information of the sender (logged in user)
   const {user: sender} = useAuthContext()
@@ -149,7 +149,7 @@ const SingleChat = ({chat}) => {
       <GridItem w='100%' h='100%'> 
         <HStack className='chatbox-header'>
           <Avatar src={receiverAvatar}/>
-          <p className='app-message username'>{receiverUsername}</p>
+          <p className='app-message username'>{chatName}</p>
         </HStack>
       </GridItem>
       <GridItem w='100%' h='100%'> 

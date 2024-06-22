@@ -107,6 +107,28 @@
         color: black;
         margin-bottom: 0;
     }
+
+    &.feature {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between !important;
+
+        p {
+            padding-top: 0;
+            margin-bottom: 0;
+        }
+
+        // &.label {
+        //     margin-top: 
+        // }
+    }
+}
+
+.chat-user-profile-feature {
+    display: flex !important;
+    align-items: center !important; 
+    width: 100%;
 }
 
 .chat-user-profile-info {

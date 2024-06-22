@@ -9,7 +9,7 @@ import { GoDotFill } from "react-icons/go";
 const ChatBox = ({chat}) => {
     const { selectedChat, dispatch, onlineUsers } = useChatsContext()
     const {user: sender} = useAuthContext()
-    const { users } = chat
+    const { users, chatName } = chat
     const { dispatch: messagesDispatch, previewMessages, previewMessagesTimestamp } = useMessagesContext()
     const [isOnline, setIsOnline] = useState(false)
 
@@ -54,7 +54,7 @@ const ChatBox = ({chat}) => {
                 <Avatar name={username} src={avatar}/>
                 <Stack direction="column" gap='0'>
                     <div className="app-message box2">
-                        <span className="app-message username">{username}</span>
+                        <span className="app-message username">{chatName}</span>
                         <Icon className={isOnline ? "": "hidden"} as={GoDotFill}/>
                     </div> 
                     <div className="app-message box2">
