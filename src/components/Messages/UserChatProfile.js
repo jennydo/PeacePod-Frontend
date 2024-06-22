@@ -29,21 +29,21 @@ const UserChatProfile = ({chat}) => {
             align='stretch'
             className="chat-user-profile"
         >
-            <Avatar src={avatar} name={username} size='xl' mb={3}/>
+            <Avatar className="chat-user-profile avatar" src={avatar} name={username} size='xl' mb={3}/>
             <h3 className="chat-user-profile username">{username}</h3>
             <p>({pronounce})</p>
             <div className="chatbox-divider"></div>
             <Grid>
                 {info.map((item, index) => (
-                    <GridItem key={index}>
-                        <p className="chat-user-profile info-title">{item.title}</p>
+                    <GridItem key={index} className="chat-user-profile-info">
                         {item.title === 'Ask me about:'
-                        ? <VStack spacing={0}>
-                            {item.content.map((content, index) => (
-                                <p className="chat-user-profile info-content interests" key={index}>{content}</p>
-                            ))}
-                        </VStack>
-                        : <p className="chat-user-profile info-content">{item.content}</p>}
+                        ? <div className="chat-user-profile-info-interests">
+                            <span className="chat-user-profile-info-title">{item.title}</span> <span className="chat-user-profile-info-content interests">{item.content.join(', ')}</span>
+                        </div>
+                        :<>
+                            <p className="chat-user-profile-info-title">{item.title}</p>
+                            <p className="chat-user-profile-info-content">{item.content}</p>
+                        </>}
                         
                     </GridItem>
                 ))}

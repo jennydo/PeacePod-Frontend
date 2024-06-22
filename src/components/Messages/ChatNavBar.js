@@ -46,39 +46,40 @@ const ChatNavBar = () => {
   return (
     <>
       <h1>Messages</h1>
-      <ButtonGroup w={"100%"} isAttached>
-        <Button
-          w={"100%"}
-          leftIcon={<FaPeopleArrows />}
-          bg={"white"}
-          _hover={{ background: "grey" }}
-          onClick={!isWaitingForMatch ? onOpen : null}
-          marginBottom={5}
-        >
-          {isWaitingForMatch
-            ? "Waiting till 21:00..."
-            : "Need someone new to talk to?"}
-        </Button>
-
-        {isWaitingForMatch ? (
-          <Button
-            onClick={handleCancel}
-            bg={"#A2D2FF"}
-            _hover={{ background: "#CDB4DB" }}
-          >
-            Cancel
-          </Button>
-        ) : undefined}
-      </ButtonGroup>
-
-      <MatchingModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} />
 
       <VStack 
         className='chat-navbar'
-        divider={<div className="chatbox-divider"/>}
+        // divider={<div className="chatbox-divider"/>}
       >
+        <ButtonGroup w={"100%"} isAttached>
+          <Button
+            w={"100%"}
+            leftIcon={<FaPeopleArrows />}
+            bg={"white"}
+            _hover={{ background: "grey" }}
+            onClick={!isWaitingForMatch ? onOpen : null}
+            marginBottom={5}
+          >
+            {isWaitingForMatch
+              ? "Waiting till 21:00..."
+              : "Need someone new to talk to?"}
+          </Button>
+
+          {isWaitingForMatch ? (
+            <Button
+              onClick={handleCancel}
+              bg={"#A2D2FF"}
+              _hover={{ background: "#CDB4DB" }}
+            >
+              Cancel
+            </Button>
+          ) : undefined}
+        </ButtonGroup>
+
         {chats && chats.map((chat) => <ChatBox key={chat._id} chat={chat} />)}
       </VStack>
+
+      <MatchingModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

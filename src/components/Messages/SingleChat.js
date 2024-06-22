@@ -145,7 +145,7 @@ const SingleChat = ({chat}) => {
   }, []);
 
   return (
-    <Grid gridTemplateRows={'8% 1fr 8%'}  w='100%' h='100%'>
+    <Grid gridTemplateRows={'8% 1fr 8%'}  w='100%' h='100%' pt={'15px'}>
       <GridItem w='100%' h='100%'> 
         <HStack className='chatbox-header'>
           <Avatar src={receiverAvatar}/>

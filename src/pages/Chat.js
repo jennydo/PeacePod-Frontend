@@ -9,6 +9,7 @@ const Chat = () => {
   const { selectedChat } = useChatsContext()
   return (
     <>
+      <div className="chatbox-divider top"/>
       <Grid className="chat-box"
         gridTemplateColumns={'25% 1% 1fr 1% 22%'} 
         gap={2} >
