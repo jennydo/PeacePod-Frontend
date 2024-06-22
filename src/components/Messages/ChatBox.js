@@ -5,6 +5,7 @@ import { useMessagesContext } from '../../hooks/useMessagesContext';
 import { useEffect } from "react";
 import './Chat.scss';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { format, isToday, isThisWeek } from 'date-fns';
 
 const ChatBox = ({chat}) => {
     const { selectedChat, dispatch } = useChatsContext()
@@ -26,7 +27,8 @@ const ChatBox = ({chat}) => {
             payload: {
                 chatId: chat._id,
                 message: displayedLatestMessage,
-                timestamp: formatDistanceToNow(new Date(latestMessage.createdAt), { addSuffix: true })
+                // timestamp: formatDistanceToNow(new Date(latestMessage.createdAt), { addSuffix: true })
+                timestamp: latestMessage.createdAt
             }})
     }, [])
 

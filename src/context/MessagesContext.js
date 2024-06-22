@@ -1,8 +1,22 @@
 import {createContext, useReducer } from 'react';
+import { format, isToday, isThisWeek } from 'date-fns';
 
 export const MessagesContext = createContext();
 
-export const messagesReducer = (state, action) => {
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+
+    if (isToday(date)) {
+        return format(date, 'HH:mm');
+    } else if (isThisWeek(date)) {
+        return format(date, 'EEEE');
+    } else {
+        return format(date, 'MM/dd');
+    }
+}
+
+export const messagesReducer = (state, action) => { 
+
     switch (action.type) {
         case 'GET_MESSAGES':
             return {
@@ -21,7 +35,7 @@ export const messagesReducer = (state, action) => {
                 },
                 previewMessagesTimestamp: {
                     ...state.previewMessagesTimestamp,
-                    [action.payload.chatId]: action.payload.timestamp,
+                    [action.payload.chatId]: formatDate(action.payload.timestamp),
                 },
             }
         case 'NEW_MESSAGE': 
@@ -39,10 +53,12 @@ export const messagesReducer = (state, action) => {
                    ...state.previewMessages,
                     [action.payload.chatId]: action.payload.message.content
                 },
-                // previewMessagesTimestamp: {
-                //     ...state.previewMessagesTimestamp,
-                //     [action.payload.chatId]: action.payload.message.createdAt,
-                // },
+                previewMessagesTimestamp: {
+                    ...state.previewMessagesTimestamp,
+                    // [action.payload.chatId]: formatDistanceToNow(new Date(action.payload.message.createdAt), { addSuffix: true })
+                    [action.payload.chatId]: formatDate(action.payload.message.createdAt)
+
+                },
             }
         default:
             return state
