@@ -21,7 +21,7 @@ import { FaDoorOpen } from "react-icons/fa6";
 import { BsFillPersonFill } from "react-icons/bs";
 import { SiStarship } from "react-icons/si";
 import axios from "axios";
-
+import { useChatsContext } from '../../hooks/useChatsContext'
 
 
 const UserChatProfile = ({chat}) => {
@@ -29,6 +29,7 @@ const UserChatProfile = ({chat}) => {
     // get info of the receiver
     const receiver = chat.users.filter(user => user._id !== sender.user._id);
     const { username, avatar, pronounce, location, interests, bio } = receiver[0];
+    const { dispatch } = useChatsContext();
 
     const userInfo = [
         {
@@ -75,7 +76,7 @@ const UserChatProfile = ({chat}) => {
         {
             icon: FaDoorOpen,
             label: 'Leave chat',
-            func: () => {}
+            func: () => onOpenDeleteChat()
         }
     ]
 
@@ -87,12 +88,26 @@ const UserChatProfile = ({chat}) => {
                 chatName: newNickname
             }, {
                 headers: { Authorization: `Bearer ${sender.token}` },
-            }).then((response) => console.log(response.data))
+            })
+            .then((response) => console.log(response.data))
         setNewNickname("");
         onCloseNickname();
     }
+
+    const { isOpen: isOpenDeleteChat, onOpen: onOpenDeleteChat, onClose: onCloseDeleteChat } = useDisclosure()
+    const handleDeleteChat = () => {
+        axios.delete(`http://localhost:4000/api/chats/${chat._id}`, {
+                headers: { Authorization: `Bearer ${sender.token}` },
+            })
+            .then((response) => {
+                console.log('remove:', response.data.chat._id)
+                dispatch({type: 'REMOVE_CHAT', payload: response.data.chat._id})
+            })
+        onCloseDeleteChat();
+    }
   
     return ( 
+    <>
         <VStack
             padding={4}
             spacing={0}
@@ -107,10 +122,12 @@ const UserChatProfile = ({chat}) => {
             <UserChatProfileFeature title="Get to know me" features={userInfo}/>
             <UserChatProfileFeature title="Decorate your Chat box" features={chatAdjustment}/>
             <UserChatProfileFeature title="Privacy & Support" features={privacyAndSupport}/>
+            
+        </VStack>
 
-            <Modal isOpen={isOpenNickname} onClose={onCloseNickname}>
-                <ModalOverlay />
-                <ModalContent>
+        <Modal isOpen={isOpenNickname} onClose={onCloseNickname}>
+            <ModalOverlay />
+            <ModalContent>
                 <ModalHeader>Change your partner's nickname</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
@@ -125,11 +142,25 @@ const UserChatProfile = ({chat}) => {
                         Save
                     </Button>
                 </ModalFooter>
-                </ModalContent>
-            </Modal>
-            
-        </VStack>
+            </ModalContent>
+        </Modal>
+
+        <Modal isOpen={isOpenDeleteChat} onClose={onCloseDeleteChat}>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Leave Chat</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <p>Are you sure you want to delete this chat? You won't be able to connect back with this user.</p>
+                    <Button colorScheme='blue' mr={3} onClick={handleDeleteChat}>
+                        Delete
+                    </Button>
+                </ModalBody>
+            </ModalContent>
+        </Modal>
+    </>
      );
 }
+
  
 export default UserChatProfile;
