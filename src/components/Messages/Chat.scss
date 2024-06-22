@@ -56,6 +56,11 @@
         max-width: 250px;
     }
 
+    &.box2 {
+        display: flex;
+        align-items: center;
+    }
+
     &.username {
         font-weight: 700;
         text-align: left;
@@ -64,9 +69,9 @@
 
     &.timestamp {
         margin-left: 6px;
-        font-size: 11px;
+        font-size: 12px;
         font-style: italic;
-        color: rgb(102, 100, 100);
+        color: black;
     }
 
 }
@@ -86,7 +91,7 @@
 
     &.top {
         height: 3px;
-        background-color: black;
+        background-color: white;
     }
 }
 
@@ -132,3 +137,8 @@
     // word-wrap: break-word; /* Break words when needed to wrap */
     // display: inline; /* Display the text inline */
   }
+
+.hidden {
+    display: none !important;
+}
+  

@@ -41,6 +41,19 @@ export const chatsReducer = (state, action) => {
                 ...state,
                 selectedChatCompare: action.payload
             }
+        case 'ADD_ONLINE_USER':
+            // if (!state.onlineUsers.some(user => user._id === action.payload._id)) {
+                return {
+                    ...state,
+                    onlineUsers: [...state.onlineUsers, action.payload]
+                };
+            // }
+            // return state;
+        case 'REMOVE_ONLINE_USER':
+            return {
+                ...state,
+                onlineUsers: state.onlineUsers.filter(user => user._id!== action.payload)
+            }
         default:
             return state
     }
@@ -52,7 +65,8 @@ export const ChatsContextProvider = ( {children} ) => {
         selectedChat: null, 
         notifications: {},
         socket: null, 
-        selectedChatCompare: null 
+        selectedChatCompare: null,
+        onlineUsers: []
     })
 
     const { user } = useAuthContext();
@@ -71,6 +85,22 @@ export const ChatsContextProvider = ( {children} ) => {
 
         if (state.socket) {
             state.socket.emit("setup", user.user);
+            state.socket.emit('userConnected', user.user._id);
+
+            state.socket.on('onlineUsers', (onlineUserIds) => {
+                onlineUserIds.forEach(userId => {
+                    dispatch({type: 'ADD_ONLINE_USER', payload: userId});
+                });
+            });
+
+            state.socket.on('updateUserStatus', (data) => {
+                if (data.status === 'online') {
+                    dispatch({type: 'ADD_ONLINE_USER', payload: data.userId})
+                    console.log(data.userId, 'has been online')
+                } else if (data.status === 'offline') {
+                    dispatch({type: 'REMOVE_ONLINE_USER', payload: data.userId})
+                }
+            });
 
             state.socket.on("message received", (newMessageReceived) => {
                 if (newMessageReceived.sender._id !== user.user._id) {
