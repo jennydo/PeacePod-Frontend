@@ -22,7 +22,7 @@ import stampImage from "../../../assets/images/stamp3.png";
 import stampLoveImage from "../../../assets/images/stamplove.png";
 // import letterImage from '../../../assets/images/letter.png';
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
-import postBackgroundImage from "../../../assets/images/Bg9.avif";
+import postBackgroundImageDefault from "../../../assets/images/Bg9.avif";
 import backBackgroundImage from "../../../assets/images/back-background.jpg";
 import "./NormalPost.scss";
 
@@ -34,7 +34,6 @@ const NormalPost = ({ post }) => {
     addSuffix: true,
   });
 
-  const [postBackgroundImage, setPostBackGroundImage] = useState(<Image src={postImageUrl}/>)
 
   const [isFlipped, setIsFlipped] = useState(false);
   const handleFlip = () => setIsFlipped(!isFlipped);
@@ -147,7 +146,7 @@ const NormalPost = ({ post }) => {
           w="100%"
           // h="100%"
           maxH={"100%"}
-          bgImage={postBackgroundImage}
+          bgImage={postImageUrl}
           bgSize="cover"
           bgPosition="top"
           bgRepeat="no-repeat"
@@ -225,10 +224,10 @@ const NormalPost = ({ post }) => {
           p={17}
           w="100%"
           h="100%"
-          bgImage={postBackgroundImage}
-          bgSize="cover"
-          bgPosition="top"
-          bgRepeat="no-repeat"
+          // bgImage={postBackgroundImage}
+          // bgSize="cover"
+          // bgPosition="top"
+          // bgRepeat="no-repeat"
         >
           <GridItem w="100%" h="100%" mt={1}>
             {title}
