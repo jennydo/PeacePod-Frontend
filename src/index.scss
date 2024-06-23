@@ -1,0 +1,12 @@
+@import'./App.scss';
+
+body {
+    margin: 0;
+    /* background: linear-gradient(90deg, #dee2ff 0%, #eaedff 30%, #feeafa 70%) !important; */
+    background: $background-color !important;
+  }
+  
+body::-webkit-scrollbar {
+display: none;
+}
+  

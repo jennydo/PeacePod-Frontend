@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,6 +14,7 @@ import { AvatarContextProvider } from "./context/AvatarContext";
 import { AudioContextProvider } from "./context/AudioContext";
 import { PromptResponsesContextProvider } from "./context/PromptResponseContext";
 import { CloudinaryContextProvider } from "./context/CloudinaryContext";
+import { MessagesContextProvider } from "./context/MessagesContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,7 +27,9 @@ root.render(
               <ChatsContextProvider>
                 <SpotifyContextProvider>
                   <CloudinaryContextProvider>
-                    <App />
+                    <MessagesContextProvider>
+                      <App />
+                    </MessagesContextProvider>
                   </CloudinaryContextProvider>
                 </SpotifyContextProvider>
               </ChatsContextProvider>
