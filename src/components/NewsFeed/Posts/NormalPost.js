@@ -90,7 +90,7 @@ const NormalPost = ({ post }) => {
         setLikes(likes);
       })
       .catch((error) => {
-        console.error("Error fetching likes:", error);
+        console.error("Error fetching total reactions:", error);
       });
   }, [post, user.token, reacted]);
 
@@ -135,8 +135,15 @@ const NormalPost = ({ post }) => {
 
   return (
     <div
+<<<<<<< HEAD
       className="flip-container"
       onTouchStart="this.classList.toggle('hover');"
+=======
+      // className="flip-container"
+      className={`flip-container ${isFlipped ? 'flipped' : ''}`} 
+      // onTouchStart="this.classList.toggle('hover');"
+      // onClick={handleFlip}
+>>>>>>> 4d09c1ce30819daa53e2e7309fa672b58989eb65
     >
       <Center className="flipper">
         <Grid
@@ -154,7 +161,7 @@ const NormalPost = ({ post }) => {
           bgRepeat="no-repeat"
           mt={3}
         >
-          <GridItem w="100%" h="100%">
+          <GridItem w="100%" h="100%" onClick={handleFlip}>
             <Flex justify="end" position="relative">
               <Box w="140px" mt={20} position="relative" zIndex={2}>
                 <Image src={stampLoveImage} />
@@ -182,11 +189,11 @@ const NormalPost = ({ post }) => {
             </Flex>
           </GridItem>
 
-          <GridItem w="100%" h="100%">
+          <GridItem w="100%" h="100%" onClick={handleFlip}>
             <Heading>{title}</Heading>
           </GridItem>
 
-          <GridItem w="100%" h="100%">
+          <GridItem w="100%" h="100%" onClick={handleFlip}>
             <Text>From: {username}</Text>
             {content.length > preview.length ? (
               <Text fontStyle="italic" as="cite" mr={2}>
@@ -227,7 +234,12 @@ const NormalPost = ({ post }) => {
 
         <Grid
           className="back"
+<<<<<<< HEAD
           // onClick={handleFlip}
+=======
+          // className={`back ${isFlipped ? 'showing' : ''}`}
+          onClick={handleFlip}
+>>>>>>> 4d09c1ce30819daa53e2e7309fa672b58989eb65
           gridTemplateRows={"10% 1fr"}
           p={17}
           w="100%"
