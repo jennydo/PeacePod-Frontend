@@ -137,15 +137,15 @@ const Meditation = () => {
               <GridItem w='100%' h='100%' className="meditation icons">
                 <IconButton
                   className="meditation-icon"
-                  icon={isFilter ? <Icon as={FaHeart} fill="#FFAFCC"/> : <Icon as={FaRegHeart} />}
-                  onClick={() => setIsFilter(!isFilter)}
+                  icon={<Icon as={TiPlus}/>}
+                  onClick={onModalOpen}
                   variant='ghost'
                   fontSize='30px'
                 />
                 <IconButton
                   className="meditation-icon"
-                  icon={<Icon as={TiPlus}/>}
-                  onClick={onModalOpen}
+                  icon={isFilter ? <Icon as={FaHeart} fill="#FFAFCC"/> : <Icon as={FaRegHeart} />}
+                  onClick={() => setIsFilter(!isFilter)}
                   variant='ghost'
                   fontSize='30px'
                 />
