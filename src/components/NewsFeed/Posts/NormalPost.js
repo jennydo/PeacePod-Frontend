@@ -22,7 +22,7 @@ import stampImage from "../../../assets/images/stamp3.png";
 import stampLoveImage from "../../../assets/images/stamplove.png";
 // import letterImage from '../../../assets/images/letter.png';
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
-import postBackgroundImageDefault from "../../../assets/images/Bg9.avif";
+//import postBackgroundImageDefault from "../../../assets/images/Bg9.avif";
 import backBackgroundImage from "../../../assets/images/back-background.jpg";
 import "./NormalPost.scss";
 
@@ -186,9 +186,15 @@ const NormalPost = ({ post }) => {
 
           <GridItem w="100%" h="100%">
             <Text>From: {username}</Text>
-            <Text fontStyle="italic" as="cite" mr={2}>
-              {preview}
-            </Text>
+            {content.length > preview.length ? (
+              <Text fontStyle="italic" as="cite" mr={2}>
+                {preview} ...
+              </Text>
+            ) : (
+              <Text fontStyle="italic" as="cite" mr={2}>
+                {preview}
+              </Text>
+            )}
           </GridItem>
 
           <GridItem w="100%" h="100%">
@@ -224,10 +230,10 @@ const NormalPost = ({ post }) => {
           p={17}
           w="100%"
           h="100%"
-          // bgImage={postBackgroundImage}
-          // bgSize="cover"
-          // bgPosition="top"
-          // bgRepeat="no-repeat"
+          bgImage={postImageUrl}
+          bgSize="cover"
+          bgPosition="top"
+          bgRepeat="no-repeat"
         >
           <GridItem w="100%" h="100%" mt={1}>
             {title}
