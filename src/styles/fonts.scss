@@ -2,6 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../assets/fonts/Gilroy-Light.otf') format('opentype');
+    font-weight: 300; /* or 'normal' if it's the regular weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../assets/fonts/Gilroy-ExtraBold.otf') format('opentype');
+    font-weight: 800; /* or 'bold' if it's the bold weight */
+    font-style: normal;
+}
+
+$text-font: "Gilroy", sans-serif;
 $title-font: "Paytone One";
 $nav-font: "Paytone One";
 $letter-font: "Reenie Beanie";

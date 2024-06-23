@@ -38,7 +38,7 @@ const AudioList = ({ isFilter }) => {
   }, [dispatch]);
 
   return (
-    <Box overflowY={"auto"} h="100%">
+    <Box overflowY={"auto"} h="100%" className="meditation-audios">
       {displayedAudios.length ? (
         displayedAudios.map((audio, idx) => {
           return <AudioCard audio={audio} key={idx}/>;
