@@ -22,17 +22,18 @@ import stampImage from "../../../assets/images/stamp3.png";
 import stampLoveImage from "../../../assets/images/stamplove.png";
 // import letterImage from '../../../assets/images/letter.png';
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
-import postBackgroundImage from "../../../assets/images/Bg9.avif";
+//import postBackgroundImageDefault from "../../../assets/images/Bg9.avif";
 import backBackgroundImage from "../../../assets/images/back-background.jpg";
 import "./NormalPost.scss";
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext();
   // data from post
-  const { title, content, createdAt: timeStamp } = post;
+  const { title, content, createdAt: timeStamp, postImageUrl } = post;
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), {
     addSuffix: true,
   });
+
 
   const [isFlipped, setIsFlipped] = useState(false);
   const handleFlip = () => setIsFlipped(!isFlipped);
@@ -137,10 +138,9 @@ const NormalPost = ({ post }) => {
       // onTouchStart="this.classList.toggle('hover');"
       // onClick={handleFlip}
     >
-      <Center className='flipper'>
+      <Center className="flipper">
         <Grid
           className="front"
-          // className={`front ${isFlipped ? '' : 'showing'}`}
           // onClick={handleFlip}
           // className={`flip-container ${isFlipped ? 'flipped' : ''}`}
           gridTemplateRows={"30% 10% 1fr 10%"}
@@ -148,7 +148,7 @@ const NormalPost = ({ post }) => {
           w="100%"
           // h="100%"
           maxH={"100%"}
-          bgImage={postBackgroundImage}
+          bgImage={postImageUrl}
           bgSize="cover"
           bgPosition="top"
           bgRepeat="no-repeat"
@@ -188,9 +188,15 @@ const NormalPost = ({ post }) => {
 
           <GridItem w="100%" h="100%" onClick={handleFlip}>
             <Text>From: {username}</Text>
-            <Text fontStyle="italic" as="cite" mr={2}>
-              {preview}
-            </Text>
+            {content.length > preview.length ? (
+              <Text fontStyle="italic" as="cite" mr={2}>
+                {preview} ...
+              </Text>
+            ) : (
+              <Text fontStyle="italic" as="cite" mr={2}>
+                {preview}
+              </Text>
+            )}
           </GridItem>
 
           <GridItem w="100%" h="100%">
@@ -227,7 +233,7 @@ const NormalPost = ({ post }) => {
           p={17}
           w="100%"
           h="100%"
-          bgImage={postBackgroundImage}
+          bgImage={postImageUrl}
           bgSize="cover"
           bgPosition="top"
           bgRepeat="no-repeat"

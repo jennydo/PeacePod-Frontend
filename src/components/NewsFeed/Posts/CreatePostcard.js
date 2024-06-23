@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Stack, Input, Button, Textarea, Text,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
-        Alert, AlertIcon, AlertDescription, Avatar } from '@chakra-ui/react'
+        Alert, AlertIcon, AlertDescription, Avatar, 
+        HStack, Image} from '@chakra-ui/react'
 import { usePostsContext } from "../../../hooks/usePostsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
@@ -13,6 +14,8 @@ const CreatePostcard = ({isOpen, onClose}) => {
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
+    const [postImageUrl, setPostImageUrl] = useState('')
+    const [allPostImageUrls, setAllPostImageUrls] = useState([])
     const isPrompt = false;
     const [isShowingAlert, setIsShowingAlert] = useState(false)
     const [alertMssg, setAlertMssg] = useState('')
@@ -20,18 +23,31 @@ const CreatePostcard = ({isOpen, onClose}) => {
     const maxLength = 2000;
     const characterCount = content.length;
 
+    useEffect(() => {
+        axios
+        .get("http://localhost:4000/api/cloudinary/postImages", {
+            headers: { Authorization: `Bearer ${user.token}` },
+        })
+        .then((response) => {
+            setAllPostImageUrls(response.data);
+        });
+    }, [dispatch, user.token]);
+
+
     const handleClose = () => {
         setIsShowingAlert(false);
         onClose();
     }
 
     const handleSave = () => {
+        console.log(postImageUrl)
         // Check if title is not empty and content is not empty or exceeds the maximum length
         if (title !== "" && (content !== "" && characterCount <= maxLength)) {
             const newPost = {
                 title, 
                 content, 
-                isPrompt
+                isPrompt,
+                postImageUrl
             }
 
             axios.post("http://localhost:4000/api/posts/", newPost, {
@@ -46,6 +62,7 @@ const CreatePostcard = ({isOpen, onClose}) => {
                     onClose();
                     setTitle('');
                     setContent('');
+                    setPostImageUrl('');
                     setIsShowingAlert(false)
                 })
                 .catch(error => {
@@ -69,72 +86,89 @@ const CreatePostcard = ({isOpen, onClose}) => {
         }
     }
 
-    return ( 
-    <>
-        <Modal 
-            isOpen={isOpen} onClose={handleClose}
-            blockScrollOnMount={false}
-            size="xl"
-            motionPreset="slideInBottom"
-            scrollBehavior="inside"
+    return (
+      <>
+        <Modal
+          isOpen={isOpen}
+          onClose={handleClose}
+          blockScrollOnMount={false}
+          size="xl"
+          motionPreset="slideInBottom"
+          scrollBehavior="inside"
         >
-            <ModalOverlay />
-            <ModalContent>
-            <ModalHeader>Let the letter bring your words to the sky</ModalHeader>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>
+              Let the letter bring your words to the sky
+            </ModalHeader>
             <ModalCloseButton />
 
             <ModalBody>
-            <Stack spacing={3}>
+              <Stack spacing={3}>
                 <Stack direction="row" spacing="10px">
-                    <Avatar name={username} src={avatar} />
-                    <Text>{username}</Text>
+                  <Avatar name={username} src={avatar} />
+                  <Text>{username}</Text>
                 </Stack>
 
                 <Input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Your postcard topic..."
-                    size="md"
-                    variant="outline"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Your postcard topic..."
+                  size="md"
+                  variant="outline"
                 />
 
                 <Textarea
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="What did you tell the birds?"
-                    isInvalid={characterCount > maxLength}
-                    size="sm"
-                    variant="filled"
-                    borderRadius={8}
-                    h={250}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  placeholder="What did you tell the birds?"
+                  isInvalid={characterCount > maxLength}
+                  size="sm"
+                  variant="filled"
+                  borderRadius={8}
+                  h={250}
                 />
 
                 <Text
-                    as="i"
-                    color={characterCount > maxLength ? "red" : "gray"}
-                    fontSize="sm"
-                    textAlign="right"
+                  as="i"
+                  color={characterCount > maxLength ? "red" : "gray"}
+                  fontSize="sm"
+                  textAlign="right"
                 >
-                    {characterCount} characters
+                  {characterCount} characters
                 </Text>
 
                 {isShowingAlert && (
-                    <Alert status="error">
+                  <Alert status="error">
                     <AlertIcon />
                     <AlertDescription>{alertMssg}</AlertDescription>
-                    </Alert>
+                  </Alert>
                 )}
-                </Stack>
+              </Stack>
+
+              <HStack>
+                {allPostImageUrls &&
+                  allPostImageUrls.map((imageUrl, idx) => (
+                    <Image
+                      src={imageUrl}
+                      key={idx}
+                      w={30}
+                      h={30}
+                      onClick={() => setPostImageUrl(imageUrl)}
+                    />
+                  ))}
+              </HStack>
             </ModalBody>
 
             <ModalFooter>
-                <Button colorScheme="blue" onClick={handleSave} w="100%">
-                    Save
-                </Button>
+              <Button colorScheme="blue" onClick={handleSave} w="100%">
+                Save
+              </Button>
             </ModalFooter>
-            </ModalContent>
-      </Modal>
-    </> );
+          </ModalContent>
+        </Modal>
+      </>
+    );
 }
  
 export default CreatePostcard;
