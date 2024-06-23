@@ -50,6 +50,7 @@ const Prompt = () => {
     try {
       response = await axios.post(
         "http://localhost:4000/api/posts/prompt/",
+        {},
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }
@@ -72,12 +73,12 @@ const Prompt = () => {
 
     // tmr.setTime(tmr.getTime() + 5 * 1000)
     tmr.setDate(now.getDate() + 1);
-    tmr.setHours(0)
-    tmr.setMinutes(0)
+    tmr.setHours(0);
+    tmr.setMinutes(0);
 
     const timeUntilMidnight = tmr - now;
 
-    console.log(timeUntilMidnight, now, tmr)
+    console.log(timeUntilMidnight, now, tmr);
 
     setTimeout(() => {
       /// This is to update the current prompt
@@ -200,11 +201,11 @@ const Prompt = () => {
       <Grid
         gridTemplateRows={"90% 10%"}
         h="100%"
-        maxH={'65vh'}
+        maxH={"65vh"}
         w="100%"
         // mt={10}
       >
-        <GridItem h="100%" w="100%" >
+        <GridItem h="100%" w="100%">
           <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
             <GridItem
               h="100%"
