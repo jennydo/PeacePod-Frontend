@@ -10,6 +10,7 @@ import {
   Heading,
   Container,
   Center,
+  Divider,
 } from "@chakra-ui/react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import PostModal from "./PostModal";
@@ -25,6 +26,7 @@ import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
 //import postBackgroundImageDefault from "../../../assets/images/Bg9.avif";
 import backBackgroundImage from "../../../assets/images/back-background.jpg";
 import "./NormalPost.scss";
+import Comment from './Comment';
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext();
@@ -140,7 +142,7 @@ const NormalPost = ({ post }) => {
         <Grid
           className="front"
           // onClick={handleFlip}
-          // className={`flip-container ${isFlipped ? 'flipped' : ''}`}
+          // className= {`flip-container ${isFlipped ? 'flipped' : ''}`}
           gridTemplateRows={"30% 10% 1fr 10%"}
           // m={10}
           w="100%"
@@ -248,6 +250,40 @@ const NormalPost = ({ post }) => {
             justifyContent="center"
           >
             {content}
+          </GridItem>
+
+          <GridItem w="100%" h="100%">
+            <Flex
+              flexDir="row"
+              flexWrap="wrap"
+              justify="space-between"
+              sx={{
+                "& > button": {
+                  minW: "136px",
+                },
+              }}
+            >
+              <Button
+                variant="ghost"
+                onClick={handleReact}
+                leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
+                _hover={{ color: "blue.500" }}
+              >
+                {likes.count === 0 ? "" : likes.count}
+              </Button>
+              <Button variant="ghost" leftIcon={<FaComment />}>
+                Comment
+              </Button>
+            </Flex>
+          </GridItem>
+
+          <Divider/>
+
+          <GridItem>
+            {comments &&
+              comments.map((comment, idx) => (
+                <Comment comment={comment} key={idx} />
+              ))}
           </GridItem>
         </Grid>
       </Center>
