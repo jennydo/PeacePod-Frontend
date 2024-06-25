@@ -71,7 +71,6 @@ After you click "submit" this page will show up to confirm a successful upload
 - **Database**: SQLite3
 - **Web Hosting**: AWS EC2
 - **Container**: Docker
-- **CI/CD Workflow**: Github Actions
 - **Monitoring**: cAdvisor, Prometheus, Grafana
 - **Version Control**: Git and GitHub
 - **Reverse Proxy**: NGINX
@@ -90,12 +89,6 @@ BookHub has 6 containers for 6 services:
 - grafana: monitoring tool 3
 
 ![architecture](https://user-images.githubusercontent.com/35150672/130304480-28e9b998-dfb2-4919-82de-d4da9a258bb5.jpeg)
-
-## CI/CD Workflow 🧪
-
-Book Hub also has a full Continuous Integrationn and Delivery System.
-
-![ci-cd](https://user-images.githubusercontent.com/35150672/130304486-52128f4d-fb1f-4207-8fb0-ca6f07af8ad2.jpeg)
 
 ## Challenges we ran into 🥺
 
@@ -146,11 +139,11 @@ See [`CONTRIBUTING.md`](https://github.com/Taenerys/BookHub/blob/main/CONTRIBUTI
 - Fork and Clone the repo using
 
 ```
-$ git clone https://github.com/Taenerys/BookHub.git
-$ cd BookHub
+$ git clone https://github.com/jennydo/PeacePod-Frontend.git
+$ cd PeacePod-Frontend
 ```
 
-- Make sure you have python3 and pip installed
+- Make sure you have node.js and pip installed
 
 Create and activate virtual environment using virtualenv
 
@@ -173,8 +166,6 @@ $ flask run
 ```
 
 ## Team 🧑‍🤝‍🧑
-
-> "It is the long history of humankind (and animal kind, too) that those who learned to collaborate and improvise most effectively have prevailed." _(Charles Darwin)_
 
 | S.No. | Name                  | GitHub Username:octocat:                          |
 | ----- | --------------------- | --------------------------------------------      |
