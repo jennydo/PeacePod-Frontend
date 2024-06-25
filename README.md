@@ -172,22 +172,16 @@ $ export FLASK_ENV=development
 $ flask run
 ```
 
-## MLH Fellowship - Production Engineering Track ( Summer 2021) ⭐
-
-> This is a final project made by MLH Production Engineering Fellows (Summer 2021) - Pod 3.3.3 Reliable Rhinos.
-
-![MLH Final Project](https://user-images.githubusercontent.com/35150672/130260272-bd239afe-0532-4872-acfa-a5c27e3cf5df.png)
-
 ## Team 🧑‍🤝‍🧑
 
 > "It is the long history of humankind (and animal kind, too) that those who learned to collaborate and improvise most effectively have prevailed." _(Charles Darwin)_
 
-| S.No. | Name                  | GitHub Username:octocat:                     |
-| ----- | --------------------- | -------------------------------------------- |
-| 1.    | Anh Pham              | [@Taenerys](https://github.com/PawanKolhe)   |
-| 2.    | Emily Chen            | [@EmilyXinyi](https://github.com/EmilyXinyi) |
-| 3.    | Dakshina Palasamudrum | [@dakshinabp](https://github.com/dakshinabp) |
-| 4.    | Kweku Aboagye         | [@Kweku007](https://github.com/Kweku007)     |
+| S.No. | Name                  | GitHub Username:octocat:                          |
+| ----- | --------------------- | --------------------------------------------      |
+| 1.    | Hennessy Nguyen       | [@haianhng31](https://github.com/haianhng31)      |
+| 2.    | Nam Nguyen            | [@Euclid0192](https://github.com/Euclid0192)      |
+| 3.    | Jenny Do              | [@jennydo](https://github.com/jennydo)            |
+| 4.    | Ethan Nguyen          | [@gsthanhnguyen](https://github.com/gsthanhnguyen)|
 
 <br>
 <br>
@@ -201,7 +195,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tbody><tr>
-        <td align="center"><a href="https://www.linkedin.com/in/anh-hathu-pham/"><img alt="Anh Pham" src="https://user-images.githubusercontent.com/35150672/130278773-cc4f349a-25ac-489f-874d-470fab2c9c3d.jpg" width="100px;"><br><sub><b>Anh Pham</b></sub></a><br><a href="https://github.com/Taenerys/BookHub/commits?author=Taenerys" title="Code&Design">💻 🎨</a></td>
+        <td align="center"><a href="https://www.linkedin.com/in/hennessy-nguyen/"><img alt="Hennessy Nguyen" src="https://user-images.githubusercontent.com/35150672/130278773-cc4f349a-25ac-489f-874d-470fab2c9c3d.jpg" width="100px;"><br><sub><b>Hennessy Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=haianhng31" title="Code&Design">💻 🎨</a></td>
         <td align="center"><a href="https://www.linkedin.com/in/knaboagye/"><img alt="Kweku Aboagye" src="https://user-images.githubusercontent.com/35150672/130279255-4cbc366e-aa8d-42f3-b525-1e4246847849.jpg" width="100px;"><br><sub><b>Kweku Aboagye</b></sub></a><br><a href="https://github.com/Taenerys/BookHub/commits?author=Kweku007" title="Code&Design">💻 🎨</a></td>
         <td align="center"><a href="https://www.linkedin.com/in/emily-xinyi-chen/"><img alt="Emily Xinyi" src="https://user-images.githubusercontent.com/35150672/130278810-f416c0e6-6709-40c3-9c84-e2f30de30679.jpg" width="100px;"><br><sub><b>Emily Xinyi</b></sub></a><br><a href="https://github.com/Taenerys/BookHub/commits?author=EmilyXinyi" title="Code&Design">💻 🎨</a></td>
         <td align="center"><a href="https://www.linkedin.com/in/dakshinapalasamudrum/"><img alt="Dakshina Palasamudrum" src="https://user-images.githubusercontent.com/35150672/130278791-0acc69fc-98e6-4425-9b70-88a3e36527ff.jpg" width="100px;"><br><sub><b>Dakshina Palasamudrum</b></sub></a><br><a href="https://github.com/Taenerys/BookHub/commits?author=dakshinabp" title="Code&Design">💻 🎨</a></td>
