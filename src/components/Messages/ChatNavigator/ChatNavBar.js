@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import {
   VStack,
   StackDivider,
@@ -9,9 +9,9 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react";
 import ChatBox from "./ChatBox";
-import { useChatsContext } from "../../hooks/useChatsContext";
+import { useChatsContext } from "../../../hooks/useChatsContext";
 import { FaPeopleArrows } from "react-icons/fa";
-import MatchingModal from "./MatchingModal";
+import MatchingModal from "../Matching Progress/MatchingModal";
 
 const ChatNavBar = () => {
   const { user } = useAuthContext();

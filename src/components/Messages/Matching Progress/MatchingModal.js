@@ -29,11 +29,11 @@ import React, { useContext, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosSend } from "react-icons/io";
-import ChooseOption from "./Matching Progress/ChooseOption";
-import Survey from "./Matching Progress/Survey";
-import Congratulations from "./Matching Progress/Congratulations";
+import ChooseOption from "./ChooseOption";
+import Survey from "./Survey";
+import Congratulations from "./Congratulations";
 import axios from "axios";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const MatchingModal = ({ finalRef, isOpen, onClose }) => {
   const [option, setOption] = useState(1);
