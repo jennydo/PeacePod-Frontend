@@ -12,8 +12,7 @@ A place where you can slow down, connect deeper, and create a personalized medit
 ## Table of Contents 🗺️
 
 - [Inspiration 🧠](https://github.com/jenneydo/PeacePod-Frontend#inspiration-)
-- [What it does 🤔](https://github.com/jenneydo/PeacePod-Frontend#what-it-does-)
-- [How to use 👍](https://github.com/jenneydo/PeacePod-Frontend#how-to-use-book-hub-)
+- [Main Features & How to use 👍](https://github.com/jenneydo/PeacePod-Frontend#how-to-use-book-hub-)
 - [How we built it 💪](https://github.com/jenneydo/PeacePod-Frontend#how-we-built-it-)
 - [Architecture 🐙](https://github.com/jenneydo/PeacePod-Frontend#architecture-)
 - [Accomplishments 🥺](https://github.com/jenneydo/PeacePod-Frontend#accomplishments-that-were-proud-of-)
@@ -24,47 +23,63 @@ A place where you can slow down, connect deeper, and create a personalized medit
 
 ## Inspiration 🧠
 
-**PeacePod** aims to build a space where you can save your book reviews and track how many books you have been reading.
+We are living in a state where there are numerous constant notifications, live fast-paced lives, and often feel overwhelmed by the digital noise surrounding us. **PeacePod** aims to build a space where you can create your own safe digital pod, live slower and more intentionally, get away from instant notifications and constant distractions, connect with others on a deeper, more meaningful level, and create personalized meditation room that nurtures your well-being.
 
-## What it does 🤔
-
-- **Single Platform** for you to save your books and book notes
-- Easy to track your reading journey (i.e how many books have you read?)
-- Fully functional for you to make your Book Hub your own!
-- Easy to filter books by tags!
-
-## How to use PeacePod? 👍
+## Main Features & How to use 👍
 
 ### Create an account or log in 💓
+<img width="1512" alt="Screenshot 2024-06-26 at 10 16 54 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/6045a5ad-6857-4d8f-afc1-201e0d2376f7">
+<img width="1512" alt="Screenshot 2024-06-26 at 10 17 16 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/16014e4b-7b10-4d19-8332-6076d005729e">
 
-<img width="1438" alt="Screen Shot 2021-08-20 at 11 18 15 AM" src="https://user-images.githubusercontent.com/70316484/130276825-6b97b9ed-522c-4c56-a5ea-35480ed8f0cc.png">
+### Newsfeed 
+#### Post your own postcard & See others 💓
+<img width="1512" alt="Screenshot 2024-06-26 at 10 18 06 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/f3167e04-4eaf-4de3-8a1b-076752d86250">
+<img width="1511" alt="Screenshot 2024-06-26 at 10 18 22 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/bb227f05-c9fa-40e4-9887-a37f3dfb3579">
 
-### Browse existing entries 💓
+#### See the Waterfall of responses to Daily Prompt 💓
+* The Daily Prompt is generated using OpenAI.
+* When you click on the prompt, a new response will appear.
+<img width="1512" alt="Screenshot 2024-06-26 at 10 18 44 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/6cd428f1-8fe1-4eac-9d0a-2f16639d7f93">
 
-### Create new entries 💓
+### Chat
+#### Join the Matching list of the day and Get Matched at 9pm EST 
+* Click on Get Matched.
+* Fill in the input to have more data for a better match
+* Wait till 9 PM. If you have a match, you will be notified!
+<img width="1510" alt="Screenshot 2024-06-26 at 10 19 09 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/d7c71bc8-a5ec-40d0-a79d-7a97bd9ccc02">
 
-Click on "start writing" on the top right corner to recommend a new book!
+#### Chatting with others 
+* This is built with Socket.io.
+* You can see the other person's profile.
+* You can also do other things, such as changing chat nickname, leave chat, etc.
+* You will receive a notification from other people when you are not in the chat.
+<img width="1510" alt="Screenshot 2024-06-26 at 10 19 28 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/3b21d1b5-4686-4dca-8da9-bcf836b34bb8">
 
-<img width="456" alt="Screen Shot 2021-08-20 at 11 20 05 AM" src="https://user-images.githubusercontent.com/70316484/130277016-95766672-6f55-44b8-a857-f8177577a846.png">
+### Meditation 
+#### Generate your own Personalized Meditation Audio 
+* This is built with OpenAI and ElevenLabs.
+* Input what you want your audio to be like, wait a few minutes and get the coolest audio ever, made just for you!
+<img width="1510" alt="Screenshot 2024-06-26 at 10 20 29 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/7288bb80-7c90-403f-8f5e-6d803c6df168">
+<img width="1512" alt="Screenshot 2024-06-26 at 10 20 38 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/9a84d8db-6f56-401c-8d61-dfef906d446b">
 
-Enter your book details here...
+#### Choose an existing audio from Spotify 
+* You can log in to your Spotify Account (if you have premium account) and choose a meditation audio from there.
+<img width="1512" alt="Screenshot 2024-06-26 at 10 20 57 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/a4583f06-6f3c-4504-81c0-66fdee1cf65f">
+<img width="1512" alt="Screenshot 2024-06-26 at 10 21 20 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/f9013b6a-16c9-4732-a204-33da8aa365f2">
 
-![image](https://user-images.githubusercontent.com/52259856/129430725-f5ac6d44-5d50-43bf-ab28-6688dbf30bc5.png)
+#### Start your session, & choose your Background color/image 
+<img width="1509" alt="Screenshot 2024-06-26 at 10 21 35 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/b20fc903-514b-4c6c-aaed-a77771f787b1">
 
-Books are uploaded on a catalog!
+### Customize your Character Avatar
+<img width="1512" alt="Screenshot 2024-06-26 at 10 22 42 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/b52655aa-f24a-42fd-877d-30a1791be85e">
 
-<img width="1429" alt="Screen Shot 2021-08-20 at 10 37 16 AM" src="https://user-images.githubusercontent.com/70316484/130275849-ae5f725d-fc69-4925-92e7-5887f6e14ef6.png">
-
-After you click "submit" this page will show up to confirm a successful upload
-<img width="1438" alt="Screen Shot 2021-08-20 at 11 23 39 AM" src="https://user-images.githubusercontent.com/70316484/130277371-fd2f2c6e-83ff-4ba0-be37-cbd06a094bb5.png">
 
 ## How we built it 💪
 
-![Flask](https://img.shields.io/badge/Flask-B8C85E?style=for-the-badge&logo=flask&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Python](https://img.shields.io/badge/Python-FF69B4?style=for-the-badge&logo=python&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-7A67EE?style=for-the-badge&logo=docker&logoColor=white) ![SQLite3](https://img.shields.io/badge/SQLite3-ff99cc?style=for-the-badge&logo=sqlite3&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-ffefdb?style=for-the-badge&logo=aws&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black) ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) ![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) ![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 
 - **Frontend**: React
-- **Backend**: Node.Js, Express
+- **Backend**: Node.Js, Express, Flask
 - **Design**: Excalidraw, Hand + Paper
 - **Database**: MongoDB
 - **Web Hosting**: AWS S3, EC3 (in progress)
@@ -87,79 +102,45 @@ BookHub has 6 containers for 6 services:
 
 ## Challenges we ran into 🥺
 
-- One major problem that we have is time: a lot of our team members have many commitments outside of the fellowship, therefore finding time to sync up was difficult for all of us.
-- AWS instance often hanging very slowly, causing us having to debug in a lot of ways: rebooting the AWS instance, checking top, changing the instance type from t2.micro to t2.small
-- While collaborating together and working in parallel, there were often git conflicts which were difficult to merge.
-- All of us are not masters at front end development, so we ran into quite a lot of issues with CSS.
+- Time Management: At the end of the project, we have 4 different timezones to juggle (Eastern US, Canada, Australia, Vietnam). Thus someone has to wake up really early and someone has to stay really late for our weekly meetings!
+- We are not frontend masters, so we struggle with making our website as pretty as possible (We have to redesign nearly everything in the last few weeks).
+- Bugs everywhere: The more we build, the more bugs appear and they are everywhere! We spent a lot of time debugging and making sure our app doesn't have any major fault the present user to have a smooth experience.
+- Spotify Authentication: Many music streaming service closed their APIs to the public, and we can only find Spotify available. But Spotify requires user to log in and must have premium account. The authentication flow is also confusing at first.
 
 ## Accomplishments that we're proud of 🥰
 
 - Despite the time commitment issues, we were able to create a final deliverable at the end and learnt a lot in the process.
-- We built a project from scratch, starting from coming up with an idea, designing, executing things until we were able to deploy it and employed testing, CI/CD and monitoring tools in a span of three weeks.
 - We have a great teamwork - unexpected things happen, but no one is blamed and we keep moving forward and working together to find a solution.
-- We built off of the feedbacks we received from our Pod Leader and our Pod mates for the past weeks. We demonstrated great Git best practices throughout the process (Project Board, Issues, Pull Requests, README.md, Code Review, etc.)
-- Resolved a lot of git merge conflicts!
-- We made a great README.md that we are very proud of!
+- We built off of the feedbacks we received from our project advisors through out the whole process (giant thanks to [@khoa165](https://github.com/khoa165), [@ankhuetang](https://github.com/ankhuetang), [@Taenerys](https://github.com/Taenerys)).
+- We demonstrated great Git best practices (Pull Requests, README.md, Code Review, etc.)
+- We learned a lot as a team and as individual. We built many cool features and now have mastered using a lot of APIs!
 
 ## What we learned 💡
 
-- Learnt more ways of using Flask for a full-fledged project.
 - Acting as a Project Manager: deciding the direction of the project, assigning tasks, holding meetings, taking notes, being encouraging, etc.
-- Using Production Engineering skills we learnt in the MLH's PE Fellowship in a real world project from start to finish.
-- Debugging on Linux, especially on an AWS EC2 instance.
 - Good GitHub practices.
 - Good collaboration between teammates.
 - Never afraid to ask questions / for help.
 
 ## What's next for PeacePod 🤫
 
-- [ ] Implement Update Book feature
-- [ ] Increase test coverage of the whole project (current number: 37%)
-- [ ] Improve filtering books by tags
-- [ ] Add likes/comments for each book notes
+- [ ] Implement add-on features for Chat (change theme icon, chat color...)
+- [ ] Increase speed of socket.io
 - [ ] Improve authentication (i.e implement Forget Password)
 
 ### Contributing Guidelines 🛠️
 
-See [`CONTRIBUTING.md`](https://github.com/Taenerys/BookHub/blob/main/CONTRIBUTING.md).
+See [`CONTRIBUTING.md`](https://github.com/jennydo/PeacePod-Frontend/blob/main/CONTRIBUTING.md).
 
 ### GitHub Repository Structure 🧱
 
-| S.No. | Branch Name                                                    | Purpose                                      |
-| ----- | -------------------------------------------------------------- | ---------------------------------------------|
-| 1.    | [main](https://github.com/jennydo/PeacePod-Frontend/tree/main) | contains the frontend code and documentation |
-| 2.    | [main](https://github.com/jennydo/PeacePod-Backend/tree/main)  | contains the backend code                    |
+| S.No. | Repo Name                                                                   | Purpose                                      |
+| ----- | --------------------------------------------------------------------------- | ---------------------------------------------|
+| 1.    | [PeacePod-Frontend](https://github.com/jennydo/PeacePod-Frontend/tree/main) | contains the frontend code and documentation |
+| 2.    | [PeacePod-Backend](https://github.com/jennydo/PeacePod-Backend/tree/main)   | contains the backend code                    |
 
 ### Setup ⏰
 
-- Fork and Clone the repo using
-
-```
-$ git clone https://github.com/jennydo/PeacePod-Frontend.git
-$ cd PeacePod-Frontend
-```
-
-- Make sure you have node.js and pip installed
-
-Create and activate virtual environment using virtualenv
-
-```bash
-$ python -m venv python3-virtualenv
-$ source python3-virtualenv/bin/activate
-```
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install all dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-- Run the Flask server using
-
-```bash
-$ export FLASK_ENV=development
-$ flask run
-```
 
 ## Team 🧑‍🤝‍🧑
 
@@ -183,9 +164,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody><tr>
         <td align="center"><a href="https://www.linkedin.com/in/hennessy-nguyen/"><img alt="Hennessy Nguyen" src="https://user-images.githubusercontent.com/35150672/130278773-cc4f349a-25ac-489f-874d-470fab2c9c3d.jpg" width="100px;"><br><sub><b>Hennessy Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=haianhng31" title="Code&Design">💻 🎨</a></td>
-        <td align="center"><a href="https://www.linkedin.com/in/knaboagye/"><img alt="Kweku Aboagye" src="https://user-images.githubusercontent.com/35150672/130279255-4cbc366e-aa8d-42f3-b525-1e4246847849.jpg" width="100px;"><br><sub><b>Kweku Aboagye</b></sub></a><br><a href="https://github.com/Taenerys/BookHub/commits?author=Kweku007" title="Code&Design">💻 🎨</a></td>
-        <td align="center"><a href="https://www.linkedin.com/in/emily-xinyi-chen/"><img alt="Emily Xinyi" src="https://user-images.githubusercontent.com/35150672/130278810-f416c0e6-6709-40c3-9c84-e2f30de30679.jpg" width="100px;"><br><sub><b>Emily Xinyi</b></sub></a><br><a href="https://github.com/Taenerys/BookHub/commits?author=EmilyXinyi" title="Code&Design">💻 🎨</a></td>
-        <td align="center"><a href="https://www.linkedin.com/in/dakshinapalasamudrum/"><img alt="Dakshina Palasamudrum" src="https://user-images.githubusercontent.com/35150672/130278791-0acc69fc-98e6-4425-9b70-88a3e36527ff.jpg" width="100px;"><br><sub><b>Dakshina Palasamudrum</b></sub></a><br><a href="https://github.com/Taenerys/BookHub/commits?author=dakshinabp" title="Code&Design">💻 🎨</a></td>
+        <td align="center"><a href="https://www.linkedin.com/in/knaboagye/"><img alt="Nam Nguyen" src="https://user-images.githubusercontent.com/35150672/130279255-4cbc366e-aa8d-42f3-b525-1e4246847849.jpg" width="100px;"><br><sub><b>Nam Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=Euclid0192" title="Code&Design">💻 🎨</a></td>
+        <td align="center"><a href="https://www.linkedin.com/in/emily-xinyi-chen/"><img alt="Jenny Do" src="https://user-images.githubusercontent.com/35150672/130278810-f416c0e6-6709-40c3-9c84-e2f30de30679.jpg" width="100px;"><br><sub><b>Jenny Do</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=jennydo" title="Code&Design">💻 🎨</a></td>
+        <td align="center"><a href="https://www.linkedin.com/in/dakshinapalasamudrum/"><img alt="Thanh Nguyen" src="https://user-images.githubusercontent.com/35150672/130278791-0acc69fc-98e6-4425-9b70-88a3e36527ff.jpg" width="100px;"><br><sub><b>Thanh Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=gsthanhnguyen" title="Code&Design">💻 🎨</a></td>
 
 </tr>
 </tbody></table>
@@ -198,16 +179,16 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
-[![ForTheBadge uses-git](http://ForTheBadge.com/images/badges/uses-git.svg)](https://github.com/Taenerys/BookHub)
-[![ForTheBadge uses-html](http://ForTheBadge.com/images/badges/uses-html.svg)](https://github.com/Taenerys/BookHub)
-[![ForTheBadge uses-css](http://ForTheBadge.com/images/badges/uses-css.svg)](https://github.com/Taenerys/BookHub)
-[![ForTheBadge uses-js](http://ForTheBadge.com/images/badges/uses-js.svg)](https://github.com/Taenerys/BookHub)
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://github.com/Taenerys/BookHub)
-[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://github.com/Taenerys/BookHub)
-[![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://github.com/Taenerys/BookHub)
+[![ForTheBadge uses-git](http://ForTheBadge.com/images/badges/uses-git.svg)](https://github.com/jennydo/PeacePod-Frontend)
+[![ForTheBadge uses-html](http://ForTheBadge.com/images/badges/uses-html.svg)](https://github.com/jennydo/PeacePod-Frontend)
+[![ForTheBadge uses-css](http://ForTheBadge.com/images/badges/uses-css.svg)](https://github.com/jennydo/PeacePod-Frontend)
+[![ForTheBadge uses-js](http://ForTheBadge.com/images/badges/uses-js.svg)](https://github.com/jennydo/PeacePod-Frontend)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://github.com/jennydo/PeacePod-Frontend)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://github.com/jennydo/PeacePod-Frontend)
+[![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://github.com/jennydo/PeacePod-Frontend)
 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://github.com/Taenerys/BookHub)
-[![ForTheBadge built-by-developers](http://ForTheBadge.com/images/badges/built-by-developers.svg)](https://github.com/Taenerys/BookHub)
-[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/Taenerys/BookHub)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://github.com/jennydo/PeacePod-Frontend)
+[![ForTheBadge built-by-developers](http://ForTheBadge.com/images/badges/built-by-developers.svg)](https://github.com/jennydo/PeacePod-Frontend)
+[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/jennydo/PeacePod-Frontend)
 
 ---
