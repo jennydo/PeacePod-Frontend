@@ -13,20 +13,6 @@
     }
 }
 
-// <<<<<<< HEAD
-// .chat-box {
-//     width: 70%;
-//     background-color: $box-background-color;
-//     padding: 15px;
-//     height: 80vh;
-//     border-radius: 10px;
-//     box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.1);
-// =======
-.chat-selected {
-    background-color: $chatbox-selected-background-color !important;
-// >>>>>>> cde899f120fc98da2171de73fa7019945156bfbe
-}
-
 .chat-navbar {
     @include center-flex;
     padding-left: 15px;
