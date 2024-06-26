@@ -1,9 +1,7 @@
 <img alt="Book Hub GIF" src="./book-hub-home.gif">
 By Hennessy (Hai-Anh) Nguyen, Nam Nguyen, Jenny (Trang) Do, Thanh Nguyen.
 
-**Deployed Project Link: https://book-hub.tech**
-
-[![License](https://img.shields.io/github/license/Taenerys/BookHub)](https://github.com/Taenerys/BookHub/blob/main/LICENSE)
+**Deployed Project Link: ...**
 
 <br />
 
@@ -65,15 +63,12 @@ After you click "submit" this page will show up to confirm a successful upload
 ![Flask](https://img.shields.io/badge/Flask-B8C85E?style=for-the-badge&logo=flask&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Python](https://img.shields.io/badge/Python-FF69B4?style=for-the-badge&logo=python&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-7A67EE?style=for-the-badge&logo=docker&logoColor=white) ![SQLite3](https://img.shields.io/badge/SQLite3-ff99cc?style=for-the-badge&logo=sqlite3&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-ffefdb?style=for-the-badge&logo=aws&logoColor=white)
 
-- **Frontend**: Flask, HTML, CSS, JS
-- **Backend**: Python
-- **Design**: Figma, Hand + Paper
-- **Database**: SQLite3
-- **Web Hosting**: AWS EC2
-- **Container**: Docker
-- **Monitoring**: cAdvisor, Prometheus, Grafana
-- **Version Control**: Git and GitHub
-- **Reverse Proxy**: NGINX
+- **Frontend**: React
+- **Backend**: Node.Js, Express
+- **Design**: Excalidraw, Hand + Paper
+- **Database**: MongoDB
+- **Web Hosting**: AWS S3, EC3 (in progress)
+- **Version Control**: Git & GitHub
 
 ## Architecture 🐙
 
@@ -130,9 +125,10 @@ See [`CONTRIBUTING.md`](https://github.com/Taenerys/BookHub/blob/main/CONTRIBUTI
 
 ### GitHub Repository Structure 🧱
 
-| S.No. | Branch Name                                           | Purpose                                                       |
-| ----- | ----------------------------------------------------- | ------------------------------------------------------------- |
-| 1.    | [main](https://github.com/Taenerys/BookHub/tree/main) | contains the frontend, backend related code and documentation |
+| S.No. | Branch Name                                                    | Purpose                                      |
+| ----- | -------------------------------------------------------------- | ---------------------------------------------|
+| 1.    | [main](https://github.com/jennydo/PeacePod-Frontend/tree/main) | contains the frontend code and documentation |
+| 2.    | [main](https://github.com/jennydo/PeacePod-Backend/tree/main)  | contains the backend code                    |
 
 ### Setup ⏰
 
