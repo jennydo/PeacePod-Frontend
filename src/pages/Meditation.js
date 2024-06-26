@@ -13,7 +13,7 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { AudioContext } from "../context/AudioContext";
 import MeditationModal from "../components/Meditation/MeditationModal";
-
+import {StyledButton} from '../styles/components/StyledComponents'
 
 const Meditation = () => {
   const { user } = useAuthContext();
@@ -162,12 +162,10 @@ const Meditation = () => {
           </GridItem>
 
           <GridItem w='100%' h='100%' className="meditation">
-            <Button onClick={() => {
+            <StyledButton text={"Start"} onClick={() => {
               handleSave()
               onOpen()
-            }}>
-              Start!
-            </Button>
+            }}/>
           </GridItem>
 
         </Grid>
