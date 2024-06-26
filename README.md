@@ -156,17 +156,17 @@ See [`CONTRIBUTING.md`](https://github.com/jennydo/PeacePod-Frontend/blob/main/C
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
   <tbody><tr>
-        <td align="center"><a href="https://www.linkedin.com/in/hennessy-nguyen/"><img alt="Hennessy Nguyen" src="https://user-images.githubusercontent.com/35150672/130278773-cc4f349a-25ac-489f-874d-470fab2c9c3d.jpg" width="100px;"><br><sub><b>Hennessy Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=haianhng31" title="Code&Design">💻 🎨</a></td>
-        <td align="center"><a href="https://www.linkedin.com/in/knaboagye/"><img alt="Nam Nguyen" src="https://user-images.githubusercontent.com/35150672/130279255-4cbc366e-aa8d-42f3-b525-1e4246847849.jpg" width="100px;"><br><sub><b>Nam Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=Euclid0192" title="Code&Design">💻 🎨</a></td>
-        <td align="center"><a href="https://www.linkedin.com/in/emily-xinyi-chen/"><img alt="Jenny Do" src="https://user-images.githubusercontent.com/35150672/130278810-f416c0e6-6709-40c3-9c84-e2f30de30679.jpg" width="100px;"><br><sub><b>Jenny Do</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=jennydo" title="Code&Design">💻 🎨</a></td>
-        <td align="center"><a href="https://www.linkedin.com/in/dakshinapalasamudrum/"><img alt="Thanh Nguyen" src="https://user-images.githubusercontent.com/35150672/130278791-0acc69fc-98e6-4425-9b70-88a3e36527ff.jpg" width="100px;"><br><sub><b>Thanh Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=gsthanhnguyen" title="Code&Design">💻 🎨</a></td>
+        <td align="center"><a href="https://www.linkedin.com/in/hennessy-nguyen/"><img alt="Hennessy Nguyen" src="https://res.cloudinary.com/khoa165/image/upload/v1711768766/viettech/haianh.jpg" width="100px;"><br><sub><b>Hennessy Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=haianhng31" title="Code&Design">💻 🎨</a></td>
+        <td align="center"><a href="https://www.linkedin.com/in/knaboagye/"><img alt="Nam Nguyen" src="https://res.cloudinary.com/khoa165/image/upload/v1711261963/viettech/nam.jpg" width="100px;"><br><sub><b>Nam Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=Euclid0192" title="Code&Design">💻 🎨</a></td>
+        <td align="center"><a href="https://www.linkedin.com/in/emily-xinyi-chen/"><img alt="Jenny Do" src="https://res.cloudinary.com/khoa165/image/upload/v1711671186/viettech/trangdo.jpg" width="100px;"><br><sub><b>Jenny Do</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=jennydo" title="Code&Design">💻 🎨</a></td>
+        <td align="center"><a href="https://www.linkedin.com/in/dakshinapalasamudrum/"><img alt="Thanh Nguyen" src="https://res.cloudinary.com/khoa165/image/upload/v1711083621/viettech/thanh.jpg" width="100px;"><br><sub><b>Thanh Nguyen</b></sub></a><br><a href="https://github.com/jennydo/PeacePod-Frontend/commits?author=gsthanhnguyen" title="Code&Design">💻 🎨</a></td>
 
 </tr>
 </tbody></table>
