@@ -230,7 +230,6 @@ const NormalPost = ({ post }) => {
 
         <Grid
           className="back"
-          // onClick={handleFlip}
           // className={`back ${isFlipped ? 'showing' : ''}`}
           onClick={handleFlip}
           gridTemplateRows={"10% 1fr"}

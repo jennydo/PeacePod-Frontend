@@ -3,12 +3,8 @@ import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import {
   VStack,
-  Heading,
+  StackDivider,
   Button,
-  Modal,
-  ModalBody,
-  ModalOverlay,
-  ModalHeader,
   useDisclosure,
   ButtonGroup,
 } from "@chakra-ui/react";
@@ -49,36 +45,41 @@ const ChatNavBar = () => {
 
   return (
     <>
-      <h1>Your Messages</h1>
-      <ButtonGroup w={"100%"} isAttached>
-        <Button
-          w={"100%"}
-          leftIcon={<FaPeopleArrows />}
-          bg={"#FFAFCC"}
-          _hover={{ background: "#FFD6FF" }}
-          onClick={!isWaitingForMatch ? onOpen : null}
-        >
-          {isWaitingForMatch
-            ? "Waiting till 21:00..."
-            : "Need someone new to talk to?"}
-        </Button>
+      <h1>Messages</h1>
 
-        {isWaitingForMatch ? (
+      <VStack 
+        className='chat-navbar'
+        // divider={<div className="chatbox-divider"/>}
+      >
+        <ButtonGroup w={"100%"} isAttached>
           <Button
-            onClick={handleCancel}
-            bg={"#A2D2FF"}
-            _hover={{ background: "#CDB4DB" }}
+            w={"100%"}
+            leftIcon={<FaPeopleArrows />}
+            bg={"white"}
+            _hover={{ background: "grey" }}
+            onClick={!isWaitingForMatch ? onOpen : null}
+            marginBottom={5}
           >
-            Cancel
+            {isWaitingForMatch
+              ? "Waiting till 21:00..."
+              : "Need someone new to talk to?"}
           </Button>
-        ) : undefined}
-      </ButtonGroup>
 
-      <MatchingModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} />
+          {isWaitingForMatch ? (
+            <Button
+              onClick={handleCancel}
+              bg={"#A2D2FF"}
+              _hover={{ background: "#CDB4DB" }}
+            >
+              Cancel
+            </Button>
+          ) : undefined}
+        </ButtonGroup>
 
-      <VStack className='chat-navbar'>
         {chats && chats.map((chat) => <ChatBox key={chat._id} chat={chat} />)}
       </VStack>
+
+      <MatchingModal finalRef={finalRef} isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

@@ -1,40 +1,186 @@
-import { useSpotifyContext } from "../hooks/useSpotifyContext";
-import MeditationDrawer from "../components/Meditation/MeditationDrawer";
-import SongPlayer from "../components/Meditation/Music/SongPlayer";
-import { Grid, GridItem, calc } from "@chakra-ui/react";
-import { CloudinaryContextProvider } from "../context/CloudinaryContext";
-import DisplayedBackground from "../components/Meditation/Background/DisplayedBackground";
-import Player from "../components/Meditation/MeditationAudio/AudioPlayer";
+
+import { Grid, GridItem, useDisclosure, Button, IconButton, Icon, Divider } from "@chakra-ui/react";
+import { TiPlus } from "react-icons/ti";
+import { CloudinaryContext, CloudinaryContextProvider } from "../context/CloudinaryContext";
+import { useState, useRef, useContext, useEffect } from "react";
+import '../components/Meditation/Meditation.scss';
+import AudioList from "../components/Meditation/MeditationAudio/MeditationAudioList";
+import NewAudioModal from "../components/Meditation/MeditationAudio/NewAudioModal";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
+import SpotifyMain from "../components/Meditation/Music/SpotifyMain";
+import { SpotifyContext } from "../context/SpotifyContext";
+import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { AudioContext } from "../context/AudioContext";
-import { useContext } from "react";
+import MeditationModal from "../components/Meditation/MeditationModal";
+
 
 const Meditation = () => {
-  const { accessToken, playingTrack, isPlayingSpotify } = useSpotifyContext();
-  const { isPlayingAudio } = useContext(AudioContext);
+  const { user } = useAuthContext();
+  const [tab, setTab] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
+  const finalRef = useRef(null);
+  const {isOpen, onOpen, onClose} = useDisclosure();
+
+  const {
+    displayedImage,
+    dispatch: cloudinaryDispatch,
+  } = useContext(CloudinaryContext);
+
+  const {
+    playingTrack,
+    dispatch: spotifyDispatch,
+  } = useContext(SpotifyContext);
+
+  const {
+    chosenAudio,
+    dispatch: audioDispatch,
+    isPlayingAudio,
+  } = useContext(AudioContext);
+
+  // Function to fetch session from DB
+  const fetchSession = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:4000/api/meditation/sessions/last",
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      console.log("Response from get last session", res.data);
+
+      cloudinaryDispatch({
+        type: "DISPLAY_IMAGE",
+        payload: res.data.lastBackground,
+      });
+      audioDispatch({
+        type: "CHOOSE_AUDIO",
+        payload: res.data.meditationAudio,
+      });
+      spotifyDispatch({ 
+        type: "SET_SPOTIFY_PLAYING_TRACK",
+        payload: res.data.music})
+
+      /// Update state of choosing audio for choosing spotify
+      audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
+      spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY" });
+
+    } catch (error) {
+      console.log("Error while getting session", error);
+    }
+  };
+
+  const handleSave = async () => {
+    const session = {
+      lastBackground: displayedImage,
+      meditationAudio: chosenAudio,
+      music: playingTrack?.uri,
+      isPlayingAudio,
+    };
+
+    try {
+      /// Create session
+      const response = await axios.post(
+        "http://localhost:4000/api/meditation/sessions",
+        session,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      console.log("Response from creating session", response.data);
+    } catch (err) {
+      console.log("Error while creating session...", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchSession();
+  }, []);
 
   return (
-    <CloudinaryContextProvider>
-      {/* <h1>Meditation Session</h1> */}
-      <Grid
-        gridTemplateRows={"1fr 12%"}
-        // bg="green.100"
-        h={"calc(100vh - 95px)"}
-      >
-        <GridItem w="100%" h="100%">
-          <MeditationDrawer />
-          <DisplayedBackground />
-        </GridItem>
-        <GridItem w="100%" h="100%">
-          {isPlayingSpotify && playingTrack && (
-            <SongPlayer
-              accessToken={accessToken}
-              trackUri={playingTrack?.uri}
-            />
+    <>
+      <h1>Meditation</h1>
+      <div className='meditation page'>
+        <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"calc(100vh - 300px)"}>
+          
+          <GridItem w='100%' h='100%' className="meditation textbox">
+            <h2>Choose an audio to start!</h2>
+          </GridItem>
+
+          <GridItem w='100%' h='100%'>
+            <Grid gridTemplateColumns={"50% 1fr"} w='100%' h='100%'>
+              <GridItem className="meditation textbox sub">
+                <h4 className={`text-${tab ? "": "selected"}`} onClick={() => setTab(false)}>Choose your own voices</h4>
+              </GridItem>
+              <GridItem className="meditation textbox sub">
+                <h4 className={`text-${!tab ? "": "selected"}`} onClick={() => setTab(true)}>Choose from Spotify</h4>
+              </GridItem>
+            </Grid>
+          </GridItem>
+
+          <GridItem w='100%' h='100%' className="meditation textbox">
+            <Divider/>
+          </GridItem>
+
+          <GridItem w='100%' h='100%'>
+          {(!tab) && (
+            <Grid gridTemplateRows={"10% 1fr"} w='100%' h='100%'>
+              <GridItem w='100%' h='100%' className="meditation icons">
+                <IconButton
+                  className="meditation-icon"
+                  icon={<Icon as={TiPlus}/>}
+                  onClick={onModalOpen}
+                  variant='ghost'
+                  fontSize='30px'
+                />
+                <IconButton
+                  className="meditation-icon"
+                  icon={isFilter ? <Icon as={FaHeart} fill="#FFAFCC"/> : <Icon as={FaRegHeart} />}
+                  onClick={() => setIsFilter(!isFilter)}
+                  variant='ghost'
+                  fontSize='30px'
+                />
+              </GridItem>
+              <GridItem w='100%' h='100%' maxHeight='35vh'>
+                <AudioList isFilter={isFilter} />
+              </GridItem>
+            </Grid>
           )}
-          {isPlayingAudio && <Player />}
-        </GridItem>
-      </Grid>
-    </CloudinaryContextProvider>
+
+          {(tab) && (
+            <SpotifyMain/>
+          )}
+          </GridItem>
+
+          <GridItem w='100%' h='100%' className="meditation">
+            <Button onClick={() => {
+              handleSave()
+              onOpen()
+            }}>
+              Start!
+            </Button>
+          </GridItem>
+
+        </Grid>
+      </div>
+
+      <NewAudioModal
+        finalRef={finalRef}
+        onClose={onModalClose}
+        isOpen={isModalOpen}
+      />
+
+      <MeditationModal isOpen={isOpen} onClose={onClose}/>
+    </>
   );
 };
 

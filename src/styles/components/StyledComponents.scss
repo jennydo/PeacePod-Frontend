@@ -1,0 +1,16 @@
+.styled-divider {
+    margin-top: 5px;
+    background-color: rgb(234, 234, 234);
+
+    &.horizontal {
+        width: 100%;
+        height: 1px;
+    }
+
+    &.vertical {
+        width: 1px;
+        height: 100%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
