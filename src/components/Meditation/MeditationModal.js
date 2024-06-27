@@ -32,6 +32,7 @@ import { AudioContext } from "../../context/AudioContext";
 import SongPlayer from "./Music/SongPlayer";
 import Player from "./MeditationAudio/AudioPlayer";
 import BackgroundMain from "./Background/BackgroundMain";
+import BackgroundColorList from "./Background/BackgroundColorList";
 
 const MeditationModal = ({ isOpen, onClose }) => {
   const { displayedImage } = useContext(CloudinaryContext);
@@ -52,7 +53,8 @@ const MeditationModal = ({ isOpen, onClose }) => {
         <ModalCloseButton color="white" />
         <ModalBody
           style={{
-            backgroundImage: `url(${displayedImage})`,
+            backgroundImage: displayedImage && displayedImage[0] == "#" ? 'none' : `url(${displayedImage})`,
+            backgroundColor: displayedImage && displayedImage[0] == "#" ? displayedImage : 'transparent',
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -88,15 +90,29 @@ const MeditationModal = ({ isOpen, onClose }) => {
           >
             <DrawerOverlay />
             <DrawerContent>
-              <DrawerHeader>
+              <DrawerHeader p={0}>
                 <Text fontSize={"2xl"} textAlign={"center"} mb={0}>
                   Background
                 </Text>
               </DrawerHeader>
 
-              <DrawerBody>
-                {/* <Tab></Tab> */}
-                <BackgroundMain />
+              <DrawerBody p={3}>
+                <Tabs variant={"soft-rounded"} isFitted>
+                  <TabList>
+                    <Tab>Color</Tab>
+                    <Tab>Image</Tab>
+                  </TabList>
+
+                  <TabPanels>
+                    <TabPanel>
+                      <BackgroundColorList />
+                    </TabPanel>
+
+                    <TabPanel>
+                      <BackgroundMain />
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
               </DrawerBody>
 
               <DrawerFooter>
