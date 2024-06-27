@@ -110,7 +110,7 @@ const Meditation = () => {
     <>
       <h1>Meditation</h1>
       <div className='meditation page'>
-        <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"calc(100vh - 300px)"}>
+        <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"60%"}>
           
           <GridItem w='100%' h='100%' className="meditation textbox">
             <h2>Choose an audio to start!</h2>

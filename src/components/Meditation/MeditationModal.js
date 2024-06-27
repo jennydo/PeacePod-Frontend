@@ -96,6 +96,10 @@ const MeditationModal = ({ isOpen, onClose }) => {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
+          w={'100vw'}
+          h={'100vh'}
+          p={0}
+          m={0}
         >
           <div className="meditation modal-icon">
             <Tooltip label="Customize your background here">
@@ -117,8 +121,9 @@ const MeditationModal = ({ isOpen, onClose }) => {
               />
             )}
             {isPlayingAudio && <Player />}
-          </div>
-
+          </div>  
+          
+          {/* Drawer to customize background */}
           <Drawer
             isOpen={isDrawerOpen}
             placement="right"
