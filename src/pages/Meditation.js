@@ -128,7 +128,7 @@ const Meditation = () => {
             </Grid>
           </GridItem>
 
-          <GridItem w='100%' h='100%' className="meditation textbox">
+          <GridItem w='100%' h='100%' className="meditation textbox" mt={1}>
             <Divider/>
           </GridItem>
 
