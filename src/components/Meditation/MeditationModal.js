@@ -46,7 +46,7 @@ const MeditationModal = ({ isOpen, onClose }) => {
     onOpen: onDrawerOpen,
     onClose: onDrawerClose,
   } = useDisclosure();
-  const drawerBtnRef = useRef();
+  const drawerBtnRef = useRef(null);
 
   const { user } = useAuthContext()
 
@@ -81,7 +81,7 @@ const MeditationModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose} size="full">
       <ModalOverlay />
       <ModalContent>
-        <ModalCloseButton color="white" />
+        <ModalCloseButton color="white" zIndex={3}/>
         <ModalBody
           style={{
             backgroundImage:
