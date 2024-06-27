@@ -33,11 +33,13 @@ import SongPlayer from "./Music/SongPlayer";
 import Player from "./MeditationAudio/AudioPlayer";
 import BackgroundMain from "./Background/BackgroundMain";
 import BackgroundColorList from "./Background/BackgroundColorList";
+import axios from "axios";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const MeditationModal = ({ isOpen, onClose }) => {
   const { displayedImage } = useContext(CloudinaryContext);
   const { accessToken, playingTrack, isPlayingSpotify } = useSpotifyContext();
-  const { isPlayingAudio } = useContext(AudioContext);
+  const { isPlayingAudio, chosenAudio } = useContext(AudioContext);
 
   const {
     isOpen: isDrawerOpen,
@@ -46,6 +48,35 @@ const MeditationModal = ({ isOpen, onClose }) => {
   } = useDisclosure();
   const drawerBtnRef = useRef();
 
+  const { user } = useAuthContext()
+
+  const handleSave = async () => {
+    const session = {
+      lastBackground: displayedImage,
+      meditationAudio: chosenAudio,
+      music: playingTrack?.uri,
+      isPlayingAudio,
+    };
+
+    try {
+      /// Create session
+      const response = await axios.post(
+        "http://localhost:4000/api/meditation/sessions",
+        session,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      console.log("Response from creating session", response.data);
+    } catch (err) {
+      console.log("Error while creating session...", err);
+    }
+
+    onDrawerClose()
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="full">
       <ModalOverlay />
@@ -53,8 +84,14 @@ const MeditationModal = ({ isOpen, onClose }) => {
         <ModalCloseButton color="white" />
         <ModalBody
           style={{
-            backgroundImage: displayedImage && displayedImage[0] == "#" ? 'none' : `url(${displayedImage})`,
-            backgroundColor: displayedImage && displayedImage[0] == "#" ? displayedImage : 'transparent',
+            backgroundImage:
+              displayedImage && displayedImage[0] == "#"
+                ? "none"
+                : `url(${displayedImage})`,
+            backgroundColor:
+              displayedImage && displayedImage[0] == "#"
+                ? displayedImage
+                : "transparent",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -119,7 +156,7 @@ const MeditationModal = ({ isOpen, onClose }) => {
                 <Button variant="outline" mr={3} onClick={onDrawerClose}>
                   Cancel
                 </Button>
-                <Button colorScheme="blue" onClick={onDrawerClose}>
+                <Button colorScheme="blue" onClick={handleSave}>
                   Save
                 </Button>
               </DrawerFooter>

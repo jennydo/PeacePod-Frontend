@@ -6,7 +6,7 @@ import { CloudinaryContext } from "../../../context/CloudinaryContext";
 const BackgroundColorList = () => {
   const [chosenColor, setChosenColor] = useState();
 
-  const { dispatch } = useContext(CloudinaryContext)
+  const { displayedImage, dispatch } = useContext(CloudinaryContext)
 
   const handleChooseColor = (color) => {
     setChosenColor(color);
@@ -26,7 +26,7 @@ const BackgroundColorList = () => {
             >
               <Center
                 onClick={() => handleChooseColor(color)}
-                border={color == chosenColor ? "3px solid red" : "none"}
+                border={displayedImage && color == displayedImage ? "3px solid red" : "none"}
                 bg={color}
                 w={140}
                 h={140}
