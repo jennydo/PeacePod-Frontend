@@ -1,9 +1,9 @@
 import { Avatar, Stack, Box, Icon } from "@chakra-ui/react";
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { useChatsContext } from '../../hooks/useChatsContext';
-import { useMessagesContext } from '../../hooks/useMessagesContext';
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useChatsContext } from '../../../hooks/useChatsContext';
+import { useMessagesContext } from '../../../hooks/useMessagesContext';
 import { useEffect, useState } from "react";
-import './Chat.scss';
+import '../Chat.scss';
 import { GoDotFill } from "react-icons/go";
 
 const ChatBox = ({chat}) => {
