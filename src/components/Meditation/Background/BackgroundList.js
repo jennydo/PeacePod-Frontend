@@ -31,8 +31,8 @@ const BackgroundList = () => {
 
     return ( 
     <>
-        <Box h="75%" overflowY={"auto"}>
-            <Grid gridTemplateColumns={'50% 50%'} gap={3} mr={10} >
+        <Box h="100%" w={"100%"} overflowY={"auto"} objectFit={true} >
+            <Grid gridTemplateColumns={'50% 50%'} gap={1} maxW={'98%'}>
             {images && images.map((image, idx) => (
                 <GridItem 
                     key={idx} onClick={() => chooseImage(image)}
@@ -40,9 +40,10 @@ const BackgroundList = () => {
                     <Image src={image}
                         style={{
                             ...(displayedImage === image && { border: '3px solid red' }), 
-                            height: 100, 
-                            width: 300, 
-                            borderRadius: 10 
+                            height: 140, 
+                            width: 200, 
+                            borderRadius: 10,
+                            objectFit: 'cover'
                         }}
                     />
                 </GridItem>

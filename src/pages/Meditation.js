@@ -110,10 +110,11 @@ const Meditation = () => {
     <>
       <h1>Meditation</h1>
       <div className='meditation page'>
-        <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"calc(100vh - 300px)"}>
+        <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"65vh"}>
+        {/* <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"calc(100vh - 300px)"}> */}
           
           <GridItem w='100%' h='100%' className="meditation textbox">
-            <h2>Choose an audio to start!</h2>
+            <h2>Let's start your meditation! ☮️</h2>
           </GridItem>
 
           <GridItem w='100%' h='100%'>
@@ -127,7 +128,7 @@ const Meditation = () => {
             </Grid>
           </GridItem>
 
-          <GridItem w='100%' h='100%' className="meditation textbox">
+          <GridItem w='100%' h='100%' className="meditation textbox" mt={1}>
             <Divider/>
           </GridItem>
 
@@ -150,7 +151,7 @@ const Meditation = () => {
                   fontSize='30px'
                 />
               </GridItem>
-              <GridItem w='100%' h='100%' maxHeight='35vh'>
+              <GridItem w='100%' h='100%' maxHeight='30vh'>
                 <AudioList isFilter={isFilter} />
               </GridItem>
             </Grid>
