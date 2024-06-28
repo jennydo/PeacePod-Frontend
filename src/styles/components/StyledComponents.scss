@@ -1,3 +1,5 @@
+@import "../../App.scss";
+
 .styled-divider {
     margin-top: 5px;
     background-color: rgb(234, 234, 234);
@@ -13,4 +15,21 @@
         margin-left: 5px;
         margin-right: 5px;
     }
+}
+
+.meditation-audio-card {
+    @include center-flex;
+    background-color: $chatbox-selected-background-color;
+
+    &.styled-box-selected {
+        outline: 2px solid $purple;
+        background-color: $purple;
+        color: white;
+        font-weight: 520;
+        font-size: 20px;
+    }
+}
+
+.styled-box-selected {
+    background-color: $chatbox-selected-background-color;
 }

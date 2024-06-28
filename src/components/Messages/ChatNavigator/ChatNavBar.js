@@ -11,6 +11,7 @@ import {
 import ChatBox from "./ChatBox";
 import { useChatsContext } from "../../../hooks/useChatsContext";
 import { FaPeopleArrows } from "react-icons/fa";
+import { StyledButton } from "../../../styles/components/StyledComponents";
 import MatchingModal from "../Matching Progress/MatchingModal";
 
 const ChatNavBar = () => {
@@ -52,7 +53,7 @@ const ChatNavBar = () => {
         // divider={<div className="chatbox-divider"/>}
       >
         <ButtonGroup w={"100%"} isAttached>
-          <Button
+          {/* <Button
             w={"100%"}
             leftIcon={<FaPeopleArrows />}
             bg={"white"}
@@ -63,7 +64,14 @@ const ChatNavBar = () => {
             {isWaitingForMatch
               ? "Waiting till 21:00..."
               : "Need someone new to talk to?"}
-          </Button>
+          </Button> */}
+          <StyledButton 
+            width='100%'
+            icon={<FaPeopleArrows />}
+            onClick={!isWaitingForMatch ? onOpen : null}
+            text={isWaitingForMatch
+              ? "Waiting till 21:00..."
+              : "Need someone new to talk to?"}/>
 
           {isWaitingForMatch ? (
             <Button

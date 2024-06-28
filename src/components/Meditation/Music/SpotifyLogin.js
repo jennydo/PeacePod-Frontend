@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button } from "@chakra-ui/react";
-
+import { Button, Icon } from "@chakra-ui/react";
+import { StyledButton } from '../../../styles/components/StyledComponents';
+import { RiSpotifyFill } from "react-icons/ri";
 
 const SpotifyLogin = () => {
     const baseURL = "https://accounts.spotify.com/authorize";
@@ -22,7 +23,9 @@ const SpotifyLogin = () => {
     
     return ( 
     <>
-        <a href={AUTH_URL}><Button>Login with Spotify</Button></a>
+        <a href={AUTH_URL}>
+            <StyledButton text="Login with Spotify" icon={<Icon as={RiSpotifyFill}/>}/>
+        </a>
     </> );
 }
  

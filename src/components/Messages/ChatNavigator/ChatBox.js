@@ -5,6 +5,7 @@ import { useMessagesContext } from '../../../hooks/useMessagesContext';
 import { useEffect, useState } from "react";
 import '../Chat.scss';
 import { GoDotFill } from "react-icons/go";
+import { StyledBox } from "../../../styles/components/StyledComponents";
 
 const ChatBox = ({chat}) => {
     const { selectedChat, dispatch, onlineUsers } = useChatsContext()
@@ -49,22 +50,26 @@ const ChatBox = ({chat}) => {
     }, [onlineUsers])
     
     return ( 
-        <Box w="100%" h='100%' p={2} borderRadius={5} className={selectedChat._id === chat._id ? "chat-selected": ""}>
-            <Stack direction="row" w="100%" onClick={() => selectChat(chat)}>
-                <Avatar name={username} src={avatar}/>
-                <Stack direction="column" gap='0'>
-                    <div className="app-message box2">
-                        <span className="app-message username">{chatName}</span>
-                        <Icon className={isOnline ? "": "hidden"} as={GoDotFill} fill='blue' ml={'5px'}/>
-                    </div> 
-                    <div className="app-message box2">
-                        <span className="app-message preview">{previewMessages[chat._id]}</span>
-                        <span className="app-message timestamp">·</span>
-                        <span className="app-message timestamp">{previewMessagesTimestamp[chat._id]}</span>
-                    </div>
+        <StyledBox
+            onClick={() => selectChat(chat)}
+            selected={selectedChat._id === chat._id}
+            children={
+                <Stack direction="row" w="100%" onClick={() => selectChat(chat)}>
+                    <Avatar name={username} src={avatar}/>
+                    <Stack direction="column" gap='0'>
+                        <div className="app-message box2">
+                            <span className="app-message username">{chatName}</span>
+                            <Icon className={isOnline ? "": "hidden"} as={GoDotFill} fill='blue' ml={'5px'}/>
+                        </div> 
+                        <div className="app-message box2">
+                            <span className="app-message preview">{previewMessages[chat._id]}</span>
+                            <span className="app-message timestamp">·</span>
+                            <span className="app-message timestamp">{previewMessagesTimestamp[chat._id]}</span>
+                        </div>
+                    </Stack>
                 </Stack>
-            </Stack>
-        </Box>
+            }
+        />
      );
 }
  

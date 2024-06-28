@@ -7,6 +7,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
 import axios from 'axios'
+import { StyledBox } from "../../../styles/components/StyledComponents";
 
 const AudioCard = ({ audio }) => {
   const { chosenAudio, dispatch } = useContext(AudioContext);
@@ -52,9 +53,7 @@ const AudioCard = ({ audio }) => {
       marginTop={3}
       justifyContent={"space-between"}
     >
-      <Flex
-        w="100%"
-        // bg="#BDE0FE"
+      {/* <Flex
         justifyContent="center"
         alignItems="center"
         borderRadius={10}
@@ -66,13 +65,14 @@ const AudioCard = ({ audio }) => {
             transition: "all 250ms linear",
           },
         }}
-        onClick={chooseAudio}
-        // borderColor={audio && chosenAudio && audio._id === chosenAudio._id ? "red.100" : "none"}
-        // borderWidth={audio && chosenAudio && audio._id === chosenAudio._id ? 5 : 0}
-        bg={audio && chosenAudio && audio._id === chosenAudio._id ? "#FFAFCC" : "#FFD6FF"}
       >
-        {audio.title}
-      </Flex>
+      </Flex> */}
+      <StyledBox
+        className="meditation-audio-card"
+        onClick={chooseAudio}
+        selected={audio && chosenAudio && audio._id === chosenAudio._id}
+        children={audio.title}
+      />
       <IconButton
         variant="ghost"
         icon={
