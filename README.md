@@ -1,7 +1,7 @@
 <img alt="Book Hub GIF" src="./book-hub-home.gif">
 By Hennessy (Hai-Anh) Nguyen, Nam Nguyen, Jenny (Trang) Do, Thanh Nguyen.
 
-**Deployed Project Link: ...**
+<!--  **Deployed Project Link: ...** -->
 
 <br />
 
@@ -9,6 +9,7 @@ By Hennessy (Hai-Anh) Nguyen, Nam Nguyen, Jenny (Trang) Do, Thanh Nguyen.
 
 A place where you can slow down, connect deeper, and create a personalized meditation just for you.
 
+<!-- 
 ## Table of Contents 🗺️
 
 - [Inspiration 🧠](https://github.com/jenneydo/PeacePod-Frontend#inspiration-)
@@ -20,6 +21,7 @@ A place where you can slow down, connect deeper, and create a personalized medit
 - [Next Steps 🤫](https://github.com/jenneydo/PeacePod-Frontend#whats-next-for-book-hub-)
 - [Team 🧑‍🤝‍🧑](https://github.com/jenneydo/PeacePod-Frontend#team-)
 - [Contributors ✨](https://github.com/jenneydo/PeacePod-Frontend#contributors-)
+-->
 
 ## Inspiration 🧠
 
@@ -28,55 +30,73 @@ We are living in a state where there are numerous constant notifications, live f
 ## Main Features & How to use 👍
 
 ### Create an account or log in 💓
-<img width="1512" alt="Screenshot 2024-06-26 at 10 16 54 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/6045a5ad-6857-4d8f-afc1-201e0d2376f7">
-<img width="1512" alt="Screenshot 2024-06-26 at 10 17 16 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/16014e4b-7b10-4d19-8332-6076d005729e">
+<p align="center">
+  <img width="45%" alt="Screenshot 2024-06-26 at 10 16 54 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/6045a5ad-6857-4d8f-afc1-201e0d2376f7">
+  <img width="45%" alt="Screenshot 2024-06-26 at 10 17 16 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/16014e4b-7b10-4d19-8332-6076d005729e">
+</p>
 
 ### Newsfeed 
 #### Post your own postcard & See others 💓
-<img width="1512" alt="Screenshot 2024-06-26 at 10 18 06 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/f3167e04-4eaf-4de3-8a1b-076752d86250">
-<img width="1511" alt="Screenshot 2024-06-26 at 10 18 22 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/bb227f05-c9fa-40e4-9887-a37f3dfb3579">
+<p align="center">
+  <img width="45%" alt="Screenshot 2024-06-26 at 10 18 06 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/f3167e04-4eaf-4de3-8a1b-076752d86250">
+  <img width="45%" alt="Screenshot 2024-06-26 at 10 18 22 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/bb227f05-c9fa-40e4-9887-a37f3dfb3579">
+</p>
 
 #### See the Waterfall of responses to Daily Prompt 💓
 * The Daily Prompt is generated using OpenAI.
 * When you click on the prompt, a new response will appear.
-<img width="1512" alt="Screenshot 2024-06-26 at 10 18 44 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/6cd428f1-8fe1-4eac-9d0a-2f16639d7f93">
+<p align="center">
+  <img width="60%" alt="Screenshot 2024-06-26 at 10 18 44 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/6cd428f1-8fe1-4eac-9d0a-2f16639d7f93">
+</p>
 
 ### Chat
 #### Join the Matching list of the day and Get Matched at 9pm EST 
 * Click on Get Matched.
 * Fill in the input to have more data for a better match
 * Wait till 9 PM. If you have a match, you will be notified!
-<img width="1510" alt="Screenshot 2024-06-26 at 10 19 09 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/d7c71bc8-a5ec-40d0-a79d-7a97bd9ccc02">
+<p align="center">
+  <img width="60%" alt="Screenshot 2024-06-26 at 10 19 09 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/d7c71bc8-a5ec-40d0-a79d-7a97bd9ccc02">
+</p>
 
 #### Chatting with others 
 * This is built with Socket.io.
 * You can see the other person's profile.
 * You can also do other things, such as changing chat nickname, leave chat, etc.
 * You will receive a notification from other people when you are not in the chat.
-<img width="1510" alt="Screenshot 2024-06-26 at 10 19 28 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/3b21d1b5-4686-4dca-8da9-bcf836b34bb8">
+<p align="center">
+  <img width="60%" alt="Screenshot 2024-06-26 at 10 19 28 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/3b21d1b5-4686-4dca-8da9-bcf836b34bb8">
+</p>
 
 ### Meditation 
 #### Generate your own Personalized Meditation Audio 
 * This is built with OpenAI and ElevenLabs.
 * Input what you want your audio to be like, wait a few minutes and get the coolest audio ever, made just for you!
-<img width="1510" alt="Screenshot 2024-06-26 at 10 20 29 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/7288bb80-7c90-403f-8f5e-6d803c6df168">
-<img width="1512" alt="Screenshot 2024-06-26 at 10 20 38 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/9a84d8db-6f56-401c-8d61-dfef906d446b">
+<p align="center">
+  <img width="45%" alt="Screenshot 2024-06-26 at 10 20 29 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/7288bb80-7c90-403f-8f5e-6d803c6df168">
+  <img width="45%" alt="Screenshot 2024-06-26 at 10 20 38 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/9a84d8db-6f56-401c-8d61-dfef906d446b">
+</p>
 
 #### Choose an existing audio from Spotify 
 * You can log in to your Spotify Account (if you have premium account) and choose a meditation audio from there.
-<img width="1512" alt="Screenshot 2024-06-26 at 10 20 57 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/a4583f06-6f3c-4504-81c0-66fdee1cf65f">
-<img width="1512" alt="Screenshot 2024-06-26 at 10 21 20 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/f9013b6a-16c9-4732-a204-33da8aa365f2">
+<p align="center">
+  <img width="45%" alt="Screenshot 2024-06-26 at 10 20 57 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/a4583f06-6f3c-4504-81c0-66fdee1cf65f">
+  <img width="45%" alt="Screenshot 2024-06-26 at 10 21 20 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/f9013b6a-16c9-4732-a204-33da8aa365f2">
+</p>
 
 #### Start your session, & choose your Background color/image 
-<img width="1509" alt="Screenshot 2024-06-26 at 10 21 35 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/b20fc903-514b-4c6c-aaed-a77771f787b1">
+<p align="center">
+  <img width="60%" alt="Screenshot 2024-06-26 at 10 21 35 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/b20fc903-514b-4c6c-aaed-a77771f787b1">
+</p>
 
 ### Customize your Character Avatar
-<img width="1512" alt="Screenshot 2024-06-26 at 10 22 42 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/b52655aa-f24a-42fd-877d-30a1791be85e">
-
+<p align="center">
+  <img width="60%" alt="Screenshot 2024-06-26 at 10 22 42 AM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/b52655aa-f24a-42fd-877d-30a1791be85e">
+</p>
 
 ## How we built it 💪
 
 ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black) ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) ![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) ![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+
 
 - **Frontend**: React
 - **Backend**: Node.Js, Express, Flask
@@ -85,7 +105,7 @@ We are living in a state where there are numerous constant notifications, live f
 - **Web Hosting**: AWS S3, EC3 (in progress)
 - **Version Control**: Git & GitHub
 
-## Architecture 🐙
+<!--  ## Architecture 🐙
 
 We aim to have a highly modularized architecture, where every service has its own container and is independent from the others.
 
@@ -99,6 +119,7 @@ BookHub has 6 containers for 6 services:
 - grafana: monitoring tool 3
 
 ![architecture](https://user-images.githubusercontent.com/35150672/130304480-28e9b998-dfb2-4919-82de-d4da9a258bb5.jpeg)
+-->
 
 ## Challenges we ran into 🥺
 
