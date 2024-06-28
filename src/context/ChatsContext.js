@@ -87,6 +87,8 @@ export const ChatsContextProvider = ( {children} ) => {
         dispatch({ type: 'SET_SOCKET', payload: socket });
     }, [user]) 
 
+    useEffect(() => console.log(state.onlineUsers), [state.onlineUsers])
+
     useEffect(() => {
         console.log('state.socket:', state.socket)
 
@@ -103,7 +105,7 @@ export const ChatsContextProvider = ( {children} ) => {
             state.socket.on('updateUserStatus', (data) => {
                 if (data.status === 'online') {
                     dispatch({type: 'ADD_ONLINE_USER', payload: data.userId})
-                    console.log(data.userId, 'has been online')
+                    console.log(data.userId, data.username, 'has been online')
                 } else if (data.status === 'offline') {
                     dispatch({type: 'REMOVE_ONLINE_USER', payload: data.userId})
                 }
