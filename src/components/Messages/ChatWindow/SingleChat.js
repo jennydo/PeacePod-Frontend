@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {Grid, GridItem, HStack, Input, Avatar, Box, IconButton, Icon, Divider, VStack} from '@chakra-ui/react';
 import { IoSend } from "react-icons/io5";
-import { useAuthContext } from '../../hooks/useAuthContext';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 import axios from 'axios';
-import { useChatsContext } from '../../hooks/useChatsContext';
+import { useChatsContext } from '../../../hooks/useChatsContext';
 import Message from './Message';
 import Lottie from "react-lottie";
-import animationData from "./typing.json";
-import { useMessagesContext } from '../../hooks/useMessagesContext';
+import animationData from "../typing.json";
+import { useMessagesContext } from '../../../hooks/useMessagesContext';
 
 const SingleChat = ({chat}) => {
 

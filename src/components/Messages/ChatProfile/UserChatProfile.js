@@ -9,8 +9,8 @@ import { Avatar, VStack, useDisclosure,
     Input, 
     Button
  } from "@chakra-ui/react"
-import { useAuthContext } from "../../hooks/useAuthContext";
-import './Chat.scss';
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import '../Chat.scss';
 import { useState } from "react";
 import { FaPen, FaMapMarkerAlt } from "react-icons/fa";
 import { RiEmotionHappyFill } from "react-icons/ri";
@@ -21,7 +21,7 @@ import { FaDoorOpen } from "react-icons/fa6";
 import { BsFillPersonFill } from "react-icons/bs";
 import { SiStarship } from "react-icons/si";
 import axios from "axios";
-import { useChatsContext } from '../../hooks/useChatsContext'
+import { useChatsContext } from '../../../hooks/useChatsContext'
 
 
 const UserChatProfile = ({chat}) => {

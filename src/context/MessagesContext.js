@@ -31,11 +31,11 @@ export const messagesReducer = (state, action) => {
                 ...state, 
                 previewMessages: {
                     ...state.previewMessages,
-                    [action.payload.chatId]: action.payload.message
+                    [action.payload.chatId]: action.payload.message ? action.payload.message : ""
                 },
                 previewMessagesTimestamp: {
                     ...state.previewMessagesTimestamp,
-                    [action.payload.chatId]: formatDate(action.payload.timestamp),
+                    [action.payload.chatId]: action.payload.timestamp ? formatDate(action.payload.timestamp): action.payload.timestamp,
                 },
             }
         case 'NEW_MESSAGE': 

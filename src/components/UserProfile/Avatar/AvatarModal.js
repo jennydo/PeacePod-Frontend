@@ -71,7 +71,7 @@ const AvatarModal = () => {
             <ModalContent>
             <ModalHeader display="flex" justifyContent="center" alignItems="center">
                 <VStack>
-                    <h1>Customize your Avatar</h1>
+                    <h2>Customize your Avatar</h2>
                     {avatar && 
                         <Image
                         src={avatar}

@@ -1,11 +1,11 @@
 import { Avatar, Stack, Box, Icon } from "@chakra-ui/react";
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { useChatsContext } from '../../hooks/useChatsContext';
-import { useMessagesContext } from '../../hooks/useMessagesContext';
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useChatsContext } from '../../../hooks/useChatsContext';
+import { useMessagesContext } from '../../../hooks/useMessagesContext';
 import { useEffect, useState } from "react";
-import './Chat.scss';
+import '../Chat.scss';
 import { GoDotFill } from "react-icons/go";
-import { StyledBox } from "../../styles/components/StyledComponents";
+import { StyledBox } from "../../../styles/components/StyledComponents";
 
 const ChatBox = ({chat}) => {
     const { selectedChat, dispatch, onlineUsers } = useChatsContext()
@@ -40,7 +40,7 @@ const ChatBox = ({chat}) => {
     }
 
     useEffect(() => {
-        const isUserOnline = onlineUsers.some(user => user._id === receiver[0]._id);
+        const isUserOnline = onlineUsers.some(userId => userId === receiver[0]._id);
         if (isUserOnline) {
             setIsOnline(true); // Set isOnline to true if receiver._id is found in onlineUsers
         } else {
@@ -59,7 +59,7 @@ const ChatBox = ({chat}) => {
                     <Stack direction="column" gap='0'>
                         <div className="app-message box2">
                             <span className="app-message username">{chatName}</span>
-                            <Icon className={isOnline ? "": "hidden"} as={GoDotFill}/>
+                            <Icon className={isOnline ? "": "hidden"} as={GoDotFill} fill='blue' ml={'5px'}/>
                         </div> 
                         <div className="app-message box2">
                             <span className="app-message preview">{previewMessages[chat._id]}</span>
