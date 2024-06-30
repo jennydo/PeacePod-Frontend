@@ -142,15 +142,19 @@ const NormalPost = ({ post }) => {
 
   const handlePostComment = async () => {
     if (!newComment.trim()) return; // Avoid posting empty comments
+    const comment = {newComment}
 
     try {
       const response = await axios.post(
         `http://localhost:4000/api/comments/${post._id}`,
         {
-          content: newComment
+          content: newComment,
         },
         {
-          headers: { Authorization: `Bearer ${user.token}` },
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
         }
       );
       setNewComment(""); // Clear the input field after posting the comment

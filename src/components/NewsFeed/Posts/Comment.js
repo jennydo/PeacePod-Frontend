@@ -20,7 +20,7 @@ const Comment = ({ comment }) => {
         <Avatar name={username} src={avatar}/>
         <Box bg="#dee2ff" borderRadius={20} w='auto'>
             <Text size='sm' color='black' marginBottom={0} pl={3} pr={3} pt={3}>{username}</Text>
-            <Text color='black' pb={1} pt={2} textAlign='left'>{content}</Text>            
+            <Text color='black' pb={1} pt={2}>{content}</Text>            
         </Box>
       </Stack>
     </>
