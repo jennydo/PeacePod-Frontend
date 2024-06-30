@@ -2,6 +2,7 @@ import {createContext, useReducer } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import io from 'socket.io-client';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 export const ChatsContext = createContext();
 
@@ -119,14 +120,60 @@ export const ChatsContextProvider = ( {children} ) => {
                             const noti = {
                                 username: newMessageReceived.sender.username,
                                 avatar: newMessageReceived.sender.avatar,
-                                chat: newMessageReceived.chat
+                                chat: newMessageReceived.chat,
+                                type: "new message"
                             }
                             dispatch({type: 'NEW_NOTI', payload: noti})
                         }
                     }
             }})
         }
-    }, [state.socket])
+    }, [state.socket, state.notifications, state.selectedChatCompare, user.user])
+
+    const scheduleMatchingNotification = () => {
+        const now = new Date();
+        const notiTime = new Date(now);
+    
+        notiTime.setDate(now.getDate() + 1);
+        notiTime.setHours(21);
+        notiTime.setMinutes(0);
+    
+        const timeUntilNoti = notiTime - now;
+    
+        console.log(timeUntilNoti, now, notiTime);
+    
+        setTimeout(() => {
+            getMatch();
+            scheduleMatchingNotification();
+        }, timeUntilNoti);
+    };
+
+    const getMatch = async () => {
+        let response;
+        try {
+          response = await axios.get(
+            "http://localhost:4000/api/matchUsers/matchingPairs",
+            { headers: { Authorization: `Bearer ${user.token}` },}
+          );
+          if (response) { 
+            const matchedUser = response.data;
+            const noti = {
+                username: matchedUser.username,
+                avatar: matchedUser.avatar,
+                chat: matchedUser.chat,
+                type: "new match"
+            }
+            dispatch({type: 'NEW_NOTI', payload: noti})
+          }
+          
+        } catch (err) {
+          console.log("error while creating prompt ", err);
+        }
+    };
+
+    useEffect(() => {
+        scheduleMatchingNotification();
+    }, []);
 
     return (
         <ChatsContext.Provider value={ {...state, dispatch} }>
