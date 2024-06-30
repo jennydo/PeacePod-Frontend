@@ -60,7 +60,6 @@ const NormalPost = ({ post }) => {
   // to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
     // get the Comments object for the post
-    if (!isFlipped) {
       axios
         .get(`http://localhost:4000/api/comments/post/${post._id}`, {
           headers: { Authorization: `Bearer ${user.token}` },
@@ -75,12 +74,6 @@ const NormalPost = ({ post }) => {
         .catch((error) => {
           console.error("Error fetching comments:", error);
         });
-    } else {
-      dispatch({
-        // clear comments when the modal is closed to avoid showing the previous comments when opening the modal again
-        type: "CLEAR_COMMENTS",
-      });
-    }
   }, [post, dispatch, isFlipped]);
 
   console.log(comments);
@@ -152,8 +145,7 @@ const NormalPost = ({ post }) => {
         },
         {
           headers: {
-            Authorization: `Bearer ${user.token}`,
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`
           },
         }
       );
@@ -167,11 +159,13 @@ const NormalPost = ({ post }) => {
     }
   };
 
+  
+
 
   return (
     <div
       // className="flip-container"
-      className={`flip-container ${isFlipped ? "flipped" : ""}`}
+      className={`flip-container ${isFlipped ? "flipped" : ""}`} 
       // onTouchStart="this.classList.toggle('hover');"
       // onClick={handleFlip}
     >
@@ -268,7 +262,7 @@ const NormalPost = ({ post }) => {
         </Grid>
 
         <Grid
-          className="back"
+          className="back scroll"
           // className={`back ${isFlipped ? 'showing' : ''}`}
           gridTemplateRows={"10% 1fr"}
           p={17}
@@ -287,6 +281,7 @@ const NormalPost = ({ post }) => {
           <GridItem
             w="100%"
             h="100%"
+            minH="30vh"
             className="postcard-content"
             display="flex"
             alignItems="center"

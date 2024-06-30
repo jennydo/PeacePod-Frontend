@@ -51,7 +51,7 @@ const NormalPost = ({ post }) => {
       });
 
     // get the Comments object for the post
-    if (isOpen) {
+    
       axios.get(`http://localhost:4000/api/comments/post/${postId}`)
         .then((response) => {
           dispatch({
@@ -63,12 +63,6 @@ const NormalPost = ({ post }) => {
         .catch((error) => {
           console.error("Error fetching comments:", error);
         });
-    } else {
-      dispatch({
-        // clear comments when the modal is closed to avoid showing the previous comments when opening the modal again
-        type: 'CLEAR_COMMENTS',
-      })
-    }
   }, [postId, userId, dispatch, isOpen]);
 
   // get the count of likes when the component is mounted
