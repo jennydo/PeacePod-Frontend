@@ -33,13 +33,14 @@ const Navbar = () => {
     // const { username, avatar } = user || {};
     const { username } = user || {};
     const { avatar: avatarContext } = useAvatarContext()
-    const { dispatch: chatDispatch } = useChatsContext();
     // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
     const { notifications } = useChatsContext();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { logOut } = useLogOut();
+    const { isOpenNewMatch, onOpenNewMatch, onCloseNewMatch } = useDisclosure()
+    const [newMatchUser, setNewMatchUser] = useState(null);
 
     const [avatar, setAvatar] = useState('');
     useEffect(() => {
@@ -56,7 +57,15 @@ const Navbar = () => {
         delete notifications[username]
     }
 
+    const seeNewMatch = (notif) => {
+        setNewMatchUser(notif)
+        onOpenNewMatch()
+    }
 
+    const createNewChat = () => {
+        console.log("Creating new chat");
+    }
+ 
     return ( 
         <nav className="peacepod-navbar">
             <h1 className = "app-name"><Link to="/">PeacePod</Link></h1>
@@ -85,9 +94,14 @@ const Navbar = () => {
                                     {notifications && Object.values(notifications).map((notif, idx) => (
                                         <Stack key={idx} direction={'row'}>
                                             <Avatar size='sm' name={notif.username} src={notif.avatar}/>
-                                            <Link to="/chat" onClick={() => handleRemoveNotification(notif.username)}>
+                                            <Link to="/chat" onClick={
+                                                    (notif.type === 'new message') 
+                                                    ? () => handleRemoveNotification(notif.username)
+                                                    : () => seeNewMatch(notif)
+                                                }>
                                                 <p className='notification-content'>
-                                                    New message from {notif.username}
+                                                   {(notif.type === 'new message') && `New message from ${notif.username}`}
+                                                   {(notif.type === 'new match') && `You have a new match with ${notif.username}!!!`}
                                                 </p>
                                             </Link>  
                                         </Stack>
@@ -127,6 +141,27 @@ const Navbar = () => {
                                 <Button variant='ghost' onClick={onClose} mr={3}>Cancel</Button>
                                 <Button colorScheme='blue' mr={3} onClick={handleLogOut} alignContent={"center"}>
                                 Logout
+                                </Button>
+                            </ModalFooter>
+                            </ModalContent>
+                        </Modal>
+
+                        <Modal isOpen={isOpenNewMatch} onClose={onCloseNewMatch}>
+                            <ModalOverlay />
+                            <ModalContent>
+                            <ModalHeader>Hooray! We found you a new chatting partner!</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>
+                                <Avatar name={newMatchUser.username} src={newMatchUser.avatar} size='md'/>
+                                <h2>newMatchUser.username</h2>
+                                <h4>newMatchUser.location</h4>
+                                <h4>newMatchUser.bio</h4>
+                                <h4>newMatchUser.interests</h4>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button variant='ghost' onClick={onCloseNewMatch} mr={3}>Cancel</Button>
+                                <Button colorScheme='blue' mr={3} onClick={createNewChat} alignContent={"center"}>
+                                Start chatting!
                                 </Button>
                             </ModalFooter>
                             </ModalContent>
