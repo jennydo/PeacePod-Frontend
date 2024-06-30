@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
     Center,
     VStack,
-    Circle,
     Image,
     Text,
     Box,
@@ -15,6 +14,7 @@ import './Profile.css'
 import { useAuthContext } from '../../../hooks/useAuthContext'
 import AvatarModal from '../Avatar/AvatarModal'
 import { useAvatarContext } from '../../../hooks/useAvatarContext'
+import {StyledBox} from '../../../styles/components/StyledComponents'
 
 const Profile = () => {
     const { user } = useAuthContext()
@@ -22,25 +22,10 @@ const Profile = () => {
     const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user
     const { avatar } = useAvatarContext()
 
-    // const [selectedInterests, setSelectedInterests] = useState([]);
-
-    // const handleSelect = (interest) => {
-    //     if (selectedInterests.includes(interest)) {
-    //         setSelectedInterests(selectedInterests.filter(item => item !== interest));
-    //     } else if (selectedInterests.length < 5) {
-    //         setSelectedInterests([...selectedInterests, interest]);
-    //     }
-    // };
-
-    // console.log("avatar", avatar)
-
     return (
         <VStack>
             <HStack>
-                <Center h='75px' fontSize='3xl' color='#98B9F2'>
-                    <h1>User Profile</h1>
-                </Center>
-                <EditIcon w={10} h={10} color='aliceblue' />
+                <h1>User Profile</h1>
             </HStack>
 
             {avatar &&
@@ -52,19 +37,19 @@ const Profile = () => {
                 />
             }
             <AvatarModal />
-            <Text fontSize='2xl' color='#98B9F2' marginBottom={0}>{username} ({age} years old)</Text>
+            <Text fontSize='2xl' color='black' marginBottom={0}>{username} ({age} years old)</Text>
             <Text fontSize='xl'>{`(${pronounce})`}</Text>
 
             {/* Gender */}
             <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center'>
                 <GridItem h='100%'>
-                    <Text fontSize='2xl' color='#98B9F2' margin={0} padding='5px' bg='aliceblue' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
+                    <Text fontSize='2xl' color='black' margin={0} padding='5px' bg='#cbbaff2e' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
                         Gender
                     </Text>
                 </GridItem>
 
                 <GridItem h='100%'>
-                    <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#FFAFCC' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
+                    <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#ffcae4' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
                         {gender}
                     </Text>
                 </GridItem>
@@ -74,13 +59,13 @@ const Profile = () => {
             {/* Location */}
             <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center' >
                 <GridItem h='100%'>
-                    <Text fontSize='2xl' color='#98B9F2' margin={0} padding='5px' bg='aliceblue' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
+                    <Text fontSize='2xl' color='black' margin={0} padding='5px' bg='#cbbaff2e' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
                         Location
                     </Text>
                 </GridItem>
 
                 <GridItem h='100%'>
-                    <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#FFAFCC' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
+                    <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#ffcae4' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
                         {location}
                     </Text>
                 </GridItem>
@@ -88,70 +73,45 @@ const Profile = () => {
 
 
             {/* Sexual Orientation */}
-            <Box w='50%' borderRadius='20px' padding='10px' bg='aliceblue'>
-                <Text fontSize='2xl' align='left' color='#98B9F2'>
+            <Box w='50%' borderRadius='20px' padding='10px' bg='#cbbaff2e'>
+                <Text fontSize='2xl' align='left' color='black'>
                     Sexual Orientation
                 </Text>
                 <HStack>
                     {
                         sexualOrientation.map((sexOr, idx) => (
-                            <Box as='button' key={idx} className="interest" borderRadius='md' bg='pink' color='white' px={4} h={8} minWidth='auto'>
-                                {sexOr}
-                            </Box>
+                            <StyledBox 
+                                key={idx}
+                                children={sexOr}
+                                className="signup-attributes"
+                            />
                         ))
                     }
                 </HStack>
             </Box>
 
             {/* Hobbies */}
-            <Box w='50%' borderRadius='20px' padding='10px' bg='aliceblue'>
-                <Text fontSize='2xl' align='left' color='#98B9F2'>
+            <Box w='50%' borderRadius='20px' padding='10px' bg='#cbbaff2e'>
+                <Text fontSize='2xl' align='left' color='black'>
                     Hobbies
                 </Text>
                 <HStack>
                     {
                         interests.map((interest, idx) => (
-                            <Box as='button' key={idx} className="interest" borderRadius='md' bg='pink' color='white' px={4} h={8} minWidth='auto'>
-                                {interest}
-                            </Box>
+                            <StyledBox 
+                            key={idx}
+                            children={interest}
+                            className="signup-attributes"
+                        />
                         ))
                     }
                 </HStack>
 
             </Box>
 
-            {/* <Box w='50%' borderRadius='20px' padding='10px' bg='aliceblue'>
-                <Text fontSize='2xl' align='left' color='#98B9F2'>
-                    Hobbies
-                </Text>
-                <HStack>
-                    {interests.map((interest, idx) => (
-                        <Box
-                            as='button'
-                            key={idx}
-                            onClick={() => handleSelect(interest)}
-                            className="interest"
-                            borderRadius='md'
-                            bg={selectedInterests.includes(interest) ? 'blue' : 'pink'}
-                            color='white'
-                            px={4}
-                            h={8}
-                            minWidth='auto'
-                            disabled={!selectedInterests.includes(interest) && selectedInterests.length >= 5}
-                            style={{
-                                cursor: (!selectedInterests.includes(interest) && selectedInterests.length >= 5) ? 'not-allowed' : 'pointer',
-                                opacity: (!selectedInterests.includes(interest) && selectedInterests.length >= 5) ? 0.6 : 1,
-                            }}
-                        >
-                            {interest}
-                        </Box>
-                    ))}
-                </HStack>
-            </Box> */}
-
             {/* Bio */}
-            <Box w='50%' borderRadius='20px' padding='10px' bg='aliceblue'>
-                <Text fontSize='2xl' align='left' color='#98B9F2'>
+            <Box w='50%' borderRadius='20px' padding='10px' bg='#cbbaff2e'>
+                <Text fontSize='2xl' align='left' color='black'>
                     About me
                 </Text>
                 <Text fontSize='lg' color='black'>
