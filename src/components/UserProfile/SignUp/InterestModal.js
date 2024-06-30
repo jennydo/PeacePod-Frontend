@@ -5,6 +5,7 @@ import {
   Center
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
+import { StyledButton } from '../../../styles/components/StyledComponents';
 
 
 function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelectedInterests }) {
@@ -73,9 +74,6 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <div>
-        Selected interests: {alreadySelectedInterests.length}
-      </div>
     </>
   )
 }

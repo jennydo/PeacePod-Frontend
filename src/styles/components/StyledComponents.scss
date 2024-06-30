@@ -30,6 +30,28 @@
     }
 }
 
+.signup-attributes {
+    @include center-flex;
+    background-color: $chatbox-selected-background-color;
+    border-radius: 10px !important;
+    padding: 7px !important;
+    padding-inline: 10px !important;
+    margin-right: 2px;
+    min-width: auto;
+    overflow: wrap;
+
+    &.styled-box-selected {
+        outline: 2px solid $purple;
+        background-color: $purple;
+        color: white;
+        font-weight: 500;
+    }
+
+    &.multi-select {
+        background: $gradient;
+    }
+}
+
 .styled-box-selected {
     background-color: $chatbox-selected-background-color;
 }
