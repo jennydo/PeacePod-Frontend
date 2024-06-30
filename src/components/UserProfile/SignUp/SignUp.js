@@ -14,7 +14,6 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
-  Box,
   Heading,
   Stack,
   FormControl,
@@ -22,7 +21,6 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Divider,
   Textarea,
   Select,
   Alert,
@@ -36,9 +34,11 @@ import { useAuthContext } from "../../../hooks/useAuthContext.js";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useAvatarContext } from "../../../hooks/useAvatarContext.js";
+import { StyledBox } from "../../../styles/components/StyledComponents.js";
 
 const SignUp = () => {
   const { dispatch: avatarDispatch } = useAvatarContext();
+  const [page, setPage] = useState(1);
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
@@ -121,17 +121,18 @@ const SignUp = () => {
       <Stack>
         {/* <Grid templateColumns="70% 30%" gap={15}> */}
         <Heading textAlign="center">Create your account</Heading>
-        <Stack>
+      <Stack spacing='24px' display={page === 2 ? 'none' : ''}>
           {/* Username, Email */}
-          <Stack className="username">
+          <Stack>
             <FormControl isRequired>
-              <FormLabel>Username</FormLabel>
-              <Input
-                placeholder="Username"
-                onChange={(e) => setUsername(e.target.value)}
-              />
+                <FormLabel>Username</FormLabel>
+                <Input
+                  placeholder="Username"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
             </FormControl>
           </Stack>
+          
           <Stack className="email">
             <FormControl isRequired>
               <FormLabel>Email</FormLabel>
@@ -144,117 +145,115 @@ const SignUp = () => {
 
           {/* Password */}
           <Stack className="password">
-            <FormLabel>Password</FormLabel>
-            <InputGroup size="md">
-              <Input
-                pr="4.5rem"
-                type={showPw ? "text" : "password"}
-                placeholder="Enter password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <InputRightElement>
-                <IconButton
-                  h="1.75rem"
-                  size="sm"
-                  onClick={handleClickPassword}
-                  bg={"ghost"}
-                  icon={showPw ? <FaEye /> : <FaEyeSlash />}
+          <FormControl isRequired>
+              <FormLabel>Password</FormLabel>
+              <InputGroup size="md">
+                <Input
+                  pr="4.5rem"
+                  type={showPw ? "text" : "password"}
+                  placeholder="Enter password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-              </InputRightElement>
-            </InputGroup>
+                <InputRightElement>
+                  <IconButton
+                    h="1.75rem"
+                    size="sm"
+                    onClick={handleClickPassword}
+                    bg={"ghost"}
+                    icon={showPw ? <FaEye /> : <FaEyeSlash />}
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
           </Stack>
 
           <Stack className="password">
-            <FormLabel>Re-type Password</FormLabel>
-            <InputGroup size="md">
-              <Input
-                pr="4.5rem"
-                type={showRetypePw ? "text" : "password"}
-                placeholder="Re-type password"
-              />
-              <InputRightElement>
-                <IconButton
-                  h="1.75rem"
-                  size="sm"
-                  onClick={handleClickPasswordReType}
-                  bg={"ghost"}
-                  icon={showRetypePw ? <FaEye /> : <FaEyeSlash />}
+            <FormControl isRequired>
+              <FormLabel>Re-type Password</FormLabel>
+              <InputGroup size="md">
+                <Input
+                  pr="4.5rem"
+                  type={showRetypePw ? "text" : "password"}
+                  placeholder="Re-type password"
                 />
-              </InputRightElement>
-            </InputGroup>
+                <InputRightElement>
+                  <IconButton
+                    h="1.75rem"
+                    size="sm"
+                    onClick={handleClickPasswordReType}
+                    bg={"ghost"}
+                    icon={showRetypePw ? <FaEye /> : <FaEyeSlash />}
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
           </Stack>
 
           <Stack className='dob'>
-            <FormLabel>Your Date of Birth</FormLabel>
-            <Input
-              type="date"
-              value={dob}
-              placeholder="Select Date of Birth"
-              onChange={(event) => setDob(event.target.value)}
-            />
+            <FormControl isRequired>
+              <FormLabel>Your Date of Birth</FormLabel>
+              <Input
+                type="date"
+                value={dob}
+                placeholder="Select Date of Birth"
+                onChange={(event) => setDob(event.target.value)}
+              />
+            </FormControl>
           </Stack>
+
+          {/* Cancel and Create buttons */}
+        <Stack direction="row" justify="flex-end" marginTop={5}>
+          <Button
+            onClick={() => setPage(2)}
+            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+            disabled={isLoading}
+            colorScheme="teal"
+            variant="outline"
+          >
+            Next
+          </Button>
         </Stack>
+        <br />
+      </Stack>
+      </Stack>
 
-        {/* <Stack align="center">
-                        <Heading as="h4" size="sm">
-                            Avatar Upload
-                        </Heading>
-                        <Image
-                            boxSize='150px'
-                            objectFit='cover'
-                            borderRadius="30px"
-                            src='https://res.cloudinary.com/khoa165/image/upload/q_100/v1577895922/portfolio/avatar.jpg'
-                        />
-                        <Button colorScheme='teal' variant='solid'>
-                            Upload
-                        </Button>
-                    </Stack> */}
-
-        {/* </Grid> */}
-
+      <Stack display={page === 1 ? 'none' : ''}>
         {/* CHOOSE PRONOUN */}
         <Stack className="pronouns">
-          <Heading as="h4" size="sm">
-            Pronouns:{" "}
-          </Heading>
-          <ButtonGroup variant="solid">
-            {pronouns &&
-              pronouns.map((pronoun, index) => (
-                <Button
-                  key={index}
-                  className="pronoun-option"
-                  colorScheme={selectedPronoun === pronoun ? "blue" : "gray"}
-                  value={pronoun}
-                  onClick={(e) => setSelectedPronoun(e.target.value)}
-                  borderRadius="100px"
-                >
-                  {pronoun}
-                </Button>
-              ))}
-          </ButtonGroup>
+          <FormControl isRequired>
+            <FormLabel>Pronouns</FormLabel>
+            <ButtonGroup>
+              {pronouns &&
+                pronouns.map((pronoun, index) => (
+                  <StyledBox 
+                    key={index}
+                    children={pronoun}
+                    selected={selectedPronoun === pronoun}
+                    onClick={(e) => setSelectedPronoun(pronoun)}
+                    className="signup-attributes"
+                  />
+                ))}
+            </ButtonGroup>
+          </FormControl>
         </Stack>
 
         {/* CHOOSE GENDER */}
         <Stack className="genders">
-          <Heading as="h4" size="sm">
-            Gender:{" "}
-          </Heading>
-
-          <ButtonGroup variant="solid">
-            {genders &&
-              genders.map((gender, index) => (
-                <Button
-                  key={index}
-                  className="gender-option"
-                  colorScheme={selectedGender === gender ? "blue" : "gray"}
-                  value={gender}
-                  onClick={(e) => setSelectedGender(e.target.value)}
-                  borderRadius="100px"
-                >
-                  {gender}
-                </Button>
-              ))}
-          </ButtonGroup>
+          <FormControl isRequired>
+            <FormLabel>Gender</FormLabel>
+            <ButtonGroup>
+              {genders &&
+                genders.map((gender, index) => (
+                  <StyledBox 
+                    key={index}
+                    children={gender}
+                    selected={selectedGender === gender}
+                    onClick={(e) => setSelectedGender(gender)}
+                    className="signup-attributes"
+                  />
+                ))}
+            </ButtonGroup>
+          </FormControl>
 
           <Checkbox onChange={() => setShowGender(!showGender)}>
             Show gender on my profile
@@ -263,27 +262,19 @@ const SignUp = () => {
 
         {/* CHOOSE SEXUAL ORIENTATION */}
         <Stack className="sexualities">
-          <Heading as="h4" size="sm">
-            Sexual Orientations:{" "}
-          </Heading>
-          <Stack direction={["column", "row"]} spacing="5px" wrap="wrap">
-            {selectedSexualities &&
-              selectedSexualities.map((sexuality, index) => (
-                <Box
-                  as="button"
-                  key={index}
-                  className="sexualities"
-                  borderRadius="md"
-                  bg="pink"
-                  color="white"
-                  px={4}
-                  h={8}
-                  minWidth="auto"
-                >
-                  {sexuality}
-                </Box>
-              ))}
-          </Stack>
+          <FormControl isRequired>
+            <FormLabel>Sexual Orientation</FormLabel>
+            <ButtonGroup>
+              {selectedSexualities &&
+                selectedSexualities.map((sexuality, index) => (
+                  <StyledBox 
+                    key={index}
+                    children={sexuality}
+                    className="signup-attributes multi-select"
+                  />
+                ))}
+            </ButtonGroup>
+          </FormControl>
           <SexualityModal
             sexualities={sexualities}
             alreadySelectedSexualities={selectedSexualities}
@@ -295,10 +286,8 @@ const SignUp = () => {
         </Stack>
 
         <Stack>
-          <Heading as="h4" size="sm">
-            Location
-          </Heading>
-          <FormControl>
+          <FormControl isRequired>
+          <FormLabel>Location</FormLabel>
             <Select
               placeholder="Select country"
               onChange={(e) => setLocation(e.target.value)}
@@ -313,44 +302,19 @@ const SignUp = () => {
           </FormControl>
         </Stack>
 
-        {/* OPTIONAL FIELDS */}
-        <Box position="relative">
-          <Divider />
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            bg="white"
-            px="4"
-            height="100%"
-          >
-            OPTIONAL
-          </Box>
-        </Box>
-
         {/* CHOOSE INTERESTS */}
         <Stack className="interests">
-          <Heading as="h4" size="sm">
-            Interests:{" "}
-          </Heading>
-          <Stack direction={["column", "row"]} spacing="5px" wrap="wrap">
+          <FormLabel>Interests</FormLabel>
+          <ButtonGroup>
             {selectedInterests &&
               selectedInterests.map((interest, index) => (
-                <Box
-                  as="button"
+                <StyledBox 
                   key={index}
-                  className="interests"
-                  borderRadius="md"
-                  bg="pink"
-                  color="white"
-                  px={4}
-                  h={8}
-                  minWidth="auto"
-                >
-                  {interest}
-                </Box>
+                  children={interest}
+                  className="signup-attributes multi-select"
+                />
               ))}
-          </Stack>
+          </ButtonGroup>
           <InterestModal
             interestList={interestList}
             alreadySelectedInterests={selectedInterests}
@@ -358,20 +322,23 @@ const SignUp = () => {
           />
         </Stack>
         <Stack>
-          <Heading as="h4" size="sm">
-            Bio
-          </Heading>
+          <FormLabel>Let us know more about you:</FormLabel>
           <Textarea
             placeholder="Your bio, limited to 100 words or less."
             onChange={(e) => setBio(e.target.value)}
           />
         </Stack>
-        <br />
-
+      
         {/* Cancel and Create buttons */}
         <Stack direction="row" spacing={4} justify="flex-end">
-          <Button colorScheme="gray" variant="solid">
-            Cancel
+          <Button
+            onClick={() => setPage(1)}
+            disabled={isLoading}
+            colorScheme="teal"
+            variant="ghost"
+            marginTop={5}
+          >
+            Previous
           </Button>
           <Button
             onClick={() => handleSubmit()}
@@ -379,6 +346,7 @@ const SignUp = () => {
             disabled={isLoading}
             colorScheme="teal"
             variant="outline"
+            marginTop={5}
           >
             Create
           </Button>
@@ -391,6 +359,7 @@ const SignUp = () => {
           </Alert>
         )}
       </Stack>
+  
     </Container>
   );
 };
