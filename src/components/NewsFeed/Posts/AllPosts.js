@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import React from "react";
 import { usePostsContext } from "../../../hooks/usePostsContext";
+import { useCommentsContext } from "../../../hooks/useCommentsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { IconButton, Grid, GridItem, Center } from "@chakra-ui/react"; 
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
@@ -10,6 +11,7 @@ import NormalPost from "../Posts/NormalPost";
 const AllPosts = () => {
     const { user } = useAuthContext();
     const { posts, dispatch } = usePostsContext();
+    const { dispatch : commentDispatch } = useCommentsContext();
     // console.log(posts);
 
     // Get all current post
@@ -35,10 +37,18 @@ const AllPosts = () => {
     
     const retrievePreviousPost = () => {
         setIdx(idx - 1);
+        commentDispatch({
+          // clear comments when the modal is closed to avoid showing the previous comments when opening the modal again
+          type: "CLEAR_COMMENTS",
+        });
     };
 
     const retrieveNewPost = () => {
         setIdx(idx + 1);
+        commentDispatch({
+          // clear comments when the modal is closed to avoid showing the previous comments when opening the modal again
+          type: "CLEAR_COMMENTS",
+        });
     };
 
     console.log('Post showing: ' + postShowing);

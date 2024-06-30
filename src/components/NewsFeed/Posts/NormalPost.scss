@@ -48,3 +48,16 @@
     font-style: normal;
     font-size: 22px;
 }
+
+.scroll {
+	overflow-y: auto;
+	scrollbar-width: none;
+}
+
+.comment-input {
+	background: "#DEE2FF";
+}
+
+// input::placeholder {
+// 	color: black; /* Set your desired color */
+// }
