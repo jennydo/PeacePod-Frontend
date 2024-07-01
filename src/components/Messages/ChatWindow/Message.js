@@ -1,6 +1,6 @@
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import { Stack, Avatar, Box} from '@chakra-ui/react';
-import './Chat.scss';
+import '../Chat.scss';
 
 const Message = ( {message, previousMessage} ) => {
     var isSender;

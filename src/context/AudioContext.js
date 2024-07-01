@@ -85,7 +85,7 @@ export const AudioContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchAudios()
-  }, [dispatch]);
+  }, []);
 
   return (
     <AudioContext.Provider value={{ ...state, dispatch }}>

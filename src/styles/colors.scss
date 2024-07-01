@@ -1,15 +1,23 @@
 // colors
 $purple: #a663cc; // used in nav bar h1 (specifically for the logo)
 $light-purple: #dec9e9;
+$transparent-purple: #efe0f06e;
 $light-pink: #ff72b6;
 $pink: #eb4b98;
 $hot-pink: #DC087D;
+$light-pink2: #ffffffd4;
 $blue: #98B9F2; 
+$gradient: linear-gradient(90deg, #dee2ff 0%, #eaedff 30%, #feeafa 70%);
 
 // app-colors
+$background-color: $gradient;
 $logo-color: $purple;
 $nav-link-color: $light-pink;
 $nav-link-active: $pink;
 $heading-color: $blue;
-$chatbox-background-color: $light-purple;
-$message-background-color: $hot-pink;
+$box-background-color: $light-purple;
+
+// chat
+$chatbox-background-color: $transparent-purple;
+$chatbox-selected-background-color: rgba(139, 0, 158, 0.143);
+$message-background-color: $light-pink2;

@@ -15,6 +15,7 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
+  Box,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { AudioContext } from "../../../context/AudioContext";
@@ -89,79 +90,95 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
           }}
         >
           <Flex flexDirection="column">
-            <Text fontSize="xl" marginBottom={2}>
-              Title{" "}
-              <Text color="red" as="span">
-                *
+            <Box justifyContent="flex-start">
+              <Text fontSize="xl" marginBottom={2} w={'max-content'}>
+                Title{" "}
+                <Text color="red" as="span">
+                  *
+                </Text>
               </Text>
-            </Text>
+            </Box>
             <Input
               placeholder="title for this audio..."
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
-                setError(null)
+                setError(null);
               }}
               isRequired={true}
             />
 
-            <Text fontSize="xl" marginBottom={2}>
-              Duration{" "}
-              <Text color="red" as="span">
-                *
+            <Box justifyContent="flex-start">
+              <Text fontSize="xl" marginBottom={2} w={'max-content'}>
+                Duration{" "}
+                <Text color="red" as="span">
+                  *
+                </Text>
               </Text>
-            </Text>
+            </Box>
             <Input
               placeholder="duration of the session in minutes"
               value={duration}
               onChange={(e) => {
                 setDuration(e.target.value);
-                setError(null)
+                setError(null);
               }}
               isRequired={true}
             />
 
-            <Text fontSize="xl" marginBottom={2}>
-              Mood{" "}
-              <Text color="red" as="span">
-                *
+            <Box justifyContent="flex-start">
+              <Text fontSize="xl" marginBottom={2} w={'max-content'}>
+                Mood{" "}
+                <Text color="red" as="span">
+                  *
+                </Text>
               </Text>
-            </Text>
+            </Box>
             <Input
               placeholder="e.g. sad, happy"
               value={mood}
               onChange={(e) => {
                 setMood(e.target.value);
-                setError(null)
+                setError(null);
               }}
               isRequired={true}
             />
 
-            <Text fontSize="xl" marginBottom={2}>
-              Tone{" "}
-              <Text color="red" as="span">
-                *
+            <Box justifyContent="flex-start">
+              <Text fontSize="xl" marginBottom={2} w={'max-content'}>
+                Tone{" "}
+                <Text color="red" as="span">
+                  *
+                </Text>
               </Text>
-            </Text>
+            </Box>
+
             <Input
               placeholder="reading tone of the session"
               value={tone}
               onChange={(e) => {
                 setTone(e.target.value);
-                setError(null)
+                setError(null);
               }}
               isRequired={true}
             />
+            <Box justifyContent="flex-start">
+              <Text
+                fontSize="xl"
+                marginBottom={2}
+                textAlign={"right"}
+                w={"max-content"}
+              >
+                Extra notes
+              </Text>
+            </Box>
 
-            <Text fontSize="xl" marginBottom={2}>
-              Extra notes
-            </Text>
             <Textarea
               placeholder="any extra notes..."
               value={extraNotes}
               onChange={(e) => {
                 setExtraNotes(e.target.value);
-                setError(null)
+                setError(null);
               }}
               sz="sm"
             />

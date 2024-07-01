@@ -1,0 +1,57 @@
+@import "../../App.scss";
+
+.styled-divider {
+    margin-top: 5px;
+    background-color: rgb(234, 234, 234);
+
+    &.horizontal {
+        width: 100%;
+        height: 1px;
+    }
+
+    &.vertical {
+        width: 1px;
+        height: 100%;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+.meditation-audio-card {
+    @include center-flex;
+    background-color: $chatbox-selected-background-color;
+
+    &.styled-box-selected {
+        outline: 2px solid $purple;
+        background-color: $purple;
+        color: white;
+        font-weight: 520;
+        font-size: 20px;
+    }
+}
+
+.signup-attributes {
+    @include center-flex;
+    background-color: $chatbox-selected-background-color;
+    border-radius: 10px !important;
+    padding: 7px !important;
+    padding-inline: 10px !important;
+    margin-right: 2px;
+    min-width: auto;
+    overflow: wrap;
+
+    &.styled-box-selected {
+        outline: 2px solid $purple;
+        background-color: $purple;
+        color: white;
+        font-weight: 500;
+    }
+
+    &.multi-select {
+        background: $gradient;
+    }
+}
+
+.styled-box-selected {
+    background-color: $chatbox-selected-background-color;
+}

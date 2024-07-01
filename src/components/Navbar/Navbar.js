@@ -10,18 +10,34 @@ import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider,
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    HStack, } from '@chakra-ui/react';
+    HStack, 
+    Icon,
+    IconButton,
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverHeader,
+    PopoverBody,
+    PopoverArrow,
+    PopoverCloseButton,
+    Stack,
+} from '@chakra-ui/react';
 import { useAvatarContext } from '../../hooks/useAvatarContext';
 import { useEffect, useState } from 'react';
+import { IoNotifications } from "react-icons/io5";
+import { useChatsContext } from '../../hooks/useChatsContext';
+
 
 const Navbar = () => {
     const { user } = useAuthContext()?.user || {};
     // const { username, avatar } = user || {};
     const { username } = user || {};
     const { avatar: avatarContext } = useAvatarContext()
+    const { dispatch: chatDispatch } = useChatsContext();
     // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
+    const { notifications } = useChatsContext();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { logOut } = useLogOut();
 
@@ -36,6 +52,11 @@ const Navbar = () => {
         onClose()
     }
 
+    const handleRemoveNotification = (username) => {
+        delete notifications[username]
+    }
+
+
     return ( 
         <nav className="peacepod-navbar">
             <h1 className = "app-name"><Link to="/">PeacePod</Link></h1>
@@ -46,6 +67,35 @@ const Navbar = () => {
                         <Link to="/newsfeed" className={`peacepod-navlink ${pathname === "/newsfeed" ? "active" : ""}`}>NewsFeed</Link>
                         <Link to="/chat" className={`peacepod-navlink ${pathname === "/chat" ? "active" : ""}`}>Messages</Link>
                         <Link to="/meditation" className={`peacepod-navlink ${pathname === "/meditation" ? "active" : ""}`}>Meditation</Link>
+                    
+                        <Popover placement='bottom-end'>
+                            <PopoverTrigger>
+                            <IconButton
+                                icon={<Icon as={IoNotifications} boxSize={6}/>}
+                                isRound={true}
+                                ml="16px"
+                            />
+                            </PopoverTrigger>
+                            <PopoverContent>
+                                <PopoverArrow />
+                                <PopoverCloseButton />
+                                <PopoverHeader>New Messages</PopoverHeader>
+                                <PopoverBody>
+                                    {!Object.keys(notifications).length && <p>No new message.</p>}
+                                    {notifications && Object.values(notifications).map((notif, idx) => (
+                                        <Stack key={idx} direction={'row'}>
+                                            <Avatar size='sm' name={notif.username} src={notif.avatar}/>
+                                            <Link to="/chat" onClick={() => handleRemoveNotification(notif.username)}>
+                                                <p className='notification-content'>
+                                                    New message from {notif.username}
+                                                </p>
+                                            </Link>  
+                                        </Stack>
+                                    ))}
+                                </PopoverBody>
+                            </PopoverContent>
+                        </Popover>
+                        
                         <Menu bg={"green"}>
                             <MenuButton pl={8}>
                                 <Avatar name={username} src={avatar} size='md'/>

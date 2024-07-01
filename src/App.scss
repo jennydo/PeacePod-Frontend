@@ -4,7 +4,8 @@
 
 
 // base styles
-h1, h2, h3, h4, h5, h6, p {
+/// temp: remove h2
+h1, h3, h4, h5, h6, p {
   text-align: center;
   @include center-flex;
 }
@@ -12,6 +13,7 @@ h1, h2, h3, h4, h5, h6, p {
 h1 {
   font-family: $title-font;
   color: $heading-color !important;
-  margin-bottom: 20px !important;
+  margin-bottom: 0px !important;
   font-size: 60px !important;
+  margin-bottom: 20px !important;
 }
