@@ -112,7 +112,7 @@ const UserChatProfile = ({chat}) => {
             })
             .then((response) => {
                 console.log('remove:', response.data.chat._id)
-                dispatch({type: 'REMOVE_CHAT', payload: response.data.chat._id})
+                dispatch({type: 'DELETE_CHAT', payload: response.data.chat._id})
             })
         onCloseDeleteChat();
     }
