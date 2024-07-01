@@ -246,7 +246,7 @@ const NormalPost = ({ post }) => {
                 variant="ghost"
                 onClick={handleReact}
                 leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
-                _hover={{ color: "blue.500" }}
+                _hover={{ color: "blue.500", bg: 'transparent' }}
               >
                 {likes.count === 0 ? "" : likes.count}
               </Button>
@@ -254,6 +254,7 @@ const NormalPost = ({ post }) => {
                 variant="ghost"
                 leftIcon={<FaComment />}
                 onClick={handleFlip}
+                _hover={{bg: 'transparent'}}
               >
                 Comment
               </Button>
@@ -306,11 +307,11 @@ const NormalPost = ({ post }) => {
                 variant="ghost"
                 onClick={handleReact}
                 leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
-                _hover={{ color: "blue.500" }}
+                _hover={{ color: "blue.500", bg: 'transparent' }}
               >
                 {likes.count === 0 ? "" : likes.count}
               </Button>
-              <Button variant="ghost" leftIcon={<FaComment />}>
+              <Button variant="ghost" _hover={{bg: 'transparent'}} leftIcon={<FaComment />}>
                 Comment
               </Button>
             </Flex>
@@ -341,6 +342,7 @@ const NormalPost = ({ post }) => {
                   size="sm"
                   variant="ghost"
                   onClick={handlePostComment}
+                  _hover={{bg: 'transparent'}}
                 >
                   Send
                 </Button>
