@@ -93,7 +93,7 @@ export const ChatsContextProvider = ( {children} ) => {
     useEffect(() => {
         console.log('state.socket:', state.socket)
 
-        if (state.socket) {
+        if (state.socket && user) {
             state.socket.emit("setup", user.user);
             state.socket.emit('userConnected', user.user._id);
 
@@ -128,7 +128,7 @@ export const ChatsContextProvider = ( {children} ) => {
                     }
             }})
         }
-    }, [state.socket, state.notifications, state.selectedChatCompare, user.user])
+    }, [state.socket, state.notifications, state.selectedChatCompare, user])
 
     const scheduleMatchingNotification = () => {
         const now = new Date();
@@ -149,6 +149,9 @@ export const ChatsContextProvider = ( {children} ) => {
     };
 
     const getMatch = async () => {
+        if (!user) {
+            return;
+        }
         let response;
         try {
           response = await axios.get(

@@ -152,11 +152,14 @@ const Navbar = () => {
                             <ModalHeader>Hooray! We found you a new chatting partner!</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
+                                {newMatchUser && 
+                                <>
                                 <Avatar name={newMatchUser.username} src={newMatchUser.avatar} size='md'/>
                                 <h2>newMatchUser.username</h2>
                                 <h4>newMatchUser.location</h4>
                                 <h4>newMatchUser.bio</h4>
                                 <h4>newMatchUser.interests</h4>
+                                </>}
                             </ModalBody>
                             <ModalFooter>
                                 <Button variant='ghost' onClick={onCloseNewMatch} mr={3}>Cancel</Button>
