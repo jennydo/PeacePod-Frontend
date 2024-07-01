@@ -1,10 +1,15 @@
 import React from 'react';
 import { renderHook, act } from '@testing-library/react';
-import { ChatsContextProvider, ChatsContext } from '../../context/ChatsContext';
+import { ChatsContextProvider } from '../../context/ChatsContext';
 import { useChatsContext } from '../../hooks/useChatsContext';
+import { AuthContextProvider } from '../../context/AuthContext';
 
 const wrapper = ({ children }) => (
-  <ChatsContextProvider>{children}</ChatsContextProvider>
+  <AuthContextProvider>
+    <ChatsContextProvider>
+      {children}
+    </ChatsContextProvider>
+  </AuthContextProvider>
 );
 
 describe('useChatsContext', () => {

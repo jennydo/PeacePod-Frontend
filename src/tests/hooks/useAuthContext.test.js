@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderHook, act } from '@testing-library/react';
-import { AuthContextProvider, AuthContext } from '../../context/AuthContext';
+import { AuthContextProvider } from '../../context/AuthContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 // Helper to wrap components in AuthContextProvider
