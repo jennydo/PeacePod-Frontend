@@ -26,7 +26,7 @@ import { useAvatarContext } from '../../hooks/useAvatarContext';
 import { useEffect, useState } from 'react';
 import { IoNotifications } from "react-icons/io5";
 import { useChatsContext } from '../../hooks/useChatsContext';
-
+import axios from 'axios';
 
 const Navbar = () => {
     const { user } = useAuthContext()?.user || {};
@@ -36,7 +36,7 @@ const Navbar = () => {
     // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
-    const { notifications } = useChatsContext();
+    const { notifications, dispatch: chatsDispatch } = useChatsContext();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { logOut } = useLogOut();
     const { isOpenNewMatch, onOpenNewMatch, onCloseNewMatch } = useDisclosure()
@@ -64,6 +64,17 @@ const Navbar = () => {
 
     const createNewChat = () => {
         console.log("Creating new chat");
+        
+        axios.post('http://localhost:4000/api/chats', {
+            userId: newMatchUser._id
+        },{
+            headers: { Authorization: `Bearer ${user.token}` },
+        }).then((response) => {
+            chatsDispatch({
+                type: 'CREATE_CHAT',
+                payload: response.data._id
+            })
+        })
     }
  
     return ( 
