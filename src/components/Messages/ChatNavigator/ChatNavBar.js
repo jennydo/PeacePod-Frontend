@@ -3,7 +3,6 @@ import axios from "axios";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import {
   VStack,
-  StackDivider,
   Button,
   useDisclosure,
   ButtonGroup,
@@ -33,7 +32,7 @@ const ChatNavBar = () => {
         dispatch({ type: "GET_CHATS", payload: response.data });
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [dispatch, user.token]);
 
   const handleCancel = () => {
     console.log("Cancelling match...");

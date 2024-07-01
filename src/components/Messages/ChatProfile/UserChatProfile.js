@@ -22,6 +22,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { SiStarship } from "react-icons/si";
 import axios from "axios";
 import { useChatsContext } from '../../../hooks/useChatsContext'
+import { useMessagesContext } from "../../../hooks/useMessagesContext";
 
 
 const UserChatProfile = ({chat}) => {
@@ -30,6 +31,7 @@ const UserChatProfile = ({chat}) => {
     const receiver = chat.users.filter(user => user._id !== sender.user._id);
     const { username, avatar, pronounce, location, interests, bio } = receiver[0];
     const { dispatch } = useChatsContext();
+    const { dispatch: messagesDispatch } = useMessagesContext();
 
     const userInfo = [
         {
@@ -89,7 +91,16 @@ const UserChatProfile = ({chat}) => {
             }, {
                 headers: { Authorization: `Bearer ${sender.token}` },
             })
-            .then((response) => console.log(response.data))
+            .then((response) => {
+                messagesDispatch({
+                    type: 'SET_CHAT_NAME', 
+                    payload: {
+                        chatId: chat._id, 
+                        chatName: response.data.chatName
+                    }
+                })
+                console.log('new nickname:',response.data)
+            })
         setNewNickname("");
         onCloseNickname();
     }

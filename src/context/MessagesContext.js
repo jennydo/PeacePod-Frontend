@@ -60,6 +60,14 @@ export const messagesReducer = (state, action) => {
 
                 },
             }
+        case 'SET_CHAT_NAME': 
+            return {
+                ...state,
+                chatNames: {
+                    ...state.chatNames,
+                    [action.payload.chatId]: action.payload.chatName
+                }
+            }
         default:
             return state
     }
@@ -70,6 +78,7 @@ export const MessagesContextProvider = ( {children} ) => {
         messages: {},
         previewMessages: {},
         previewMessagesTimestamp: {},
+        chatNames: {},
     })
 
     return (
