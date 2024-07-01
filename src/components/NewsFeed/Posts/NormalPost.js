@@ -275,7 +275,7 @@ const NormalPost = ({ post }) => {
           scrollBehavior="inside"
         >
           <GridItem w="100%" h="100%" mt={1} onClick={handleFlip}>
-            {title}
+            <Text fontSize={'3xl'}>{title}</Text>
           </GridItem>
 
           <GridItem
@@ -288,7 +288,7 @@ const NormalPost = ({ post }) => {
             justifyContent="center"
             onClick={handleFlip}
           >
-            {content}
+            <Text fontSize={'3xl'}>{content}</Text>
           </GridItem>
 
           <GridItem w="100%" h="100%">
