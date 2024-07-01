@@ -16,7 +16,7 @@ import React from 'react'
 import { useAvatarContext } from '../../../hooks/useAvatarContext'
 import axios from 'axios';
 import { useAuthContext } from '../../../hooks/useAuthContext';
-import { useEffect} from 'react';
+import { StyledButton} from '../../../styles/components/StyledComponents'
 
 const AvatarModal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -64,7 +64,7 @@ const AvatarModal = () => {
 
     return ( 
         <>
-        <Button ref={finalRef} onClick={onOpen}>Edit Your Avatar</Button>
+        <StyledButton onClick={onOpen} text="Edit Your Avatar"/>
 
         <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" size="lg">
             <ModalOverlay />
