@@ -1,6 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 import { MessagesContextProvider } from '../../context/MessagesContext';
 import { useMessagesContext} from '../../hooks/useMessagesContext';
+import { format } from 'date-fns';
 
 const wrapper = ({ children }) => (
     <MessagesContextProvider>{children}</MessagesContextProvider>
@@ -52,8 +53,9 @@ describe('useMessagesContext', () => {
     act(() => {
         result.current.dispatch({ type: 'SET_PREVIEW_MESSAGE', payload: testMessage });
     })
+    const expectedDate = format(new Date(testMessage.timestamp), 'MM/dd')
     expect(result.current.previewMessages[testMessage.chatId]).toEqual(testMessage.message);
-    expect(result.current.previewMessagesTimestamp[testMessage.chatId]).toEqual('06/02');
+    expect(result.current.previewMessagesTimestamp[testMessage.chatId]).toEqual(expectedDate);
   });
 
   it('dispatches NEW_MESSAGE action correctly', () => {
