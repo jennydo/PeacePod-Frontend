@@ -82,6 +82,7 @@ gap="5" p={4}>
                     <Divider borderWidth='1px' margin={0} w='100%'/>  
                     </Box>
                     {comments && comments.map((comment, idx) => (
+                        // eslint-disable-next-line react/no-array-index-key
                         <Comment key={idx} comment={comment} />
                     ))
                     }

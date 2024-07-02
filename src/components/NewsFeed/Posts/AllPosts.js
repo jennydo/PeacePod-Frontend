@@ -4,7 +4,7 @@ import React from "react";
 import { usePostsContext } from "../../../hooks/usePostsContext";
 import { useCommentsContext } from "../../../hooks/useCommentsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { IconButton, Grid, GridItem, Center } from "@chakra-ui/react"; 
+import { IconButton, Grid, GridItem } from "@chakra-ui/react"; 
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import NormalPost from "../Posts/NormalPost";
 

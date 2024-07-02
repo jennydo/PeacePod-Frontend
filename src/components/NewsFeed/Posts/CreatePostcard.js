@@ -150,6 +150,7 @@ const CreatePostcard = ({isOpen, onClose}) => {
                 {allPostImageUrls &&
                   allPostImageUrls.map((imageUrl, idx) => (
                     <Image
+                      // eslint-disable-next-line react/no-array-index-key
                       key={idx}
                       h={30}
                       src={imageUrl}
