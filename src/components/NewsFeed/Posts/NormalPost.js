@@ -286,8 +286,10 @@ const NormalPost = ({ post }) => {
 
           <GridItem
             w="100%"
-            h="100%"
+            // h="100%"
+            // h={'45vh'}
             minH="45vh"
+            h={'max-content'}
             className="postcard-content"
             display="flex"
             alignItems="center"
@@ -295,7 +297,7 @@ const NormalPost = ({ post }) => {
             onClick={handleFlip}
             p={10}
           >
-            <Text fontSize={"3xl"}>{content}</Text>
+            <Text fontSize={"3xl"} maxH={'100%'}>{content}</Text>
           </GridItem>
 
           <GridItem w="100%" h="100%">
