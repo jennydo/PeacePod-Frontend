@@ -90,7 +90,7 @@ export const ChatsContextProvider = ( {children} ) => {
     // useEffect(() => console.log(state.onlineUsers), [state.onlineUsers])
 
     useEffect(() => {
-        console.log('state.socket:', state.socket)
+        // console.log('state.socket:', state.socket)
 
         if (state.socket) {
             state.socket.emit("setup", user.user);
