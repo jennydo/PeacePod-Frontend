@@ -43,8 +43,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +66,12 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "jest-fetch-mock": "^3.0.3",
     "sass": "^1.77.4"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
   }
 }
