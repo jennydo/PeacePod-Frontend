@@ -137,7 +137,7 @@ const Meditation = () => {
               <Grid gridTemplateRows={"10% 1fr"} w='100%' h='100%' marginTop="14px">
                 <GridItem w='100%' h='100%' className="meditation-icons" marginTop="20px">
 
-                  <Flex justifyContent="flex-end" paddingRight="20px" >
+                  <Flex justifyContent="flex-end" paddingRight="38px" >
                     <IconButton
                       className="meditation-icon"
                       icon={<Icon as={TiPlus} />}
