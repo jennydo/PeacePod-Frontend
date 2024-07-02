@@ -2,9 +2,9 @@ name: ESLint
 
 on:
   push:
-      branches: [ "eslint", "main" ]
-    pull_request:
-      branches: [ "eslint", "main" ]
+    branches: [ "eslint", "main" ]
+  pull_request:
+    branches: [ "eslint", "main" ]
 
 jobs:
   lint:
