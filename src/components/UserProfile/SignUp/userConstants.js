@@ -295,4 +295,5 @@ const interestList = [
     "Diving",
 ];
 
-module.exports = {pronouns, genders, sexualities, countries, interestList}
+// eslint-disable-next-line no-undef
+module.exports = {pronouns, genders, sexualities, countries, interestList};

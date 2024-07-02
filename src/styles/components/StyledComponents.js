@@ -1,42 +1,41 @@
-import { Box, Button, IconButton } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import './StyledComponents.scss';
 
 const StyledDivider = ({direction}) => {
     return ( 
     <div 
-        className={`styled-divider ${direction === 'vertical' ? 'vertical' : 'horizontal'}`}>
-    </div> 
+        className={`styled-divider ${direction === 'vertical' ? 'vertical' : 'horizontal'}`} /> 
     );
-}
+};
 
 const StyledButton = ({text, onClick=() => {}, icon=null, width=null}) => {
     return (
         <Button 
-            onClick={onClick}
+            _active={{ bg: '#d0aadf' }}
+            _hover={{ bg: '#e0bff2' }}
             bg="#f0d4ff"
             color="black"
-            _hover={{ bg: '#e0bff2' }}
-            _active={{ bg: '#d0aadf' }}
             leftIcon={icon}
             w={width}
+            onClick={onClick}
         >
             {text}
         </Button>    
     );
-}
+};
 
 const StyledBox = ({ onClick=() => {}, children=null, selected=false, className=""}) => {
     return (
     <Box 
-        w='100%'
-        h='100%'
-        p={2} 
-        borderRadius={5} 
+        borderRadius={5}
         className={`${className} ${selected ? "styled-box-selected" : ""}`}
+        h='100%' 
+        p={2} 
+        w='100%'
         onClick={onClick}>
         {children}
     </Box>
-    )
-}
+    );
+};
  
 export { StyledDivider, StyledButton, StyledBox };

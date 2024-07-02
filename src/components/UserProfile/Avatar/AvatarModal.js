@@ -5,24 +5,22 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,
     Button,
     useDisclosure,
     VStack, 
     Image
-  } from '@chakra-ui/react'
-import CustomizeAvatar from './CustomizeAvatar'
-import React from 'react'
-import { useAvatarContext } from '../../../hooks/useAvatarContext'
+  } from '@chakra-ui/react';
+import CustomizeAvatar from './CustomizeAvatar';
+import React from 'react';
+import { useAvatarContext } from '../../../hooks/useAvatarContext';
 import axios from 'axios';
 import { useAuthContext } from '../../../hooks/useAuthContext';
-import { StyledButton} from '../../../styles/components/StyledComponents'
+import { StyledButton} from '../../../styles/components/StyledComponents';
 
 const AvatarModal = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const finalRef = React.useRef(null)
-    const { avatar, avatarData } = useAvatarContext()
-    const { user } = useAuthContext()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { avatar, avatarData } = useAvatarContext();
+    const { user } = useAuthContext();
     const userId = user.user._id;
 
     const handleClick = () => {
@@ -60,24 +58,25 @@ const AvatarModal = () => {
             // Handle error
             console.error('Error updating avatar:', error);
         });
-        }
+        };
 
     return ( 
         <>
-        <StyledButton onClick={onOpen} text="Edit Your Avatar"/>
+        <StyledButton text="Edit Your Avatar" onClick={onOpen}/>
 
-        <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" size="lg">
+        <Modal isOpen={isOpen} scrollBehavior="inside" size="lg"
+onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader display="flex" justifyContent="center" alignItems="center">
+            <ModalHeader alignItems="center" display="flex" justifyContent="center">
                 <VStack>
                     <h2>Customize your Avatar</h2>
                     {avatar && 
                         <Image
-                        src={avatar}
                         alt="User Profile"
                         borderRadius='full'
                         objectFit='cover'
+                        src={avatar}
                         />}
                 </VStack>
             </ModalHeader>
@@ -87,7 +86,7 @@ const AvatarModal = () => {
                 <CustomizeAvatar/>
             </ModalBody>
                 
-            <ModalFooter display="flex" justifyContent="center" alignItems="center">
+            <ModalFooter alignItems="center" display="flex" justifyContent="center">
                 <Button colorScheme='blue' mr={3} onClick={handleClick} >
                     Save
                 </Button>
@@ -96,6 +95,6 @@ const AvatarModal = () => {
         </Modal>
         </>
      );
-}
+};
  
 export default AvatarModal;

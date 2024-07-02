@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   CardHeader,
@@ -22,16 +22,16 @@ import Comment from './Comment';
 import { useCommentsContext } from '../../hooks/useCommentsContext';
 import PostModal from "./PostModal";
 
-import Logo from '../../assets/images/sign.png'
+import Logo from '../../assets/images/sign.png';
 
 const PromptPost = ({ post }) => {
     const timeStamp = post?.createdAt;
     // format the timestamp to be more readable: "x minutes ago"
-    const formattedTimeStamp = post && formatDistanceToNow(new Date(timeStamp), { addSuffix: true })
+    const formattedTimeStamp = post && formatDistanceToNow(new Date(timeStamp), { addSuffix: true });
 
     const [user, setUser] = useState(null);
-    const { comments, dispatch } = useCommentsContext()
-    const [ displayedComments, setDisplayedComments ] = useState(null)
+    const { dispatch } = useCommentsContext();
+    const [ displayedComments, setDisplayedComments ] = useState(null);
 
     const finalRef = React.useRef(null);
 
@@ -40,7 +40,7 @@ const PromptPost = ({ post }) => {
     /// Get all comments for prompt
     useEffect(() => {
       if (!post)
-        return
+        return;
 
       // get the User object by userId
       axios.get(`http://localhost:4000/api/users/findUser/${post.userId}`)
@@ -54,19 +54,19 @@ const PromptPost = ({ post }) => {
       // get the Comments object for the post
       axios.get(`http://localhost:4000/api/comments/post/${post._id}`)
         .then((response) => {
-          const latestComments = response.data.slice(0, 3)
-          console.log("Comments previewed ", latestComments)
-          setDisplayedComments(latestComments)
+          const latestComments = response.data.slice(0, 3);
+          console.log("Comments previewed ", latestComments);
+          setDisplayedComments(latestComments);
 
           if (isOpenPrompt) {
             dispatch({
               type: 'GET_COMMENTS', 
               payload: response.data
-            })
+            });
           } else {
               dispatch({
                 type: 'CLEAR_COMMENTS', 
-              })
+              });
           }
         })
         .catch((error) => {
@@ -76,11 +76,13 @@ const PromptPost = ({ post }) => {
 
     return (
     <>
-      <Card w='100%' mt={4} mb={4} borderRadius={15}>
+      <Card borderRadius={15} mb={4} mt={4}
+w='100%'>
         <CardHeader mb="-8">
             <Flex spacing="4">
-              <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
-                <Avatar name="PeacePod" src={Logo} bg='green.100'/>
+              <Flex alignItems="center" flex="1" flexWrap="wrap"
+gap="5">
+                <Avatar bg='green.100' name="PeacePod" src={Logo}/>
                 <Box>
                   <Text fontSize="md">PeacePod</Text>
                   <Text fontSize="xs">
@@ -89,51 +91,52 @@ const PromptPost = ({ post }) => {
                 </Box>
               </Flex>
               <IconButton
-                variant="ghost"
-                colorScheme="gray"
                 aria-label="See menu"
+                colorScheme="gray"
+                variant="ghost"
               />
             </Flex>
             <Text fontSize="xl">{post && post.title}</Text>
           </CardHeader>
 
-        <CardBody paddingTop='0px' paddingBottom='0px' >
+        <CardBody paddingBottom='0px' paddingTop='0px' >
           <Text fontSize='2xl'>{post && post.content}</Text>
         </CardBody>
 
         <Center margin={0}>
-          <Divider width='95%' borderWidth='1px' margin={0}/>          
+          <Divider borderWidth='1px' margin={0} width='95%'/>          
         </Center>
 
         <CardFooter
-          justify="space-around"
           flexWrap="wrap"
+          justify="space-around"
+          padding='15px'
           sx={{
             "& > button": {
               minW: "136px",
             },
           }}
-          padding='15px'
         >
-          <Button variant="ghost" flex="1" leftIcon={<FaHeart />}>
+          <Button flex="1" leftIcon={<FaHeart />} variant="ghost">
             Like
           </Button>
-          <Button variant="ghost" flex="1" onClick={onOpenPrompt} leftIcon={<FaComment />}>
+          <Button flex="1" leftIcon={<FaComment />} variant="ghost"
+onClick={onOpenPrompt}>
             Comment
           </Button>
         </CardFooter>
 
         <Center margin={0}>
-          <Divider width='95%' borderWidth='1px' margin={0}/>          
+          <Divider borderWidth='1px' margin={0} width='95%'/>          
         </Center>
 
         <Text 
-          onClick={onOpenPrompt} 
+          _hover={{ color: "blue.500", textDecoration: "underline" }} 
           color="gray.500" 
           fontStyle="italic" 
-          _hover={{ color: "blue.500", textDecoration: "underline" }}
+          justifyContent='left'
           marginLeft='15px' marginRight='15px' marginTop='5px' 
-          justifyContent='left' width='max-content'>
+          width='max-content' onClick={onOpenPrompt}>
           {displayedComments && displayedComments.length > 0? "View more comments": ""}
         </Text>
 
@@ -141,16 +144,18 @@ const PromptPost = ({ post }) => {
         <VStack align='left'>
           {
             displayedComments && displayedComments.map((comment, idx) => (
-              <Comment comment={comment} key={idx} />
+              // eslint-disable-next-line react/no-array-index-key
+              <Comment key={idx} comment={comment} />
             ))
           }
         </VStack>
       </Card>
       
-      <PostModal finalRef={finalRef} isOpen={isOpenPrompt} onClose={onClosePrompt} post={post} user={user} formattedTimeStamp={formattedTimeStamp}/>
+      <PostModal finalRef={finalRef} formattedTimeStamp={formattedTimeStamp} isOpen={isOpenPrompt}
+post={post} user={user} onClose={onClosePrompt}/>
 
     </>
-  )
-}
+  );
+};
 
-export default PromptPost
+export default PromptPost;

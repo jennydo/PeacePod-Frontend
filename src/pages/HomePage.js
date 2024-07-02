@@ -1,5 +1,5 @@
 import Home from '../components/Home/Home.js';
-import { useSpotifyContext } from '../hooks/useSpotifyContext'
+import { useSpotifyContext } from '../hooks/useSpotifyContext';
 import { useEffect } from'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,5 +21,5 @@ const HomePage = () => {
             <Home /> 
         </div> 
     );
-}
+};
 export default HomePage;

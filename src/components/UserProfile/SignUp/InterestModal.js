@@ -5,11 +5,9 @@ import {
   Center
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
-import { StyledButton } from '../../../styles/components/StyledComponents';
-
 
 function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelectedInterests }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleInterestSelected = (interest) => {
     if (alreadySelectedInterests.includes(interest)) {
@@ -25,7 +23,6 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
     if (alreadySelectedInterests.length === 5) {
       // Save the selected interests
       onClose();
-    } else {
     }
   };
 
@@ -35,31 +32,32 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
         Select
       </Button>
       <Modal
-        isOpen={isOpen}
-        onClose={onClose}
         blockScrollOnMount={false}
+        isOpen={isOpen}
         motionPreset='slideInBottom'
         scrollBehavior='inside'
-        size='xl'>
+        size='xl'
+        onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Select the 5 topics that interest you most</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Center>
-              <ButtonGroup variant='solid'
+              <ButtonGroup alignItems="center"
                 display="flex"
                 flexWrap="wrap"
                 justifyContent="center"
-                alignItems="center"
+                variant='solid'
               >
                 {interestList && interestList.map((interest, index) => (
                   <Button
+                    // eslint-disable-next-line react/no-array-index-key
                     key={index}
                     className="interest-option"
                     colorScheme={alreadySelectedInterests.includes(interest) ? "blue" : "gray"}
-                    onClick={() => handleInterestSelected(interest)}
-                    m={1}>
+                    m={1}
+                    onClick={() => handleInterestSelected(interest)}>
                     {alreadySelectedInterests.includes(interest) ? `${alreadySelectedInterests.indexOf(interest) + 1}. ${interest}` : interest}
                   </Button>
                 ))}
@@ -68,15 +66,16 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} mx="auto" onClick={handleSave}>
+            <Button colorScheme='blue' mr={3} mx="auto"
+onClick={handleSave}>
               Save
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
 
-export default InterestModal
+export default InterestModal;
 

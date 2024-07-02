@@ -1,14 +1,14 @@
-import React from 'react'
-import './Home.css'
-import BouncyText from './BouncyText'
-import { NavCards } from "./NavCards"
+import React from 'react';
+import './Home.css';
+import BouncyText from './BouncyText';
+import { NavCards } from "./NavCards";
 
 const Home = () => {
   return (
     <div className='homepage'>
         {/* App name */}
         <div className='app-name__container'>
-          <BouncyText text={"PeacePod"} />
+          <BouncyText text="PeacePod" />
           <div className='app-intro__container'>
             <h1>Bridging gaps, healing minds</h1>
             <p className='app-intro__description'>A website designed to foster connections between individuals from similar 
@@ -20,7 +20,7 @@ const Home = () => {
         </div>
         <NavCards />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

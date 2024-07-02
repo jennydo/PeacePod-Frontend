@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useCallback } from 'react';
 import {Grid, GridItem, HStack, Input, Avatar, Box, IconButton, Icon, Divider, VStack} from '@chakra-ui/react';
 import { IoSend } from "react-icons/io5";
@@ -11,12 +12,12 @@ import { useMessagesContext } from '../../../hooks/useMessagesContext';
 
 const SingleChat = ({chat}) => {
 
-  const { selectedChat, dispatch: chatDispatch, socket, selectedChatCompare } = useChatsContext()
-  const { dispatch: messagesDispatch, messages, chatNames } = useMessagesContext()
-  const { _id: chatId, users, chatName } = chat 
+  const { selectedChat, dispatch: chatDispatch, socket, selectedChatCompare } = useChatsContext();
+  const { dispatch: messagesDispatch, messages, chatNames } = useMessagesContext();
+  const { _id: chatId, users } = chat; 
 
   // get information of the sender (logged in user)
-  const {user: sender} = useAuthContext()
+  const {user: sender} = useAuthContext();
   const {username: senderUsername, avatar: senderAvatar} = sender.user;
 
   // get info of the receiver
@@ -24,16 +25,16 @@ const SingleChat = ({chat}) => {
   const { username: receiverUsername, avatar: receiverAvatar } = receiver[0];
 
   // const [handle, setHandle] = useState("")
-  const [socketConnected, setSocketConnected] = useState(false)
-  const [newMessage, setNewMessage] = useState("")
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [newMessage, setNewMessage] = useState("");
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    socket.on("connected", () => setSocketConnected(true))
+    socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-  }, [])
+  }, []);
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
@@ -48,10 +49,10 @@ const SingleChat = ({chat}) => {
             chatId: newMessageReceived.chat._id,
             message: newMessageReceived
           }
-        })
+        });
       }
-    })
-  }, [])
+    });
+  }, []);
 
   useEffect(() => {
     fetchMessages();
@@ -78,13 +79,13 @@ const SingleChat = ({chat}) => {
             chatId,
             messages: response.data
           }
-        })
-        console.log("all messages: ", response.data)
+        });
+        console.log("all messages: ", response.data);
       })
-      .catch ( error => console.log(error))
+      .catch ( error => console.log(error));
 
-    socket.emit('join chat', chatId)
-  }
+    socket.emit('join chat', chatId);
+  };
 
   // Chat Event
   // send chat message
@@ -97,17 +98,17 @@ const SingleChat = ({chat}) => {
         headers: {Authorization: `Bearer ${sender.token}`}
       })
       .then( response => {
-        console.log("new message here", response.data)
-        socket.emit('new message', response.data)
+        console.log("new message here", response.data);
+        socket.emit('new message', response.data);
         messagesDispatch({
           type: 'NEW_MESSAGE',
           payload: {
             chatId: response.data.chat._id,
             message: response.data
           }
-        })
+        });
       })
-      .catch( error => console.log(error))
+      .catch( error => console.log(error));
     
     setNewMessage("");
     scrollToBottom();
@@ -145,18 +146,21 @@ const SingleChat = ({chat}) => {
   }, []);
 
   return (
-    <Grid gridTemplateRows={'8% 1fr 8%'}  w='100%' h='100%' pt={'15px'}>
-      <GridItem w='100%' h='100%'> 
+    <Grid gridTemplateRows="8% 1fr 8%" h='100%' pt="15px"
+w='100%'>
+      <GridItem h='100%' w='100%'> 
         <HStack className='chatbox-header'>
           <Avatar src={receiverAvatar}/>
           <p className='app-message username'>{chatNames[chatId]}</p>
         </HStack>
       </GridItem>
-      <GridItem w='100%' h='100%'> 
-        <div className='chatbox-divider'></div>
-        <VStack id="messagesContainer" height="70vh" overflowY="scroll" p={3} mb={5}>
+      <GridItem h='100%' w='100%'> 
+        <div className='chatbox-divider' />
+        <VStack height="70vh" id="messagesContainer" mb={5}
+overflowY="scroll" p={3}>
           {messages[chatId] && messages[chatId].map((message, index) => (
             <Message 
+            // eslint-disable-next-line react/no-array-index-key
               key={index} // !!! not use key 
               message={message} 
               previousMessage={index > 0 ? messages[chatId][index - 1] : null} 
@@ -180,26 +184,26 @@ const SingleChat = ({chat}) => {
           )} */}
       </GridItem>
 
-      <GridItem w='100%' h='100%'> 
+      <GridItem h='100%' w='100%'> 
         <HStack>
-          <Avatar size="sm" name={senderUsername} src={senderAvatar}/>
+          <Avatar name={senderUsername} size="sm" src={senderAvatar}/>
           <Input
             id="message"
-            value={newMessage}
             placeholder="Message"
+            value={newMessage}
             variant='filled'
             onChange={typingHandler}
           />
           <IconButton 
             aria-label='Send' 
-            variant='ghost'
             colorScheme='pink'
-            icon={<Icon as={IoSend}/>} 
+            icon={<Icon as={IoSend}/>}
+            variant='ghost' 
             onClick={sendMessage}/>
         </HStack>
       </GridItem>
     </Grid>
   );
-}
+};
 
 export default SingleChat;

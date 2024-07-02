@@ -13,28 +13,30 @@ const BackgroundList = () => {
     useEffect(() => {
         axios.get('http://localhost:4000/api/cloudinary')
         .then(res => {
-            dispatch({ type: 'GET_IMAGES', payload: res.data})
-        }).catch(err => console.log(err))
+            dispatch({ type: 'GET_IMAGES', payload: res.data});
+        }).catch(err => console.log(err));
 
         axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
         .then(res => {
-            dispatch({ type: 'GET_USER_IMAGES', payload: res.data.user.uploadedBackgrounds})
-            console.log("Response ", res.data.user.uploadedBackgrounds)
+            dispatch({ type: 'GET_USER_IMAGES', payload: res.data.user.uploadedBackgrounds});
+            console.log("Response ", res.data.user.uploadedBackgrounds);
         })
-        .catch(err => console.log("Error while getting user images", err))
-    }, [])
+        .catch(err => console.log("Error while getting user images", err));
+    }, []);
 
     const chooseImage = (image) => {
-        console.log(image)
-        dispatch({ type: 'DISPLAY_IMAGE', payload: image})
-    }
+        console.log(image);
+        dispatch({ type: 'DISPLAY_IMAGE', payload: image});
+    };
 
     return ( 
     <>
-        <Box h="100%" w={"100%"} overflowY={"auto"} objectFit={true} >
-            <Grid gridTemplateColumns={'50% 50%'} gap={1} maxW={'98%'}>
+        <Box h="100%" objectFit={true} overflowY="auto"
+w="100%" >
+            <Grid gap={1} gridTemplateColumns="50% 50%" maxW="98%">
             {images && images.map((image, idx) => (
                 <GridItem 
+                    // eslint-disable-next-line react/no-array-index-key
                     key={idx} onClick={() => chooseImage(image)}
                 >
                     <Image src={image}
@@ -51,6 +53,6 @@ const BackgroundList = () => {
             </Grid>
         </Box>
     </> );
-}
+};
  
 export default BackgroundList;

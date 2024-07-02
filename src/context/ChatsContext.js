@@ -12,24 +12,25 @@ export const chatsReducer = (state, action) => {
                 ...state,
                 chats: action.payload,
                 selectedChat: action.payload ? action.payload[0] : null
-            }
+            };
         case 'CREATE_CHAT':
             return {
                 ...state, 
                 chats: [action.payload, ...state.chats]
-            }
+            };
         case 'SELECT_CHAT':
             return {
                 ...state,
                 selectedChat: action.payload
-            }
+            };
         case 'DELETE_CHAT':
-            const newChats = state.chats.filter(chat => chat._id !== action.payload)
+            // eslint-disable-next-line no-case-declarations
+            const newChats = state.chats.filter(chat => chat._id !== action.payload);
             return {
                 ...state,
                 chats: newChats,
                 selectedChat: newChats.length > 0? newChats[0] : null
-            }
+            };
         case 'NEW_NOTI':
             return {
                 ...state,
@@ -37,17 +38,17 @@ export const chatsReducer = (state, action) => {
                     ...state.notifications,
                     [action.payload.username] : action.payload
                 }
-            }
+            };
         case 'SET_SOCKET':
             return {
                 ...state, 
                 socket: action.payload
-            }
+            };
         case 'SET_SELECTED_CHAT_COMPARE':
             return {
                 ...state,
                 selectedChatCompare: action.payload
-            }
+            };
         case 'ADD_ONLINE_USER':
             // if (!state.onlineUsers.some(user => user._id === action.payload._id)) {
                 return {
@@ -60,11 +61,11 @@ export const chatsReducer = (state, action) => {
             return {
                 ...state,
                 onlineUsers: state.onlineUsers.filter(user => user._id!== action.payload)
-            }
+            };
         default:
-            return state
+            return state;
     }
-}
+};
 
 export const ChatsContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(chatsReducer, {
@@ -74,7 +75,7 @@ export const ChatsContextProvider = ( {children} ) => {
         socket: null, 
         selectedChatCompare: null,
         onlineUsers: [],
-    })
+    });
 
     const { user } = useAuthContext();
 
@@ -85,12 +86,12 @@ export const ChatsContextProvider = ( {children} ) => {
         // connect to server
         const socket = io.connect('http://localhost:4000');
         dispatch({ type: 'SET_SOCKET', payload: socket });
-    }, [user]) 
+    }, [user]); 
 
-    useEffect(() => console.log(state.onlineUsers), [state.onlineUsers])
+    useEffect(() => console.log(state.onlineUsers), [state.onlineUsers]);
 
     useEffect(() => {
-        console.log('state.socket:', state.socket)
+        console.log('state.socket:', state.socket);
 
         if (state.socket) {
             state.socket.emit("setup", user.user);
@@ -104,10 +105,10 @@ export const ChatsContextProvider = ( {children} ) => {
 
             state.socket.on('updateUserStatus', (data) => {
                 if (data.status === 'online') {
-                    dispatch({type: 'ADD_ONLINE_USER', payload: data.userId})
-                    console.log(data.userId, data.username, 'has been online')
+                    dispatch({type: 'ADD_ONLINE_USER', payload: data.userId});
+                    console.log(data.userId, data.username, 'has been online');
                 } else if (data.status === 'offline') {
-                    dispatch({type: 'REMOVE_ONLINE_USER', payload: data.userId})
+                    dispatch({type: 'REMOVE_ONLINE_USER', payload: data.userId});
                 }
             });
 
@@ -120,17 +121,17 @@ export const ChatsContextProvider = ( {children} ) => {
                                 username: newMessageReceived.sender.username,
                                 avatar: newMessageReceived.sender.avatar,
                                 chat: newMessageReceived.chat
-                            }
-                            dispatch({type: 'NEW_NOTI', payload: noti})
+                            };
+                            dispatch({type: 'NEW_NOTI', payload: noti});
                         }
                     }
-            }})
+            }});
         }
-    }, [state.socket])
+    }, [state.socket]);
 
     return (
         <ChatsContext.Provider value={ {...state, dispatch} }>
             {children}
         </ChatsContext.Provider>
-    )
-}
+    );
+};

@@ -35,7 +35,6 @@ const CreatePostcard = ({ isOpen, onClose }) => {
   const isPrompt = false;
   const [isShowingAlert, setIsShowingAlert] = useState(false);
   const [alertMssg, setAlertMssg] = useState("");
-
   const [chosenImage, setChosenImage] = useState(null);
 
   const maxLength = 2000;
@@ -103,12 +102,12 @@ const CreatePostcard = ({ isOpen, onClose }) => {
   return (
     <>
       <Modal
-        isOpen={isOpen}
-        onClose={handleClose}
         blockScrollOnMount={false}
-        size="xl"
+        isOpen={isOpen}
         motionPreset="slideInBottom"
         scrollBehavior="inside"
+        size="xl"
+        onClose={handleClose}
       >
         <ModalOverlay />
         <ModalContent>
@@ -123,24 +122,24 @@ const CreatePostcard = ({ isOpen, onClose }) => {
               </Stack>
 
               <Input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
                 placeholder="Your postcard topic..."
                 size="md"
+                value={title}
                 variant="outline"
+                onChange={(e) => setTitle(e.target.value)}
               />
 
               <Textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="What did you tell the birds?"
-                isInvalid={characterCount > maxLength}
-                size="sm"
-                variant="filled"
-                borderRadius={8}
-                h={250}
                 bgImage={chosenImage}
                 bgSize="cover"
+                borderRadius={8}
+                h={250}
+                isInvalid={characterCount > maxLength}
+                placeholder="What did you tell the birds?"
+                size="sm"
+                value={content}
+                variant="filled"
+                onChange={(e) => setContent(e.target.value)}
               />
 
               <Text
@@ -164,22 +163,23 @@ const CreatePostcard = ({ isOpen, onClose }) => {
               {allPostImageUrls &&
                 allPostImageUrls.map((imageUrl, idx) => (
                   <Image
-                    src={imageUrl}
+                    // eslint-disable-next-line react/no-array-index-key
                     key={idx}
-                    w={30}
+                    border={imageUrl === chosenImage ? '3px solid red' : 'none'}
                     h={30}
+                    src={imageUrl}
+                    w={30}
                     onClick={() => {
                       setPostImageUrl(imageUrl);
                       setChosenImage(imageUrl);
                     }}
-                    border={imageUrl === chosenImage ? '3px solid red' : 'none'}
                   />
                 ))}
             </HStack>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" onClick={handleSave} w="100%">
+            <Button colorScheme="blue" w="100%" onClick={handleSave}>
               Save
             </Button>
           </ModalFooter>

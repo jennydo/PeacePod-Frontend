@@ -16,8 +16,9 @@ const UserChatProfileFeature = ({title, features}) => {
     <div style={{width: '100%'}}>
         <Grid w="100%">
             {features.map((feature, index) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <Box key={index} className='chat-user-profile-feature' onClick={feature.func}>
-                    <Icon  marginRight={'6px'} boxSize={4} as={feature.icon}/>
+                    <Icon  as={feature.icon} boxSize={4} marginRight="6px"/>
                     <div>{feature.label}</div>
                 </Box>
             ))}
@@ -25,6 +26,6 @@ const UserChatProfileFeature = ({title, features}) => {
     </div>}
 
     </> );
-}
+};
  
 export default UserChatProfileFeature;

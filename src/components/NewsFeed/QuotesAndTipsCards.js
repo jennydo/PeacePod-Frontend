@@ -9,23 +9,21 @@ const QuotesAndTipsCards = () => {
     quote : 'Happiness is secured through virtue it is a good attained by man\'s own will.',
     author : 'Thomas Aquinas',
     category : 'happiness'
-  })
+  });
   useEffect(() => {
     axios.get("http://localhost:4000/api/quotestips/quotes")
     .then((response) => {
-      console.log(response.data)
-      setQuoteInfo(response.data[0])
+      console.log(response.data);
+      setQuoteInfo(response.data[0]);
     });
-  }, [])
+  }, []);
 
   
   return (
     <Card
+      bgImage="https://media.istockphoto.com/id/157639696/photo/purple-space-stars.jpg?s=612x612&w=0&k=20&c=fkLtGZxUS9UPlLJUTeGjvvURT0u-vtxvj5sAYbDNrH4="
       m={15}
       maxW="md"
-      bgImage={
-        "https://media.istockphoto.com/id/157639696/photo/purple-space-stars.jpg?s=612x612&w=0&k=20&c=fkLtGZxUS9UPlLJUTeGjvvURT0u-vtxvj5sAYbDNrH4="
-      }
     >
       <CardHeader align="center" justify="center">
         <Text color="white">Inspirational Quote</Text>
@@ -36,12 +34,12 @@ const QuotesAndTipsCards = () => {
         <Text color="white" fontSize="sm">{quoteInfo.author}</Text>
       </CardBody>
 
-      <CardFooter justify="space-between" flexWrap="wrap">
+      <CardFooter flexWrap="wrap" justify="space-between">
         <Button
           color="white"
           flex="1"
+          leftIcon={<i className="bi bi-heart" />}
           variant="ghost"
-          leftIcon={<i className="bi bi-heart"></i>}
         >
           Like
         </Button>
@@ -49,8 +47,8 @@ const QuotesAndTipsCards = () => {
         <Button
           color="white"
           flex="1"
+          leftIcon={<i className="bi bi-share" color="white" />}
           variant="ghost"
-          leftIcon={<i className="bi bi-share" color="white"></i>}
         >
           Share
         </Button>

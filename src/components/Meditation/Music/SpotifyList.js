@@ -9,7 +9,7 @@ import { AudioContext } from '../../../context/AudioContext';
 const SpotifyList = ({code}) => {
     const accessToken = useSpotifyAuth(code);
     const [search, setSearch] = useState('');
-    const [searchResults, setSearchResults] = useState([])
+    const [searchResults, setSearchResults] = useState([]);
     const { dispatch } = useSpotifyContext();
     const { dispatch: audioDispatch} = useContext(AudioContext);
     
@@ -18,11 +18,11 @@ const SpotifyList = ({code}) => {
         dispatch({
             type: 'SET_SPOTIFY_PLAYING_TRACK',
             payload: track
-        })
-        dispatch({ type: "CHOOSE_PLAY_SPOTIFY" })
+        });
+        dispatch({ type: "CHOOSE_PLAY_SPOTIFY" });
         audioDispatch({ type: "UNCHOOSE_PLAY_AUDIO" });
-        setSearch('')
-    }
+        setSearch('');
+    };
 
     const spotifyApi = new SpotifyWebApi({
         clientId: '4689c7fc29174c6d9523aca2473efe45'
@@ -54,29 +54,29 @@ const SpotifyList = ({code}) => {
                         title: track.name,
                         uri: track.uri,
                         albumUrl: smallestAlbImg.url
-                    }
-                }))
+                    };
+                }));
             })
             .catch(err => {
                 console.error("Failed to search tracks:", err);
             });
-        return () => { cancel = true }
-    }, [search, accessToken])
+        return () => { cancel = true; };
+    }, [search, accessToken]);
     
     return ( 
         <Container>
             <Input 
-                type='search' 
-                placeholder='Search songs/artists'
+                placeholder='Search songs/artists' 
+                type='search'
                 value={search}
                 onChange={e => setSearch(e.target.value)}
             />
-            {searchResults && searchResults.map((track, idx) => (
-                <TrackSearchResult key={track.uri} track={track} chooseTrack={chooseTrack}/>
+            {searchResults && searchResults.map((track) => (
+                <TrackSearchResult key={track.uri} chooseTrack={chooseTrack} track={track}/>
             ))}
         </Container>
        
      );
-}
+};
  
 export default SpotifyList;

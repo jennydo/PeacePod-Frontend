@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   Stack,
   Heading,
-  ButtonGroup,
-  Button,
   Select,
   VStack,
 } from "@chakra-ui/react";
@@ -25,10 +23,10 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
   return (
     <>
       <Heading>Let us know more about you 😁</Heading>
-      <VStack w={"65%"} justifyContent={"flex-start"}>
+      <VStack justifyContent="flex-start" w="65%">
         {/* 1. How have you been feeling lately */}
-        <Stack className="feelings" w={"100%"}>
-          <Heading fontSize={"xl"} textAlign={"left"} w={"100%"}>
+        <Stack className="feelings" w="100%">
+          <Heading fontSize="xl" textAlign="left" w="100%">
             How have you been feeling lately?
           </Heading>
 
@@ -45,6 +43,7 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
           >
             {feelings &&
               feelings.map((feeling, index) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <option key={index} className="feeling-option" value={feeling}>
                   {feeling}
                 </option>
@@ -52,8 +51,8 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
           </Select>
         </Stack>
         {/* 2. What core values light your path? */}
-        <Stack className="core-values" w={"100%"}>
-          <Heading fontSize={"xl"} textAlign={"left"} w={"100%"}>
+        <Stack className="core-values" w="100%">
+          <Heading fontSize="xl" textAlign="left" w="100%">
             What core values light your path?
           </Heading>
 
@@ -71,6 +70,7 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
             {coreValues &&
               coreValues.map((coreValue, index) => (
                 <option
+                // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   className="coreValue-option"
                   value={coreValue}
@@ -81,8 +81,8 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
           </Select>
         </Stack>
         {/* 3. When you look back on your life, what are you grateful for? */}
-        <Stack className="grateful" w={"100%"}>
-          <Heading fontSize={"xl"} textAlign={"left"} w={"100%"}>
+        <Stack className="grateful" w="100%">
+          <Heading fontSize="xl" textAlign="left" w="100%">
             When you look back on your life, what are you grateful for?
           </Heading>
 
@@ -100,6 +100,7 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
             {gratefulFor &&
               gratefulFor.map((grateful, index) => (
                 <option
+                // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   className="grateful-option"
                   value={grateful}
@@ -110,8 +111,8 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
           </Select>
         </Stack>
         {/* 4. In moments of stress or uncertainty, what practices help you stay grounded? */}
-        <Stack className="practices" w={"100%"}>
-          <Heading fontSize={"xl"} textAlign={"left"} w={"100%"}>
+        <Stack className="practices" w="100%">
+          <Heading fontSize="xl" textAlign="left" w="100%">
             In moments of stress or uncertainty, what practices help you stay
             grounded?
           </Heading>
@@ -130,6 +131,7 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
             {practices &&
               practices.map((practice, index) => (
                 <option
+                // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   className="practice-option"
                   value={practice}
@@ -140,8 +142,8 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
           </Select>
         </Stack>
         {/* 5. What motivates you to get out of bed in the morning? */}
-        <Stack className="motivations" w={"100%"}>
-          <Heading fontSize={"xl"} textAlign={"left"} w={"100%"}>
+        <Stack className="motivations" w="100%">
+          <Heading fontSize="xl" textAlign="left" w="100%">
             What motivates you to get out of bed in the morning?
           </Heading>
 
@@ -159,6 +161,7 @@ const Survey = ({ surveyResponse, setSurveyResponse }) => {
             {motivations &&
               motivations.map((motivation, index) => (
                 <option
+                // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   className="motivation-option"
                   value={motivation}

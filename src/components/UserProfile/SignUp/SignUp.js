@@ -103,7 +103,7 @@ const SignUp = () => {
       avatarDispatch({
         type: "SET_AVATAR_DATA", 
         payload: json.user.avatarData
-      })
+      });
       dispatch({ type: "LOGIN", payload: json });
       setIsLoading(false);
     }
@@ -111,17 +111,17 @@ const SignUp = () => {
 
   return (
     <Container
-      className="signup-page"
       bg="whiteAlpha.900"
-      p={30}
+      borderRadius={10}
+      className="signup-page"
       h="100%"
       mb={30}
-      borderRadius={10}
+      p={30}
     >
       <Stack>
         {/* <Grid templateColumns="70% 30%" gap={15}> */}
         <Heading textAlign="center">Create your account</Heading>
-      <Stack spacing='24px' display={page === 2 ? 'none' : ''}>
+      <Stack display={page === 2 ? 'none' : ''} spacing='24px'>
           {/* Username, Email */}
           <Stack>
             <FormControl isRequired>
@@ -149,18 +149,18 @@ const SignUp = () => {
               <FormLabel>Password</FormLabel>
               <InputGroup size="md">
                 <Input
+                  placeholder="Enter password"
                   pr="4.5rem"
                   type={showPw ? "text" : "password"}
-                  placeholder="Enter password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <InputRightElement>
                   <IconButton
+                    bg="ghost"
                     h="1.75rem"
+                    icon={showPw ? <FaEye /> : <FaEyeSlash />}
                     size="sm"
                     onClick={handleClickPassword}
-                    bg={"ghost"}
-                    icon={showPw ? <FaEye /> : <FaEyeSlash />}
                   />
                 </InputRightElement>
               </InputGroup>
@@ -172,17 +172,17 @@ const SignUp = () => {
               <FormLabel>Re-type Password</FormLabel>
               <InputGroup size="md">
                 <Input
+                  placeholder="Re-type password"
                   pr="4.5rem"
                   type={showRetypePw ? "text" : "password"}
-                  placeholder="Re-type password"
                 />
                 <InputRightElement>
                   <IconButton
+                    bg="ghost"
                     h="1.75rem"
+                    icon={showRetypePw ? <FaEye /> : <FaEyeSlash />}
                     size="sm"
                     onClick={handleClickPasswordReType}
-                    bg={"ghost"}
-                    icon={showRetypePw ? <FaEye /> : <FaEyeSlash />}
                   />
                 </InputRightElement>
               </InputGroup>
@@ -193,9 +193,9 @@ const SignUp = () => {
             <FormControl isRequired>
               <FormLabel>Your Date of Birth</FormLabel>
               <Input
+                placeholder="Select Date of Birth"
                 type="date"
                 value={dob}
-                placeholder="Select Date of Birth"
                 onChange={(event) => setDob(event.target.value)}
               />
             </FormControl>
@@ -204,11 +204,11 @@ const SignUp = () => {
           {/* Cancel and Create buttons */}
         <Stack direction="row" justify="flex-end" marginTop={5}>
           <Button
-            onClick={() => setPage(2)}
-            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
-            disabled={isLoading}
             colorScheme="teal"
+            disabled={isLoading}
+            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
             variant="outline"
+            onClick={() => setPage(2)}
           >
             Next
           </Button>
@@ -226,11 +226,12 @@ const SignUp = () => {
               {pronouns &&
                 pronouns.map((pronoun, index) => (
                   <StyledBox 
-                    key={index}
                     children={pronoun}
-                    selected={selectedPronoun === pronoun}
-                    onClick={(e) => setSelectedPronoun(pronoun)}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
                     className="signup-attributes"
+                    selected={selectedPronoun === pronoun}
+                    onClick={() => setSelectedPronoun(pronoun)}
                   />
                 ))}
             </ButtonGroup>
@@ -245,11 +246,12 @@ const SignUp = () => {
               {genders &&
                 genders.map((gender, index) => (
                   <StyledBox 
-                    key={index}
                     children={gender}
-                    selected={selectedGender === gender}
-                    onClick={(e) => setSelectedGender(gender)}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
                     className="signup-attributes"
+                    selected={selectedGender === gender}
+                    onClick={() => setSelectedGender(gender)}
                   />
                 ))}
             </ButtonGroup>
@@ -268,17 +270,18 @@ const SignUp = () => {
               {selectedSexualities &&
                 selectedSexualities.map((sexuality, index) => (
                   <StyledBox 
-                    key={index}
                     children={sexuality}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
                     className="signup-attributes multi-select"
                   />
                 ))}
             </ButtonGroup>
           </FormControl>
           <SexualityModal
-            sexualities={sexualities}
             alreadySelectedSexualities={selectedSexualities}
             setAlreadySelectedSexualities={setSelectedSexualities}
+            sexualities={sexualities}
           />
           <Checkbox onChange={() => setShowSexuality(!showSexuality)}>
             Show sexual orientations on my profile
@@ -294,6 +297,7 @@ const SignUp = () => {
             >
               {countries &&
                 countries.map((country, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <option key={index} value={country}>
                     {country}
                   </option>
@@ -309,15 +313,16 @@ const SignUp = () => {
             {selectedInterests &&
               selectedInterests.map((interest, index) => (
                 <StyledBox 
-                  key={index}
                   children={interest}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
                   className="signup-attributes multi-select"
                 />
               ))}
           </ButtonGroup>
           <InterestModal
-            interestList={interestList}
             alreadySelectedInterests={selectedInterests}
+            interestList={interestList}
             setAlreadySelectedInterests={setSelectedInterests}
           />
         </Stack>
@@ -330,23 +335,23 @@ const SignUp = () => {
         </Stack>
       
         {/* Cancel and Create buttons */}
-        <Stack direction="row" spacing={4} justify="flex-end">
+        <Stack direction="row" justify="flex-end" spacing={4}>
           <Button
-            onClick={() => setPage(1)}
-            disabled={isLoading}
             colorScheme="teal"
-            variant="ghost"
+            disabled={isLoading}
             marginTop={5}
+            variant="ghost"
+            onClick={() => setPage(1)}
           >
             Previous
           </Button>
           <Button
-            onClick={() => handleSubmit()}
-            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
-            disabled={isLoading}
             colorScheme="teal"
-            variant="outline"
+            disabled={isLoading}
             marginTop={5}
+            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+            variant="outline"
+            onClick={() => handleSubmit()}
           >
             Create
           </Button>

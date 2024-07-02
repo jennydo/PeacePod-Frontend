@@ -6,7 +6,7 @@ import { SpotifyContext } from "../../../context/SpotifyContext";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
-import axios from 'axios'
+import axios from 'axios';
 import { StyledBox } from "../../../styles/components/StyledComponents";
 
 const AudioCard = ({ audio }) => {
@@ -20,14 +20,15 @@ const AudioCard = ({ audio }) => {
       type: "CHOOSE_AUDIO",
       payload: audio,
     });
-    dispatch({ type: "CHOOSE_PLAY_AUDIO" })
-    spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"})
+    dispatch({ type: "CHOOSE_PLAY_AUDIO" });
+    spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"});
   };
 
   const handleFavorite = async () => {
     dispatch({ type: "TOGGLE_FAVORITE", payload: audio });
 
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await axios.patch(
         `http://localhost:4000/api/meditation/audios/${audio._id}`,
         {
@@ -40,18 +41,18 @@ const AudioCard = ({ audio }) => {
         }
       );
     } catch (err) {
-      console.log("Error while update is favorite of audio", err)
+      console.log("Error while update is favorite of audio", err);
     }
   };
   // console.log("Chosen audio", chosenAudio, audio, chosenAudio === audio);
 
   return (
     <Flex
-      w="100%"
       h={12}
+      justifyContent="space-between"
       marginBottom={3}
       marginTop={3}
-      justifyContent={"space-between"}
+      w="100%"
     >
       {/* <Flex
         justifyContent="center"
@@ -68,27 +69,27 @@ const AudioCard = ({ audio }) => {
       >
       </Flex> */}
       <StyledBox
-        className="meditation-audio-card"
-        onClick={chooseAudio}
-        selected={audio && chosenAudio && audio._id === chosenAudio._id}
         children={audio.title}
+        className="meditation-audio-card"
+        selected={audio && chosenAudio && audio._id === chosenAudio._id}
+        onClick={chooseAudio}
       />
       <IconButton
-        variant="ghost"
+        h={12}
         icon={
           audio.isFavorite ? (
-            <FaHeart size={20} fill="#FFAFCC" />
+            <FaHeart fill="#FFAFCC" size={20} />
           ) : (
             <FaRegHeart size={20} />
           )
         }
-        onClick={handleFavorite}
-        h={12}
         sx={{
           _hover: {
             background: "none",
           },
         }}
+        variant="ghost"
+        onClick={handleFavorite}
       />
     </Flex>
   );

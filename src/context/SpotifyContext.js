@@ -1,4 +1,4 @@
-import {createContext, useReducer, useEffect } from 'react';
+import {createContext, useReducer } from 'react';
 
 export const SpotifyContext = createContext();
 
@@ -8,31 +8,31 @@ export const spotifyReducer = (state, action) => {
             return {
                 ...state,
                 spotifyCode: action.payload
-            }
+            };
         case 'SET_SPOTIFY_TOKEN':
             return {
                ...state,
                 accessToken: action.payload.accessToken,
-            }
+            };
         case 'SET_SPOTIFY_PLAYING_TRACK':
             return {
                 ...state,
                 playingTrack: action.payload
-            }
+            };
         case "CHOOSE_PLAY_SPOTIFY":
             return {
                 ...state,
                 isPlayingSpotify: true 
-            }
+            };
         case "UNCHOOSE_PLAY_SPOTIFY":
             return {
                 ...state,
                 isPlayingSpotify: false
-            }
+            };
         default:
-            return state
+            return state;
     }
-}
+};
 
 export const SpotifyContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(spotifyReducer, {
@@ -40,13 +40,13 @@ export const SpotifyContextProvider = ( {children} ) => {
         accessToken: null,
         playingTrack: null,
         isPlayingSpotify: null
-    })
+    });
     
-    console.log("SpotifyContext state: ", state)
+    console.log("SpotifyContext state: ", state);
 
     return (
         <SpotifyContext.Provider value={ {...state, dispatch} }>
             {children}
         </SpotifyContext.Provider>
-    )
-}
+    );
+};

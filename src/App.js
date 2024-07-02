@@ -14,7 +14,7 @@ import LogInPage from './pages/LogInPage';
 import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
 
   return (
     <ChakraProvider className="">
@@ -22,14 +22,14 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route exact path="/" element={<HomePage />} />
-            <Route path="/signup" element={(!user) ? <SignUpPage/> : <Navigate to="/"/>} />
-            <Route path="/login" element={(!user) ? <LogInPage/> : <Navigate to="/"/>} />
-            <Route path="/newsfeed" element={user ? <NewsFeed /> : <Navigate to="/login"/>} />
-            <Route path="/chat" element={user ? <Chat /> : <Navigate to="/login"/>} />
-            <Route path="/meditation" element={user ? <Meditation /> : <Navigate to="/login"/>} />
-            <Route path="/userprofile" element={user ? <UserProfile /> : <Navigate to="/login"/>} />
-            <Route path="*" element={<NotFound />} />
+            <Route exact element={<HomePage />} path="/" />
+            <Route element={(!user) ? <SignUpPage/> : <Navigate to="/"/>} path="/signup" />
+            <Route element={(!user) ? <LogInPage/> : <Navigate to="/"/>} path="/login" />
+            <Route element={user ? <NewsFeed /> : <Navigate to="/login"/>} path="/newsfeed" />
+            <Route element={user ? <Chat /> : <Navigate to="/login"/>} path="/chat" />
+            <Route element={user ? <Meditation /> : <Navigate to="/login"/>} path="/meditation" />
+            <Route element={user ? <UserProfile /> : <Navigate to="/login"/>} path="/userprofile" />
+            <Route element={<NotFound />} path="*" />
           </Routes>
         </Router>
       </div>

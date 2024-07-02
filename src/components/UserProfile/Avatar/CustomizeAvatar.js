@@ -1,40 +1,40 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Grid, Switch, FormLabel, FormControl, SimpleGrid, HStack } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Grid, Switch, FormLabel, HStack } from '@chakra-ui/react';
 import { headConstants, eyeConstants, eyebrowConstants, mouthConstants, noseConstants, hairConstants, beardConstants, earringConstants, glassConstants, colors } 
 from './avatarConstants';
 import './AvatarStyle.css';
 import Character from './CharacterFeature/Character';
 import { useState } from 'react';
-import { useAvatarContext } from '../../../hooks/useAvatarContext'
+import { useAvatarContext } from '../../../hooks/useAvatarContext';
 import OptionalCharacter from './CharacterFeature/OptionalCharacter';
 import NoFeatureCharacter from './CharacterFeature/NoFeatureCharacter';
 
 const CustomizeAvatar = () => {
-    const { avatarData, dispatch } = useAvatarContext()
+    const { avatarData, dispatch } = useAvatarContext();
     const [selectedColor, setSelectedColor] = useState(avatarData.backgroundColor[0]);
-    const [hasFreckles, setHasFreckles] = useState(avatarData.frecklesProbability)
+    const [hasFreckles, setHasFreckles] = useState(avatarData.frecklesProbability);
 
     const handleBackgroundColorChange = (color) => {
         setSelectedColor(color);
         dispatch({
             type: "SET_ATTRIBUTE",
             payload: { attribute: "backgroundColor", value: color.substring(1) }
-        })
+        });
     };
 
     const handleHasFreckles = (e) => {
-      setHasFreckles(e.target.checked ? 100 : 0)
+      setHasFreckles(e.target.checked ? 100 : 0);
       dispatch({
         type: "SET_PROBABILITY",
         payload: {
           attribute: "frecklesProbability",
           value: e.target.checked ? 100 : 0
         }
-      })
-    }
+      });
+    };
 
     return ( 
     <Tabs isFitted isLazy>
-        <TabList overflowX="auto" css={{ display: 'flex', flexWrap: 'nowrap' }} >
+        <TabList css={{ display: 'flex', flexWrap: 'nowrap' }} overflowX="auto" >
           <Tab>Head</Tab>
           <Tab>Eyes</Tab>
           <Tab>Eyebrows</Tab>
@@ -51,91 +51,100 @@ const CustomizeAvatar = () => {
 
         <TabPanels>
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
                 {headConstants.map((headConstant, idx) => (
-                    <Character key={idx} variant={headConstant} attribute="head"/>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Character key={idx} attribute="head" variant={headConstant}/>
                 ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
                 {eyeConstants.map((eyeConstant, idx) => (
-                    <Character key={idx} variant={eyeConstant} attribute="eyes"/>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Character key={idx} attribute="eyes" variant={eyeConstant}/>
                 ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
                 {eyebrowConstants.map((eyebrowConstant, idx) => (
-                    <Character key={idx} variant={eyebrowConstant} attribute="eyebrows"/>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Character key={idx} attribute="eyebrows" variant={eyebrowConstant}/>
                 ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
                 {mouthConstants.map((mouthConstant, idx) => (
-                    <Character key={idx} variant={mouthConstant} attribute="mouth"/>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Character key={idx} attribute="mouth" variant={mouthConstant}/>
                 ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
                 {noseConstants.map((noseConstant, idx) => (
-                    <Character key={idx} variant={noseConstant} attribute="nose"/>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Character key={idx} attribute="nose" variant={noseConstant}/>
                 ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
                 {hairConstants.map((hairConstant, idx) => (
-                    <Character key={idx} variant={hairConstant} attribute="hair"/>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Character key={idx} attribute="hair" variant={hairConstant}/>
                 ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
               <NoFeatureCharacter attribute="beard" />
               {beardConstants.map((beardConstant, idx) => (
-                  <OptionalCharacter key={idx} variant={beardConstant} attribute="beard"/>
+                // eslint-disable-next-line react/no-array-index-key
+                  <OptionalCharacter key={idx} attribute="beard" variant={beardConstant}/>
               ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
               <NoFeatureCharacter attribute="earrings" />
               {earringConstants.map((earringConstant, idx) => (
-                  <OptionalCharacter key={idx} variant={earringConstant} attribute="earrings"/>
+                // eslint-disable-next-line react/no-array-index-key
+                  <OptionalCharacter key={idx} attribute="earrings" variant={earringConstant}/>
               ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
               <NoFeatureCharacter attribute="glasses" />
               {glassConstants.map((glassConstant, idx) => (
-                  <OptionalCharacter key={idx} variant={glassConstant} attribute="glasses"/>
+                // eslint-disable-next-line react/no-array-index-key
+                  <OptionalCharacter key={idx} attribute="glasses" variant={glassConstant}/>
               ))}
             </Grid>
           </TabPanel>
 
           <TabPanel>
-            <Grid templateColumns='repeat(4, 1fr)' gap={6}>
+            <Grid gap={6} templateColumns='repeat(4, 1fr)'>
               <NoFeatureCharacter attribute="hairAccessories" />
-              <OptionalCharacter variant={"flowers"} attribute="hairAccessories"/>
+              <OptionalCharacter attribute="hairAccessories" variant="flowers"/>
             </Grid>
           </TabPanel>
 
           <TabPanel>  
             <HStack>
                 <FormLabel htmlFor='addFreckles'>Add Freckles:</FormLabel>
-                <Switch id='addFreckles' checked={hasFreckles} onChange={handleHasFreckles}/>
+                <Switch checked={hasFreckles} id='addFreckles' onChange={handleHasFreckles}/>
             </HStack>
           </TabPanel>
 
@@ -143,6 +152,7 @@ const CustomizeAvatar = () => {
             <div className="color-picker">
                 {colors.map((color, index) => (
                     <div
+                        // eslint-disable-next-line react/no-array-index-key
                         key={index}
                         className="color-circle"
                         style={{ backgroundColor: color }}
@@ -157,6 +167,6 @@ const CustomizeAvatar = () => {
 
       </Tabs> 
     );
-}
+};
  
 export default CustomizeAvatar;

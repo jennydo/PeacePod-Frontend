@@ -8,7 +8,6 @@ import {
   Grid,
   Button,
   Heading,
-  Container,
   Center,
   Divider,
   Input,
@@ -18,18 +17,13 @@ import {
 } from "@chakra-ui/react";
 import { IoIosSend } from "react-icons/io";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import PostModal from "./PostModal";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useCommentsContext } from "../../../hooks/useCommentsContext";
-// import envelopeImage from '../../../assets/images/envelope.jpg';
 import stampImage from "../../../assets/images/stamp3.png";
 import stampLoveImage from "../../../assets/images/stamplove.png";
-// import letterImage from '../../../assets/images/letter.png';
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
-//import postBackgroundImageDefault from "../../../assets/images/Bg9.avif";
-import backBackgroundImage from "../../../assets/images/back-background.jpg";
 import "./NormalPost.scss";
 import Comment from "./Comment";
 
@@ -37,6 +31,7 @@ const NormalPost = ({ post }) => {
   const { user } = useAuthContext();
   // data from post
   const { title, content, createdAt: timeStamp, postImageUrl } = post;
+  // eslint-disable-next-line no-unused-vars
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), {
     addSuffix: true,
   });
@@ -135,7 +130,8 @@ const NormalPost = ({ post }) => {
 
   const handlePostComment = async () => {
     if (!newComment.trim()) return; // Avoid posting empty comments
-    const comment = { newComment };
+    // eslint-disable-next-line no-unused-vars
+    const comment = {newComment};
 
     try {
       const response = await axios.post(
@@ -168,65 +164,74 @@ const NormalPost = ({ post }) => {
     >
       <Center className="flipper">
         <Grid
-          className="front"
-          gridTemplateRows={"30% 10% 1fr 10%"}
-          w="100%"
-          // h="100%"
-          maxH={"100%"}
           bgImage={postImageUrl}
-          bgSize="cover"
           bgPosition="top"
           bgRepeat="no-repeat"
+          bgSize="cover"
+          className="front"
+          gridTemplateRows="30% 10% 1fr 10%"
+          maxH="100%"
           mt={3}
+          w="100%"
         >
-          <GridItem w="100%" h="100%" onClick={handleFlip}>
+          <GridItem h="100%" w="100%" onClick={handleFlip}>
             <Flex justify="end" position="relative">
-              <Box w="140px" mt={20} position="relative" zIndex={2}>
+              <Box mt={20} position="relative" w="140px"
+zIndex={2}>
                 <Image src={stampLoveImage} />
               </Box>
               <Box
+                alignItems="center"
                 bgImage={stampImage}
-                w="140px"
-                h="160px"
-                bgSize="cover"
                 bgPosition="center"
                 bgRepeat="no-repeat"
+                bgSize="cover"
                 display="flex"
-                alignItems="center"
+                h="160px"
                 justifyContent="center"
                 m={6}
+                ml="-65px"
                 p="5px"
                 position="relative"
+                w="140px"
                 zIndex={1}
-                ml="-65px"
               >
-                <Box w="75%" h="95%" bg={stampBackgroundColor} ml="7px" pt={3}>
+                <Box bg={stampBackgroundColor} h="95%" ml="7px"
+pt={3} w="75%">
                   <Image src={avatar} />
                 </Box>
               </Box>
             </Flex>
           </GridItem>
 
-          <GridItem w="100%" h="100%" onClick={handleFlip}>
+          <GridItem h="100%" w="100%" onClick={handleFlip}>
             <Heading>{title}</Heading>
           </GridItem>
 
-          <GridItem w="100%" h="100%" onClick={handleFlip}>
-            <Text mt={3} fontSize={"xl"}>
+          <GridItem h="100%" w="100%" onClick={handleFlip}>
+            <Text fontSize="xl" mt={3}>
               From: {username}
             </Text>
             {content.length > preview.length ? (
-              <Text fontStyle="italic" fontSize={"xl"} as="cite" mr={2}>
+              <Text 
+                as="cite" 
+                fontSize="xl" 
+                fontStyle="italic" 
+                mr={2}>
                 {preview} ...
               </Text>
             ) : (
-              <Text fontStyle="italic" fontSize={"xl"} as="cite" mr={2}>
+              <Text 
+                as="cite" 
+                fontSize="xl" 
+                fontStyle="italic" 
+                mr={2}>
                 {preview}
               </Text>
             )}
           </GridItem>
 
-          <GridItem w="100%" h="100%">
+          <GridItem h="100%" w="100%">
             <Flex
               flexDir="row"
               flexWrap="wrap"
@@ -238,28 +243,27 @@ const NormalPost = ({ post }) => {
               }}
             >
               <Button
-                variant="ghost"
-                onClick={handleReact}
-                leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
                 _hover={{ color: "blue.500", bg: "transparent" }}
-                justifyContent={"flex-start"}
-                fontSize={"xl"}
+                fontSize="xl"
+                justifyContent="flex-start"
+                leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
                 pb={5}
                 pl={10}
+                variant="ghost"
+                onClick={handleReact}
               >
                 {likes.count === 0 ? "" : likes.count}
               </Button>
               <Button
-                variant="ghost"
+                _hover={{ bg: "transparent" }}
+                fontSize="xl"
                 leftIcon={<FaComment />}
+                pb={5}
+                pr={10}
                 onClick={() => {
                   handleFlip();
                   inputRef.current.focus();
                 }}
-                _hover={{ bg: "transparent" }}
-                fontSize={"xl"}
-                pb={5}
-                pr={10}
               >
                 Comment
               </Button>
@@ -268,39 +272,38 @@ const NormalPost = ({ post }) => {
         </Grid>
 
         <Grid
-          className="back scroll"
-          // className={`back ${isFlipped ? 'showing' : ''}`}
-          gridTemplateRows={"10% 1fr"}
-          p={17}
-          w="100%"
-          h="100%"
           bgImage={postImageUrl}
-          bgSize="cover"
           bgPosition="top"
           bgRepeat="no-repeat"
+          bgSize="cover"
+          className="back scroll"
+          gridTemplateRows="10% 1fr"
+          h="100%"
+          p={17}
           scrollBehavior="inside"
+          w="100%"
+          // className={`back ${isFlipped ? 'showing' : ''}`}
         >
-          <GridItem w="100%" h="100%" mt={1} onClick={handleFlip}>
-            <Text fontSize={"3xl"}>{title}</Text>
+          <GridItem 
+            h="100%" mt={1} w="100%" 
+            onClick={handleFlip}>
+            <Text fontSize="3xl">{title}</Text>
           </GridItem>
 
           <GridItem
-            w="100%"
-            // h="100%"
-            // h={'45vh'}
-            minH="45vh"
-            h={'max-content'}
             className="postcard-content"
             display="flex"
-            alignItems="center"
+            h='max-content'
             justifyContent="center"
-            onClick={handleFlip}
+            minH="45vh"
             p={10}
+            w="100%"
+            onClick={handleFlip}
           >
-            <Text fontSize={"3xl"} maxH={'100%'}>{content}</Text>
+            <Text fontSize="3xl" maxH='100%'>{content}</Text>
           </GridItem>
 
-          <GridItem w="100%" h="100%">
+          <GridItem h="100%" w="100%">
             <Flex
               flexDir="row"
               flexWrap="wrap"
@@ -312,20 +315,20 @@ const NormalPost = ({ post }) => {
               }}
             >
               <Button
+                _hover={{ color: "blue.500", bg: "transparent" }}
+                fontSize="xl"
+                justifyContent="flex-start"
+                leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
                 variant="ghost"
                 onClick={handleReact}
-                leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
-                _hover={{ color: "blue.500", bg: "transparent" }}
-                fontSize={"xl"}
-                justifyContent={"flex-start"}
               >
                 {likes.count === 0 ? "" : likes.count}
               </Button>
               <Button
-                variant="ghost"
                 _hover={{ bg: "transparent" }}
+                fontSize="xl"
                 leftIcon={<FaComment />}
-                fontSize={"xl"}
+                variant="ghost"
                 onClick={() => inputRef.current.focus()}
               >
                 Comment
@@ -338,28 +341,29 @@ const NormalPost = ({ post }) => {
           <GridItem>
             {comments &&
               comments.map((comment, idx) => (
-                <Comment comment={comment} key={idx} />
+                // eslint-disable-next-line react/no-array-index-key
+                <Comment key={idx} comment={comment} />
               ))}
           </GridItem>
 
-          <GridItem pr={8} pl={8}>
-            <InputGroup size="md" w="100%" mt={3}>
+          <GridItem pl={8} pr={8}>
+            <InputGroup mt={3} size="md" w="100%">
               <Input
-                placeholder="Your thought"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                size="lg"
-                variant="flushed"
                 ref={inputRef}
+                placeholder="Your thought"
+                size="lg"
+                value={newComment}
+                variant="flushed"
+                onChange={(e) => setNewComment(e.target.value)}
               />
               <InputRightElement width="4.5rem">
                 <Button
-                  rightIcon={<Icon as={IoIosSend} />}
+                  _hover={{ bg: "transparent" }}
                   h="1.75rem"
+                  rightIcon={<Icon as={IoIosSend} />}
                   size="sm"
                   variant="ghost"
                   onClick={handlePostComment}
-                  _hover={{ bg: "transparent" }}
                 >
                   Send
                 </Button>

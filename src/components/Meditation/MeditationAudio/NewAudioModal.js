@@ -71,9 +71,9 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
     <Modal
       finalFocusRef={finalRef}
       isOpen={isOpen}
-      onClose={onClose}
-      size="xl"
       scrollBehavior="inside"
+      size="xl"
+      onClose={onClose}
     >
       <ModalOverlay />
       <ModalContent>
@@ -91,83 +91,83 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
         >
           <Flex flexDirection="column">
             <Box justifyContent="flex-start">
-              <Text fontSize="xl" marginBottom={2} w={'max-content'}>
+              <Text fontSize="xl" marginBottom={2} w="max-content">
                 Title{" "}
-                <Text color="red" as="span">
+                <Text as="span" color="red">
                   *
                 </Text>
               </Text>
             </Box>
             <Input
+              isRequired={true}
               placeholder="title for this audio..."
               value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
                 setError(null);
               }}
-              isRequired={true}
             />
 
             <Box justifyContent="flex-start">
-              <Text fontSize="xl" marginBottom={2} w={'max-content'}>
+              <Text fontSize="xl" marginBottom={2} w="max-content">
                 Duration{" "}
-                <Text color="red" as="span">
+                <Text as="span" color="red">
                   *
                 </Text>
               </Text>
             </Box>
             <Input
+              isRequired={true}
               placeholder="duration of the session in minutes"
               value={duration}
               onChange={(e) => {
                 setDuration(e.target.value);
                 setError(null);
               }}
-              isRequired={true}
             />
 
             <Box justifyContent="flex-start">
-              <Text fontSize="xl" marginBottom={2} w={'max-content'}>
+              <Text fontSize="xl" marginBottom={2} w="max-content">
                 Mood{" "}
-                <Text color="red" as="span">
+                <Text as="span" color="red">
                   *
                 </Text>
               </Text>
             </Box>
             <Input
+              isRequired={true}
               placeholder="e.g. sad, happy"
               value={mood}
               onChange={(e) => {
                 setMood(e.target.value);
                 setError(null);
               }}
-              isRequired={true}
             />
 
             <Box justifyContent="flex-start">
-              <Text fontSize="xl" marginBottom={2} w={'max-content'}>
+              <Text fontSize="xl" marginBottom={2} w="max-content">
                 Tone{" "}
-                <Text color="red" as="span">
+                <Text as="span" color="red">
                   *
                 </Text>
               </Text>
             </Box>
 
             <Input
+              isRequired={true}
               placeholder="reading tone of the session"
               value={tone}
               onChange={(e) => {
                 setTone(e.target.value);
                 setError(null);
               }}
-              isRequired={true}
             />
             <Box justifyContent="flex-start">
               <Text
                 fontSize="xl"
                 marginBottom={2}
-                textAlign={"right"}
-                w={"max-content"}
+                textAlign="right"
+                w="max-content"
               >
                 Extra notes
               </Text>
@@ -175,12 +175,12 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
 
             <Textarea
               placeholder="any extra notes..."
+              sz="sm"
               value={extraNotes}
               onChange={(e) => {
                 setExtraNotes(e.target.value);
                 setError(null);
               }}
-              sz="sm"
             />
           </Flex>
         </ModalBody>
@@ -191,14 +191,14 @@ const NewAudioModal = ({ finalRef, isOpen, onClose }) => {
 
         {isLoading ? (
           <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
             color="blue.500"
-            size="xl"
-            position={"absolute"}
-            top="45%"
+            emptyColor="gray.200"
             left="45%"
+            position="absolute"
+            size="xl"
+            speed="0.65s"
+            thickness="4px"
+            top="45%"
           />
         ) : undefined}
 

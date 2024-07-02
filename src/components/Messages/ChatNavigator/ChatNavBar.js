@@ -21,7 +21,7 @@ const ChatNavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isWaitingForMatch } = JSON.parse(localStorage.getItem("user"));
 
-  const [waitingForMatch, setWaitingForMatch] = useState(isWaitingForMatch)
+  const [waitingForMatch, setWaitingForMatch] = useState(isWaitingForMatch);
 
   useEffect(() => {
     axios
@@ -40,7 +40,7 @@ const ChatNavBar = () => {
       "user",
       JSON.stringify({ ...user, isWaitingForMatch: false })
     );
-    setWaitingForMatch(!waitingForMatch)
+    setWaitingForMatch(!waitingForMatch);
   };
 
   return (
@@ -51,7 +51,7 @@ const ChatNavBar = () => {
         className='chat-navbar'
         // divider={<div className="chatbox-divider"/>}
       >
-        <ButtonGroup w={"100%"} isAttached>
+        <ButtonGroup isAttached w="100%">
           {/* <Button
             w={"100%"}
             leftIcon={<FaPeopleArrows />}
@@ -65,18 +65,18 @@ const ChatNavBar = () => {
               : "Need someone new to talk to?"}
           </Button> */}
           <StyledButton 
-            width='100%'
             icon={<FaPeopleArrows />}
-            onClick={!isWaitingForMatch ? onOpen : null}
             text={isWaitingForMatch
               ? "Waiting till 21:00..."
-              : "Need someone new to talk to?"}/>
+              : "Need someone new to talk to?"}
+            width='100%'
+            onClick={!isWaitingForMatch ? onOpen : null}/>
 
           {isWaitingForMatch ? (
             <Button
-              onClick={handleCancel}
-              bg={"#A2D2FF"}
               _hover={{ background: "#CDB4DB" }}
+              bg="#A2D2FF"
+              onClick={handleCancel}
             >
               Cancel
             </Button>

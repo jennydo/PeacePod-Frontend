@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 import { StyledButton } from '../../../styles/components/StyledComponents';
 import { RiSpotifyFill } from "react-icons/ri";
 
@@ -24,9 +24,9 @@ const SpotifyLogin = () => {
     return ( 
     <>
         <a href={AUTH_URL}>
-            <StyledButton text="Login with Spotify" icon={<Icon as={RiSpotifyFill}/>}/>
+            <StyledButton icon={<Icon as={RiSpotifyFill}/>} text="Login with Spotify"/>
         </a>
     </> );
-}
+};
  
 export default SpotifyLogin;
