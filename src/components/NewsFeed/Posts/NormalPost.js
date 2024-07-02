@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Text,
   Flex,
@@ -13,7 +13,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Icon
+  Icon,
 } from "@chakra-ui/react";
 import { IoIosSend } from "react-icons/io";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -25,7 +25,7 @@ import stampImage from "../../../assets/images/stamp3.png";
 import stampLoveImage from "../../../assets/images/stamplove.png";
 import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
 import "./NormalPost.scss";
-import Comment from './Comment';
+import Comment from "./Comment";
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext();
@@ -35,7 +35,6 @@ const NormalPost = ({ post }) => {
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), {
     addSuffix: true,
   });
-
 
   const [isFlipped, setIsFlipped] = useState(false);
   const handleFlip = () => setIsFlipped(!isFlipped);
@@ -52,23 +51,25 @@ const NormalPost = ({ post }) => {
   const { comments, dispatch } = useCommentsContext();
   const [newComment, setNewComment] = useState("");
 
+  const inputRef = useRef(null);
+
   // to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
     // get the Comments object for the post
-      axios
-        .get(`http://localhost:4000/api/comments/post/${post._id}`, {
-          headers: { Authorization: `Bearer ${user.token}` },
-        })
-        .then((response) => {
-          dispatch({
-            type: "GET_COMMENTS",
-            payload: response.data,
-          });
-          console.log("Comments response", response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
+    axios
+      .get(`http://localhost:4000/api/comments/post/${post._id}`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      })
+      .then((response) => {
+        dispatch({
+          type: "GET_COMMENTS",
+          payload: response.data,
         });
+        console.log("Comments response", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching comments:", error);
+      });
   }, [post, dispatch, isFlipped]);
 
   console.log(comments);
@@ -127,7 +128,6 @@ const NormalPost = ({ post }) => {
     }
   };
 
-
   const handlePostComment = async () => {
     if (!newComment.trim()) return; // Avoid posting empty comments
     // eslint-disable-next-line no-unused-vars
@@ -141,7 +141,7 @@ const NormalPost = ({ post }) => {
         },
         {
           headers: {
-            Authorization: `Bearer ${user.token}`
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
@@ -155,21 +155,15 @@ const NormalPost = ({ post }) => {
     }
   };
 
-  
-
-
   return (
     <div
       // className="flip-container"
-      className={`flip-container ${isFlipped ? "flipped" : ""}`} 
+      className={`flip-container ${isFlipped ? "flipped" : ""}`}
       // onTouchStart="this.classList.toggle('hover');"
       // onClick={handleFlip}
     >
       <Center className="flipper">
         <Grid
-          // className={`front ${isFlipped ? '' : 'showing'}`}
-          // onClick={handleFlip}
-          // className= {`flip-container ${isFlipped ? 'flipped' : ''}`}
           bgImage={postImageUrl}
           bgPosition="top"
           bgRepeat="no-repeat"
@@ -178,8 +172,6 @@ const NormalPost = ({ post }) => {
           gridTemplateRows="30% 10% 1fr 10%"
           maxH="100%"
           mt={3}
-          // h="100%"
-          // m={10}
           w="100%"
         >
           <GridItem h="100%" w="100%" onClick={handleFlip}>
@@ -217,13 +209,23 @@ pt={3} w="75%">
           </GridItem>
 
           <GridItem h="100%" w="100%" onClick={handleFlip}>
-            <Text>From: {username}</Text>
+            <Text fontSize="xl" mt={3}>
+              From: {username}
+            </Text>
             {content.length > preview.length ? (
-              <Text as="cite" fontStyle="italic" mr={2}>
+              <Text 
+                as="cite" 
+                fontSize="xl" 
+                fontStyle="italic" 
+                mr={2}>
                 {preview} ...
               </Text>
             ) : (
-              <Text as="cite" fontStyle="italic" mr={2}>
+              <Text 
+                as="cite" 
+                fontSize="xl" 
+                fontStyle="italic" 
+                mr={2}>
                 {preview}
               </Text>
             )}
@@ -241,17 +243,27 @@ pt={3} w="75%">
               }}
             >
               <Button
-                _hover={{ color: "blue.500" }}
+                _hover={{ color: "blue.500", bg: "transparent" }}
+                fontSize="xl"
+                justifyContent="flex-start"
                 leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
+                pb={5}
+                pl={10}
                 variant="ghost"
                 onClick={handleReact}
               >
                 {likes.count === 0 ? "" : likes.count}
               </Button>
               <Button
+                _hover={{ bg: "transparent" }}
+                fontSize="xl"
                 leftIcon={<FaComment />}
-                variant="ghost"
-                onClick={handleFlip}
+                pb={5}
+                pr={10}
+                onClick={() => {
+                  handleFlip();
+                  inputRef.current.focus();
+                }}
               >
                 Comment
               </Button>
@@ -272,22 +284,23 @@ pt={3} w="75%">
           w="100%"
           // className={`back ${isFlipped ? 'showing' : ''}`}
         >
-          <GridItem h="100%" mt={1} w="100%"
-onClick={handleFlip}>
-            {title}
+          <GridItem 
+            h="100%" mt={1} w="100%" 
+            onClick={handleFlip}>
+            <Text fontSize="3xl">{title}</Text>
           </GridItem>
 
           <GridItem
-            alignItems="center"
             className="postcard-content"
             display="flex"
-            h="100%"
+            h='max-content'
             justifyContent="center"
-            minH="30vh"
+            minH="45vh"
+            p={10}
             w="100%"
             onClick={handleFlip}
           >
-            {content}
+            <Text fontSize="3xl" maxH='100%'>{content}</Text>
           </GridItem>
 
           <GridItem h="100%" w="100%">
@@ -302,14 +315,22 @@ onClick={handleFlip}>
               }}
             >
               <Button
-                _hover={{ color: "blue.500" }}
+                _hover={{ color: "blue.500", bg: "transparent" }}
+                fontSize="xl"
+                justifyContent="flex-start"
                 leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
                 variant="ghost"
                 onClick={handleReact}
               >
                 {likes.count === 0 ? "" : likes.count}
               </Button>
-              <Button leftIcon={<FaComment />} variant="ghost">
+              <Button
+                _hover={{ bg: "transparent" }}
+                fontSize="xl"
+                leftIcon={<FaComment />}
+                variant="ghost"
+                onClick={() => inputRef.current.focus()}
+              >
                 Comment
               </Button>
             </Flex>
@@ -328,6 +349,7 @@ onClick={handleFlip}>
           <GridItem pl={8} pr={8}>
             <InputGroup mt={3} size="md" w="100%">
               <Input
+                ref={inputRef}
                 placeholder="Your thought"
                 size="lg"
                 value={newComment}
@@ -336,6 +358,7 @@ onClick={handleFlip}>
               />
               <InputRightElement width="4.5rem">
                 <Button
+                  _hover={{ bg: "transparent" }}
                   h="1.75rem"
                   rightIcon={<Icon as={IoIosSend} />}
                   size="sm"
