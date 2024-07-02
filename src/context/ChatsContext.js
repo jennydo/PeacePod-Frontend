@@ -73,7 +73,7 @@ export const ChatsContextProvider = ( {children} ) => {
         notifications: {},
         socket: null, 
         selectedChatCompare: null,
-        onlineUsers: []
+        onlineUsers: [],
     })
 
     const { user } = useAuthContext();

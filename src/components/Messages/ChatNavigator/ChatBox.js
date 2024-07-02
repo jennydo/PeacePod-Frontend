@@ -8,10 +8,11 @@ import { GoDotFill } from "react-icons/go";
 import { StyledBox } from "../../../styles/components/StyledComponents";
 
 const ChatBox = ({chat}) => {
+    console.log('current chat', chat)
     const { selectedChat, dispatch, onlineUsers } = useChatsContext()
     const {user: sender} = useAuthContext()
-    const { users, chatName } = chat
-    const { dispatch: messagesDispatch, previewMessages, previewMessagesTimestamp } = useMessagesContext()
+    const { users } = chat
+    const { dispatch: messagesDispatch, previewMessages, previewMessagesTimestamp, chatNames } = useMessagesContext()
     const [isOnline, setIsOnline] = useState(false)
 
     // get the username and avatar of the receiver
@@ -30,7 +31,16 @@ const ChatBox = ({chat}) => {
                 message: displayedLatestMessage,
                 timestamp: latestMessage.createdAt
             }})
-    }, [])
+        
+        messagesDispatch({
+            type: 'SET_CHAT_NAME', 
+            payload: {
+                chatId: chat._id, 
+                chatName: chat.chatName
+            }
+        })
+        // console.log('chatname:',chatNames[chat._id])
+    }, [chat._id, chat.chatName, displayedLatestMessage, latestMessage.createdAt, messagesDispatch])
 
     const selectChat = (chat) => {
         dispatch({
@@ -47,7 +57,7 @@ const ChatBox = ({chat}) => {
             setIsOnline(false); // Set isOnline to false if receiver._id is not found in onlineUsers
         }
         console.log('onlineUsers:', onlineUsers)
-    }, [onlineUsers])
+    }, [onlineUsers, receiver])
     
     return ( 
         <StyledBox
@@ -58,7 +68,7 @@ const ChatBox = ({chat}) => {
                     <Avatar name={username} src={avatar}/>
                     <Stack direction="column" gap='0'>
                         <div className="app-message box2">
-                            <span className="app-message username">{chatName}</span>
+                            <span className="app-message username">{chatNames[chat._id]}</span>
                             <Icon className={isOnline ? "": "hidden"} as={GoDotFill} fill='blue' ml={'5px'}/>
                         </div> 
                         <div className="app-message box2">
