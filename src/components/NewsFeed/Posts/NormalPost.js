@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Text,
   Flex,
@@ -14,7 +14,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Icon
+  Icon,
 } from "@chakra-ui/react";
 import { IoIosSend } from "react-icons/io";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -31,7 +31,7 @@ import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
 //import postBackgroundImageDefault from "../../../assets/images/Bg9.avif";
 import backBackgroundImage from "../../../assets/images/back-background.jpg";
 import "./NormalPost.scss";
-import Comment from './Comment';
+import Comment from "./Comment";
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext();
@@ -40,7 +40,6 @@ const NormalPost = ({ post }) => {
   const formattedTimeStamp = formatDistanceToNow(new Date(timeStamp), {
     addSuffix: true,
   });
-
 
   const [isFlipped, setIsFlipped] = useState(false);
   const handleFlip = () => setIsFlipped(!isFlipped);
@@ -57,23 +56,25 @@ const NormalPost = ({ post }) => {
   const { comments, dispatch } = useCommentsContext();
   const [newComment, setNewComment] = useState("");
 
+  const inputRef = useRef(null);
+
   // to get the User and the Comments object for the post when the modal is opened and closed and when the component is mounted
   useEffect(() => {
     // get the Comments object for the post
-      axios
-        .get(`http://localhost:4000/api/comments/post/${post._id}`, {
-          headers: { Authorization: `Bearer ${user.token}` },
-        })
-        .then((response) => {
-          dispatch({
-            type: "GET_COMMENTS",
-            payload: response.data,
-          });
-          console.log("Comments response", response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
+    axios
+      .get(`http://localhost:4000/api/comments/post/${post._id}`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      })
+      .then((response) => {
+        dispatch({
+          type: "GET_COMMENTS",
+          payload: response.data,
         });
+        console.log("Comments response", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching comments:", error);
+      });
   }, [post, dispatch, isFlipped]);
 
   console.log(comments);
@@ -132,10 +133,9 @@ const NormalPost = ({ post }) => {
     }
   };
 
-
   const handlePostComment = async () => {
     if (!newComment.trim()) return; // Avoid posting empty comments
-    const comment = {newComment}
+    const comment = { newComment };
 
     try {
       const response = await axios.post(
@@ -145,7 +145,7 @@ const NormalPost = ({ post }) => {
         },
         {
           headers: {
-            Authorization: `Bearer ${user.token}`
+            Authorization: `Bearer ${user.token}`,
           },
         }
       );
@@ -159,24 +159,17 @@ const NormalPost = ({ post }) => {
     }
   };
 
-  
-
-
   return (
     <div
       // className="flip-container"
-      className={`flip-container ${isFlipped ? "flipped" : ""}`} 
+      className={`flip-container ${isFlipped ? "flipped" : ""}`}
       // onTouchStart="this.classList.toggle('hover');"
       // onClick={handleFlip}
     >
       <Center className="flipper">
         <Grid
           className="front"
-          // className={`front ${isFlipped ? '' : 'showing'}`}
-          // onClick={handleFlip}
-          // className= {`flip-container ${isFlipped ? 'flipped' : ''}`}
           gridTemplateRows={"30% 10% 1fr 10%"}
-          // m={10}
           w="100%"
           // h="100%"
           maxH={"100%"}
@@ -219,13 +212,15 @@ const NormalPost = ({ post }) => {
           </GridItem>
 
           <GridItem w="100%" h="100%" onClick={handleFlip}>
-            <Text>From: {username}</Text>
+            <Text mt={3} fontSize={"xl"}>
+              From: {username}
+            </Text>
             {content.length > preview.length ? (
-              <Text fontStyle="italic" as="cite" mr={2}>
+              <Text fontStyle="italic" fontSize={"xl"} as="cite" mr={2}>
                 {preview} ...
               </Text>
             ) : (
-              <Text fontStyle="italic" as="cite" mr={2}>
+              <Text fontStyle="italic" fontSize={"xl"} as="cite" mr={2}>
                 {preview}
               </Text>
             )}
@@ -246,15 +241,25 @@ const NormalPost = ({ post }) => {
                 variant="ghost"
                 onClick={handleReact}
                 leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
-                _hover={{ color: "blue.500", bg: 'transparent' }}
+                _hover={{ color: "blue.500", bg: "transparent" }}
+                justifyContent={"flex-start"}
+                fontSize={"xl"}
+                pb={5}
+                pl={10}
               >
                 {likes.count === 0 ? "" : likes.count}
               </Button>
               <Button
                 variant="ghost"
                 leftIcon={<FaComment />}
-                onClick={handleFlip}
-                _hover={{bg: 'transparent'}}
+                onClick={() => {
+                  handleFlip();
+                  inputRef.current.focus();
+                }}
+                _hover={{ bg: "transparent" }}
+                fontSize={"xl"}
+                pb={5}
+                pr={10}
               >
                 Comment
               </Button>
@@ -276,20 +281,21 @@ const NormalPost = ({ post }) => {
           scrollBehavior="inside"
         >
           <GridItem w="100%" h="100%" mt={1} onClick={handleFlip}>
-            <Text fontSize={'3xl'}>{title}</Text>
+            <Text fontSize={"3xl"}>{title}</Text>
           </GridItem>
 
           <GridItem
             w="100%"
             h="100%"
-            minH="30vh"
+            minH="45vh"
             className="postcard-content"
             display="flex"
             alignItems="center"
             justifyContent="center"
             onClick={handleFlip}
+            p={10}
           >
-            <Text fontSize={'3xl'}>{content}</Text>
+            <Text fontSize={"3xl"}>{content}</Text>
           </GridItem>
 
           <GridItem w="100%" h="100%">
@@ -307,11 +313,19 @@ const NormalPost = ({ post }) => {
                 variant="ghost"
                 onClick={handleReact}
                 leftIcon={reacted ? <FaHeart /> : <FaRegHeart />}
-                _hover={{ color: "blue.500", bg: 'transparent' }}
+                _hover={{ color: "blue.500", bg: "transparent" }}
+                fontSize={"xl"}
+                justifyContent={"flex-start"}
               >
                 {likes.count === 0 ? "" : likes.count}
               </Button>
-              <Button variant="ghost" _hover={{bg: 'transparent'}} leftIcon={<FaComment />}>
+              <Button
+                variant="ghost"
+                _hover={{ bg: "transparent" }}
+                leftIcon={<FaComment />}
+                fontSize={"xl"}
+                onClick={() => inputRef.current.focus()}
+              >
                 Comment
               </Button>
             </Flex>
@@ -334,6 +348,7 @@ const NormalPost = ({ post }) => {
                 onChange={(e) => setNewComment(e.target.value)}
                 size="lg"
                 variant="flushed"
+                ref={inputRef}
               />
               <InputRightElement width="4.5rem">
                 <Button
@@ -342,7 +357,7 @@ const NormalPost = ({ post }) => {
                   size="sm"
                   variant="ghost"
                   onClick={handlePostComment}
-                  _hover={{bg: 'transparent'}}
+                  _hover={{ bg: "transparent" }}
                 >
                   Send
                 </Button>
