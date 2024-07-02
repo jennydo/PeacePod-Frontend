@@ -1,48 +1,53 @@
 @keyframes move {
     0% {
-      transform: translatex(0);
+        transform: translateX(0);
     }
     50% {
-      transform: translatex(-40px);
+        transform: translateX(-40px);
     }
-  }
+    100% {
+        transform: translateX(0);
+    }
+}
 
 /* button */
 
 .button-icon {
-    width: 50px;
-    height: 50px;
-    color: black;
-    margin-bottom: 5px;
+    width: 65px;
+    height: 65px;
+    color: #9A77CF; /* Purple matching the icons on the website */
     margin-right: 10px;
 }
 
 .button-label {
-    font-size: 2rem;
-    color: black;
+    font-size: 1.8rem;
+    color: #5C5470; /* Dark gray for better readability */
     text-align: center;
-    line-height: 0.01;
+    line-height: 1.5;
 }
 
 .button-card {
     margin-top: 50px;
+    padding: 30px;
+    padding-top: 60px;
+    background-color: #EAD7F2; /* Light purple background */
+    position: relative;
+    overflow: hidden; /* Ensures no overflow of cloud outside the card */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     animation: move 3s infinite;
-    /* position: relative; */
-    background-color: black;
-}
-
-.button-card a {
-    display: block;
+    border-radius: 30px;
 }
 
 .button-card:hover {
-    /* transform: translateY(-8px); */
+    transform: translateY(-8px);
     cursor: pointer;
 }
 
 .button-container {
     display: flex;
-    /* flex-wrap: wrap; */
     justify-content: space-around;
     align-items: center;
     position: absolute;
@@ -55,17 +60,19 @@
 }
 
 .cloud {
-    z-index: 100;
     position: absolute;
-    top: 0;
-    left: -150px;
-    width: 300px;
-    height: auto;
+    top: 50%;
+    left: 52%;
+    transform: translate(-60%, -60%); /* Center the cloud */
+    width: 50%; /* Make cloud as wide as the card */
+    height: 125%; /* Make cloud as tall as the card */
+    z-index: 0;
 }
 
+
 .button-content {
-    z-index: 200;
-    position: absolute;
-    top: 120px;
-    left: -150px;
+    position: relative;
+    z-index: 1; /* Ensures content is above the cloud */
+    width: 100%;
+    text-align: center;
 }
