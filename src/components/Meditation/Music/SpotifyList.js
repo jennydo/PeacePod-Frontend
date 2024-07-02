@@ -1,18 +1,18 @@
 import { Container, Input } from '@chakra-ui/react';
 import useSpotifyAuth from '../../../hooks/useSpotifyAuth';
 import SpotifyWebApi from 'spotify-web-api-node';
-import { useState, useEffect, useContext } from'react';
+import { useState, useEffect, useContext } from 'react';
 import TrackSearchResult from './TrackSearchResult';
 import { useSpotifyContext } from '../../../hooks/useSpotifyContext';
 import { AudioContext } from '../../../context/AudioContext';
 
-const SpotifyList = ({code}) => {
+const SpotifyList = ({ code }) => {
     const accessToken = useSpotifyAuth(code);
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([])
     const { dispatch } = useSpotifyContext();
-    const { dispatch: audioDispatch} = useContext(AudioContext);
-    
+    const { dispatch: audioDispatch } = useContext(AudioContext);
+
 
     const chooseTrack = (track) => {
         dispatch({
@@ -62,21 +62,44 @@ const SpotifyList = ({code}) => {
             });
         return () => { cancel = true }
     }, [search, accessToken])
-    
-    return ( 
+
+    return (
         <Container>
-            <Input 
-                type='search' 
-                placeholder='Search songs/artists'
+            <Input
+                type='search'
+                placeholder='Search Songs/Artists on Spotify'
                 value={search}
                 onChange={e => setSearch(e.target.value)}
+                w="400px"
+                h="70px"
+                p={4}
+                borderRadius="full"
+                border="2px solid #FFB6C1"
+                focusBorderColor="#FFB6C1"
+                _placeholder={{
+                    color: 'gray.400',
+                    fontStyle: 'italic'
+                }}
+                _hover={{
+                    borderColor: '#FFB6C1'
+                }}
+                _focus={{
+                    outline: 'none',
+                    boxShadow: '0 0 10px rgba(255, 105, 180, 0.5)'
+                }}
             />
-            {searchResults && searchResults.map((track, idx) => (
-                <TrackSearchResult key={track.uri} track={track} chooseTrack={chooseTrack}/>
-            ))}
+            <div style={{
+                maxHeight: '400px',
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
+                {searchResults && searchResults.map((track, idx) => (
+                    <TrackSearchResult key={track.uri} track={track} chooseTrack={chooseTrack} />
+                ))}
+            </div>
         </Container>
-       
-     );
+    );
 }
- 
+
 export default SpotifyList;
