@@ -1,6 +1,5 @@
-import React from 'react'
+import React from 'react';
 import {
-    Center,
     VStack,
     Image,
     Text,
@@ -8,19 +7,18 @@ import {
     HStack,
     Grid,
     GridItem
-} from '@chakra-ui/react'
-import { EditIcon } from '@chakra-ui/icons'
-import './Profile.css'
-import { useAuthContext } from '../../../hooks/useAuthContext'
-import AvatarModal from '../Avatar/AvatarModal'
-import { useAvatarContext } from '../../../hooks/useAvatarContext'
-import {StyledBox} from '../../../styles/components/StyledComponents'
+} from '@chakra-ui/react';
+import './Profile.css';
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import AvatarModal from '../Avatar/AvatarModal';
+import { useAvatarContext } from '../../../hooks/useAvatarContext';
+import {StyledBox} from '../../../styles/components/StyledComponents';
 
 const Profile = () => {
-    const { user } = useAuthContext()
+    const { user } = useAuthContext();
     const age = user.age;
-    const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user
-    const { avatar } = useAvatarContext()
+    const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user;
+    const { avatar } = useAvatarContext();
 
     return (
         <VStack>
@@ -30,26 +28,31 @@ const Profile = () => {
 
             {avatar &&
                 <Image
-                    src={avatar}
                     alt="User Profile"
                     borderRadius='full'
                     objectFit='cover'
+                    src={avatar}
                 />
             }
             <AvatarModal />
-            <Text fontSize='2xl' color='black' marginBottom={0}>{username} ({age} years old)</Text>
+            <Text color='black' fontSize='2xl' marginBottom={0}>{username} ({age} years old)</Text>
             <Text fontSize='xl'>{`(${pronounce})`}</Text>
 
             {/* Gender */}
-            <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center'>
+            <Grid alignItems='center' className='border-20' templateColumns='1fr 2fr'
+w='50%'>
                 <GridItem h='100%'>
-                    <Text fontSize='2xl' color='black' margin={0} padding='5px' bg='#cbbaff2e' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
+                    <Text alignContent="center" bg='#cbbaff2e' borderRadius='10px 0px 0px 10px'
+color='black' fontSize='2xl' margin={0}
+padding='5px'>
                         Gender
                     </Text>
                 </GridItem>
 
                 <GridItem h='100%'>
-                    <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#ffcae4' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
+                    <Text alignContent="center" bg='#ffcae4' borderRadius='0px 10px 10px 0px'
+color='black' fontSize='lg' h='100%'
+margin={0} padding='5px'>
                         {gender}
                     </Text>
                 </GridItem>
@@ -57,15 +60,20 @@ const Profile = () => {
 
 
             {/* Location */}
-            <Grid className='border-20' templateColumns='1fr 2fr' w='50%' alignItems='center' >
+            <Grid alignItems='center' className='border-20' templateColumns='1fr 2fr'
+w='50%' >
                 <GridItem h='100%'>
-                    <Text fontSize='2xl' color='black' margin={0} padding='5px' bg='#cbbaff2e' alignContent={'center'} borderRadius='10px 0px 0px 10px'>
+                    <Text alignContent="center" bg='#cbbaff2e' borderRadius='10px 0px 0px 10px'
+color='black' fontSize='2xl' margin={0}
+padding='5px'>
                         Location
                     </Text>
                 </GridItem>
 
                 <GridItem h='100%'>
-                    <Text fontSize='lg' color='black' margin={0} padding='5px' bg='#ffcae4' h='100%' alignContent={'center'} borderRadius='0px 10px 10px 0px'>
+                    <Text alignContent="center" bg='#ffcae4' borderRadius='0px 10px 10px 0px'
+color='black' fontSize='lg' h='100%'
+margin={0} padding='5px'>
                         {location}
                     </Text>
                 </GridItem>
@@ -73,16 +81,18 @@ const Profile = () => {
 
 
             {/* Sexual Orientation */}
-            <Box w='50%' borderRadius='20px' padding='10px' bg='#cbbaff2e'>
-                <Text fontSize='2xl' align='left' color='black'>
+            <Box bg='#cbbaff2e' borderRadius='20px' padding='10px'
+w='50%'>
+                <Text align='left' color='black' fontSize='2xl'>
                     Sexual Orientation
                 </Text>
                 <HStack>
                     {
                         sexualOrientation.map((sexOr, idx) => (
                             <StyledBox 
-                                key={idx}
                                 children={sexOr}
+                                // eslint-disable-next-line react/no-array-index-key
+                                key={idx}
                                 className="signup-attributes"
                             />
                         ))
@@ -91,16 +101,18 @@ const Profile = () => {
             </Box>
 
             {/* Hobbies */}
-            <Box w='50%' borderRadius='20px' padding='10px' bg='#cbbaff2e'>
-                <Text fontSize='2xl' align='left' color='black'>
+            <Box bg='#cbbaff2e' borderRadius='20px' padding='10px'
+w='50%'>
+                <Text align='left' color='black' fontSize='2xl'>
                     Hobbies
                 </Text>
                 <HStack>
                     {
                         interests.map((interest, idx) => (
                             <StyledBox 
-                            key={idx}
                             children={interest}
+                            // eslint-disable-next-line react/no-array-index-key
+                            key={idx}
                             className="signup-attributes"
                         />
                         ))
@@ -110,16 +122,17 @@ const Profile = () => {
             </Box>
 
             {/* Bio */}
-            <Box w='50%' borderRadius='20px' padding='10px' bg='#cbbaff2e'>
-                <Text fontSize='2xl' align='left' color='black'>
+            <Box bg='#cbbaff2e' borderRadius='20px' padding='10px'
+w='50%'>
+                <Text align='left' color='black' fontSize='2xl'>
                     About me
                 </Text>
-                <Text fontSize='lg' color='black'>
+                <Text color='black' fontSize='lg'>
                     {bio}
                 </Text>
             </Box>
         </VStack>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;

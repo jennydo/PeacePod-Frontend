@@ -1,5 +1,5 @@
 import { easeInOut, motion } from 'framer-motion';
-import './BouncyText.scss'
+import './BouncyText.scss';
 
 /// list of states, e.g. start state and end state
 const container = {
@@ -24,18 +24,20 @@ const bounceTransition = {
         repeat: 1,
         ease: easeInOut
     }
-}
+};
 
 const BouncyText = ({ text }) => {
   return (
     <motion.div
-      variants={container}
-      initial="start"
       animate="end"
       className='text-wrapper'
+      initial="start"
+      variants={container}
     >
       {[...Array(text.length)].map((_, i) => (
-        <motion.p key={i} variants={item} transition={bounceTransition} className='bouncy-letter'>
+        // eslint-disable-next-line react/no-array-index-key
+        <motion.p key={i} className='bouncy-letter' transition={bounceTransition}
+variants={item}>
           {text[i]}
         </motion.p>
       ))}

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useContext } from "react";
 import { CloudinaryContext } from "../../../context/CloudinaryContext";
 import { Image, Center } from "@chakra-ui/react";
@@ -9,16 +10,16 @@ const DisplayedBackground = () => {
     <>
       {displayedImage && checkIfColor() && (
         <Center
-          maxHeight={"100%"}
           className="image-center"
+          maxHeight="100%"
         >
           <Image
+            borderRadius={20}
+            h="77vh"
+            margin={0}
+            objectFit="cover"
             src={displayedImage}
             w="95%"
-            h={"77vh"}
-            borderRadius={20}
-            objectFit="cover"
-            margin={0}
           />
         </Center>
       )}

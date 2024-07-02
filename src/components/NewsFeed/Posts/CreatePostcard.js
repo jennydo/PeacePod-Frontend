@@ -3,22 +3,22 @@ import axios from "axios";
 import { Stack, Input, Button, Textarea, Text,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter,
         Alert, AlertIcon, AlertDescription, Avatar, 
-        HStack, Image} from '@chakra-ui/react'
+        HStack, Image} from '@chakra-ui/react';
 import { usePostsContext } from "../../../hooks/usePostsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const CreatePostcard = ({isOpen, onClose}) => {
-    const { user } = useAuthContext()
-    const { username, avatar } = user.user
+    const { user } = useAuthContext();
+    const { username, avatar } = user.user;
     const {dispatch} = usePostsContext();
 
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const [postImageUrl, setPostImageUrl] = useState('')
-    const [allPostImageUrls, setAllPostImageUrls] = useState([])
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [postImageUrl, setPostImageUrl] = useState('');
+    const [allPostImageUrls, setAllPostImageUrls] = useState([]);
     const isPrompt = false;
-    const [isShowingAlert, setIsShowingAlert] = useState(false)
-    const [alertMssg, setAlertMssg] = useState('')
+    const [isShowingAlert, setIsShowingAlert] = useState(false);
+    const [alertMssg, setAlertMssg] = useState('');
 
     const maxLength = 2000;
     const characterCount = content.length;
@@ -37,10 +37,10 @@ const CreatePostcard = ({isOpen, onClose}) => {
     const handleClose = () => {
         setIsShowingAlert(false);
         onClose();
-    }
+    };
 
     const handleSave = () => {
-        console.log(postImageUrl)
+        console.log(postImageUrl);
         // Check if title is not empty and content is not empty or exceeds the maximum length
         if (title !== "" && (content !== "" && characterCount <= maxLength)) {
             const newPost = {
@@ -48,7 +48,7 @@ const CreatePostcard = ({isOpen, onClose}) => {
                 content, 
                 isPrompt,
                 postImageUrl
-            }
+            };
 
             axios.post("http://localhost:4000/api/posts/", newPost, {
               headers: { "Authorization": `Bearer ${user.token}`}
@@ -58,43 +58,43 @@ const CreatePostcard = ({isOpen, onClose}) => {
                     dispatch({
                       type: 'CREATE_POST',
                       payload: response.data
-                    })
+                    });
                     onClose();
                     setTitle('');
                     setContent('');
                     setPostImageUrl('');
-                    setIsShowingAlert(false)
+                    setIsShowingAlert(false);
                 })
                 .catch(error => {
                     console.error(error);
                 });
 
         } else {
-            setIsShowingAlert(true)
+            setIsShowingAlert(true);
             if (title === "") {
-                setAlertMssg("You must have a title for your post.")
+                setAlertMssg("You must have a title for your post.");
             }
             else if (content === "") {
-                setAlertMssg("You must have a body for your post.")
+                setAlertMssg("You must have a body for your post.");
             }
             else if (characterCount > maxLength) {
-                setAlertMssg(`The maximum length is ${maxLength} characters.`)
+                setAlertMssg(`The maximum length is ${maxLength} characters.`);
             }
             else {
-                setAlertMssg("Double check your input.")
+                setAlertMssg("Double check your input.");
             }
         }
-    }
+    };
 
     return (
       <>
         <Modal
-          isOpen={isOpen}
-          onClose={handleClose}
           blockScrollOnMount={false}
-          size="xl"
+          isOpen={isOpen}
           motionPreset="slideInBottom"
           scrollBehavior="inside"
+          size="xl"
+          onClose={handleClose}
         >
           <ModalOverlay />
           <ModalContent>
@@ -111,22 +111,22 @@ const CreatePostcard = ({isOpen, onClose}) => {
                 </Stack>
 
                 <Input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
                   placeholder="Your postcard topic..."
                   size="md"
+                  value={title}
                   variant="outline"
+                  onChange={(e) => setTitle(e.target.value)}
                 />
 
                 <Textarea
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  placeholder="What did you tell the birds?"
-                  isInvalid={characterCount > maxLength}
-                  size="sm"
-                  variant="filled"
                   borderRadius={8}
                   h={250}
+                  isInvalid={characterCount > maxLength}
+                  placeholder="What did you tell the birds?"
+                  size="sm"
+                  value={content}
+                  variant="filled"
+                  onChange={(e) => setContent(e.target.value)}
                 />
 
                 <Text
@@ -150,10 +150,10 @@ const CreatePostcard = ({isOpen, onClose}) => {
                 {allPostImageUrls &&
                   allPostImageUrls.map((imageUrl, idx) => (
                     <Image
-                      src={imageUrl}
                       key={idx}
-                      w={30}
                       h={30}
+                      src={imageUrl}
+                      w={30}
                       onClick={() => setPostImageUrl(imageUrl)}
                     />
                   ))}
@@ -161,7 +161,7 @@ const CreatePostcard = ({isOpen, onClose}) => {
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="blue" onClick={handleSave} w="100%">
+              <Button colorScheme="blue" w="100%" onClick={handleSave}>
                 Save
               </Button>
             </ModalFooter>
@@ -169,6 +169,6 @@ const CreatePostcard = ({isOpen, onClose}) => {
         </Modal>
       </>
     );
-}
+};
  
 export default CreatePostcard;

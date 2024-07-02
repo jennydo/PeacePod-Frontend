@@ -60,18 +60,18 @@ const Prompt = () => {
   return (
     <>
     <PromptModal/>
-    <InputGroup size="md" w="54%" mt={3}>
+    <InputGroup mt={3} size="md" w="54%">
       <Input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        // placeholder={`${promptQuote.slice(0, 300)}`}
         size="lg"
+        value={input}
         variant="flushed"
+        // placeholder={`${promptQuote.slice(0, 300)}`}
+        onChange={(e) => setInput(e.target.value)}
       />
       <InputRightElement width="4.5rem">
         <Button
-          rightIcon={<Icon as={IoIosSend} />}
           h="1.75rem"
+          rightIcon={<Icon as={IoIosSend} />}
           size="sm"
           variant="ghost"
           onClick={handleSendResponse}

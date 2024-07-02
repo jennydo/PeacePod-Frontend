@@ -12,6 +12,6 @@ const SpotifyMain = () => {
             </Box>
         </Center>
      );
-}
+};
  
 export default SpotifyMain;

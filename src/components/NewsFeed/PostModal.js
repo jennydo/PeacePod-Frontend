@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -14,20 +14,20 @@ import {
     Avatar,
     Button,
     Divider
-} from '@chakra-ui/react'
-import axios from 'axios'
-import { useCommentsContext } from '../../hooks/useCommentsContext'
+} from '@chakra-ui/react';
+import axios from 'axios';
+import { useCommentsContext } from '../../hooks/useCommentsContext';
 import { useAuthContext } from "../../hooks/useAuthContext";
-import Comment from './Comment'
+import Comment from './Comment';
 
 const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp}) => {
 
-    const [ newComment, setNewComment ] = useState("")
+    const [ newComment, setNewComment ] = useState("");
     const { comments, dispatch } = useCommentsContext();
 
     // Id of user currently logged in 
-    const { user: commentingUser } = useAuthContext()
-    const { _id: commentingUserId } = commentingUser.user
+    const { user: commentingUser } = useAuthContext();
+    const { _id: commentingUserId } = commentingUser.user;
 
     const handlePostComment = async () => {
         if (!newComment.trim()) return; // Avoid posting empty comments
@@ -43,14 +43,15 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
         dispatch({
             type: 'CREATE_COMMENT',
             payload: response.data
-        })
+        });
         } catch (error) {
         console.error("Error posting comment:", error);
         }
     };
 
     return ( 
-        <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="inside">
+        <Modal finalFocusRef={finalRef} isOpen={isOpen} scrollBehavior="inside"
+size="5xl" onClose={onClose}>
             <ModalOverlay />
             <ModalContent
             sx={{
@@ -60,7 +61,8 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
             }}
             >
                 <ModalHeader>{post && post.title}</ModalHeader>
-                <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
+                <Flex alignItems="center" flex="1" flexWrap="wrap"
+gap="5" p={4}>
                     {" "}
                     {/* Added padding here */}
                     <Avatar name={user && user.username} src={user && user.avatar} />
@@ -77,10 +79,10 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
                 <ModalBody style={{ whiteSpace: 'pre-line' }}>
                     {post?.content}
                     <Box padding={7}>
-                    <Divider w='100%' borderWidth='1px' margin={0}/>  
+                    <Divider borderWidth='1px' margin={0} w='100%'/>  
                     </Box>
                     {comments && comments.map((comment, idx) => (
-                        <Comment comment={comment} key={idx} />
+                        <Comment key={idx} comment={comment} />
                     ))
                     }
                 </ModalBody>
@@ -93,7 +95,7 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
                 </ModalFooter>
             </ModalContent>
         </Modal>
-    )
-}
+    );
+};
 
-export default PostModal
+export default PostModal;

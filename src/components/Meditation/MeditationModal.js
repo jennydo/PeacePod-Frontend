@@ -10,12 +10,10 @@ import {
   Drawer,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
   Button,
   DrawerFooter,
-  Input,
   Text,
   Tabs,
   TabList,
@@ -48,7 +46,7 @@ const MeditationModal = ({ isOpen, onClose }) => {
   } = useDisclosure();
   const drawerBtnRef = useRef(null);
 
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
 
   const handleSave = async () => {
     const session = {
@@ -74,15 +72,18 @@ const MeditationModal = ({ isOpen, onClose }) => {
       console.log("Error while creating session...", err);
     }
 
-    onDrawerClose()
+    onDrawerClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="full">
+    <Modal isOpen={isOpen} size="full" onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton color="white" zIndex={3}/>
         <ModalBody
+          h="100vh"
+          m={0}
+          p={0}
           style={{
             backgroundImage:
               displayedImage && displayedImage[0] == "#"
@@ -96,19 +97,16 @@ const MeditationModal = ({ isOpen, onClose }) => {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
-          w={'100vw'}
-          h={'100vh'}
-          p={0}
-          m={0}
+          w="100vw"
         >
           <div className="meditation modal-icon">
             <Tooltip label="Customize your background here">
               <IconButton
-                fontSize="25px"
-                color="white"
-                variant="ghost"
                 _hover={{ bg: "transparent" }}
+                color="white"
+                fontSize="25px"
                 icon={<Icon as={LuSettings2} />}
+                variant="ghost"
                 onClick={onDrawerOpen}
               />
             </Tooltip>
@@ -125,21 +123,21 @@ const MeditationModal = ({ isOpen, onClose }) => {
           
           {/* Drawer to customize background */}
           <Drawer
+            finalFocusRef={drawerBtnRef}
             isOpen={isDrawerOpen}
             placement="right"
             onClose={onDrawerOpen}
-            finalFocusRef={drawerBtnRef}
           >
             <DrawerOverlay />
             <DrawerContent>
               <DrawerHeader p={0}>
-                <Text fontSize={"2xl"} textAlign={"center"} mb={0}>
+                <Text fontSize="2xl" mb={0} textAlign="center">
                   Background
                 </Text>
               </DrawerHeader>
 
               <DrawerBody p={3}>
-                <Tabs variant={"soft-rounded"} isFitted>
+                <Tabs isFitted variant="soft-rounded">
                   <TabList>
                     <Tab>Color</Tab>
                     <Tab>Image</Tab>
@@ -158,7 +156,7 @@ const MeditationModal = ({ isOpen, onClose }) => {
               </DrawerBody>
 
               <DrawerFooter>
-                <Button variant="outline" mr={3} onClick={onDrawerClose}>
+                <Button mr={3} variant="outline" onClick={onDrawerClose}>
                   Cancel
                 </Button>
                 <Button colorScheme="blue" onClick={handleSave}>

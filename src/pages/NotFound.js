@@ -8,6 +8,6 @@ const NotFound = () => {
             <Link to = "/">Back to the Home Page</Link>
         </div>
      );
-}
+};
  
 export default NotFound;

@@ -1,5 +1,5 @@
-import { Button, border } from "@chakra-ui/react";
-import { useState, useEffect, useRef, useContext } from "react";
+import { Button } from "@chakra-ui/react";
+import { useEffect, useRef, useContext } from "react";
 import { CloudinaryContext } from '../../../context/CloudinaryContext';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import axios from 'axios';
@@ -29,7 +29,7 @@ const UploadBackground = () => {
     // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
     // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
     // theme: "purple", //change to a purple themes
-  }
+  };
  
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const UploadBackground = () => {
         function (error, result) {
         if (!error && result && result.event === "success") {
           console.log("Done! Here is the image info: ", result.info);
-          dispatch({type: "UPLOAD_IMAGE", payload: result.info.url })
+          dispatch({type: "UPLOAD_IMAGE", payload: result.info.url });
 
           axios.patch(`http://localhost:4000/api/users/${userId}`, {
             uploadedBackgrounds: [result.info.url, ...userImages]
@@ -52,7 +52,7 @@ const UploadBackground = () => {
             console.error('Error updating user background:', error);
           });
         }
-      })
+      });
 
       document.getElementById("upload_widget").addEventListener(
         "click",
@@ -62,20 +62,20 @@ const UploadBackground = () => {
         false
       );
     }
-  })
+  });
 
   return (
       <Button 
         id="upload_widget"
-        onClick={() => widgetRef.current.open()}
-        marginTop={2}
-        marginBottom={2}  
-        size='sm'
         leftIcon={<MdCloudUpload />}
+        marginBottom={2}
+        marginTop={2}  
+        size='sm'
+        onClick={() => widgetRef.current.open()}
       >
         Upload your own image
       </Button>
   );
-}
+};
 
 export default UploadBackground;

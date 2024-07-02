@@ -2,14 +2,14 @@ import React, { useContext, useEffect } from "react";
 import { Text, Box } from "@chakra-ui/react";
 import AudioCard from "./MeditationAudioCard";
 import { AudioContext } from "../../../context/AudioContext";
-import axios from 'axios'
+import axios from 'axios';
 
 const AudioList = ({ isFilter }) => {
   /// Dummy data for testing UI, later fetch from DB
   const { audios, favoriteAudios, dispatch } = useContext(AudioContext);
 
-  const displayedAudios = isFilter? favoriteAudios : audios
-  console.log(displayedAudios)
+  const displayedAudios = isFilter? favoriteAudios : audios;
+  console.log(displayedAudios);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -34,14 +34,15 @@ const AudioList = ({ isFilter }) => {
   };
 
   useEffect(() => {
-    fetchAudios()
+    fetchAudios();
   }, [dispatch]);
 
   return (
-    <Box overflowY={"auto"} h="100%" className="meditation-audios">
+    <Box className="meditation-audios" h="100%" overflowY="auto">
       {displayedAudios.length ? (
         displayedAudios.map((audio, idx) => {
-          return <AudioCard audio={audio} key={idx}/>;
+          // eslint-disable-next-line react/no-array-index-key
+          return <AudioCard key={idx} audio={audio}/>;
         })
       ) : (
         <Text mt={3}>

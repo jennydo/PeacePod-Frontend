@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import {
   Button,
   Box,
@@ -24,7 +25,7 @@ import {
   AlertIcon,
   AlertDescription,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -33,7 +34,6 @@ import ChooseOption from "./ChooseOption";
 import Survey from "./Survey";
 import Congratulations from "./Congratulations";
 import axios from "axios";
-import { useAuthContext } from "../../../hooks/useAuthContext";
 
 const MatchingModal = ({ finalRef, isOpen, onClose }) => {
   const [option, setOption] = useState(1);
@@ -53,8 +53,8 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
       description: "Fill form",
       component: (
         <Survey
-          surveyResponse={surveyResponse}
           setSurveyResponse={setSurveyResponse}
+          surveyResponse={surveyResponse}
         />
       ),
     },
@@ -139,30 +139,31 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
 
   return (
     <Modal
-      finalFocusRef={finalRef}
-      isOpen={isOpen}
-      onClose={onClose}
-      size="4xl"
-      scrollBehavior="inside"
       isCentered
-      motionPreset="slideInBottom"
-      w="100vw"
+      finalFocusRef={finalRef}
       h="100%"
+      isOpen={isOpen}
+      motionPreset="slideInBottom"
+      scrollBehavior="inside"
+      size="4xl"
+      w="100vw"
+      onClose={onClose}
     >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Text textAlign="center" fontSize={"3xl"}>
+          <Text fontSize="3xl" textAlign="center">
             👋 Please follow the given steps 👋
           </Text>
-          <Stepper index={activeStep} size={"lg"}>
+          <Stepper index={activeStep} size="lg">
             {steps.map((step, index) => (
+              // eslint-disable-next-line react/no-array-index-key
               <Step key={index}>
                 <StepIndicator>
                   <StepStatus
+                    active={<StepNumber />}
                     complete={<StepIcon />}
                     incomplete={<StepNumber />}
-                    active={<StepNumber />}
                   />
                 </StepIndicator>
 
@@ -185,16 +186,17 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
             },
           }}
         >
-          <VStack minH={300} maxH={300}>
+          <VStack maxH={300} minH={300}>
             {steps[activeStep].component}
           </VStack>
         </ModalBody>
 
-        <ModalFooter justifyContent="flex-end" gap={5}>
+        <ModalFooter gap={5} justifyContent="flex-end">
           <Button leftIcon={<IoIosArrowBack />} onClick={handlePrev}>
             Prev
           </Button>
           <Button
+            colorScheme={activeStep === steps.length - 1 ? "blue" : "gray"}
             rightIcon={
               activeStep === steps.length - 1 ? (
                 <IoIosSend color="blue" style={{ color: "blue" }} />
@@ -203,7 +205,6 @@ const MatchingModal = ({ finalRef, isOpen, onClose }) => {
               )
             }
             onClick={handleNext}
-            colorScheme={activeStep === steps.length - 1 ? "blue" : "gray"}
           >
             {activeStep === steps.length - 1 ? "Done" : "Next"}
           </Button>

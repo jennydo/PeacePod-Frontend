@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import {
     Modal,
     ModalOverlay,
@@ -14,17 +14,17 @@ import {
     Divider,
     Input,
     Button
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 import letterImage from '../../../assets/images/letter.png';
 import { useCommentsContext } from '../../../hooks/useCommentsContext';
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Comment from './Comment';
 
-const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp}) => {
+const PostModal = ({ finalRef, isOpen, onClose, post, formattedTimeStamp}) => {
   const { avatar, username } = post.userId;
-  console.log(isOpen)
-  console.log(onClose)
+  console.log(isOpen);
+  console.log(onClose);
 
   const [newComment, setNewComment] = useState("");
   const { comments, dispatch } = useCommentsContext();
@@ -62,25 +62,26 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
     <Modal
       finalFocusRef={finalRef}
       isOpen={isOpen}
-      onClose={onClose}
-      size="5xl"
-      scrollBehavior="inside"
       motionPreset="slideInBottom"
+      scrollBehavior="inside"
+      size="5xl"
+      onClose={onClose}
     >
       <ModalOverlay />
       <ModalContent
+        bgImage={letterImage}
+        bgPosition="bottom"
+        bgRepeat="no-repeat"
+        bgSize="cover"
         sx={{
           borderRadius: "30px",
           paddingLeft: "20px",
           paddingRight: "20px",
         }}
-        bgImage={letterImage}
-        bgSize="cover"
-        bgPosition="bottom"
-        bgRepeat="no-repeat"
       >
         <ModalHeader>{post && post.title}</ModalHeader>
-        <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap" p={4}>
+        <Flex alignItems="center" flex="1" flexWrap="wrap"
+gap="5" p={4}>
           {" "}
           {/* Added padding here */}
           <Avatar name={username} src={avatar} />
@@ -95,20 +96,21 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
         <ModalBody style={{ whiteSpace: "pre-line" }}>
           {post?.content}
           <Box padding={7}>
-            <Divider w="100%" borderWidth="1px" margin={0} />
+            <Divider borderWidth="1px" margin={0} w="100%" />
           </Box>
           {comments &&
             comments.map((comment, idx) => (
-              <Comment comment={comment} key={idx} />
+              // eslint-disable-next-line react/no-array-index-key
+              <Comment key={idx} comment={comment} />
             ))}
         </ModalBody>
 
         <ModalFooter>
           <Input
+            mr={2}
             placeholder="Your thought"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            mr={2}
           />
           <Button colorScheme="teal" size="md" onClick={handlePostComment}>
             Send
@@ -117,6 +119,6 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
       </ModalContent>
     </Modal>
   );
-}
+};
 
-export default PostModal
+export default PostModal;

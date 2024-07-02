@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
-import axios from 'axios'
+import axios from 'axios';
 
 export const AudioContext = createContext();
 
@@ -9,6 +9,7 @@ export const audioReducer = (state, action) => {
       return {
         ...state,
         audios: action.payload,
+        // eslint-disable-next-line no-unused-vars
         favoriteAudios: action.payload.filter((audio, _) => audio.isFavorite),
       };
     case "CHOOSE_AUDIO":
@@ -25,10 +26,12 @@ export const audioReducer = (state, action) => {
     case "TOGGLE_FAVORITE":
       return {
         ...state,
+        // eslint-disable-next-line no-unused-vars
         audios: state.audios.map((audio, _) => {
           if (audio === action.payload) audio.isFavorite = !audio.isFavorite;
           return audio;
         }),
+        // eslint-disable-next-line no-unused-vars
         favoriteAudios: state.audios.filter((audio, _) => audio.isFavorite),
       };
     case "CLEAR":
@@ -37,17 +40,17 @@ export const audioReducer = (state, action) => {
         chosenAudio: null,
         favoriteAudios: [],
         isPlayingAudio: true
-      }
+      };
     case "CHOOSE_PLAY_AUDIO":
       return {
         ...state,
         isPlayingAudio: true 
-      }
+      };
     case "UNCHOOSE_PLAY_AUDIO":
       return {
         ...state,
         isPlayingAudio: false
-      }
+      };
     default:
       return state;
   }
@@ -84,7 +87,7 @@ export const AudioContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchAudios()
+    fetchAudios();
   }, []);
 
   return (

@@ -1,149 +1,148 @@
-import './Prompt.scss'
+import './Prompt.scss';
 
 const PromptBgImage = () => {
     return ( 
         <div className='prompt-background-image'>
-            <div class='scene'>
-                <div class='clouds'>
-                <div class='cloud cloud-3'>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bottom'></div>
+            <div className='scene'>
+                <div className='clouds'>
+                <div className='cloud cloud-3'>
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bottom' />
                 </div>
-                <div class='cloud cloud-1'>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bottom'></div>
+                <div className='cloud cloud-1'>
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bottom' />
                 </div>
-                <div class='cloud cloud-2'>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bottom'></div>
+                <div className='cloud cloud-2'>
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bottom' />
                 </div>
-                <div class='cloud-alt'>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bottom'></div>
+                <div className='cloud-alt'>
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bottom' />
                 </div>
                 </div>
-                <div class='sky'>
+                <div className='sky'>
 
-                <div class='sun'></div>
+                <div className='sun' />
 
-                <div class='sky-1'></div>
-                <div class='sky-2'></div>
-                <div class='sky-3'></div>
+                <div className='sky-1' />
+                <div className='sky-2' />
+                <div className='sky-3' />
 
-                <div class='background-clouds'>
-                    <div class='cloud-1'>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bottom'></div>
+                <div className='background-clouds'>
+                    <div className='cloud-1'>
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bottom' />
                     </div>
-                    <div class='cloud-2'>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bottom'></div>
+                    <div className='cloud-2'>
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bottom' />
                     </div>
-                    <div class='cloud-3'>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bottom'></div>
+                    <div className='cloud-3'>
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bottom' />
                     </div>
-                    <div class='cloud-4'>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bubble'></div>
-                    <div class='bottom'></div>
+                    <div className='cloud-4'>
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bubble' />
+                    <div className='bottom' />
                     </div>
                 </div>
                 </div>
 
-                <div class='mountains'>
-                <div class='mountain'></div>
-                <div class='mountain-2'></div>
-                <div class='mountain-3'></div>
-                <div class='mountain-4'></div>
-                <div class='shadow'></div>
+                <div className='mountains'>
+                <div className='mountain' />
+                <div className='mountain-2' />
+                <div className='mountain-3' />
+                <div className='mountain-4' />
+                <div className='shadow' />
                 </div>
 
-                <div class='bottom-section'>
+                <div className='bottom-section'>
 
-                <div class='objects-foreground'>
-                    <div class='house-2'>
-                    <div class='roof'>
-                        <div class='front'></div>
-                        <div class='side'></div>
+                <div className='objects-foreground'>
+                    <div className='house-2'>
+                    <div className='roof'>
+                        <div className='front' />
+                        <div className='side' />
                     </div>
-                    <div class='main'>
-                        <div class='front'>
-                        <div class='window'></div>
+                    <div className='main'>
+                        <div className='front'>
+                        <div className='window' />
                         </div>
-                        <div class='side'>
-                        <div class='window'></div>
+                        <div className='side'>
+                        <div className='window' />
                         </div>
                     </div>
-                    <div class='light'></div>
+                    <div className='light' />
                     </div>
                 </div>
 
-                <div class='ground'>
-                    <div class='hill-bottom'>
+                <div className='ground'>
+                    <div className='hill-bottom' />
+                    <div className='ground-bg' />
+                    <div className='ground-main'>
+                    <div className='light' />
                     </div>
-                    <div class='ground-bg'></div>
-                    <div class='ground-main'>
-                    <div class='light'></div>
+                    <div className='hill' />
+                    <div className='trees'>
+                    <div className='tree' />
+                    <div className='tree' />
+                    <div className='tree' />
+                    <div className='tree' />
+                    <div className='tree' />
+                    <div className='tree' />
                     </div>
-                    <div class='hill'></div>
-                    <div class='trees'>
-                    <div class='tree'></div>
-                    <div class='tree'></div>
-                    <div class='tree'></div>
-                    <div class='tree'></div>
-                    <div class='tree'></div>
-                    <div class='tree'></div>
-                    </div>
-                    <div class='trees-2'>
-                    <div class='tree'></div>
-                    <div class='tree'></div>
-                    <div class='tree'></div>
+                    <div className='trees-2'>
+                    <div className='tree' />
+                    <div className='tree' />
+                    <div className='tree' />
                     </div>
                     </div>
                     </div>
                 </div>
             </div>
      );
-}
+};
 
 export default PromptBgImage;

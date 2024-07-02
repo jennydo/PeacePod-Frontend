@@ -1,5 +1,4 @@
-import axios from "axios";
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 export const PromptResponsesContext = createContext();
 
@@ -21,7 +20,7 @@ export const promptResponsesReducer = (state, action) => {
       return {
         ...state,
         firstPromptResponse: action.payload
-      }
+      };
     case "CLEAR":
       return {
         promptResponses: [],

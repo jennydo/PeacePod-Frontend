@@ -2,25 +2,25 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Box, Stack, Input, Button, Textarea, Text, Divider,
         Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure,
-        Alert, AlertIcon, AlertDescription, Avatar, Card, HStack } from '@chakra-ui/react'
+        Alert, AlertIcon, AlertDescription, Avatar, Card, HStack } from '@chakra-ui/react';
 import { usePostsContext } from "../../hooks/usePostsContext";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useAvatarContext } from "../../hooks/useAvatarContext";
 
 const CreatePost = ( ) => {
-    const { user } = useAuthContext()
-    const { username } = user.user
-    const { avatar} = useAvatarContext()
+    const { user } = useAuthContext();
+    const { username } = user.user;
+    const { avatar} = useAvatarContext();
 
     const {dispatch} = usePostsContext();
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
     const isPrompt = false;
-    const [isShowingAlert, setIsShowingAlert] = useState(false)
-    const [alertMssg, setAlertMssg] = useState('')
+    const [isShowingAlert, setIsShowingAlert] = useState(false);
+    const [alertMssg, setAlertMssg] = useState('');
 
     const maxLength = 2000;
     const characterCount = content.length;
@@ -28,7 +28,7 @@ const CreatePost = ( ) => {
     const handleClose = () => {
         setIsShowingAlert(false);
         onClose();
-    }
+    };
 
     const handleSave = () => {
         // Check if title is not empty and content is not empty or exceeds the maximum length
@@ -37,7 +37,7 @@ const CreatePost = ( ) => {
                 title, 
                 content, 
                 isPrompt
-            }
+            };
 
             axios.post("http://localhost:4000/api/posts/", newPost, {
               headers: { "Authorization": `Bearer ${user.token}`}
@@ -47,32 +47,32 @@ const CreatePost = ( ) => {
                     dispatch({
                       type: 'CREATE_POST',
                       payload: response.data
-                    })
+                    });
                     onClose();
                     setTitle('');
                     setContent('');
-                    setIsShowingAlert(false)
+                    setIsShowingAlert(false);
                 })
                 .catch(error => {
                     console.error(error);
                 });
 
         } else {
-            setIsShowingAlert(true)
+            setIsShowingAlert(true);
             if (title === "") {
-                setAlertMssg("You must have a title for your post.")
+                setAlertMssg("You must have a title for your post.");
             }
             else if (content === "") {
-                setAlertMssg("You must have a body for your post.")
+                setAlertMssg("You must have a body for your post.");
             }
             else if (characterCount > maxLength) {
-                setAlertMssg(`The maximum length is ${maxLength} characters.`)
+                setAlertMssg(`The maximum length is ${maxLength} characters.`);
             }
             else {
-                setAlertMssg("Double check your input.")
+                setAlertMssg("Double check your input.");
             }
         }
-    }
+    };
 
     return (
       <>
@@ -80,16 +80,16 @@ const CreatePost = ( ) => {
           <HStack px={5}>
             <Avatar name={username} src={avatar}/>
             <Box
-                  onClick={onOpen}
-                  bg="#E0E0E0"
-                  w="100%"
-                  p={5}
-                  mb={5}
-                  mt={5}
-                  borderRadius={70}
-                  minH={15}
-                  color="black"
                   _hover={{ bg: "#A0A0A0" }}
+                  bg="#E0E0E0"
+                  borderRadius={70}
+                  color="black"
+                  mb={5}
+                  minH={15}
+                  mt={5}
+                  p={5}
+                  w="100%"
+                  onClick={onOpen}
                 >
                   How are you feeling today?
             </Box>
@@ -100,12 +100,12 @@ const CreatePost = ( ) => {
       
 
         <Modal
-          isOpen={isOpen}
-          onClose={handleClose}
           blockScrollOnMount={false}
-          size="xl"
+          isOpen={isOpen}
           motionPreset="slideInBottom"
           scrollBehavior="inside"
+          size="xl"
+          onClose={handleClose}
         >
           <ModalOverlay />
           <ModalContent>
@@ -121,22 +121,22 @@ const CreatePost = ( ) => {
                 </Stack>
 
                 <Input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
                   placeholder="Title"
                   size="md"
+                  value={title}
                   variant="outline"
+                  onChange={(e) => setTitle(e.target.value)}
                 />
 
                 <Textarea
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  placeholder="What have been on your mind lately?"
-                  isInvalid={characterCount > maxLength}
-                  size="sm"
-                  variant="filled"
                   borderRadius={8}
                   h={250}
+                  isInvalid={characterCount > maxLength}
+                  placeholder="What have been on your mind lately?"
+                  size="sm"
+                  value={content}
+                  variant="filled"
+                  onChange={(e) => setContent(e.target.value)}
                 />
 
                 <Text
@@ -158,7 +158,7 @@ const CreatePost = ( ) => {
             </ModalBody>
 
             <ModalFooter display="flex" justifyContent="center">
-              <Button colorScheme="blue" onClick={handleSave} w="100%">
+              <Button colorScheme="blue" w="100%" onClick={handleSave}>
                 Save
               </Button>
             </ModalFooter>
@@ -166,6 +166,6 @@ const CreatePost = ( ) => {
         </Modal>
       </>
     );
-}
+};
  
 export default CreatePost;

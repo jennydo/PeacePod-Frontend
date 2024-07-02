@@ -2,8 +2,6 @@
 import AllPosts from "../components/NewsFeed/Posts/AllPosts";
 // import QuotesAndTipsCards from "../components/NewsFeed/QuotesAndTipsCards";
 import {
-  Grid,
-  GridItem,
   useDisclosure,
   IconButton,
   Icon,
@@ -26,12 +24,12 @@ const NewsFeed = () => {
   return (
     <div className="newsfeed">
       <h1>NewsFeed</h1>
-      <Tabs align="center" isFitted mt={5}>
+      <Tabs isFitted align="center" mt={5}>
         <TabList>
-          <Tab p={0} h={10}>
+          <Tab h={10} p={0}>
             <Text fontSize={20}>Catch a Postcard flying in the Sky</Text>
           </Tab>
-          <Tab p={0} h={10}>
+          <Tab h={10} p={0}>
             <Text fontSize={20}>The Waterfall of Messages</Text>
           </Tab>
         </TabList>
@@ -39,15 +37,15 @@ const NewsFeed = () => {
         <TabPanels>
           <TabPanel pb={0} pt={3}>
             <Box position="relative">
-              <Box position="absolute" bottom="0" right="20%">
+              <Box bottom="0" position="absolute" right="20%">
                 <IconButton
-                  onClick={onOpen}
-                  isRound={true}
-                  variant="solid"
-                  bg="transparent"
                   aria-label="Done"
+                  bg="transparent"
                   fontSize="20px"
                   icon={<Icon as={BsFillSendPlusFill} boxSize={10} />}
+                  isRound={true}
+                  variant="solid"
+                  onClick={onOpen}
                 />
               </Box>
               <Box display="flex" justifyContent="center">

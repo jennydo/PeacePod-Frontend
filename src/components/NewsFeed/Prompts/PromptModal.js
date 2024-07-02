@@ -8,8 +8,8 @@ import {
     Button, 
     GridItem,
     Grid,
-  } from '@chakra-ui/react'
-import './Prompt.scss'
+  } from '@chakra-ui/react';
+import './Prompt.scss';
 import PromptBgImage from './PromptBgImage';
 import { useState, useRef, useEffect, useContext } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
@@ -18,7 +18,7 @@ import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 
 const PromptModal = () => {
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { user } = useAuthContext();
 
@@ -126,6 +126,7 @@ const PromptModal = () => {
   }, [dispatch, prompt]);
 
   const promptQuote = prompt ? prompt.content : "I love it when you";
+  // eslint-disable-next-line no-unused-vars
   const [firstResponse, setFirstResponse] = useState(null);
   const [idx, setIdx] = useState(0);
   const [promptsDisplay, setPromptsDisplay] = useState([]);
@@ -158,7 +159,7 @@ const PromptModal = () => {
     <>
         <Button onClick={onOpen}>Open Modal</Button>
 
-        <Modal isOpen={isOpen} onClose={onClose} size='full'>
+        <Modal isOpen={isOpen} size='full' onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
             <ModalCloseButton />
@@ -166,27 +167,28 @@ const PromptModal = () => {
             <ModalBody className='prompt-modal-body'>
                 <PromptBgImage/>
                 <Grid
-                    gridTemplateRows={"1fr"}
+                    gridTemplateRows="1fr"
                     h="100%"
-                    w="100%"
                     mt={10}
-                    // zIndex={1}  
-                    position="relative" 
+                    position="relative"
+                    w="100%"
+                    // zIndex={1}   
                 >
                     <GridItem h="60vh" w="100%">
-                    <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
+                    <Grid gridTemplateColumns="1fr 50%" h="100%" w="100%">
                         <GridItem
                         h="100%"
-                        w="100%"
                         textAlign="right"
+                        w="100%"
                         onClick={handleClickPrompt}
                         >
                         <p className="prompt-text quote">
                             {promptQuote.slice(0, promptQuote?.length - 3)}
                         </p>
                         </GridItem>
-                        <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
-                        <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
+                        <GridItem h="65vh" overflowY="hidden" textAlign="left"
+w="100%">
+                        <Grid ref={firstPromptRef} gap={6} templateRows="repeat(5, 1fr)">
                             <GridItem
                             ref={firstPromptRef}
                             className={
@@ -199,7 +201,8 @@ const PromptModal = () => {
                             {promptsDisplay &&
                             promptsDisplay.map((promptRes, promptIdx) =>
                                 promptIdx ? (
-                                <GridItem key={promptIdx} w="100%" h="10">
+                                // eslint-disable-next-line react/no-array-index-key
+                                <GridItem key={promptIdx} h="10" w="100%">
                                     <p className="prompt-text responses">{promptRes.content}</p>
                                 </GridItem>
                                 ) : undefined
@@ -215,6 +218,6 @@ const PromptModal = () => {
         </Modal>
     </> 
     );
-}
+};
 
 export default PromptModal;

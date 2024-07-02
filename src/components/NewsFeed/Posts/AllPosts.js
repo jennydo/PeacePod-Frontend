@@ -5,7 +5,7 @@ import { usePostsContext } from "../../../hooks/usePostsContext";
 import { useCommentsContext } from "../../../hooks/useCommentsContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { IconButton, Grid, GridItem, Center } from "@chakra-ui/react"; 
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import NormalPost from "../Posts/NormalPost";
 
 const AllPosts = () => {
@@ -55,42 +55,43 @@ const AllPosts = () => {
 
     return ( 
         <>
-        <Grid gridTemplateColumns={'5% 1fr 5%'} gap={2} m={0} h="60vh" w="60%">
+        <Grid gap={2} gridTemplateColumns="5% 1fr 5%" h="60vh"
+m={0} w="60%">
           <GridItem 
-            w='100%' h='100%' 
-            display='flex' 
-            alignItems='center' 
-            justifyContent='center'> 
+            alignItems='center' display='flex' 
+            h='100%' 
+            justifyContent='center' 
+            w='100%'> 
             <IconButton
-              icon={<ChevronLeftIcon />}
-              onClick={idx < 1 ? ()=>{} : retrievePreviousPost}
               colorScheme="blue"
-              variant='ghost'
-              size='lg'
               disabled={ idx < 1 }
+              icon={<ChevronLeftIcon />}
+              size='lg'
+              variant='ghost'
+              onClick={idx < 1 ? ()=>{} : retrievePreviousPost}
             />
           </GridItem>
-          <GridItem w='100%' h='100%'> 
+          <GridItem h='100%' w='100%'> 
             {postShowing && <NormalPost post={postShowing}/>}
           </GridItem>
           <GridItem 
-            w='100%' h='100%'
-            display='flex' 
-            alignItems='center' 
-            justifyContent='center'> 
+            alignItems='center' display='flex'
+            h='100%' 
+            justifyContent='center' 
+            w='100%'> 
             <IconButton
-              icon={<ChevronRightIcon />}
-              onClick={idx > posts.length - 2 ? ()=>{} : retrieveNewPost}
               colorScheme="blue"
-              variant='ghost'
-              size='lg'
               disabled={idx > posts.length - 2}
+              icon={<ChevronRightIcon />}
+              size='lg'
+              variant='ghost'
+              onClick={idx > posts.length - 2 ? ()=>{} : retrieveNewPost}
             />
           </GridItem>
         </Grid>
         </>
      );
-}
+};
  
 export default AllPosts;
 
