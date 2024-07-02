@@ -12,7 +12,7 @@
     h4 {
         font-size: 18px;
         font-weight: 300;
-        
+
         &.text-selected {
             font-weight: bold;
             color: purple;
@@ -30,6 +30,23 @@
 
         &.sub {
             font-style: italic;
+        }
+    }
+
+    & .audio-source-buttons {
+        width: 80%;
+        height: 80%;
+        align-items: flex-end;
+        transition:
+            background-color 0.3s ease,
+            border-radius 0.3s ease;
+        background-color: #fdeafa;
+        border-radius: 20px;
+        padding-bottom: 10px;
+
+        &:hover {
+            background-color: #e2e6ff; // Background color on hover
+            border-radius: 20px; // Border radius on hover
         }
     }
 
