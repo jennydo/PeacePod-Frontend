@@ -10,7 +10,8 @@ const ChooseOption = ({ option, setOption }) => {
         <Button
           w="100%"
           h={100}
-          bg={option === 1 ? "#FFD6FF" : "#FFAFCC"}
+          bg="#FFAFCC"
+          border={option === 1 ? "3px solid #DC087D" : "none"}
           _hover={{ background: "#FFD6FF" }}
           onClick={() => setOption(1)}
         >
@@ -19,7 +20,8 @@ const ChooseOption = ({ option, setOption }) => {
         <Button
           w="100%"
           h={100}
-          bg={option === 2 ? "#FFD6FF" : "#FFAFCC"}
+          bg="#FFAFCC"
+          border={option === 2 ? "3px solid #DC087D" : "none"}
           _hover={{ background: "#FFD6FF" }}
           onClick={() => setOption(2)}
         >
