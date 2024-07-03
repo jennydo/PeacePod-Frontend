@@ -63,13 +63,13 @@ const SpotifyList = ({ code }) => {
     }, [search, accessToken])
 
     return (
-        <Container>
+        <Container w='100%'>
             <Input
                 type='search'
                 placeholder='Search Songs/Artists on Spotify'
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                w="400px"
+                w="100%"
                 h="70px"
                 p={4}
                 borderRadius="full"
@@ -88,10 +88,11 @@ const SpotifyList = ({ code }) => {
                 }}
             />
             <div style={{
-                maxHeight: '400px',
+                maxHeight: '30vh',
                 overflowY: 'auto',
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                width:"37vw"
             }}>
                 {searchResults && searchResults.map((track, idx) => (
                     <TrackSearchResult key={track.uri} track={track} chooseTrack={chooseTrack} />
