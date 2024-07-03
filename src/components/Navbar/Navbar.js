@@ -46,7 +46,6 @@ const Navbar = () => {
     const [avatar, setAvatar] = useState('');
     useEffect(() => {
         setAvatar(avatarContext);
-        // console.log("Changing avatar because of avatarContext...")
       }, [avatarContext]);
 
     const handleLogOut = () => {
@@ -60,18 +59,10 @@ const Navbar = () => {
 
     const seeNewMatch = (notif) => {
         setNewMatchUser(notif)
-        console.log("New match user here: " + notif)
-        console.log("New match user here: " + newMatchUser)
         onOpenNewMatch()
     }
 
     const createNewChat = () => {
-        console.log("Creating new chat");
-
-        console.log('user token to create new chat', userAuth.token)
-        console.log('newMatch user', newMatchUser)
-        console.log('newMatch user id', newMatchUser.id)
-        
         axios.post('http://localhost:4000/api/chats/', {
             userId: newMatchUser.id
         },{
@@ -83,6 +74,8 @@ const Navbar = () => {
                 payload: response.data
             });
             onCloseNewMatch();
+            handleRemoveNotification(newMatchUser.username);
+            setNewMatchUser(null);
         })
     }
  
@@ -166,20 +159,23 @@ const Navbar = () => {
                             </ModalContent>
                         </Modal>
 
-                        <Modal isOpen={isOpenNewMatch} onClose={onCloseNewMatch}>
+                        <Modal isOpen={isOpenNewMatch} onClose={onCloseNewMatch} size='md'>
                             <ModalOverlay />
                             <ModalContent>
                             <ModalHeader>Hooray! We found you a new chatting partner!</ModalHeader>
                             <ModalCloseButton />
-                            <ModalBody>
+                            <ModalBody className='new-matched-user'>
                                 {newMatchUser && 
-                                <>
-                                <Avatar name={newMatchUser.username} src={newMatchUser.avatar} size='md'/>
-                                <h2>{newMatchUser.username}</h2>
-                                <h4>{newMatchUser.location}</h4>
-                                <h4>{newMatchUser.bio}</h4>
-                                <h4>{newMatchUser.interests}</h4>
-                                </>}
+                                <Stack direction="column" alignItems={'start'}>
+                                    <Stack direction="row" w="100%" marginBottom={'5px'}>
+                                        <Avatar name={newMatchUser.username} src={newMatchUser.avatar} size='md'/>
+                                        <span>{newMatchUser.username}</span>
+                                    </Stack>
+                                    <p><strong>Location:</strong>&nbsp;{newMatchUser.location}</p>
+                                    <p><strong>Get to know me:</strong>&nbsp;{newMatchUser.bio}</p>
+                                    <p><strong>I like:</strong>&nbsp;{[...newMatchUser.interests].join(', ')}</p>
+                                </Stack>
+                                }
                             </ModalBody>
                             <ModalFooter>
                                 <Button variant='ghost' onClick={onCloseNewMatch} mr={3}>Cancel</Button>
