@@ -29,6 +29,7 @@ import { useChatsContext } from '../../hooks/useChatsContext';
 import axios from 'axios';
 
 const Navbar = () => {
+    const { user: userAuth } = useAuthContext();
     const { user } = useAuthContext()?.user || {};
     // const { username, avatar } = user || {};
     const { username } = user || {};
@@ -39,7 +40,7 @@ const Navbar = () => {
     const { notifications, dispatch: chatsDispatch } = useChatsContext();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { logOut } = useLogOut();
-    const { isOpenNewMatch, onOpenNewMatch, onCloseNewMatch } = useDisclosure()
+    const { isOpen: isOpenNewMatch, onOpen: onOpenNewMatch, onClose: onCloseNewMatch } = useDisclosure()
     const [newMatchUser, setNewMatchUser] = useState(null);
 
     const [avatar, setAvatar] = useState('');
@@ -59,16 +60,21 @@ const Navbar = () => {
 
     const seeNewMatch = (notif) => {
         setNewMatchUser(notif)
+        console.log("New match user here: " + notif)
+        console.log("New match user here: " + newMatchUser)
         onOpenNewMatch()
     }
 
     const createNewChat = () => {
         console.log("Creating new chat");
+
+        console.log('user token to create new chat', userAuth.token)
+        console.log('newMatch user id', newMatchUser._id)
         
-        axios.post('http://localhost:4000/api/chats', {
+        axios.post('http://localhost:4000/api/chats/create', {
             userId: newMatchUser._id
         },{
-            headers: { Authorization: `Bearer ${user.token}` },
+            headers: { Authorization: `Bearer ${userAuth.token}` },
         }).then((response) => {
             chatsDispatch({
                 type: 'CREATE_CHAT',
@@ -166,10 +172,10 @@ const Navbar = () => {
                                 {newMatchUser && 
                                 <>
                                 <Avatar name={newMatchUser.username} src={newMatchUser.avatar} size='md'/>
-                                <h2>newMatchUser.username</h2>
-                                <h4>newMatchUser.location</h4>
-                                <h4>newMatchUser.bio</h4>
-                                <h4>newMatchUser.interests</h4>
+                                <h2>{newMatchUser.username}</h2>
+                                <h4>{newMatchUser.location}</h4>
+                                <h4>{newMatchUser.bio}</h4>
+                                <h4>{newMatchUser.interests}</h4>
                                 </>}
                             </ModalBody>
                             <ModalFooter>
