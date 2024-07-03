@@ -29,7 +29,7 @@ const SongPlayer = ({ accessToken, trackUri }) => {
     }
 
     return (
-        <Box borderRadius={40} bg="green" overflowWrap={true}>
+        <Box borderRadius={40} bg="green" overflowWrap={true} width="100%" position="absolute" bottom="0">
             <SpotifyWebPlayer
                 token={accessToken}
                 callback={state => {
