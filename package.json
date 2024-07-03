@@ -43,10 +43,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "eject": "react-scripts eject",
+    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'"
   },
   "eslintConfig": {
     "extends": [
@@ -72,6 +72,12 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.3",
     "globals": "^15.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "sass": "^1.77.4"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
   }
 }

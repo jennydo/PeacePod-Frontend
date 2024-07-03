@@ -8,13 +8,6 @@ import { AudioContext } from "../../../context/AudioContext";
 const Player = () => {
     const { chosenAudio } = useContext(AudioContext);
 
-    // console.log(
-    //   "chosen audio in audio player and spotify track",
-    //   chosenAudio,
-    //   playingTrack?.uri,
-    //   isPlayingAudio
-    // );
-
   return (
     <VStack maxH="100%" >
       <div className="audio-player-wrapper">

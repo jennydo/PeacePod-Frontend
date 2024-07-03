@@ -29,7 +29,7 @@ export const NavCards = () => {
         <div align='center' className="button-container" direction='row'>
             {Cards.map((card, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <div key={index} className="button-card">
+                <div key={index} className="button-card" data-testid={`button-card-${card.label}`} >
                     <Link to={card.to}>
                         <div className="button">
                             <div className="cloud">

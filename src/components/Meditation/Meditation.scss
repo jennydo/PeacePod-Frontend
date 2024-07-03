@@ -12,7 +12,7 @@
     h4 {
         font-size: 18px;
         font-weight: 300;
-        
+
         &.text-selected {
             font-weight: bold;
             color: purple;
@@ -33,6 +33,23 @@
         }
     }
 
+    & .audio-source-buttons {
+        width: 80%;
+        height: 80%;
+        align-items: flex-end;
+        transition:
+            background-color 0.3s ease,
+            border-radius 0.3s ease;
+        background-color: #fdeafa;
+        border-radius: 25px;
+        padding-bottom: 10px;
+
+        &:hover {
+            background-color: #e2e6ff; // Background color on hover
+            border-radius: 25px; // Border radius on hover
+        }
+    }
+
     & .icons {
         justify-content: space-around;
     }
@@ -47,11 +64,13 @@
     &.media-player {
         z-index: 2;
         position: relative;
+        // overflow-y: auto;
     }
 }
 
 .meditation-audios {
     padding: 20px;
+
 }
 
 .meditation-box {
@@ -61,4 +80,5 @@
     background-color: white;
     padding: 20px;
     box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
 }

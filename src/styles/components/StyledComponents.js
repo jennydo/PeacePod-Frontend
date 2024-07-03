@@ -14,8 +14,10 @@ const StyledButton = ({text, onClick=() => {}, icon=null, width=null}) => {
             _active={{ bg: '#d0aadf' }}
             _hover={{ bg: '#e0bff2' }}
             bg="#f0d4ff"
+            borderRadius="20px"
             color="black"
             leftIcon={icon}
+            px={8}
             w={width}
             onClick={onClick}
         >
@@ -27,7 +29,7 @@ const StyledButton = ({text, onClick=() => {}, icon=null, width=null}) => {
 const StyledBox = ({ onClick=() => {}, children=null, selected=false, className=""}) => {
     return (
     <Box 
-        borderRadius={5}
+        borderRadius={25}
         className={`${className} ${selected ? "styled-box-selected" : ""}`}
         h='100%' 
         p={2} 

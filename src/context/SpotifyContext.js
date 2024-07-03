@@ -42,8 +42,6 @@ export const SpotifyContextProvider = ( {children} ) => {
         isPlayingSpotify: null
     });
     
-    console.log("SpotifyContext state: ", state);
-
     return (
         <SpotifyContext.Provider value={ {...state, dispatch} }>
             {children}

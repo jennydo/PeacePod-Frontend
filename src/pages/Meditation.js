@@ -1,5 +1,5 @@
 
-import { Grid, GridItem, useDisclosure, IconButton, Icon, Divider } from "@chakra-ui/react";
+import { Grid, GridItem, useDisclosure, IconButton, Icon, Flex } from "@chakra-ui/react";
 import { TiPlus } from "react-icons/ti";
 import { CloudinaryContext } from "../context/CloudinaryContext";
 import { useState, useRef, useContext, useEffect } from "react";
@@ -13,7 +13,7 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { AudioContext } from "../context/AudioContext";
 import MeditationModal from "../components/Meditation/MeditationModal";
-import {StyledButton} from '../styles/components/StyledComponents';
+import { StyledButton } from '../styles/components/StyledComponents';
 
 const Meditation = () => {
   const { user } = useAuthContext();
@@ -25,7 +25,7 @@ const Meditation = () => {
     onClose: onModalClose,
   } = useDisclosure();
   const finalRef = useRef(null);
-  const {isOpen, onOpen, onClose} = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const {
     displayedImage,
@@ -64,9 +64,10 @@ const Meditation = () => {
         type: "CHOOSE_AUDIO",
         payload: res.data.meditationAudio,
       });
-      spotifyDispatch({ 
+      spotifyDispatch({
         type: "SET_SPOTIFY_PLAYING_TRACK",
-        payload: res.data.music});
+        payload: res.data.music
+      });
 
       /// Update state of choosing audio for choosing spotify
       audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
@@ -111,67 +112,71 @@ const Meditation = () => {
       <h1>Meditation</h1>
       <div className='meditation page'>
         <Grid className="meditation-box" gridTemplateRows="10% 10% 2% 1fr 10%" h="65vh">
-        {/* <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"calc(100vh - 300px)"}> */}
-          
+          {/* <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"calc(100vh - 300px)"}> */}
+
           <GridItem className="meditation textbox" h='100%' w='100%'>
-            <h2>Let&#39;s start your meditation! ☮️</h2>
+            <h2>Let's start your meditation! ☮️</h2>
           </GridItem>
 
           <GridItem h='100%' w='100%'>
-            <Grid gridTemplateColumns="50% 1fr" h='100%' w='100%'>
-              <GridItem className="meditation textbox sub">
-                <h4 className={`text-${tab ? "": "selected"}`} onClick={() => setTab(false)}>Choose your own voices</h4>
+            <Grid gridTemplateColumns="50% 1fr" h='100%' marginTop="20px"
+w='100%'>
+              <GridItem className="meditation audio-source-buttons" marginLeft={10}>
+                <h4 className={`text-${tab ? "" : "selected"}`} onClick={() => setTab(false)}>Choose your own voices</h4>
               </GridItem>
-              <GridItem className="meditation textbox sub">
-                <h4 className={`text-${!tab ? "": "selected"}`} onClick={() => setTab(true)}>Choose from Spotify</h4>
+              <GridItem className="meditation audio-source-buttons">
+                <h4 className={`text-${!tab ? "" : "selected"}`} onClick={() => setTab(true)}>Choose from Spotify</h4>
               </GridItem>
             </Grid>
           </GridItem>
 
           <GridItem className="meditation textbox" h='100%' mt={1}
-w='100%'>
-            <Divider/>
-          </GridItem>
+w='100%' />
 
           <GridItem h='100%' w='100%'>
-          {(!tab) && (
-            <Grid gridTemplateRows="10% 1fr" h='100%' w='100%'>
-              <GridItem className="meditation icons" h='100%' w='100%'>
-                <IconButton
-                  className="meditation-icon"
-                  fontSize='30px'
-                  icon={<Icon as={TiPlus}/>}
-                  variant='ghost'
-                  onClick={onModalOpen}
-                />
-                <IconButton
-                  className="meditation-icon"
-                  fontSize='30px'
-                  icon={isFilter ? <Icon as={FaHeart} fill="#FFAFCC"/> : <Icon as={FaRegHeart} />}
-                  variant='ghost'
-                  onClick={() => setIsFilter(!isFilter)}
-                />
-              </GridItem>
-              <GridItem h='100%' maxHeight='30vh' w='100%'>
-                <AudioList isFilter={isFilter} />
-              </GridItem>
-            </Grid>
-          )}
+            {(!tab) && (
+              <Grid gridTemplateRows="10% 1fr" h='100%' marginTop="14px"
+w='100%'>
+                <GridItem className="meditation-icons" h='100%' marginTop="20px"
+w='100%'>
+                  <Flex justifyContent="flex-end" paddingRight="38px" >
+                    <IconButton
+                      className="meditation-icon"
+                      fontSize='30px'
+                      icon={<Icon as={TiPlus} />}
+                      variant='ghost'
+                      onClick={onModalOpen}
+                    />
+                    <IconButton
+                      className="meditation-icon"
+                      fontSize='30px'
+                      icon={isFilter ? <Icon as={FaHeart} fill="#FFAFCC" /> : <Icon as={FaRegHeart} />}
+                      variant='ghost'
+                      onClick={() => setIsFilter(!isFilter)}
+                    />
+                  </Flex>
+                </GridItem>
+                <GridItem h='100%' maxHeight='30vh' w='100%'>
+                  <AudioList isFilter={isFilter} />
+                </GridItem>
+              </Grid>
+              
+            )}
 
-          {(tab) && (
-            <SpotifyMain/>
-          )}
-          </GridItem>
+        {(tab) && (
+          <SpotifyMain />
+        )}
+      </GridItem>
 
-          <GridItem className="meditation" h='100%' w='100%'>
-            <StyledButton text="Start" onClick={() => {
-              handleSave();
-              onOpen();
-            }}/>
-          </GridItem>
+      <GridItem className="meditation" h='100%' w='100%'>
+        <StyledButton text="Start" onClick={() => {
+          handleSave();
+          onOpen();
+        }} />
+      </GridItem>
 
-        </Grid>
-      </div>
+    </Grid >
+      </div >
 
       <NewAudioModal
         finalRef={finalRef}
@@ -179,7 +184,7 @@ w='100%'>
         onClose={onModalClose}
       />
 
-      <MeditationModal isOpen={isOpen} onClose={onClose}/>
+      <MeditationModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
