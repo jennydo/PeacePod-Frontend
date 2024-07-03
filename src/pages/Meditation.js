@@ -120,12 +120,12 @@ const Meditation = () => {
 
           <GridItem w='100%' h='100%'>
             <Grid gridTemplateColumns={"50% 1fr"} w='100%' h='100%' marginTop="20px">
-              <GridItem className="meditation audio-source-buttons" marginLeft={10}>
+              {/* <GridItem className="meditation audio-source-buttons" marginLeft={10}> */}
                 <h4 className={`text-${tab ? "" : "selected"}`} onClick={() => setTab(false)}>Choose your own voices</h4>
-              </GridItem>
-              <GridItem className="meditation audio-source-buttons">
+              {/* </GridItem> */}
+              {/* <GridItem className="meditation audio-source-buttons"> */}
                 <h4 className={`text-${!tab ? "" : "selected"}`} onClick={() => setTab(true)}>Choose from Spotify</h4>
-              </GridItem>
+              {/* </GridItem> */}
             </Grid>
           </GridItem>
 
