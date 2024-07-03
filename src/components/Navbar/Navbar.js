@@ -69,17 +69,20 @@ const Navbar = () => {
         console.log("Creating new chat");
 
         console.log('user token to create new chat', userAuth.token)
-        console.log('newMatch user id', newMatchUser._id)
+        console.log('newMatch user', newMatchUser)
+        console.log('newMatch user id', newMatchUser.id)
         
-        axios.post('http://localhost:4000/api/chats/create', {
-            userId: newMatchUser._id
+        axios.post('http://localhost:4000/api/chats/', {
+            userId: newMatchUser.id
         },{
             headers: { Authorization: `Bearer ${userAuth.token}` },
         }).then((response) => {
+            console.log('responde new chat:', response.data)
             chatsDispatch({
                 type: 'CREATE_CHAT',
-                payload: response.data._id
-            })
+                payload: response.data
+            });
+            onCloseNewMatch();
         })
     }
  

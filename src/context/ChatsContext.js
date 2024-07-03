@@ -144,6 +144,7 @@ export const ChatsContextProvider = ( {children} ) => {
           if (response) { 
             const matchedUser = response.data;
             const noti = {
+                id: matchedUser._id,
                 username: matchedUser.username,
                 avatar: matchedUser.avatar,
                 chat: matchedUser.chat,
