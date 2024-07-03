@@ -163,26 +163,26 @@ export const ChatsContextProvider = ( {children} ) => {
     }, [user]);
 
     const scheduleMatchingNotification =  useCallback(() => {
-        // const now = new Date();
-        // const notiTime = new Date(now);
+        const now = new Date();
+        const notiTime = new Date(now);
     
-        // notiTime.setDate(now.getDate() + 1);
-        // notiTime.setHours(21);
-        // notiTime.setMinutes(0);
+        notiTime.setDate(now.getDate() + 1);
+        notiTime.setHours(21);
+        notiTime.setMinutes(0);
     
-        // const timeUntilNoti = notiTime - now;
+        const timeUntilNoti = notiTime - now;
     
-        // console.log(timeUntilNoti, now, notiTime);
+        console.log(timeUntilNoti, now, notiTime);
     
-        // setTimeout(() => {
-        //     getMatch();
-        //     scheduleMatchingNotification();
-        // }, timeUntilNoti);
-
         setTimeout(() => {
             getMatch();
             scheduleMatchingNotification();
-          }, 30000);
+        }, timeUntilNoti);
+
+        // setTimeout(() => {
+        //     getMatch();
+        //     scheduleMatchingNotification();
+        //   }, 30000);
     }, [getMatch]);
 
     useEffect(() => {
