@@ -1,24 +1,23 @@
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    Button, 
-    GridItem,
-    Grid,
-  } from '@chakra-ui/react'
-import './Prompt.scss'
-import PromptBgImage from './PromptBgImage';
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  GridItem,
+  Grid,
+} from "@chakra-ui/react";
+import "./Prompt.scss";
+import PromptBgImage from "./PromptBgImage";
 import { useState, useRef, useEffect, useContext } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import axios from "axios";
 import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 
 const PromptModal = () => {
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { user } = useAuthContext();
 
@@ -33,6 +32,8 @@ const PromptModal = () => {
     if (currentPrompt) {
       const currentDate = new Date().getDate();
       const promptDate = new Date(currentPrompt.createdAt).getDate();
+
+      console.log(currentDate, promptDate);
 
       if (currentDate !== promptDate) return true;
       else return false;
@@ -123,7 +124,13 @@ const PromptModal = () => {
   useEffect(() => {
     fetchPromptResponses();
     console.log("Refetch prompt responses");
-  }, [dispatch, prompt]);
+  }, [isOpen, dispatch, prompt]);
+
+  const handleClose = () => {
+    setIdx(0);
+    dispatch({ type: "CLEAR" });
+    setPromptsDisplay([]);
+  };
 
   const promptQuote = prompt ? prompt.content : "I love it when you";
   const [firstResponse, setFirstResponse] = useState(null);
@@ -131,7 +138,7 @@ const PromptModal = () => {
   const [promptsDisplay, setPromptsDisplay] = useState([]);
   const [showFirstPrompt, setShowFirstPrompt] = useState(true);
   const firstPromptRef = useRef(null);
-  
+
   const handleClickPrompt = () => {
     if (idx >= promptResponses.length) return;
     setShowFirstPrompt(false);
@@ -154,67 +161,80 @@ const PromptModal = () => {
   };
 
 
-  return (  
+  return (
     <>
-        <Button onClick={onOpen}>Open Modal</Button>
+      <Button onClick={onOpen}>Open Modal</Button>
 
-        <Modal isOpen={isOpen} onClose={onClose} size='full'>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalCloseButton />
+      <Modal isOpen={isOpen} onClose={onClose} size="full">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton onClick={handleClose} />
 
-            <ModalBody className='prompt-modal-body'>
-                <PromptBgImage/>
-                <Grid
-                    gridTemplateRows={"1fr"}
+          <ModalBody className="prompt-modal-body">
+            <PromptBgImage />
+            <Grid
+              gridTemplateRows={"1fr"}
+              h="100%"
+              w="100%"
+              mt={10}
+              // zIndex={1}
+              position="relative"
+            >
+              <GridItem h="60vh" w="100%">
+                <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
+                  <GridItem
                     h="100%"
                     w="100%"
-                    mt={10}
-                    // zIndex={1}  
-                    position="relative" 
-                >
-                    <GridItem h="60vh" w="100%">
-                    <Grid gridTemplateColumns={"1fr 50%"} h="100%" w="100%">
-                        <GridItem
-                        h="100%"
-                        w="100%"
-                        textAlign="right"
-                        onClick={handleClickPrompt}
-                        >
-                        <p className="prompt-text quote">
-                            {promptQuote.slice(0, promptQuote?.length - 3)}
+                    textAlign="right"
+                    onClick={handleClickPrompt}
+                  >
+                    <p className="prompt-text quote">
+                      {promptQuote.slice(0, promptQuote?.length - 3)}
+                    </p>
+                  </GridItem>
+                  <GridItem
+                    h="65vh"
+                    w="100%"
+                    overflowY="hidden"
+                    textAlign="left"
+                  >
+                    <Grid
+                      templateRows="repeat(5, 1fr)"
+                      gap={6}
+                      ref={firstPromptRef}
+                    >
+                      <GridItem
+                        ref={firstPromptRef}
+                        className={
+                          showFirstPrompt ? "fade-in-text show" : "fade-in-text"
+                        }
+                        tabIndex={-1}
+                      >
+                        <p className="prompt-text responses">
+                          {firstPromptResponse?.content}
                         </p>
-                        </GridItem>
-                        <GridItem h="65vh" w="100%" overflowY="hidden" textAlign="left">
-                        <Grid templateRows="repeat(5, 1fr)" gap={6} ref={firstPromptRef}>
-                            <GridItem
-                            ref={firstPromptRef}
-                            className={
-                                showFirstPrompt ? "fade-in-text show" : "fade-in-text"
-                            }
-                            tabIndex={-1}
-                            >
-                            <p className="prompt-text responses">{firstPromptResponse?.content}</p>
+                      </GridItem>
+                      {promptsDisplay &&
+                        promptsDisplay.map((promptRes, promptIdx) =>
+                          promptIdx ? (
+                            <GridItem key={promptIdx} w="100%" h="10">
+                              <p className="prompt-text responses">
+                                {promptRes.content}
+                              </p>
                             </GridItem>
-                            {promptsDisplay &&
-                            promptsDisplay.map((promptRes, promptIdx) =>
-                                promptIdx ? (
-                                <GridItem key={promptIdx} w="100%" h="10">
-                                    <p className="prompt-text responses">{promptRes.content}</p>
-                                </GridItem>
-                                ) : undefined
-                            )}
-                        </Grid>
-                        </GridItem>
+                          ) : undefined
+                        )}
                     </Grid>
-                    </GridItem>
+                  </GridItem>
                 </Grid>
-            </ModalBody>
-
-          </ModalContent>
-        </Modal>
-    </> 
-    );
-}
+              </GridItem>
+            </Grid>
+          </ModalBody>
+          
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
 
 export default PromptModal;
