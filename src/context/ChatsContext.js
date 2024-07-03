@@ -87,10 +87,10 @@ export const ChatsContextProvider = ( {children} ) => {
         dispatch({ type: 'SET_SOCKET', payload: socket });
     }, [user]) 
 
-    useEffect(() => console.log(state.onlineUsers), [state.onlineUsers])
+    // useEffect(() => console.log(state.onlineUsers), [state.onlineUsers])
 
     useEffect(() => {
-        console.log('state.socket:', state.socket)
+        // console.log('state.socket:', state.socket)
 
         if (state.socket) {
             state.socket.emit("setup", user.user);

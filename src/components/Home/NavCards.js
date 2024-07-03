@@ -27,7 +27,7 @@ export const NavCards = () => {
     return (
         <div className="button-container" direction='row' align='center'>
             {Cards.map((card, index) => (
-                <div className="button-card" key={index}>
+                <div className="button-card" key={index} data-testid={`button-card-${card.label}`}>
                     <Link to={card.to}>
                         <div className="button">
                             <div className="cloud">
