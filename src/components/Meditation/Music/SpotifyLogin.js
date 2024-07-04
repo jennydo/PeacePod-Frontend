@@ -27,6 +27,6 @@ const SpotifyLogin = () => {
             <StyledButton text="Login with Spotify" icon={<Icon as={RiSpotifyFill}/>}/>
         </a>
     </> );
-}
+};
  
 export default SpotifyLogin;

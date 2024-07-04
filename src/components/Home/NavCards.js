@@ -1,8 +1,8 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRss, faComments, faHeadphones } from '@fortawesome/free-solid-svg-icons';
-import "./NavCards.css"
+import "./NavCards.css";
 import { Text, VStack } from "@chakra-ui/react";
 
 const Cards = [
@@ -21,7 +21,7 @@ const Cards = [
         label: "Meditation",
         to: "/meditation"
     }
-]
+];
 
 export const NavCards = () => {
     return (
@@ -43,7 +43,7 @@ export const NavCards = () => {
                             </div>
                             <VStack className="button-content" direction='column' spacing={8} w={300} align="center">
                                 {card.icon && <FontAwesomeIcon icon={card.icon} className="button-icon" />}
-                                <Text className="button-label">{card.label}</Text>
+                                <Text className="button-label" fontSize={'2xl'}>{card.label}</Text>
                             </VStack>
                         </div>
                     </Link>

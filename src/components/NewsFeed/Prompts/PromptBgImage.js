@@ -1,4 +1,4 @@
-import './Prompt.scss'
+import './Prompt.scss';
 
 const PromptBgImage = () => {
     return ( 
@@ -144,6 +144,6 @@ const PromptBgImage = () => {
                 </div>
             </div>
      );
-}
+};
 
 export default PromptBgImage;

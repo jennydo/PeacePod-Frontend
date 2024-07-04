@@ -32,7 +32,7 @@ const LogInPage = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
-  const { dispatch: avatarDispatch } = useAvatarContext()
+  const { dispatch: avatarDispatch } = useAvatarContext();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -60,7 +60,7 @@ const LogInPage = () => {
       avatarDispatch({
         type: "SET_AVATAR_DATA", 
         payload: json.user.avatarData
-      })
+      });
       dispatch({ type: "LOGIN", payload: json });
       setIsLoading(false);
     }

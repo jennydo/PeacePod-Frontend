@@ -48,7 +48,7 @@ const MeditationModal = ({ isOpen, onClose }) => {
   } = useDisclosure();
   const drawerBtnRef = useRef(null);
 
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
 
   const handleSave = async () => {
     const session = {
@@ -74,7 +74,7 @@ const MeditationModal = ({ isOpen, onClose }) => {
       console.log("Error while creating session...", err);
     }
 
-    onDrawerClose()
+    onDrawerClose();
   };
 
   return (

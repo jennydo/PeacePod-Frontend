@@ -1,7 +1,7 @@
 import {Link, useLocation} from 'react-router-dom';
 import { useLogOut } from '../../hooks/useLogOut';
-import { useAuthContext } from '../../hooks/useAuthContext'
-import './Navbar.scss'
+import { useAuthContext } from '../../hooks/useAuthContext';
+import './Navbar.scss';
 import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider, 
     useDisclosure, Button, Modal,
     ModalOverlay,
@@ -26,37 +26,59 @@ import { useAvatarContext } from '../../hooks/useAvatarContext';
 import { useEffect, useState } from 'react';
 import { IoNotifications } from "react-icons/io5";
 import { useChatsContext } from '../../hooks/useChatsContext';
-
+import axios from 'axios';
 
 const Navbar = () => {
+    const { user: userAuth } = useAuthContext();
     const { user } = useAuthContext()?.user || {};
     // const { username, avatar } = user || {};
     const { username } = user || {};
-    const { avatar: avatarContext } = useAvatarContext()
-    const { dispatch: chatDispatch } = useChatsContext();
+    const { avatar: avatarContext } = useAvatarContext();
     // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
-    const { notifications } = useChatsContext();
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { notifications, dispatch: chatsDispatch } = useChatsContext();
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const { logOut } = useLogOut();
+    const { isOpen: isOpenNewMatch, onOpen: onOpenNewMatch, onClose: onCloseNewMatch } = useDisclosure();
+    const [newMatchUser, setNewMatchUser] = useState(null);
 
     const [avatar, setAvatar] = useState('');
     useEffect(() => {
         setAvatar(avatarContext);
-        // console.log("Changing avatar because of avatarContext...")
       }, [avatarContext]);
 
     const handleLogOut = () => {
-        logOut()
-        onClose()
-    }
+        logOut();
+        onClose();
+    };
 
     const handleRemoveNotification = (username) => {
-        delete notifications[username]
-    }
+        delete notifications[username];
+    };
 
+    const seeNewMatch = (notif) => {
+        setNewMatchUser(notif);
+        onOpenNewMatch();
+    };
 
+    const createNewChat = () => {
+        axios.post('http://localhost:4000/api/chats/', {
+            userId: newMatchUser.id
+        },{
+            headers: { Authorization: `Bearer ${userAuth.token}` },
+        }).then((response) => {
+            console.log('responde new chat:', response.data);
+            chatsDispatch({
+                type: 'CREATE_CHAT',
+                payload: response.data
+            });
+            onCloseNewMatch();
+            handleRemoveNotification(newMatchUser.username);
+            setNewMatchUser(null);
+        });
+    };
+ 
     return ( 
         <nav className="peacepod-navbar">
             <h1 className = "app-name"><Link to="/">PeacePod</Link></h1>
@@ -85,9 +107,14 @@ const Navbar = () => {
                                     {notifications && Object.values(notifications).map((notif, idx) => (
                                         <Stack key={idx} direction={'row'}>
                                             <Avatar size='sm' name={notif.username} src={notif.avatar}/>
-                                            <Link to="/chat" onClick={() => handleRemoveNotification(notif.username)}>
+                                            <Link to="/chat" onClick={
+                                                    (notif.type === 'new message') 
+                                                    ? () => handleRemoveNotification(notif.username)
+                                                    : () => seeNewMatch(notif)
+                                                }>
                                                 <p className='notification-content'>
-                                                    New message from {notif.username}
+                                                   {(notif.type === 'new message') && `New message from ${notif.username}`}
+                                                   {(notif.type === 'new match') && `You have a new match with ${notif.username}!!!`}
                                                 </p>
                                             </Link>  
                                         </Stack>
@@ -131,6 +158,33 @@ const Navbar = () => {
                             </ModalFooter>
                             </ModalContent>
                         </Modal>
+
+                        <Modal isOpen={isOpenNewMatch} onClose={onCloseNewMatch} size='md'>
+                            <ModalOverlay />
+                            <ModalContent>
+                            <ModalHeader>Hooray! We found you a new chatting partner!</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody className='new-matched-user'>
+                                {newMatchUser && 
+                                <Stack direction="column" alignItems={'start'}>
+                                    <Stack direction="row" w="100%" marginBottom={'5px'}>
+                                        <Avatar name={newMatchUser.username} src={newMatchUser.avatar} size='md'/>
+                                        <span>{newMatchUser.username}</span>
+                                    </Stack>
+                                    <p><strong>Location:</strong>&nbsp;{newMatchUser.location}</p>
+                                    <p><strong>Get to know me:</strong>&nbsp;{newMatchUser.bio}</p>
+                                    <p><strong>I like:</strong>&nbsp;{[...newMatchUser.interests].join(', ')}</p>
+                                </Stack>
+                                }
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button variant='ghost' onClick={onCloseNewMatch} mr={3}>Cancel</Button>
+                                <Button colorScheme='blue' mr={3} onClick={createNewChat} alignContent={"center"}>
+                                Start chatting!
+                                </Button>
+                            </ModalFooter>
+                            </ModalContent>
+                        </Modal>
                     </HStack>
                 )}   
                 {(!user) && (
@@ -143,6 +197,6 @@ const Navbar = () => {
             </div>
         </nav>
      );
-}
+};
  
 export default Navbar;

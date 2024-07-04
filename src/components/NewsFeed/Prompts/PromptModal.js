@@ -1,16 +1,16 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Button,
-  GridItem,
-  Grid,
-} from "@chakra-ui/react";
-import "./Prompt.scss";
-import PromptBgImage from "./PromptBgImage";
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+    Button, 
+    GridItem,
+    Grid,
+  } from '@chakra-ui/react';
+import './Prompt.scss';
+import PromptBgImage from './PromptBgImage';
 import { useState, useRef, useEffect, useContext } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import axios from "axios";

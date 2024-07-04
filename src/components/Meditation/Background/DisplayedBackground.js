@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useContext } from "react";
 import { CloudinaryContext } from "../../../context/CloudinaryContext";
 import { Image, Center } from "@chakra-ui/react";

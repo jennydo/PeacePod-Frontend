@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { renderHook, act } from '@testing-library/react';
 import { SpotifyContextProvider } from '../../context/SpotifyContext';
 import { useSpotifyContext} from '../../hooks/useSpotifyContext';

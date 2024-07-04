@@ -13,7 +13,7 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { AudioContext } from "../context/AudioContext";
 import MeditationModal from "../components/Meditation/MeditationModal";
-import { StyledButton } from '../styles/components/StyledComponents'
+import { StyledButton } from '../styles/components/StyledComponents';
 
 const Meditation = () => {
   const { user } = useAuthContext();
@@ -67,7 +67,7 @@ const Meditation = () => {
       spotifyDispatch({
         type: "SET_SPOTIFY_PLAYING_TRACK",
         payload: res.data.music
-      })
+      });
 
       /// Update state of choosing audio for choosing spotify
       audioDispatch({ type: "CHOOSE_PLAY_AUDIO" });
@@ -168,8 +168,8 @@ const Meditation = () => {
 
       <GridItem w='100%' h='100%' className="meditation">
         <StyledButton text={"Start"} onClick={() => {
-          handleSave()
-          onOpen()
+          handleSave();
+          onOpen();
         }} />
       </GridItem>
 

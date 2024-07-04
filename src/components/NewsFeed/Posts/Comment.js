@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 import {
     Text,
     Avatar,
     Box, 
     Stack
   } from "@chakra-ui/react";
-import './Comment.css'
+import './Comment.css';
 
 const Comment = ({ comment }) => {
 
-  console.log("Comment in comment ", comment)
+  console.log("Comment in comment ", comment);
 
-  const {content} = comment
+  const {content} = comment;
   const {username, avatar} = comment.userId;
 
   return (
@@ -24,7 +24,7 @@ const Comment = ({ comment }) => {
         </Box>
       </Stack>
     </>
-  )
-}
+  );
+};
 
-export default Comment
+export default Comment;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     Center,
     VStack,
@@ -8,19 +8,19 @@ import {
     HStack,
     Grid,
     GridItem
-} from '@chakra-ui/react'
-import { EditIcon } from '@chakra-ui/icons'
-import './Profile.css'
-import { useAuthContext } from '../../../hooks/useAuthContext'
-import AvatarModal from '../Avatar/AvatarModal'
-import { useAvatarContext } from '../../../hooks/useAvatarContext'
-import {StyledBox} from '../../../styles/components/StyledComponents'
+} from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons';
+import './Profile.css';
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import AvatarModal from '../Avatar/AvatarModal';
+import { useAvatarContext } from '../../../hooks/useAvatarContext';
+import {StyledBox} from '../../../styles/components/StyledComponents';
 
 const Profile = () => {
-    const { user } = useAuthContext()
+    const { user } = useAuthContext();
     const age = user.age;
-    const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user
-    const { avatar } = useAvatarContext()
+    const { username, gender, interests, location, pronounce, sexualOrientation, bio } = user.user;
+    const { avatar } = useAvatarContext();
 
     return (
         <VStack>
@@ -119,7 +119,7 @@ const Profile = () => {
                 </Text>
             </Box>
         </VStack>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;

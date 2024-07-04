@@ -10,6 +10,6 @@ const BackgroundMain = () => {
             <UploadBackground/>
         </Box>
      );
-}
+};
  
 export default BackgroundMain;

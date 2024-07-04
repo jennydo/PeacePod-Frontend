@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
-import axios from 'axios'
+import axios from 'axios';
 
 export const AudioContext = createContext();
 
@@ -37,17 +37,17 @@ export const audioReducer = (state, action) => {
         chosenAudio: null,
         favoriteAudios: [],
         isPlayingAudio: true
-      }
+      };
     case "CHOOSE_PLAY_AUDIO":
       return {
         ...state,
         isPlayingAudio: true 
-      }
+      };
     case "UNCHOOSE_PLAY_AUDIO":
       return {
         ...state,
         isPlayingAudio: false
-      }
+      };
     default:
       return state;
   }
@@ -84,7 +84,7 @@ export const AudioContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchAudios()
+    fetchAudios();
   }, []);
 
   return (
