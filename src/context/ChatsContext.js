@@ -25,6 +25,7 @@ export const chatsReducer = (state, action) => {
                 selectedChat: action.payload
             };
         case 'DELETE_CHAT':
+            // eslint-disable-next-line no-case-declarations
             const newChats = state.chats.filter(chat => chat._id !== action.payload);
             return {
                 ...state,

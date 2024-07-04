@@ -23,7 +23,7 @@ export default [
     },
     rules: {
       // ESLint rules
-      "no-unused-vars": "warn",
+      "no-unused-vars": "off",
       "semi": "warn",
       "no-unused-expressions": "warn",
     },

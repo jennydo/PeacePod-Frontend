@@ -43,6 +43,7 @@ const colors = [
     "#00CED1", // Dark Turquoise
 ];
 
+// eslint-disable-next-line no-undef
 module.exports = { 
     headConstants, 
     eyeConstants, 

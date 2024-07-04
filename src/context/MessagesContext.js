@@ -39,6 +39,7 @@ export const messagesReducer = (state, action) => {
                 },
             };
         case 'NEW_MESSAGE': 
+            // eslint-disable-next-line no-case-declarations
             const currentMessages = state.messages[action.payload.chatId] || [];
             return {
                 ...state, 

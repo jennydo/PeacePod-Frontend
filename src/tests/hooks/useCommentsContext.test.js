@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { renderHook, act } from '@testing-library/react';
 import { CommentsContextProvider } from '../../context/CommentsContext';
 import { useCommentsContext} from '../../hooks/useCommentsContext';

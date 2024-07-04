@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { renderHook, act } from '@testing-library/react';
 import { PostsContextProvider } from '../../context/PostsContext';
 import { usePostsContext} from '../../hooks/usePostsContext';

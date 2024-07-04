@@ -25,8 +25,7 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
     if (alreadySelectedInterests.length === 5) {
       // Save the selected interests
       onClose();
-    } else {
-    }
+    } 
   };
 
   return (

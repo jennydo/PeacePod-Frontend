@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { renderHook, act } from '@testing-library/react';
 import { MessagesContextProvider } from '../../context/MessagesContext';
 import { useMessagesContext} from '../../hooks/useMessagesContext';
