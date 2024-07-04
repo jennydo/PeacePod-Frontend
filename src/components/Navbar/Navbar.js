@@ -26,25 +26,26 @@ import { useAvatarContext } from '../../hooks/useAvatarContext';
 import { useEffect, useState } from 'react';
 import { IoNotifications } from "react-icons/io5";
 import { useChatsContext } from '../../hooks/useChatsContext';
-
+import axios from 'axios';
 
 const Navbar = () => {
+    const { user: userAuth } = useAuthContext();
     const { user } = useAuthContext()?.user || {};
     // const { username, avatar } = user || {};
     const { username } = user || {};
     const { avatar: avatarContext } = useAvatarContext();
-    // const { dispatch: chatDispatch } = useChatsContext();
     // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
-    const { notifications } = useChatsContext();
+    const { notifications, dispatch: chatsDispatch } = useChatsContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { logOut } = useLogOut();
+    const { isOpen: isOpenNewMatch, onOpen: onOpenNewMatch, onClose: onCloseNewMatch } = useDisclosure();
+    const [newMatchUser, setNewMatchUser] = useState(null);
 
     const [avatar, setAvatar] = useState('');
     useEffect(() => {
         setAvatar(avatarContext);
-        // console.log("Changing avatar because of avatarContext...")
       }, [avatarContext]);
 
     const handleLogOut = () => {
@@ -56,7 +57,28 @@ const Navbar = () => {
         delete notifications[username];
     };
 
+    const seeNewMatch = (notif) => {
+        setNewMatchUser(notif);
+        onOpenNewMatch();
+    };
 
+    const createNewChat = () => {
+        axios.post('http://localhost:4000/api/chats/', {
+            userId: newMatchUser.id
+        },{
+            headers: { Authorization: `Bearer ${userAuth.token}` },
+        }).then((response) => {
+            console.log('responde new chat:', response.data);
+            chatsDispatch({
+                type: 'CREATE_CHAT',
+                payload: response.data
+            });
+            onCloseNewMatch();
+            handleRemoveNotification(newMatchUser.username);
+            setNewMatchUser(null);
+        });
+    };
+ 
     return ( 
         <nav className="peacepod-navbar">
             <h1 className = "app-name"><Link to="/">PeacePod</Link></h1>
@@ -84,11 +106,16 @@ const Navbar = () => {
                                     {!Object.keys(notifications).length && <p>No new message.</p>}
                                     {notifications && Object.values(notifications).map((notif, idx) => (
                                         // eslint-disable-next-line react/no-array-index-key
-                                        <Stack key={idx} direction="row">
+                                        <Stack key={idx} direction='row'>
                                             <Avatar name={notif.username} size='sm' src={notif.avatar}/>
-                                            <Link to="/chat" onClick={() => handleRemoveNotification(notif.username)}>
+                                            <Link to="/chat" onClick={
+                                                    (notif.type === 'new message') 
+                                                    ? () => handleRemoveNotification(notif.username)
+                                                    : () => seeNewMatch(notif)
+                                                }>
                                                 <p className='notification-content'>
-                                                    New message from {notif.username}
+                                                   {(notif.type === 'new message') && `New message from ${notif.username}`}
+                                                   {(notif.type === 'new match') && `You have a new match with ${notif.username}!!!`}
                                                 </p>
                                             </Link>  
                                         </Stack>
@@ -129,6 +156,34 @@ const Navbar = () => {
                                 <Button alignContent="center" colorScheme='blue' mr={3}
 onClick={handleLogOut}>
                                 Logout
+                                </Button>
+                            </ModalFooter>
+                            </ModalContent>
+                        </Modal>
+
+                        <Modal isOpen={isOpenNewMatch} size='md' onClose={onCloseNewMatch}>
+                            <ModalOverlay />
+                            <ModalContent>
+                            <ModalHeader>Hooray! We found you a new chatting partner!</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody className='new-matched-user'>
+                                {newMatchUser && 
+                                <Stack alignItems="start" direction="column">
+                                    <Stack direction="row" marginBottom="5px" w="100%">
+                                        <Avatar name={newMatchUser.username} size='md' src={newMatchUser.avatar}/>
+                                        <span>{newMatchUser.username}</span>
+                                    </Stack>
+                                    <p><strong>Location:</strong>&nbsp;{newMatchUser.location}</p>
+                                    <p><strong>Get to know me:</strong>&nbsp;{newMatchUser.bio}</p>
+                                    <p><strong>I like:</strong>&nbsp;{[...newMatchUser.interests].join(', ')}</p>
+                                </Stack>
+                                }
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button mr={3} variant='ghost' onClick={onCloseNewMatch}>Cancel</Button>
+                                <Button alignContent="center" colorScheme='blue' mr={3}
+                                        onClick={createNewChat}>
+                                Start chatting!
                                 </Button>
                             </ModalFooter>
                             </ModalContent>

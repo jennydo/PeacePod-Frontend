@@ -13,7 +13,6 @@ const SpotifyList = ({ code }) => {
     const { dispatch } = useSpotifyContext();
     const { dispatch: audioDispatch } = useContext(AudioContext);
 
-
     const chooseTrack = (track) => {
         dispatch({
             type: 'SET_SPOTIFY_PLAYING_TRACK',
@@ -64,18 +63,42 @@ const SpotifyList = ({ code }) => {
     }, [search, accessToken]);
 
     return (
-        <Container>
+        <Container w='100%'>
             <Input
+                _focus={{
+                    outline: 'none',
+                    boxShadow: '0 0 10px rgba(255, 105, 180, 0.5)'
+                }}
+                _hover={{
+                    borderColor: '#FFB6C1'
+                }}
+                _placeholder={{
+                    color: 'gray.400',
+                    fontStyle: 'italic'
+                }}
+                border="2px solid #FFB6C1"
+                borderRadius="full"
+                focusBorderColor="#FFB6C1"
+                h="70px"
+                p={4}
                 placeholder='Search songs/artists'
                 type='search'
                 value={search}
+                w="100%"
                 onChange={e => setSearch(e.target.value)}
             />
-            {searchResults && searchResults.map((track) => (
-                <TrackSearchResult key={track.uri} chooseTrack={chooseTrack} track={track} />
-            ))}
+            <div style={{
+                maxHeight: '30vh',
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                width:"37vw"
+            }}>
+                {searchResults && searchResults.map((track) => (
+                    <TrackSearchResult key={track.uri} chooseTrack={chooseTrack} track={track} />
+                ))}
+            </div>
         </Container>
-
     );
 };
 

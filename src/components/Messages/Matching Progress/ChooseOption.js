@@ -9,7 +9,8 @@ const ChooseOption = ({ option, setOption }) => {
       <VStack>
         <Button
           _hover={{ background: "#FFD6FF" }}
-          bg={option === 1 ? "#FFD6FF" : "#FFAFCC"}
+          bg="#FFAFCC"
+          border={option === 1 ? "3px solid #DC087D" : "none"}
           h={100}
           w="100%"
           onClick={() => setOption(1)}
@@ -17,8 +18,10 @@ const ChooseOption = ({ option, setOption }) => {
           Match based on profile{" "}
         </Button>
         <Button
+
           _hover={{ background: "#FFD6FF" }}
-          bg={option === 2 ? "#FFD6FF" : "#FFAFCC"}
+          bg="#FFAFCC"
+          border={option === 2 ? "3px solid #DC087D" : "none"}
           h={100}
           w="100%"
           onClick={() => setOption(2)}

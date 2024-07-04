@@ -30,7 +30,9 @@ const SongPlayer = ({ accessToken, trackUri }) => {
     };
 
     return (
-        <Box bg="green" borderRadius={40} overflowWrap={true}>
+
+        <Box bg="green" borderRadius={40} bottom="0"
+            overflowWrap={true} position="absolute" width="100%">
             <SpotifyWebPlayer
                 hideAttribution
                 magnifySliderOnHover

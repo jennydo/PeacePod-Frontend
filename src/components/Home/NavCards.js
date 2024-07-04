@@ -43,9 +43,9 @@ xmlns="http://www.w3.org/2000/svg">
                                 </svg>
                             </div>
                             <VStack align="center" className="button-content" direction='column'
-spacing={8} w={300}>
+                                    spacing={8} w={300}>
                                 {card.icon && <FontAwesomeIcon className="button-icon" icon={card.icon} />}
-                                <Text className="button-label">{card.label}</Text>
+                                <Text className="button-label" fontSize="2xl">{card.label}</Text>
                             </VStack>
                         </div>
                     </Link>

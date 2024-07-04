@@ -115,18 +115,17 @@ const Meditation = () => {
           {/* <Grid className="meditation-box" gridTemplateRows={"10% 10% 2% 1fr 10%"} h={"calc(100vh - 300px)"}> */}
 
           <GridItem className="meditation textbox" h='100%' w='100%'>
-            <h2>Let's start your meditation! ☮️</h2>
+            <h2>Let&#39;s start your meditation! ☮️</h2>
           </GridItem>
-
           <GridItem h='100%' w='100%'>
             <Grid gridTemplateColumns="50% 1fr" h='100%' marginTop="20px"
 w='100%'>
-              <GridItem className="meditation audio-source-buttons" marginLeft={10}>
+              {/* <GridItem className="meditation audio-source-buttons" marginLeft={10}> */}
                 <h4 className={`text-${tab ? "" : "selected"}`} onClick={() => setTab(false)}>Choose your own voices</h4>
-              </GridItem>
-              <GridItem className="meditation audio-source-buttons">
+              {/* </GridItem> */}
+              {/* <GridItem className="meditation audio-source-buttons"> */}
                 <h4 className={`text-${!tab ? "" : "selected"}`} onClick={() => setTab(true)}>Choose from Spotify</h4>
-              </GridItem>
+              {/* </GridItem> */}
             </Grid>
           </GridItem>
 

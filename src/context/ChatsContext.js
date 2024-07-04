@@ -1,7 +1,8 @@
 import {createContext, useReducer } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import io from 'socket.io-client';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+import axios from 'axios';
 
 export const ChatsContext = createContext();
 
@@ -93,7 +94,7 @@ export const ChatsContextProvider = ( {children} ) => {
     useEffect(() => {
         // console.log('state.socket:', state.socket)
 
-        if (state.socket) {
+        if (state.socket && user) {
             state.socket.emit("setup", user.user);
             state.socket.emit('userConnected', user.user._id);
 
@@ -120,14 +121,75 @@ export const ChatsContextProvider = ( {children} ) => {
                             const noti = {
                                 username: newMessageReceived.sender.username,
                                 avatar: newMessageReceived.sender.avatar,
-                                chat: newMessageReceived.chat
+                                chat: newMessageReceived.chat,
+                                type: "new message"
                             };
                             dispatch({type: 'NEW_NOTI', payload: noti});
                         }
                     }
             }});
         }
-    }, [state.socket]);
+
+    }, [state.socket, state.notifications, state.selectedChatCompare, user]);
+
+    const getMatch = useCallback( async () => {
+        if (!user) {
+            return;
+        }
+        console.log('Getting matches right now.');
+        let response;
+        try {
+          response = await axios.get(
+            "http://localhost:4000/api/matchUsers/matchingPairs",
+            { headers: { Authorization: `Bearer ${user.token}` },}
+          );
+          if (response) { 
+            const matchedUser = response.data;
+            const noti = {
+                id: matchedUser._id,
+                username: matchedUser.username,
+                avatar: matchedUser.avatar,
+                chat: matchedUser.chat,
+                interests: matchedUser.interests,
+                bio: matchedUser.bio,
+                location: matchedUser.location,
+                type: "new match"
+            };
+            console.log("THE NEW MATCH NOTI", noti);
+            dispatch({type: 'NEW_NOTI', payload: noti});
+          }
+          
+        } catch (err) {
+          console.log("error while getting user's match", err);
+        }
+    }, [user]);
+
+    const scheduleMatchingNotification =  useCallback(() => {
+        const now = new Date();
+        const notiTime = new Date(now);
+    
+        notiTime.setDate(now.getDate() + 1);
+        notiTime.setHours(21);
+        notiTime.setMinutes(0);
+    
+        const timeUntilNoti = notiTime - now;
+    
+        console.log(timeUntilNoti, now, notiTime);
+    
+        setTimeout(() => {
+            getMatch();
+            scheduleMatchingNotification();
+        }, timeUntilNoti);
+
+        // setTimeout(() => {
+        //     getMatch();
+        //     scheduleMatchingNotification();
+        //   }, 30000);
+    }, [getMatch]);
+
+    useEffect(() => {
+        scheduleMatchingNotification();
+    }, [scheduleMatchingNotification]);
 
     return (
         <ChatsContext.Provider value={ {...state, dispatch} }>

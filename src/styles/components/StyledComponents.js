@@ -29,11 +29,11 @@ const StyledButton = ({text, onClick=() => {}, icon=null, width=null}) => {
 const StyledBox = ({ onClick=() => {}, children=null, selected=false, className=""}) => {
     return (
     <Box 
-        borderRadius={25}
+        borderRadius={10}
         className={`${className} ${selected ? "styled-box-selected" : ""}`}
         h='100%' 
-        p={2} 
-        w='100%'
+        p={2}
+        w='100%' 
         onClick={onClick}>
         {children}
     </Box>
