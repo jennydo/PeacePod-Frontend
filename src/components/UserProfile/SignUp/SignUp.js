@@ -103,7 +103,7 @@ const SignUp = () => {
       avatarDispatch({
         type: "SET_AVATAR_DATA", 
         payload: json.user.avatarData
-      })
+      });
       dispatch({ type: "LOGIN", payload: json });
       setIsLoading(false);
     }

@@ -1,7 +1,7 @@
 import {Link, useLocation} from 'react-router-dom';
 import { useLogOut } from '../../hooks/useLogOut';
-import { useAuthContext } from '../../hooks/useAuthContext'
-import './Navbar.scss'
+import { useAuthContext } from '../../hooks/useAuthContext';
+import './Navbar.scss';
 import { Avatar, Menu, MenuButton, MenuItem, MenuList, MenuDivider, 
     useDisclosure, Button, Modal,
     ModalOverlay,
@@ -33,14 +33,14 @@ const Navbar = () => {
     const { user } = useAuthContext()?.user || {};
     // const { username, avatar } = user || {};
     const { username } = user || {};
-    const { avatar: avatarContext } = useAvatarContext()
+    const { avatar: avatarContext } = useAvatarContext();
     // const { avatar } = useAvatarContext()
     const location = useLocation();
     const pathname = location.pathname;
     const { notifications, dispatch: chatsDispatch } = useChatsContext();
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const { logOut } = useLogOut();
-    const { isOpen: isOpenNewMatch, onOpen: onOpenNewMatch, onClose: onCloseNewMatch } = useDisclosure()
+    const { isOpen: isOpenNewMatch, onOpen: onOpenNewMatch, onClose: onCloseNewMatch } = useDisclosure();
     const [newMatchUser, setNewMatchUser] = useState(null);
 
     const [avatar, setAvatar] = useState('');
@@ -49,18 +49,18 @@ const Navbar = () => {
       }, [avatarContext]);
 
     const handleLogOut = () => {
-        logOut()
-        onClose()
-    }
+        logOut();
+        onClose();
+    };
 
     const handleRemoveNotification = (username) => {
-        delete notifications[username]
-    }
+        delete notifications[username];
+    };
 
     const seeNewMatch = (notif) => {
-        setNewMatchUser(notif)
-        onOpenNewMatch()
-    }
+        setNewMatchUser(notif);
+        onOpenNewMatch();
+    };
 
     const createNewChat = () => {
         axios.post('http://localhost:4000/api/chats/', {
@@ -68,7 +68,7 @@ const Navbar = () => {
         },{
             headers: { Authorization: `Bearer ${userAuth.token}` },
         }).then((response) => {
-            console.log('responde new chat:', response.data)
+            console.log('responde new chat:', response.data);
             chatsDispatch({
                 type: 'CREATE_CHAT',
                 payload: response.data
@@ -76,8 +76,8 @@ const Navbar = () => {
             onCloseNewMatch();
             handleRemoveNotification(newMatchUser.username);
             setNewMatchUser(null);
-        })
-    }
+        });
+    };
  
     return ( 
         <nav className="peacepod-navbar">
@@ -197,6 +197,6 @@ const Navbar = () => {
             </div>
         </nav>
      );
-}
+};
  
 export default Navbar;

@@ -9,14 +9,14 @@ const QuotesAndTipsCards = () => {
     quote : 'Happiness is secured through virtue it is a good attained by man\'s own will.',
     author : 'Thomas Aquinas',
     category : 'happiness'
-  })
+  });
   useEffect(() => {
     axios.get("http://localhost:4000/api/quotestips/quotes")
     .then((response) => {
-      console.log(response.data)
-      setQuoteInfo(response.data[0])
+      console.log(response.data);
+      setQuoteInfo(response.data[0]);
     });
-  }, [])
+  }, []);
 
   
   return (

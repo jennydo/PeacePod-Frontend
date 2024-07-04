@@ -9,7 +9,7 @@ import { StyledButton } from '../../../styles/components/StyledComponents';
 
 
 function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelectedInterests }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleInterestSelected = (interest) => {
     if (alreadySelectedInterests.includes(interest)) {
@@ -75,8 +75,8 @@ function InterestModal({ interestList, alreadySelectedInterests, setAlreadySelec
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
 
-export default InterestModal
+export default InterestModal;
 

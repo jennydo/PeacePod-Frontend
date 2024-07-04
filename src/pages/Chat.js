@@ -6,7 +6,7 @@ import { useChatsContext } from "../hooks/useChatsContext";
 import UserChatProfile from "../components/Messages/ChatProfile/UserChatProfile";
 
 const Chat = () => {
-  const { selectedChat } = useChatsContext()
+  const { selectedChat } = useChatsContext();
   return (
     <>
       <div className="chatbox-divider top"/>
@@ -32,6 +32,6 @@ const Chat = () => {
       </Grid>
     </>
   );
-}
+};
  
 export default Chat;

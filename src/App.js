@@ -14,7 +14,7 @@ import LogInPage from './pages/LogInPage';
 import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
 
   return (
     <ChakraProvider className="">

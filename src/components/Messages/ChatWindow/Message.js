@@ -5,16 +5,16 @@ import '../Chat.scss';
 const Message = ( {message, previousMessage} ) => {
     var isSender;
     var isNewSender;
-    const { user: sender } = useAuthContext()
+    const { user: sender } = useAuthContext();
 
-    if (message.sender._id === sender.user._id) { isSender = true }
-    else { isSender = false }
+    if (message.sender._id === sender.user._id) { isSender = true; }
+    else { isSender = false; }
 
-    if (!previousMessage || message.sender._id !== previousMessage.sender._id) { isNewSender = true }
-    else { isNewSender = false }
+    if (!previousMessage || message.sender._id !== previousMessage.sender._id) { isNewSender = true; }
+    else { isNewSender = false; }
 
-    const { username, avatar } = message.sender
-    const { content } = message
+    const { username, avatar } = message.sender;
+    const { content } = message;
 
     return ( 
         <Stack direction="row" w="100%" justifyContent={isSender ? "flex-end" : "flex-start"} p={0.5}>
@@ -28,6 +28,6 @@ const Message = ( {message, previousMessage} ) => {
             {(!isNewSender) && <Box width="2rem" />}
         </Stack>
      );
-}
+};
  
 export default Message;

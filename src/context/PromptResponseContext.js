@@ -21,7 +21,7 @@ export const promptResponsesReducer = (state, action) => {
       return {
         ...state,
         firstPromptResponse: action.payload
-      }
+      };
     case "CLEAR":
       return {
         promptResponses: [],

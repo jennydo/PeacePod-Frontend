@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Heading, VStack } from "@chakra-ui/react";
 import React from "react";
 
 const ChooseOption = ({ option, setOption }) => {
-    console.log("Current option", option)
+    console.log("Current option", option);
   return (
     <>
       <Heading>Choose your matching option 🤗</Heading>

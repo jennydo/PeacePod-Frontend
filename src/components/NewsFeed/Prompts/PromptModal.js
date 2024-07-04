@@ -8,8 +8,8 @@ import {
     Button, 
     GridItem,
     Grid,
-  } from '@chakra-ui/react'
-import './Prompt.scss'
+  } from '@chakra-ui/react';
+import './Prompt.scss';
 import PromptBgImage from './PromptBgImage';
 import { useState, useRef, useEffect, useContext } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
@@ -18,7 +18,7 @@ import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 
 const PromptModal = () => {
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { user } = useAuthContext();
 
@@ -215,6 +215,6 @@ const PromptModal = () => {
         </Modal>
     </> 
     );
-}
+};
 
 export default PromptModal;

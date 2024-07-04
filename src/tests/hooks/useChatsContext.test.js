@@ -45,7 +45,7 @@ describe('useChatsContext', () => {
       const newChat = { _id: '2', chat: 'New Chat' };
       act(() => {
           result.current.dispatch({ type: 'CREATE_CHAT', payload: newChat });
-      })
+      });
       expect(result.current.chats).toEqual([newChat, ...initialChats]);
     });
   
@@ -59,7 +59,7 @@ describe('useChatsContext', () => {
       act(() => { // Wrap the update in act(...)
         result.current.dispatch({ type: 'SELECT_CHAT', payload: result.current.chats[1] });
       });
-      expect(result.current.selectedChat).toEqual(selectChat)
+      expect(result.current.selectedChat).toEqual(selectChat);
     });
   });
   

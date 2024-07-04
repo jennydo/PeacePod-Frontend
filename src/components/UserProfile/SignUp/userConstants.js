@@ -295,4 +295,4 @@ const interestList = [
     "Diving",
 ];
 
-module.exports = {pronouns, genders, sexualities, countries, interestList}
+module.exports = {pronouns, genders, sexualities, countries, interestList};

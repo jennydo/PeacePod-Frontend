@@ -39,7 +39,7 @@ describe('usePostsContext', () => {
     const newPost = { _id: '2', title: 'New Post' };
     act(() => {
         result.current.dispatch({ type: 'CREATE_POST', payload: newPost });
-    })
+    });
     expect(result.current.posts).toEqual([newPost, ...initialPosts]);
   });
 
@@ -48,11 +48,11 @@ describe('usePostsContext', () => {
     const initialPost = { _id: '3', title: 'Initial Post', isPrompt: true };
     act(() => {
         result.current.dispatch({ type: 'GET_POSTS', payload: [initialPost] });
-    })
+    });
     expect(result.current.posts[0].isPrompt).toBe(true);
     act(() => {
         result.current.dispatch({ type: 'UPDATE_POST', payload: initialPost });
-    })
+    });
     expect(result.current.posts[0].isPrompt).toBe(false);
   });
 
@@ -64,12 +64,12 @@ describe('usePostsContext', () => {
     ];
     act(() => {
         result.current.dispatch({ type: 'GET_POSTS', payload: initialPosts });
-    })
+    });
     expect(result.current.posts.length).toBe(2);
     const postToDelete = { _id: '4', title: 'Post 1' };
     act(() => {
         result.current.dispatch({ type: 'DELETE_POST', payload: postToDelete });
-    })
+    });
     expect(result.current.posts.length).toBe(1);
     expect(result.current.posts[0]._id).toBe('5');
   });

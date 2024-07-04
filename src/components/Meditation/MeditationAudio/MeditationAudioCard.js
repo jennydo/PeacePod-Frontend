@@ -6,7 +6,7 @@ import { SpotifyContext } from "../../../context/SpotifyContext";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
-import axios from 'axios'
+import axios from 'axios';
 import { StyledBox } from "../../../styles/components/StyledComponents";
 
 const AudioCard = ({ audio }) => {
@@ -20,8 +20,8 @@ const AudioCard = ({ audio }) => {
       type: "CHOOSE_AUDIO",
       payload: audio,
     });
-    dispatch({ type: "CHOOSE_PLAY_AUDIO" })
-    spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"})
+    dispatch({ type: "CHOOSE_PLAY_AUDIO" });
+    spotifyDispatch({ type: "UNCHOOSE_PLAY_SPOTIFY"});
   };
 
   const handleFavorite = async () => {
@@ -40,7 +40,7 @@ const AudioCard = ({ audio }) => {
         }
       );
     } catch (err) {
-      console.log("Error while update is favorite of audio", err)
+      console.log("Error while update is favorite of audio", err);
     }
   };
   // console.log("Chosen audio", chosenAudio, audio, chosenAudio === audio);

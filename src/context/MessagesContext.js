@@ -13,7 +13,7 @@ const formatDate = (dateString) => {
     } else {
         return format(date, 'MM/dd');
     }
-}
+};
 
 export const messagesReducer = (state, action) => { 
 
@@ -25,7 +25,7 @@ export const messagesReducer = (state, action) => {
                     ...state.messages,
                     [action.payload.chatId]: action.payload.messages
                 },
-            }
+            };
         case 'SET_PREVIEW_MESSAGE':
             return {
                 ...state, 
@@ -37,7 +37,7 @@ export const messagesReducer = (state, action) => {
                     ...state.previewMessagesTimestamp,
                     [action.payload.chatId]: action.payload.timestamp ? formatDate(action.payload.timestamp): action.payload.timestamp,
                 },
-            }
+            };
         case 'NEW_MESSAGE': 
             const currentMessages = state.messages[action.payload.chatId] || [];
             return {
@@ -59,7 +59,7 @@ export const messagesReducer = (state, action) => {
                     [action.payload.chatId]: formatDate(action.payload.message.createdAt)
 
                 },
-            }
+            };
         case 'SET_CHAT_NAME': 
             return {
                 ...state,
@@ -67,11 +67,11 @@ export const messagesReducer = (state, action) => {
                     ...state.chatNames,
                     [action.payload.chatId]: action.payload.chatName
                 }
-            }
+            };
         default:
-            return state
+            return state;
     }
-}
+};
 
 export const MessagesContextProvider = ( {children} ) => {
     const [state, dispatch] = useReducer(messagesReducer, {
@@ -79,11 +79,11 @@ export const MessagesContextProvider = ( {children} ) => {
         previewMessages: {},
         previewMessagesTimestamp: {},
         chatNames: {},
-    })
+    });
 
     return (
         <MessagesContext.Provider value={ {...state, dispatch} }>
             {children}
         </MessagesContext.Provider>
-    )
-}
+    );
+};

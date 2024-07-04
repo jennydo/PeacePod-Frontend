@@ -6,7 +6,7 @@ import {
 import { useDisclosure } from '@chakra-ui/react';
 
 function SexualityModal({sexualities, alreadySelectedSexualities, setAlreadySelectedSexualities }) {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const handleCheckboxChange = (e) => {
         const { value, checked } = e.target;
@@ -54,7 +54,7 @@ function SexualityModal({sexualities, alreadySelectedSexualities, setAlreadySele
           </ModalContent>
         </Modal>
       </>
-    )
+    );
   }
 
-export default SexualityModal
+export default SexualityModal;

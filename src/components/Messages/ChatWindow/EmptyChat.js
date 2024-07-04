@@ -9,6 +9,6 @@ const EmptyChat = () => {
             <Text fontSize={"4xl"}>Select a chat to start</Text>
         </Box>
      );
-}
+};
  
 export default EmptyChat;

@@ -8,7 +8,7 @@ import { Avatar, VStack, useDisclosure,
     ModalCloseButton,
     Input, 
     Button
- } from "@chakra-ui/react"
+ } from "@chakra-ui/react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import '../Chat.scss';
 import { useState } from "react";
@@ -21,12 +21,12 @@ import { FaDoorOpen } from "react-icons/fa6";
 import { BsFillPersonFill } from "react-icons/bs";
 import { SiStarship } from "react-icons/si";
 import axios from "axios";
-import { useChatsContext } from '../../../hooks/useChatsContext'
+import { useChatsContext } from '../../../hooks/useChatsContext';
 import { useMessagesContext } from "../../../hooks/useMessagesContext";
 
 
 const UserChatProfile = ({chat}) => {
-    const {user: sender} = useAuthContext()
+    const {user: sender} = useAuthContext();
     // get info of the receiver
     const receiver = chat.users.filter(user => user._id !== sender.user._id);
     const { username, avatar, pronounce, location, interests, bio } = receiver[0];
@@ -49,7 +49,7 @@ const UserChatProfile = ({chat}) => {
             label: `I would love to be asked about: ${[...interests].join(', ')}`,
             func: () => {}
         }
-    ]
+    ];
 
     const chatAdjustment = [
         {
@@ -67,7 +67,7 @@ const UserChatProfile = ({chat}) => {
             label: 'Set theme expression icon',
             func: () => {}
         }
-    ]
+    ];
 
     const privacyAndSupport = [
         {
@@ -80,9 +80,9 @@ const UserChatProfile = ({chat}) => {
             label: 'Leave chat',
             func: () => onOpenDeleteChat()
         }
-    ]
+    ];
 
-    const { isOpen: isOpenNickname, onOpen: onOpenNickname, onClose: onCloseNickname } = useDisclosure()
+    const { isOpen: isOpenNickname, onOpen: onOpenNickname, onClose: onCloseNickname } = useDisclosure();
     const [newNickname, setNewNickname] = useState("");
     const handleSetNewNickname = () => {
         axios.patch('http://localhost:4000/api/chats/rename', {
@@ -98,24 +98,24 @@ const UserChatProfile = ({chat}) => {
                         chatId: chat._id, 
                         chatName: response.data.chatName
                     }
-                })
-                console.log('new nickname:',response.data)
-            })
+                });
+                console.log('new nickname:',response.data);
+            });
         setNewNickname("");
         onCloseNickname();
-    }
+    };
 
-    const { isOpen: isOpenDeleteChat, onOpen: onOpenDeleteChat, onClose: onCloseDeleteChat } = useDisclosure()
+    const { isOpen: isOpenDeleteChat, onOpen: onOpenDeleteChat, onClose: onCloseDeleteChat } = useDisclosure();
     const handleDeleteChat = () => {
         axios.delete(`http://localhost:4000/api/chats/${chat._id}`, {
                 headers: { Authorization: `Bearer ${sender.token}` },
             })
             .then((response) => {
-                console.log('remove:', response.data.chat._id)
-                dispatch({type: 'DELETE_CHAT', payload: response.data.chat._id})
-            })
+                console.log('remove:', response.data.chat._id);
+                dispatch({type: 'DELETE_CHAT', payload: response.data.chat._id});
+            });
         onCloseDeleteChat();
-    }
+    };
   
     return ( 
     <>
@@ -171,7 +171,7 @@ const UserChatProfile = ({chat}) => {
         </Modal>
     </>
      );
-}
+};
 
  
 export default UserChatProfile;

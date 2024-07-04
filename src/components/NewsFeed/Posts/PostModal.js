@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import {
     Modal,
     ModalOverlay,
@@ -14,7 +14,7 @@ import {
     Divider,
     Input,
     Button
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 import letterImage from '../../../assets/images/letter.png';
 import { useCommentsContext } from '../../../hooks/useCommentsContext';
 import { useAuthContext } from "../../../hooks/useAuthContext";
@@ -23,8 +23,8 @@ import Comment from './Comment';
 
 const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp}) => {
   const { avatar, username } = post.userId;
-  console.log(isOpen)
-  console.log(onClose)
+  console.log(isOpen);
+  console.log(onClose);
 
   const [newComment, setNewComment] = useState("");
   const { comments, dispatch } = useCommentsContext();
@@ -117,6 +117,6 @@ const PostModal = ({ finalRef, isOpen, onClose, post, user, formattedTimeStamp})
       </ModalContent>
     </Modal>
   );
-}
+};
 
-export default PostModal
+export default PostModal;

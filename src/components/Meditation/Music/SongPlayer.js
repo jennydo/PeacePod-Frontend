@@ -4,9 +4,9 @@ import './SongPlayer.css';
 import { Box } from '@chakra-ui/react';
 
 const SongPlayer = ({ accessToken, trackUri }) => {
-    const [play, setPlay] = useState(false)
+    const [play, setPlay] = useState(false);
 
-    useEffect(() => setPlay(true), [trackUri])
+    useEffect(() => setPlay(true), [trackUri]);
 
     if (!accessToken) return null;
 
@@ -26,14 +26,14 @@ const SongPlayer = ({ accessToken, trackUri }) => {
         ".ButtonRSWP": {
             display: "none",
         }
-    }
+    };
 
     return (
         <Box borderRadius={40} bg="green" overflowWrap={true} width="100%" position="absolute" bottom="0">
             <SpotifyWebPlayer
                 token={accessToken}
                 callback={state => {
-                    if (!state.isPlaying) setPlay(false)
+                    if (!state.isPlaying) setPlay(false);
                 }}
                 hideAttribution
                 magnifySliderOnHover
@@ -45,6 +45,6 @@ const SongPlayer = ({ accessToken, trackUri }) => {
         </Box>
 
     );
-}
+};
 
 export default SongPlayer;

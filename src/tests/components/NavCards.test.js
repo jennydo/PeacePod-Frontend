@@ -14,7 +14,7 @@ describe('NavCards in HomePage', () => {
         setTimeout(() => {
             expect(history.location.pathname).toBe('/newsfeed');
         });
-    })
+    });
 
     it('navigate to Anonymous Chat when click on Anonymous Chat cloud', () => {
         const {history} = render(
@@ -27,7 +27,7 @@ describe('NavCards in HomePage', () => {
         setTimeout(() => {
             expect(history.location.pathname).toBe('/chat');
         });
-    })
+    });
 
     it('navigate to Meditation when click on Meditation cloud', () => {
         const {history} = render(
@@ -40,5 +40,5 @@ describe('NavCards in HomePage', () => {
         setTimeout(() => {
             expect(history.location.pathname).toBe('/meditation');
         });
-    })
+    });
 });

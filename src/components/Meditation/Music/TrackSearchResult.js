@@ -1,9 +1,9 @@
-import { Box, Grid, GridItem, Image, Text, VStack } from "@chakra-ui/react"
+import { Box, Grid, GridItem, Image, Text, VStack } from "@chakra-ui/react";
 
 const TrackSearchResult = ({ track, chooseTrack }) => {
     const handlePlay = () => {
-        chooseTrack(track)
-    }
+        chooseTrack(track);
+    };
 
     return (
         <Box
@@ -35,7 +35,7 @@ const TrackSearchResult = ({ track, chooseTrack }) => {
                 </GridItem>
             </Grid>
         </Box>
-    )
-}
+    );
+};
 
 export default TrackSearchResult;
