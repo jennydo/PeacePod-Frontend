@@ -13,14 +13,16 @@ const CuteDog = ({ openModal }) => {
       </Tooltip>
 
       <Tooltip label="Send message to the sky" bg="grey">
-      <IconButton
-      className="btn-dog btn-dislike"
-      onClick={openModal}
-      icon={<Icon as={IoIosSend} boxSize={8} color="#a663cc"/>}
-      size="lg"
-      variant="ghost"
-      aria-label="Send"
-    />
+        {/* <IconButton
+          className="btn-dog btn-dislike"
+          icon={<Icon as={IoIosSend} boxSize={8} color="#a663cc" />}
+          size="lg"
+          variant="ghost"
+          aria-label="Send"
+        /> */}
+        <button class="btn-dog btn-dislike">
+          <div class="heart"></div>
+        </button>
       </Tooltip>
 
       <div class="wrapper">
