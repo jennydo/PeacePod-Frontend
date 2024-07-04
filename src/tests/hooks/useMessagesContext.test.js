@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { renderHook, act } from '@testing-library/react';
 import { MessagesContextProvider } from '../../context/MessagesContext';
 import { useMessagesContext} from '../../hooks/useMessagesContext';
@@ -39,7 +40,7 @@ describe('useMessagesContext', () => {
     act(() => { 
         result.current.dispatch({ type: 'GET_MESSAGES', payload: testMessages });
       });
-    const expectedResult = {[testMessages.chatId]: testMessages.messages}
+    const expectedResult = {[testMessages.chatId]: testMessages.messages};
     expect(result.current.messages).toEqual(expectedResult);
   });
 
@@ -52,7 +53,7 @@ describe('useMessagesContext', () => {
     };
     act(() => {
         result.current.dispatch({ type: 'SET_PREVIEW_MESSAGE', payload: testMessage });
-    })
+    });
     // const expectedDate = format(new Date(testMessage.timestamp), 'MM/dd')
     expect(result.current.previewMessages[testMessage.chatId]).toEqual(testMessage.message);
     // expect(result.current.previewMessagesTimestamp[testMessage.chatId]).toEqual(expectedDate);
@@ -70,16 +71,16 @@ describe('useMessagesContext', () => {
     act(() => { 
         result.current.dispatch({ type: 'GET_MESSAGES', payload: testMessages });
     });
-    const expectedResult = {[testMessages.chatId]: testMessages.messages}
+    const expectedResult = {[testMessages.chatId]: testMessages.messages};
     expect(result.current.messages).toEqual(expectedResult);
 
     const newMessage = {
         chatId: testMessages.chatId,
         message: { _id: '3', content: 'This is a new message.', createdAt: "2021-06-02T14:18:27.981Z" },
-    }
+    };
     act(() => {
         result.current.dispatch({ type: 'NEW_MESSAGE', payload: newMessage });
-    })
+    });
 
     const expectedMessages = [...testMessages.messages, newMessage.message];
     expect(result.current.messages[newMessage.chatId]).toStrictEqual(expectedMessages);

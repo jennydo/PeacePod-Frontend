@@ -1,36 +1,36 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Grid, Switch, FormLabel, FormControl, SimpleGrid, HStack } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Grid, Switch, FormLabel, FormControl, SimpleGrid, HStack } from '@chakra-ui/react';
 import { headConstants, eyeConstants, eyebrowConstants, mouthConstants, noseConstants, hairConstants, beardConstants, earringConstants, glassConstants, colors } 
 from './avatarConstants';
 import './AvatarStyle.css';
 import Character from './CharacterFeature/Character';
 import { useState } from 'react';
-import { useAvatarContext } from '../../../hooks/useAvatarContext'
+import { useAvatarContext } from '../../../hooks/useAvatarContext';
 import OptionalCharacter from './CharacterFeature/OptionalCharacter';
 import NoFeatureCharacter from './CharacterFeature/NoFeatureCharacter';
 
 const CustomizeAvatar = () => {
-    const { avatarData, dispatch } = useAvatarContext()
+    const { avatarData, dispatch } = useAvatarContext();
     const [selectedColor, setSelectedColor] = useState(avatarData.backgroundColor[0]);
-    const [hasFreckles, setHasFreckles] = useState(avatarData.frecklesProbability)
+    const [hasFreckles, setHasFreckles] = useState(avatarData.frecklesProbability);
 
     const handleBackgroundColorChange = (color) => {
         setSelectedColor(color);
         dispatch({
             type: "SET_ATTRIBUTE",
             payload: { attribute: "backgroundColor", value: color.substring(1) }
-        })
+        });
     };
 
     const handleHasFreckles = (e) => {
-      setHasFreckles(e.target.checked ? 100 : 0)
+      setHasFreckles(e.target.checked ? 100 : 0);
       dispatch({
         type: "SET_PROBABILITY",
         payload: {
           attribute: "frecklesProbability",
           value: e.target.checked ? 100 : 0
         }
-      })
-    }
+      });
+    };
 
     return ( 
     <Tabs isFitted isLazy>
@@ -157,6 +157,6 @@ const CustomizeAvatar = () => {
 
       </Tabs> 
     );
-}
+};
  
 export default CustomizeAvatar;

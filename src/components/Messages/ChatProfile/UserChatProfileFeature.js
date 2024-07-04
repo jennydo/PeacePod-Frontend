@@ -25,6 +25,6 @@ const UserChatProfileFeature = ({title, features}) => {
     </div>}
 
     </> );
-}
+};
  
 export default UserChatProfileFeature;

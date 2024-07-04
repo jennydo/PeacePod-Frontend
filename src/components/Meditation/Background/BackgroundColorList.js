@@ -6,11 +6,11 @@ import { CloudinaryContext } from "../../../context/CloudinaryContext";
 const BackgroundColorList = () => {
   const [chosenColor, setChosenColor] = useState();
 
-  const { displayedImage, dispatch } = useContext(CloudinaryContext)
+  const { displayedImage, dispatch } = useContext(CloudinaryContext);
 
   const handleChooseColor = (color) => {
     setChosenColor(color);
-    dispatch({ type: 'DISPLAY_IMAGE', payload: color})
+    dispatch({ type: 'DISPLAY_IMAGE', payload: color});
   };
 
   return (

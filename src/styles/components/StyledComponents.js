@@ -7,7 +7,7 @@ const StyledDivider = ({direction}) => {
         className={`styled-divider ${direction === 'vertical' ? 'vertical' : 'horizontal'}`}>
     </div> 
     );
-}
+};
 
 const StyledButton = ({text, onClick=() => {}, icon=null, width=null}) => {
     return (
@@ -25,7 +25,7 @@ const StyledButton = ({text, onClick=() => {}, icon=null, width=null}) => {
             {text}
         </Button>    
     );
-}
+};
 
 const StyledBox = ({ onClick=() => {}, children=null, selected=false, className=""}) => {
     return (
@@ -38,7 +38,7 @@ const StyledBox = ({ onClick=() => {}, children=null, selected=false, className=
         onClick={onClick}>
         {children}
     </Box>
-    )
-}
+    );
+};
  
 export { StyledDivider, StyledButton, StyledBox };

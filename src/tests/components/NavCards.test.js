@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { BrowserRouter } from 'react-router-dom';
 import { NavCards } from '../../components/Home/NavCards';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -14,7 +15,7 @@ describe('NavCards in HomePage', () => {
         setTimeout(() => {
             expect(history.location.pathname).toBe('/newsfeed');
         });
-    })
+    });
 
     it('navigate to Anonymous Chat when click on Anonymous Chat cloud', () => {
         const {history} = render(
@@ -27,7 +28,7 @@ describe('NavCards in HomePage', () => {
         setTimeout(() => {
             expect(history.location.pathname).toBe('/chat');
         });
-    })
+    });
 
     it('navigate to Meditation when click on Meditation cloud', () => {
         const {history} = render(
@@ -40,5 +41,5 @@ describe('NavCards in HomePage', () => {
         setTimeout(() => {
             expect(history.location.pathname).toBe('/meditation');
         });
-    })
+    });
 });

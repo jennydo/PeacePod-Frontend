@@ -13,21 +13,21 @@ const BackgroundList = () => {
     useEffect(() => {
         axios.get('http://localhost:4000/api/cloudinary')
         .then(res => {
-            dispatch({ type: 'GET_IMAGES', payload: res.data})
-        }).catch(err => console.log(err))
+            dispatch({ type: 'GET_IMAGES', payload: res.data});
+        }).catch(err => console.log(err));
 
         axios.get(`http://localhost:4000/api/users/findUser/${userId}`)
         .then(res => {
-            dispatch({ type: 'GET_USER_IMAGES', payload: res.data.user.uploadedBackgrounds})
-            console.log("Response ", res.data.user.uploadedBackgrounds)
+            dispatch({ type: 'GET_USER_IMAGES', payload: res.data.user.uploadedBackgrounds});
+            console.log("Response ", res.data.user.uploadedBackgrounds);
         })
-        .catch(err => console.log("Error while getting user images", err))
-    }, [])
+        .catch(err => console.log("Error while getting user images", err));
+    }, []);
 
     const chooseImage = (image) => {
-        console.log(image)
-        dispatch({ type: 'DISPLAY_IMAGE', payload: image})
-    }
+        console.log(image);
+        dispatch({ type: 'DISPLAY_IMAGE', payload: image});
+    };
 
     return ( 
     <>
@@ -51,6 +51,6 @@ const BackgroundList = () => {
             </Grid>
         </Box>
     </> );
-}
+};
  
 export default BackgroundList;

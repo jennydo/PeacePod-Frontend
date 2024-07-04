@@ -10,19 +10,19 @@ import {
     useDisclosure,
     VStack, 
     Image
-  } from '@chakra-ui/react'
-import CustomizeAvatar from './CustomizeAvatar'
-import React from 'react'
-import { useAvatarContext } from '../../../hooks/useAvatarContext'
+  } from '@chakra-ui/react';
+import CustomizeAvatar from './CustomizeAvatar';
+import React from 'react';
+import { useAvatarContext } from '../../../hooks/useAvatarContext';
 import axios from 'axios';
 import { useAuthContext } from '../../../hooks/useAuthContext';
-import { StyledButton} from '../../../styles/components/StyledComponents'
+import { StyledButton} from '../../../styles/components/StyledComponents';
 
 const AvatarModal = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const finalRef = React.useRef(null)
-    const { avatar, avatarData } = useAvatarContext()
-    const { user } = useAuthContext()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const finalRef = React.useRef(null);
+    const { avatar, avatarData } = useAvatarContext();
+    const { user } = useAuthContext();
     const userId = user.user._id;
 
     const handleClick = () => {
@@ -60,7 +60,7 @@ const AvatarModal = () => {
             // Handle error
             console.error('Error updating avatar:', error);
         });
-        }
+        };
 
     return ( 
         <>
@@ -96,6 +96,6 @@ const AvatarModal = () => {
         </Modal>
         </>
      );
-}
+};
  
 export default AvatarModal;

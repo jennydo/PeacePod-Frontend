@@ -1,8 +1,8 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRss, faComments, faHeadphones } from '@fortawesome/free-solid-svg-icons';
-import "./NavCards.css"
+import "./NavCards.css";
 import { Text, VStack } from "@chakra-ui/react";
 
 const Cards = [
@@ -21,7 +21,7 @@ const Cards = [
         label: "Meditation",
         to: "/meditation"
     }
-]
+];
 
 export const NavCards = () => {
     return (

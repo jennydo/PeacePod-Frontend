@@ -8,20 +8,20 @@ import { GoDotFill } from "react-icons/go";
 import { StyledBox } from "../../../styles/components/StyledComponents";
 
 const ChatBox = ({chat}) => {
-    console.log('current chat', chat)
-    const { selectedChat, dispatch, onlineUsers } = useChatsContext()
-    const {user: sender} = useAuthContext()
-    const { users } = chat
-    const { dispatch: messagesDispatch, previewMessages, previewMessagesTimestamp, chatNames } = useMessagesContext()
-    const [isOnline, setIsOnline] = useState(false)
+    console.log('current chat', chat);
+    const { selectedChat, dispatch, onlineUsers } = useChatsContext();
+    const {user: sender} = useAuthContext();
+    const { users } = chat;
+    const { dispatch: messagesDispatch, previewMessages, previewMessagesTimestamp, chatNames } = useMessagesContext();
+    const [isOnline, setIsOnline] = useState(false);
 
     // get the username and avatar of the receiver
     const receiver = users.filter(user => user._id !== sender.user._id);
     const { username, avatar } = receiver[0];
 
     // get the latest message 
-    const latestMessage = chat.latestMessage || ""
-    const displayedLatestMessage = latestMessage.content || ""
+    const latestMessage = chat.latestMessage || "";
+    const displayedLatestMessage = latestMessage.content || "";
 
     useEffect(() => {
         messagesDispatch({
@@ -30,7 +30,7 @@ const ChatBox = ({chat}) => {
                 chatId: chat._id,
                 message: displayedLatestMessage,
                 timestamp: latestMessage.createdAt
-            }})
+            }});
         
         messagesDispatch({
             type: 'SET_CHAT_NAME', 
@@ -38,16 +38,16 @@ const ChatBox = ({chat}) => {
                 chatId: chat._id, 
                 chatName: chat.chatName
             }
-        })
+        });
         // console.log('chatname:',chatNames[chat._id])
-    }, [chat._id, chat.chatName, displayedLatestMessage, latestMessage.createdAt, messagesDispatch])
+    }, [chat._id, chat.chatName, displayedLatestMessage, latestMessage.createdAt, messagesDispatch]);
 
     const selectChat = (chat) => {
         dispatch({
             type: "SELECT_CHAT",
             payload: chat
-        })
-    }
+        });
+    };
 
     useEffect(() => {
         const isUserOnline = onlineUsers.some(userId => userId === receiver[0]._id);
@@ -56,8 +56,8 @@ const ChatBox = ({chat}) => {
         } else {
             setIsOnline(false); // Set isOnline to false if receiver._id is not found in onlineUsers
         }
-        console.log('onlineUsers:', onlineUsers)
-    }, [onlineUsers, receiver])
+        console.log('onlineUsers:', onlineUsers);
+    }, [onlineUsers, receiver]);
     
     return ( 
         <StyledBox
@@ -81,6 +81,6 @@ const ChatBox = ({chat}) => {
             }
         />
      );
-}
+};
  
 export default ChatBox;

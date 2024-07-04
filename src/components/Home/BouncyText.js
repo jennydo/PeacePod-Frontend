@@ -1,5 +1,5 @@
 import { easeInOut, motion } from 'framer-motion';
-import './BouncyText.scss'
+import './BouncyText.scss';
 
 /// list of states, e.g. start state and end state
 const container = {
@@ -24,7 +24,7 @@ const bounceTransition = {
         repeat: 1,
         ease: easeInOut
     }
-}
+};
 
 const BouncyText = ({ text }) => {
   return (

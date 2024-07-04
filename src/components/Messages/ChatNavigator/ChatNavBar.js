@@ -21,7 +21,7 @@ const ChatNavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isWaitingForMatch } = JSON.parse(localStorage.getItem("user"));
 
-  const [waitingForMatch, setWaitingForMatch] = useState(isWaitingForMatch)
+  const [waitingForMatch, setWaitingForMatch] = useState(isWaitingForMatch);
 
   useEffect(() => {
     axios
@@ -40,7 +40,7 @@ const ChatNavBar = () => {
       "user",
       JSON.stringify({ ...user, isWaitingForMatch: false })
     );
-    setWaitingForMatch(!waitingForMatch)
+    setWaitingForMatch(!waitingForMatch);
   };
 
   return (

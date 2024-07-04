@@ -11,12 +11,12 @@ import { useMessagesContext } from '../../../hooks/useMessagesContext';
 
 const SingleChat = ({chat}) => {
 
-  const { selectedChat, dispatch: chatDispatch, socket, selectedChatCompare } = useChatsContext()
-  const { dispatch: messagesDispatch, messages, chatNames } = useMessagesContext()
-  const { _id: chatId, users, chatName } = chat 
+  const { selectedChat, dispatch: chatDispatch, socket, selectedChatCompare } = useChatsContext();
+  const { dispatch: messagesDispatch, messages, chatNames } = useMessagesContext();
+  const { _id: chatId, users, chatName } = chat; 
 
   // get information of the sender (logged in user)
-  const {user: sender} = useAuthContext()
+  const {user: sender} = useAuthContext();
   const {username: senderUsername, avatar: senderAvatar} = sender.user;
 
   // get info of the receiver
@@ -24,16 +24,16 @@ const SingleChat = ({chat}) => {
   const { username: receiverUsername, avatar: receiverAvatar } = receiver[0];
 
   // const [handle, setHandle] = useState("")
-  const [socketConnected, setSocketConnected] = useState(false)
-  const [newMessage, setNewMessage] = useState("")
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [newMessage, setNewMessage] = useState("");
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    socket.on("connected", () => setSocketConnected(true))
+    socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-  }, [])
+  }, []);
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
@@ -48,10 +48,10 @@ const SingleChat = ({chat}) => {
             chatId: newMessageReceived.chat._id,
             message: newMessageReceived
           }
-        })
+        });
       }
-    })
-  }, [])
+    });
+  }, []);
 
   useEffect(() => {
     fetchMessages();
@@ -78,13 +78,13 @@ const SingleChat = ({chat}) => {
             chatId,
             messages: response.data
           }
-        })
-        console.log("all messages: ", response.data)
+        });
+        console.log("all messages: ", response.data);
       })
-      .catch ( error => console.log(error))
+      .catch ( error => console.log(error));
 
-    socket.emit('join chat', chatId)
-  }
+    socket.emit('join chat', chatId);
+  };
 
   // Chat Event
   // send chat message
@@ -97,17 +97,17 @@ const SingleChat = ({chat}) => {
         headers: {Authorization: `Bearer ${sender.token}`}
       })
       .then( response => {
-        console.log("new message here", response.data)
-        socket.emit('new message', response.data)
+        console.log("new message here", response.data);
+        socket.emit('new message', response.data);
         messagesDispatch({
           type: 'NEW_MESSAGE',
           payload: {
             chatId: response.data.chat._id,
             message: response.data
           }
-        })
+        });
       })
-      .catch( error => console.log(error))
+      .catch( error => console.log(error));
     
     setNewMessage("");
     scrollToBottom();
@@ -200,6 +200,6 @@ const SingleChat = ({chat}) => {
       </GridItem>
     </Grid>
   );
-}
+};
 
 export default SingleChat;

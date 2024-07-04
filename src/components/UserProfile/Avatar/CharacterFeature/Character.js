@@ -1,13 +1,13 @@
-import { GridItem, Image } from '@chakra-ui/react'
-import { useAvatarContext } from '../../../../hooks/useAvatarContext'
+import { GridItem, Image } from '@chakra-ui/react';
+import { useAvatarContext } from '../../../../hooks/useAvatarContext';
 import { createAvatar } from '@dicebear/core';
 import { lorelei } from '@dicebear/collection';
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react';
 
 const Character = ( {variant, attribute}) => {
 
     const [character, setCharacter] = useState(null);
-    const { avatarData, dispatch } = useAvatarContext()
+    const { avatarData, dispatch } = useAvatarContext();
 
     const characterData = useMemo(() => ({
         ...avatarData,
@@ -19,8 +19,8 @@ const Character = ( {variant, attribute}) => {
         const generateCharacter = async () => {
             await createAvatar(lorelei, characterData)
                 .toDataUri()
-                .then(promise => setCharacter(promise))
-        }
+                .then(promise => setCharacter(promise));
+        };
         generateCharacter();
       }, [characterData]);
     
@@ -31,8 +31,8 @@ const Character = ( {variant, attribute}) => {
               attribute,
               value: variant,
             }
-          })
-    }
+          });
+    };
 
     return ( 
         <GridItem onClick={handleClick} >
@@ -43,6 +43,6 @@ const Character = ( {variant, attribute}) => {
             />
         </GridItem>
      );
-}
+};
  
 export default Character;

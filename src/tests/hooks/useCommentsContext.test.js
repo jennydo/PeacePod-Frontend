@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { renderHook, act } from '@testing-library/react';
 import { CommentsContextProvider } from '../../context/CommentsContext';
 import { useCommentsContext} from '../../hooks/useCommentsContext';
@@ -39,7 +40,7 @@ describe('useCommentsContext', () => {
     const newComment = { _id: '2', title: 'New Comment' };
     act(() => {
         result.current.dispatch({ type: 'CREATE_COMMENT', payload: newComment });
-    })
+    });
     expect(result.current.comments).toEqual([...initialComments, newComment]);
   });
 
@@ -48,12 +49,12 @@ describe('useCommentsContext', () => {
     const testComments = [{ _id: '0', content: 'Test Comment 1' }, { _id: '1', content: 'Test Comment 2' }];
     act(() => {
         result.current.dispatch({ type: 'GET_COMMENTS', payload: testComments });
-    })
+    });
     expect(result.current.comments.length).toBe(2);
     const commentToDelete = { _id: '1', content: 'Test Comment 2' };
     act(() => {
         result.current.dispatch({ type: 'DELETE_COMMENT', payload: commentToDelete });
-    })
+    });
     expect(result.current.comments.length).toBe(1);
     expect(result.current.comments[0]._id).toBe('0');
   });
@@ -63,11 +64,11 @@ describe('useCommentsContext', () => {
     const testComments = [{ _id: '0', content: 'Test Comment 1' }, { _id: '1', content: 'Test Comment 2' }];
     act(() => {
         result.current.dispatch({ type: 'GET_COMMENTS', payload: testComments });
-    })
+    });
     expect(result.current.comments.length).toBe(2);
     act(() => {
         result.current.dispatch({ type: 'CLEAR_COMMENTS'});
-    })
+    });
     expect(result.current.comments.length).toBe(0);
-  })
+  });
 });

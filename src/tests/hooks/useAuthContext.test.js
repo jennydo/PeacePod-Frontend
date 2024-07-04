@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { renderHook, act } from '@testing-library/react';
 import { AuthContextProvider } from '../../context/AuthContext';
