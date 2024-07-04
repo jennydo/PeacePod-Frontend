@@ -15,6 +15,7 @@ import { useState, useRef, useEffect, useContext } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import axios from "axios";
 import { PromptResponsesContext } from "../../../context/PromptResponseContext";
+import CuteDog from './CuteDog';
 
 const PromptModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -163,7 +164,8 @@ const PromptModal = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      {/* <Button onClick={onOpen}>Open Modal</Button> */}
+      <CuteDog openModal={onOpen}/>
 
       <Modal isOpen={isOpen} onClose={onClose} size="full">
         <ModalOverlay />
