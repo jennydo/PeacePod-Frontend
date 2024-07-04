@@ -33,7 +33,7 @@ import backBackgroundImage from "../../../assets/images/back-background.jpg";
 import "./NormalPost.scss";
 import Comment from "./Comment";
 
-const NormalPost = ({ post }) => {
+const NormalPost = ({ post, flipped, setFlipped }) => {
   const { user } = useAuthContext();
   // data from post
   const { title, content, createdAt: timeStamp, postImageUrl } = post;
@@ -42,7 +42,8 @@ const NormalPost = ({ post }) => {
   });
 
   const [isFlipped, setIsFlipped] = useState(false);
-  const handleFlip = () => setIsFlipped(!isFlipped);
+  // const handleFlip = () => setIsFlipped(!isFlipped);
+  const handleFlip = () => setFlipped(!flipped)
 
   const { avatar, username, avatarData } = post.userId;
   const stampBackgroundColor = "#" + avatarData.backgroundColor[0];
@@ -162,7 +163,7 @@ const NormalPost = ({ post }) => {
   return (
     <div
       // className="flip-container"
-      className={`flip-container ${isFlipped ? "flipped" : ""}`}
+      className={`flip-container ${flipped ? "flipped" : ""}`}
       // onTouchStart="this.classList.toggle('hover');"
       // onClick={handleFlip}
     >
