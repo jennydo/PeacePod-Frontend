@@ -379,20 +379,20 @@ background: transparent;
     left: calc(50% - 293px);
   }
 }
-.btn-dislike::after {
-  content: "";
-  position: absolute;
-  transform: translate(-50%, -50%) rotate(-45deg);
-  top: 50%;
-  left: 50%;
-  width: 6px;
-  height: 38px;
-  background: #b5b5b5;
-  border: 2px solid #fefefe;
-}
+// .btn-dislike::after {
+//   content: "";
+//   position: absolute;
+//   transform: translate(-50%, -50%) rotate(-45deg);
+//   top: 50%;
+//   left: 50%;
+//   width: 6px;
+//   height: 38px;
+//   background: #b5b5b5;
+//   border: 2px solid #fefefe;
+// }
 .btn-dislike .heart::before,
 .btn-dislike .heart::after {
-  background-color: #b5b5b5;
+  background-color: #f0d4ff;
 }
 
 .heart {
@@ -480,7 +480,7 @@ background: transparent;
 
 .btn-dislike:hover,
 .btn-dislike:active {
-  background: #747499;
+  background: #f0d4ff;
 }
 .btn-dislike:hover ~ .wrapper .ears::before,
 .btn-dislike:active ~ .wrapper .ears::before {

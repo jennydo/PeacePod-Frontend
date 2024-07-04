@@ -1,6 +1,7 @@
 import React from "react";
 import "./CuteDog.scss";
-import { Tooltip } from "@chakra-ui/react";
+import { Tooltip, Icon, IconButton } from "@chakra-ui/react";
+import { IoIosSend } from "react-icons/io";
 
 const CuteDog = ({ openModal }) => {
   return (
@@ -12,9 +13,14 @@ const CuteDog = ({ openModal }) => {
       </Tooltip>
 
       <Tooltip label="Send message to the sky" bg="grey">
-        <button class="btn-dog btn-dislike">
-          <div class="heart"></div>
-        </button>
+      <IconButton
+      className="btn-dog btn-dislike"
+      onClick={openModal}
+      icon={<Icon as={IoIosSend} boxSize={8} color="#a663cc"/>}
+      size="lg"
+      variant="ghost"
+      aria-label="Send"
+    />
       </Tooltip>
 
       <div class="wrapper">
