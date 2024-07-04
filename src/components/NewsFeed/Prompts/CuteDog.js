@@ -87,7 +87,7 @@ const CuteDog = ({ openModal }) => {
         <PopoverContent>
           <PopoverArrow />
           <PopoverCloseButton />
-          <PopoverBody>
+          <PopoverBody pl={3} pr={3} pt={8} pb={3}>
           <Text>{`${prompt.content.slice(0, 300)}`}</Text>
               <Input
                 value={input}
@@ -97,6 +97,7 @@ const CuteDog = ({ openModal }) => {
                 // variant="flushed"
               />
                 <Button
+                float="right"
                   rightIcon={<Icon as={IoIosSend} />}
                   h="1.75rem"
                   size="sm"
