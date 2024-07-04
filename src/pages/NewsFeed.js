@@ -29,10 +29,10 @@ const NewsFeed = () => {
       <Tabs align="center" isFitted mt={5}>
         <TabList>
           <Tab p={0} h={10}>
-            <Text fontSize={20}>Catch a Postcard flying in the Sky</Text>
+            <Text fontSize={20}><b>Catch a Postcard flying in the Sky</b></Text>
           </Tab>
           <Tab p={0} h={10}>
-            <Text fontSize={20}>The Waterfall of Messages</Text>
+            <Text fontSize={20}><b>The Waterfall of Messages</b></Text>
           </Tab>
         </TabList>
 

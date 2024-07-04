@@ -1,20 +1,22 @@
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    Button, 
-    GridItem,
-    Grid,
-  } from '@chakra-ui/react';
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  GridItem,
+  Grid,
+} from '@chakra-ui/react';
 import './Prompt.scss';
 import PromptBgImage from './PromptBgImage';
 import { useState, useRef, useEffect, useContext } from "react";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import axios from "axios";
 import { PromptResponsesContext } from "../../../context/PromptResponseContext";
+import { StyledButton } from '../../../styles/components/StyledComponents';
+
 
 const PromptModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -163,7 +165,10 @@ const PromptModal = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      <div style={{ margin: '40px' }}>
+        <StyledButton text={"What is an inspiration question today?"} onClick={onOpen}>
+        </StyledButton>
+      </div>
 
       <Modal isOpen={isOpen} onClose={onClose} size="full">
         <ModalOverlay />
@@ -230,7 +235,7 @@ const PromptModal = () => {
               </GridItem>
             </Grid>
           </ModalBody>
-          
+
         </ModalContent>
       </Modal>
     </>

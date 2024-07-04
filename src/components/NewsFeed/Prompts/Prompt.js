@@ -3,6 +3,7 @@ import {
   InputRightElement,
   Button,
   InputGroup,
+  border,
 } from "@chakra-ui/react";
 import { useState, useContext } from "react";
 import "./Prompt.scss";
@@ -11,11 +12,12 @@ import { Icon } from "@chakra-ui/react";
 import axios from "axios";
 import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 import PromptModal from "./PromptModal";
+import { StyledButton } from '../../../styles/components/StyledComponents';
 
 
 const Prompt = () => {
 
-  const {dispatch } = useContext(PromptResponsesContext);
+  const { dispatch } = useContext(PromptResponsesContext);
   const [input, setInput] = useState("");
 
   const handleSendResponse = async () => {
@@ -59,27 +61,26 @@ const Prompt = () => {
 
   return (
     <>
-    <PromptModal/>
-    <InputGroup size="md" w="54%" mt={3}>
-      <Input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        // placeholder={`${promptQuote.slice(0, 300)}`}
-        size="lg"
-        variant="flushed"
-      />
-      <InputRightElement width="4.5rem">
-        <Button
-          rightIcon={<Icon as={IoIosSend} />}
-          h="1.75rem"
-          size="sm"
-          variant="ghost"
-          onClick={handleSendResponse}
-        >
-          Send
-        </Button>
-      </InputRightElement>
-    </InputGroup>
+      <PromptModal />
+      <InputGroup size="md" w="54%" mt={3} border="1px solid gray" borderRadius="25" paddingLeft={6}>
+        <Input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          // placeholder={`${promptQuote.slice(0, 300)}`}
+          size="lg"
+          variant="flushed"
+        />
+        <InputRightElement width="4.5rem" paddingRight={2} paddingTop={1.5}>
+          <StyledButton
+            text="Send"
+            onClick={handleSendResponse}
+            rightIcon={<Icon as={IoIosSend} />}
+            customStyle={{
+              variant: "unstyled"
+            }}
+          />
+        </InputRightElement>
+      </InputGroup>
     </>
   );
 };

@@ -208,11 +208,11 @@ const NormalPost = ({ post }) => {
           </GridItem>
 
           <GridItem w="100%" h="100%" onClick={handleFlip}>
-            <Heading>{title}</Heading>
+            <Heading marginTop={7}>{title}</Heading>
           </GridItem>
 
           <GridItem w="100%" h="100%" onClick={handleFlip}>
-            <Text mt={3} fontSize={"xl"}>
+            <Text mt={3} fontSize={"xl"} marginTop={7}>
               From: {username}
             </Text>
             {content.length > preview.length ? (
