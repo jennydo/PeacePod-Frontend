@@ -32,6 +32,7 @@ import { FaHeart, FaComment, FaRegHeart } from "react-icons/fa";
 import backBackgroundImage from "../../../assets/images/back-background.jpg";
 import "./NormalPost.scss";
 import Comment from "./Comment";
+import { useAvatarContext } from "../../../hooks/useAvatarContext";
 
 const NormalPost = ({ post }) => {
   const { user } = useAuthContext();
@@ -44,7 +45,15 @@ const NormalPost = ({ post }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const handleFlip = () => setIsFlipped(!isFlipped);
 
-  const { avatar, username, avatarData } = post.userId;
+  var avatar = useAvatarContext().avatar;
+  var avatarData = useAvatarContext().avatarData;
+  if (post.userId._id !== user.user._id) {
+    avatar = post.userId.avatar;
+    avatarData = post.userId.avatarData;
+  }
+
+  const { username } = post.userId; 
+
   const stampBackgroundColor = "#" + avatarData.backgroundColor[0];
 
   const previewNum = 12;
@@ -169,7 +178,7 @@ const NormalPost = ({ post }) => {
       <Center className="flipper">
         <Grid
           className="front"
-          gridTemplateRows={"30% 10% 1fr 10%"}
+          gridTemplateRows={"40% 10% 1fr 10%"}
           w="100%"
           // h="100%"
           maxH={"100%"}
@@ -200,7 +209,7 @@ const NormalPost = ({ post }) => {
                 zIndex={1}
                 ml="-65px"
               >
-                <Box w="75%" h="95%" bg={stampBackgroundColor} ml="7px" pt={3}>
+                <Box w="75%" h="95%" bg={stampBackgroundColor} ml="5px" pt={2}>
                   <Image src={avatar} />
                 </Box>
               </Box>
@@ -208,7 +217,7 @@ const NormalPost = ({ post }) => {
           </GridItem>
 
           <GridItem w="100%" h="100%" onClick={handleFlip}>
-            <Heading>{title}</Heading>
+            <Heading position="relative" zIndex={3}>{title}</Heading>
           </GridItem>
 
           <GridItem w="100%" h="100%" onClick={handleFlip}>
