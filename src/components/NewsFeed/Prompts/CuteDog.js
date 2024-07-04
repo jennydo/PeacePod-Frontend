@@ -1,15 +1,22 @@
 import React from "react";
 import "./CuteDog.scss";
+import { Tooltip } from "@chakra-ui/react";
 
 const CuteDog = ({ openModal }) => {
   return (
     <>
-      <button class="btn-dog btn-like" onClick={openModal}>
-        <div class="heart"></div>
-      </button>
-      <button class="btn-dog btn-dislike">
-        <div class="heart"></div>
-      </button>
+      <Tooltip label="Explore the daily prompt" bg="grey">
+        <button class="btn-dog btn-like" onClick={openModal}>
+          <div class="heart"></div>
+        </button>
+      </Tooltip>
+
+      <Tooltip label="Send message to the sky" bg="grey">
+        <button class="btn-dog btn-dislike">
+          <div class="heart"></div>
+        </button>
+      </Tooltip>
+
       <div class="wrapper">
         <div class="card-container">
           <div class="dog">
