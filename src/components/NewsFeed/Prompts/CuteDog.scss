@@ -1,0 +1,540 @@
+.btn,
+.dog .tail,
+.dog .chin,
+.dog .tongue::before,
+.dog .tongue::after,
+.dog .mouth,
+.dog .nose,
+.dog .teardrop,
+.dog .eyes,
+.dog .face::before,
+.dog .face::after,
+.dog .ears::before,
+.dog .ears::after,
+.wrapper {
+  transition: 0.2s ease-in;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+.wrapper {
+  width: 100%;
+  height: 58vh;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //   background: #5777c9;
+  background: transparent;
+  overflow-y: hidden;
+}
+
+.card-container {
+  position: relative;
+  width: 360px;
+  height: 480px;
+  margin: auto;
+  padding-top: 125px;
+  border-radius: 3%;
+//   background: #fff;
+background: transparent;
+  z-index: 0;
+}
+.card-container::before,
+.card-container::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  border-radius: 3%;
+  z-index: -1;
+}
+.card-container::before {
+  top: 3%;
+  width: 93%;
+//   background: rgba(255, 255, 255, 0.7);
+}
+.card-container::after {
+  top: 5.5%;
+  width: 85%;
+//   background: rgba(255, 255, 255, 0.35);
+}
+
+.dog .head,
+.dog .body {
+  position: relative;
+  width: 115px;
+}
+.dog .head {
+  height: 115px;
+  border-radius: 50% 50% 0 0;
+  margin: 0 auto;
+}
+.dog .ears {
+  position: relative;
+  top: -14%;
+  width: 100%;
+}
+.dog .ears::before,
+.dog .ears::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 35px;
+  height: 70px;
+  background: #cb7a1d;
+  border-top: 11px solid #f7aa2b;
+  border-left: 7px solid #f7aa2b;
+  border-right: 7px solid #f7aa2b;
+}
+.dog .ears::before {
+  left: 0;
+  border-radius: 50% 45% 0 0;
+}
+.dog .ears::after {
+  right: 0;
+  border-radius: 45% 50% 0 0;
+}
+.dog .face {
+  position: absolute;
+  background: #f7aa2b;
+  width: 100%;
+  height: 100%;
+  border-radius: 50% 50% 0 0;
+}
+.dog .face::before,
+.dog .face::after {
+  content: "";
+  display: block;
+  margin: auto;
+  background: #fefefe;
+}
+.dog .face::before {
+  width: 15px;
+  height: 35px;
+  margin-top: 24px;
+  border-radius: 20px 20px 0 0;
+}
+.dog .face::after {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  width: 60px;
+  height: 65px;
+  border-radius: 45% 45% 0 0;
+}
+.dog .eyes {
+  position: relative;
+  top: 29%;
+  text-align: center;
+}
+.dog .eyes::before,
+.dog .eyes::after {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  background: #451d1c;
+  margin: 0 14.5%;
+}
+.dog .teardrop {
+  position: absolute;
+  top: 125%;
+  left: 19%;
+  width: 6px;
+  height: 6px;
+  border-radius: 0 50% 50% 50%;
+  transform: rotate(45deg);
+  background: #fefefe;
+  visibility: hidden;
+}
+.dog .nose {
+  position: relative;
+  top: 35%;
+  width: 16px;
+  height: 8px;
+  border-radius: 35px 35px 65px 65px;
+  background: #451d1c;
+  margin: auto;
+}
+.dog .mouth {
+  position: relative;
+  top: 34.5%;
+  width: 4px;
+  height: 6px;
+  margin: 0 auto;
+  text-align: center;
+  background: #451d1c;
+}
+.dog .mouth::before,
+.dog .mouth::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 4px solid #451d1c;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  z-index: 2;
+}
+.dog .mouth::before {
+  transform: translateX(-89%) rotate(45deg);
+}
+.dog .mouth::after {
+  transform: translateX(-2px) rotate(45deg);
+}
+.dog .tongue {
+  position: relative;
+  z-index: 1;
+}
+.dog .tongue::before,
+.dog .tongue::after {
+  content: "";
+  position: absolute;
+}
+.dog .tongue::before {
+  top: 10px;
+  left: -7px;
+  width: 18px;
+  height: 0;
+  border-radius: 50%;
+  background: #451d1c;
+  z-index: -1;
+}
+.dog .tongue::after {
+  top: 14px;
+  left: -4px;
+  width: 12px;
+  height: 0;
+  border-radius: 20px;
+  background: #f5534f;
+  z-index: 5;
+}
+.dog .chin {
+  position: relative;
+  top: 47.5%;
+  margin: 0 auto;
+  width: 12px;
+  height: 12px;
+  border-top: 10px solid #e8e7ec;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-radius: 2px;
+  z-index: 0;
+}
+.dog .body {
+  position: relative;
+  height: 139px;
+  margin: auto;
+  z-index: 0;
+}
+.dog .body::before,
+.dog .body::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  margin: auto;
+  background: #f7aa2b;
+}
+.dog .body::after {
+  top: -2px;
+  bottom: -1px;
+  width: 60px;
+  background: #fefefe;
+}
+.dog .tail {
+  position: absolute;
+  left: -60%;
+  bottom: 1px;
+  background: #f7aa2b;
+  width: 93px;
+  height: 15px;
+  transform: rotate(45deg);
+  transform-origin: 100% 50%;
+  border-radius: 25px 0 0 25px;
+  z-index: -2;
+}
+.dog .legs {
+  position: absolute;
+  bottom: 0;
+  left: -10%;
+  width: 120%;
+  height: 15%;
+  background: #f7aa2b;
+  border-radius: 10px 10px 0 0;
+}
+.dog .legs::before,
+.dog .legs::after {
+  content: "";
+  position: absolute;
+  bottom: 1px;
+  background: #cb7a1d;
+  z-index: -1;
+}
+.dog .legs::before {
+  left: -7.5%;
+  width: 115%;
+  height: 55%;
+  border-radius: 5px 5px 0 0;
+}
+.dog .legs::after {
+  left: -3.5%;
+  width: 107%;
+  height: 250%;
+  border-radius: 20px 20px 35px 35px;
+}
+
+@-webkit-keyframes movetongue {
+  100% {
+    height: 27px;
+  }
+}
+
+@keyframes movetongue {
+  100% {
+    height: 27px;
+  }
+}
+@-webkit-keyframes movetail {
+  0% {
+    transform: rotate(37deg);
+  }
+  100% {
+    transform: rotate(52deg);
+  }
+}
+@keyframes movetail {
+  0% {
+    transform: rotate(37deg);
+  }
+  100% {
+    transform: rotate(52deg);
+  }
+}
+@-webkit-keyframes cry {
+  100% {
+    visibility: visible;
+  }
+}
+@keyframes cry {
+  100% {
+    visibility: visible;
+  }
+}
+.btn-dog {
+  width: 68px;
+  height: 68px;
+  position: absolute;
+  top: 50%;
+  margin-top: -34px;
+  padding-top: 10px;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  background: #fefefe;
+  z-index: 5;
+}
+.btn-dog:hover {
+  transform: scale(2);
+}
+.btn-like {
+  right: 10%;
+  border-radius: 200px;
+}
+@media (min-width: 768px) {
+  .btn-like {
+    left: calc(50% + 225px);
+    right: initial;
+  }
+}
+.btn-dislike {
+  left: 10%;
+}
+@media (min-width: 768px) {
+  .btn-dislike {
+    left: calc(50% - 293px);
+  }
+}
+// .btn-dislike::after {
+//   content: "";
+//   position: absolute;
+//   transform: translate(-50%, -50%) rotate(-45deg);
+//   top: 50%;
+//   left: 50%;
+//   width: 6px;
+//   height: 38px;
+//   background: #b5b5b5;
+//   border: 2px solid #fefefe;
+// }
+
+.btn-dislike .heart::before,
+.btn-dislike .heart::after {
+  background-color: #f0d4ff;
+}
+
+.heart {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 30px;
+}
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 20px 20px 0 0;
+  width: 18px;
+  height: 28px;
+  background-color: #f5534f;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+.heart::after {
+  left: 18px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.btn-like:hover,
+.btn-like:active {
+  background: #fcab8e;
+}
+.btn-like:hover ~ .wrapper .face::before,
+.btn-like:active ~ .wrapper .face::before {
+  margin-top: 10px;
+}
+.btn-like:hover ~ .wrapper .face::after,
+.btn-like:active ~ .wrapper .face::after {
+  height: 85px;
+}
+.btn-like:hover ~ .wrapper .eyes,
+.btn-like:active ~ .wrapper .eyes {
+  top: 13%;
+}
+.btn-like:hover ~ .wrapper .eyes::before,
+.btn-like:hover ~ .wrapper .eyes::after,
+.btn-like:active ~ .wrapper .eyes::before,
+.btn-like:active ~ .wrapper .eyes::after {
+  width: 18px;
+  height: 5px;
+  margin: 0px 12.5%;
+  transform: rotate(-37.5deg);
+  border-radius: 20px;
+}
+.btn-like:hover ~ .wrapper .eyes::after,
+.btn-like:active ~ .wrapper .eyes::after {
+  transform: rotate(37.5deg);
+}
+.btn-like:hover ~ .wrapper .nose,
+.btn-like:active ~ .wrapper .nose {
+  top: 18%;
+}
+.btn-like:hover ~ .wrapper .mouth,
+.btn-like:active ~ .wrapper .mouth {
+  top: 16.5%;
+}
+.btn-like:hover ~ .wrapper .tongue::before,
+.btn-like:active ~ .wrapper .tongue::before {
+  height: 12px;
+}
+.btn-like:hover ~ .wrapper .tongue::after,
+.btn-like:active ~ .wrapper .tongue::after {
+  height: 24px;
+  -webkit-animation: movetongue 0.1s linear 0.35s infinite alternate forwards;
+  animation: movetongue 0.1s linear 0.35s infinite alternate forwards;
+}
+.btn-like:hover ~ .wrapper .chin,
+.btn-like:active ~ .wrapper .chin {
+  top: 34%;
+}
+.btn-like:hover ~ .wrapper .tail,
+.btn-like:active ~ .wrapper .tail {
+  -webkit-animation: movetail 0.1s linear infinite alternate forwards;
+  animation: movetail 0.1s linear infinite alternate forwards;
+}
+
+.btn-dislike:hover,
+.btn-dislike:active {
+  background: #f0d4ff;
+}
+.btn-dislike:hover ~ .wrapper .ears::before,
+.btn-dislike:active ~ .wrapper .ears::before {
+  transform: rotate(-50deg) translate(-7px, 2px);
+}
+.btn-dislike:hover ~ .wrapper .ears::after,
+.btn-dislike:active ~ .wrapper .ears::after {
+  transform: rotate(50deg) translate(7px, 2px);
+}
+.btn-dislike:hover ~ .wrapper .face::before,
+.btn-dislike:active ~ .wrapper .face::before {
+  margin-top: 28px;
+}
+.btn-dislike:hover ~ .wrapper .face::after,
+.btn-dislike:active ~ .wrapper .face::after {
+  height: 55px;
+}
+.btn-dislike:hover ~ .wrapper .eyes,
+.btn-dislike:active ~ .wrapper .eyes {
+  top: 38%;
+}
+.btn-dislike:hover ~ .wrapper .eyes::before,
+.btn-dislike:hover ~ .wrapper .eyes::after,
+.btn-dislike:active ~ .wrapper .eyes::before,
+.btn-dislike:active ~ .wrapper .eyes::after {
+  width: 18px;
+  height: 5px;
+  margin: 0px 14.5%;
+  transform: rotate(-37.5deg);
+  border-radius: 20px;
+}
+.btn-dislike:hover ~ .wrapper .eyes::after,
+.btn-dislike:active ~ .wrapper .eyes::after {
+  transform: rotate(37.5deg);
+}
+.btn-dislike:hover ~ .wrapper .teardrop,
+.btn-dislike:active ~ .wrapper .teardrop {
+  -webkit-animation: cry 0.1s ease-in 0.25s forwards;
+  animation: cry 0.1s ease-in 0.25s forwards;
+}
+.btn-dislike:hover ~ .wrapper .nose,
+.btn-dislike:active ~ .wrapper .nose {
+  top: 44%;
+}
+.btn-dislike:hover ~ .wrapper .mouth,
+.btn-dislike:active ~ .wrapper .mouth {
+  top: 42%;
+}
+.btn-dislike:hover ~ .wrapper .chin,
+.btn-dislike:active ~ .wrapper .chin {
+  top: 52%;
+}
+.btn-dislike:hover ~ .wrapper .tail,
+.btn-dislike:active ~ .wrapper .tail {
+  transform: rotate(0);
+}

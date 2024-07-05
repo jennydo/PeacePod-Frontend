@@ -1,10 +1,4 @@
-import {
-  Input,
-  InputRightElement,
-  Button,
-  InputGroup,
-  border,
-} from "@chakra-ui/react";
+import { Input, InputRightElement, Button, InputGroup } from "@chakra-ui/react";
 import { useState, useContext } from "react";
 import "./Prompt.scss";
 import { IoIosSend } from "react-icons/io";
@@ -14,14 +8,11 @@ import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 import PromptModal from "./PromptModal";
 import { StyledButton } from '../../../styles/components/StyledComponents';
 
-
 const Prompt = () => {
-
   const { dispatch } = useContext(PromptResponsesContext);
   const [input, setInput] = useState("");
-
+  const prompt = JSON.parse(localStorage.getItem("new-prompt"));
   const handleSendResponse = async () => {
-    const prompt = JSON.parse(localStorage.getItem("new-prompt"));
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (!prompt) return;
@@ -62,25 +53,26 @@ const Prompt = () => {
   return (
     <>
       <PromptModal />
-      <InputGroup size="md" w="54%" mt={3} border="1px solid gray" borderRadius="25" paddingLeft={6}>
+      {/* <InputGroup size="md" w="54%" mt={3}>
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          // placeholder={`${promptQuote.slice(0, 300)}`}
+          placeholder={`${prompt.content.slice(0, 300)}`}
           size="lg"
           variant="flushed"
         />
-        <InputRightElement width="4.5rem" paddingRight={2} paddingTop={1.5}>
-          <StyledButton
-            text="Send"
-            onClick={handleSendResponse}
+        <InputRightElement width="4.5rem">
+          <Button
             rightIcon={<Icon as={IoIosSend} />}
-            customStyle={{
-              variant: "unstyled"
-            }}
-          />
+            h="1.75rem"
+            size="sm"
+            variant="ghost"
+            onClick={handleSendResponse}
+          >
+            Send
+          </Button>
         </InputRightElement>
-      </InputGroup>
+      </InputGroup> */}
     </>
   );
 };
