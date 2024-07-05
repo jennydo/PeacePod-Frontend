@@ -6,6 +6,7 @@ import { Icon } from "@chakra-ui/react";
 import axios from "axios";
 import { PromptResponsesContext } from "../../../context/PromptResponseContext";
 import PromptModal from "./PromptModal";
+import { StyledButton } from '../../../styles/components/StyledComponents';
 
 const Prompt = () => {
   const { dispatch } = useContext(PromptResponsesContext);
