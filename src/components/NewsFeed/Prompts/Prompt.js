@@ -52,7 +52,7 @@ const Prompt = () => {
   return (
     <>
       <PromptModal />
-      <InputGroup size="md" w="54%" mt={3}>
+      {/* <InputGroup size="md" w="54%" mt={3}>
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -71,7 +71,7 @@ const Prompt = () => {
             Send
           </Button>
         </InputRightElement>
-      </InputGroup>
+      </InputGroup> */}
     </>
   );
 };
