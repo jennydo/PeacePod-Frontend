@@ -9,19 +9,21 @@ By Hennessy (Hai-Anh) Nguyen, Nam Nguyen, Jenny (Trang) Do, Thanh Nguyen.
 
 A place where you can slow down, connect deeper, and create a personalized meditation just for you.
 
-<!-- 
+
 ## Table of Contents 🗺️
 
-- [Inspiration 🧠](https://github.com/jenneydo/PeacePod-Frontend#inspiration-)
-- [Main Features & How to use 👍](https://github.com/jenneydo/PeacePod-Frontend#how-to-use-book-hub-)
-- [How we built it 💪](https://github.com/jenneydo/PeacePod-Frontend#how-we-built-it-)
-- [Architecture 🐙](https://github.com/jenneydo/PeacePod-Frontend#architecture-)
-- [Accomplishments 🥺](https://github.com/jenneydo/PeacePod-Frontend#accomplishments-that-were-proud-of-)
-- [What we learned 💡](https://github.com/jenneydo/PeacePod-Frontend#what-we-learned-)
-- [Next Steps 🤫](https://github.com/jenneydo/PeacePod-Frontend#whats-next-for-book-hub-)
-- [Team 🧑‍🤝‍🧑](https://github.com/jenneydo/PeacePod-Frontend#team-)
-- [Contributors ✨](https://github.com/jenneydo/PeacePod-Frontend#contributors-)
--->
+- [Inspiration 🧠](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#inspiration-)
+- [Main Features & How to use 👍](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#main-features--how-to-use-)
+- [How we built it 💪](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#how-we-built-it-)
+<!-- - [Architecture 🐙](https://github.com/jenneydo/PeacePod-Frontend#architecture-) -->
+- Testing & GitHub Actions 🧪
+- [Challenges we ran into 🥺](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#challenges-we-ran-into-)
+- [Accomplishments 🥰](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#accomplishments-that-were-proud-of-)
+- [What we learned 💡](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#what-we-learned-)
+- [Next Steps 🤫](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#whats-next-for-peacepod-)
+- [Team 🧑‍🤝‍🧑](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#team-)
+- [Contributors ✨](https://github.com/jennydo/PeacePod-Frontend?tab=readme-ov-file#contributors-)
+
 
 ## Inspiration 🧠
 
@@ -105,6 +107,15 @@ We are living in a state where there are numerous constant notifications, live f
 - **Web Hosting**: AWS S3, EC3 (in progress)
 - **Version Control**: Git & GitHub
 
+<img width="957" alt="Screenshot 2024-07-07 at 4 45 30 PM" src="https://github.com/jennydo/PeacePod-Frontend/assets/126405175/ce9c7a55-e5a3-4e72-b9c2-5e1fe8611804">
+
+## Testing & GitHub Actions 🧪
+* GitHub actions are on branch Main: Pull and push requests
+* 2 running:
+  1. Run and check all unit tests
+  2. Run and check Eslint
+ 
+
 <!--  ## Architecture 🐙
 
 We aim to have a highly modularized architecture, where every service has its own container and is independent from the others.
@@ -136,6 +147,11 @@ BookHub has 6 containers for 6 services:
 - We demonstrated great Git best practices (Pull Requests, README.md, Code Review, etc.)
 - We learned a lot as a team and as individual. We built many cool features and now have mastered using a lot of APIs!
 
+***We also got 2 prizes from the VietTech Mentorship Hackathon and we are super duper proud***
+![449389877_1494583431162817_7619068705439849176_n](https://github.com/jennydo/PeacePod-Frontend/assets/126405175/d0fa28dc-95db-4391-bbfa-0498cc282340)
+![449368881_3650998268486748_7320693006135096672_n](https://github.com/jennydo/PeacePod-Frontend/assets/126405175/51f69630-51f5-4430-bb30-be6be3bd4855)
+
+
 ## What we learned 💡
 
 - Acting as a Project Manager: deciding the direction of the project, assigning tasks, holding meetings, taking notes, being encouraging, etc.
@@ -148,6 +164,7 @@ BookHub has 6 containers for 6 services:
 - [ ] Implement add-on features for Chat (change theme icon, chat color...)
 - [ ] Increase speed of socket.io
 - [ ] Improve authentication (i.e implement Forget Password)
+- [ ] Deploy it to EC2
 
 ### Contributing Guidelines 🛠️
 
