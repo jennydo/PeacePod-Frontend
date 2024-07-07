@@ -147,6 +147,11 @@ BookHub has 6 containers for 6 services:
 - We demonstrated great Git best practices (Pull Requests, README.md, Code Review, etc.)
 - We learned a lot as a team and as individual. We built many cool features and now have mastered using a lot of APIs!
 
+***We also got 2 prizes from the VietTech Mentorship Hackathon and we are super duper proud***
+![449389877_1494583431162817_7619068705439849176_n](https://github.com/jennydo/PeacePod-Frontend/assets/126405175/d0fa28dc-95db-4391-bbfa-0498cc282340)
+![449368881_3650998268486748_7320693006135096672_n](https://github.com/jennydo/PeacePod-Frontend/assets/126405175/51f69630-51f5-4430-bb30-be6be3bd4855)
+
+
 ## What we learned 💡
 
 - Acting as a Project Manager: deciding the direction of the project, assigning tasks, holding meetings, taking notes, being encouraging, etc.
